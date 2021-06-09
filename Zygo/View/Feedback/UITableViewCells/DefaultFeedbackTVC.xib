@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.ttf">
+            <string>Poppins-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DefaultFeedbackTVC" rowHeight="197" id="PQ8-da-lGR" customClass="DefaultFeedbackTVC" customModule="Zygo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="197"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PQ8-da-lGR" id="5ls-Cc-R7k">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="197"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HfT-w1-GfN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="197"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96D-U1-On8">
+                                <rect key="frame" x="85" y="58" width="150" height="43"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TfR-4r-e3b">
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="39"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="39" id="c6Y-7X-0n4"/>
+                                            <constraint firstAttribute="width" constant="40" id="uQN-vf-5Aw"/>
+                                        </constraints>
+                                        <state key="normal" image="icon_thums_up_unselected"/>
+                                        <state key="selected" image="icon_thums_up_selected"/>
+                                        <connections>
+                                            <action selector="thumbUpAction:" destination="PQ8-da-lGR" eventType="touchUpInside" id="sSp-Ye-dLp"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qmQ-ow-VAs">
+                                        <rect key="frame" x="110" y="0.0" width="40" height="39"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="rUe-FW-qp0"/>
+                                        </constraints>
+                                        <state key="normal" image="icon_thums_down_unselected"/>
+                                        <state key="selected" image="icon_thums_down_selected"/>
+                                        <connections>
+                                            <action selector="thumbDownAction:" destination="PQ8-da-lGR" eventType="touchUpInside" id="CSW-kR-OsY"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="qmQ-ow-VAs" firstAttribute="top" secondItem="96D-U1-On8" secondAttribute="top" id="Gjq-N9-Sn0"/>
+                                    <constraint firstAttribute="bottom" secondItem="TfR-4r-e3b" secondAttribute="bottom" constant="4" id="N1O-zk-fPs"/>
+                                    <constraint firstAttribute="trailing" secondItem="qmQ-ow-VAs" secondAttribute="trailing" id="NGi-Mx-VJk"/>
+                                    <constraint firstItem="qmQ-ow-VAs" firstAttribute="leading" secondItem="TfR-4r-e3b" secondAttribute="trailing" constant="70" id="Zrg-zF-0C7"/>
+                                    <constraint firstAttribute="bottom" secondItem="qmQ-ow-VAs" secondAttribute="bottom" constant="4" id="bcS-3g-8yM"/>
+                                    <constraint firstItem="TfR-4r-e3b" firstAttribute="top" secondItem="96D-U1-On8" secondAttribute="top" id="eUh-Rp-KPW"/>
+                                    <constraint firstItem="TfR-4r-e3b" firstAttribute="leading" secondItem="96D-U1-On8" secondAttribute="leading" id="jGt-fB-DXn"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZIw-RB-Yxb">
+                                <rect key="frame" x="0.0" y="126" width="320" height="62"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How challenging was it?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ff6-4l-TOj">
+                                        <rect key="frame" x="73" y="-1" width="174" height="19"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                                        <color key="textColor" name="AppBlueColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="SYX-NU-mqC">
+                                        <rect key="frame" x="10" y="24" width="300" height="35"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="2ad-DC-dMd"/>
+                                            <constraint firstAttribute="width" constant="300" id="gpw-jY-QL3"/>
+                                        </constraints>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Umj-s6-QCu">
+                                            <size key="itemSize" width="128" height="128"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <connections>
+                                            <outlet property="dataSource" destination="PQ8-da-lGR" id="dcx-10-pER"/>
+                                            <outlet property="delegate" destination="PQ8-da-lGR" id="QSk-ZU-cxw"/>
+                                        </connections>
+                                    </collectionView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="SYX-NU-mqC" firstAttribute="centerX" secondItem="ZIw-RB-Yxb" secondAttribute="centerX" id="JfR-6W-mcO"/>
+                                    <constraint firstItem="ff6-4l-TOj" firstAttribute="top" secondItem="ZIw-RB-Yxb" secondAttribute="top" constant="-1" id="ToH-82-uu8"/>
+                                    <constraint firstItem="SYX-NU-mqC" firstAttribute="top" secondItem="ff6-4l-TOj" secondAttribute="bottom" constant="6" id="YTk-BL-k6N"/>
+                                    <constraint firstItem="ff6-4l-TOj" firstAttribute="centerX" secondItem="ZIw-RB-Yxb" secondAttribute="centerX" id="sCv-Ax-iaI"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Did you enjoy the workout?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="neb-eu-Sgx">
+                                <rect key="frame" x="62" y="14" width="196" height="19"/>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                                <color key="textColor" name="AppBlueColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ZIw-RB-Yxb" secondAttribute="trailing" id="GDu-Gy-04h"/>
+                            <constraint firstItem="neb-eu-Sgx" firstAttribute="centerX" secondItem="HfT-w1-GfN" secondAttribute="centerX" id="S6s-Wf-1aJ"/>
+                            <constraint firstItem="96D-U1-On8" firstAttribute="top" secondItem="neb-eu-Sgx" secondAttribute="bottom" constant="25" id="UMC-g3-cCE"/>
+                            <constraint firstItem="ZIw-RB-Yxb" firstAttribute="top" secondItem="96D-U1-On8" secondAttribute="bottom" constant="25" id="XUj-ua-iJY"/>
+                            <constraint firstItem="96D-U1-On8" firstAttribute="centerX" secondItem="HfT-w1-GfN" secondAttribute="centerX" id="XXD-8g-Dqe"/>
+                            <constraint firstItem="neb-eu-Sgx" firstAttribute="top" secondItem="HfT-w1-GfN" secondAttribute="top" constant="14" id="aNh-e0-HjS"/>
+                            <constraint firstItem="ZIw-RB-Yxb" firstAttribute="leading" secondItem="HfT-w1-GfN" secondAttribute="leading" id="doB-9J-qbx"/>
+                            <constraint firstAttribute="bottom" secondItem="ZIw-RB-Yxb" secondAttribute="bottom" constant="9" id="lE7-FR-wlU"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="HfT-w1-GfN" firstAttribute="leading" secondItem="5ls-Cc-R7k" secondAttribute="leading" id="5Ig-zj-aAk"/>
+                    <constraint firstAttribute="trailing" secondItem="HfT-w1-GfN" secondAttribute="trailing" id="G35-gN-rWv"/>
+                    <constraint firstAttribute="bottom" secondItem="HfT-w1-GfN" secondAttribute="bottom" id="SeE-KS-E3c"/>
+                    <constraint firstItem="HfT-w1-GfN" firstAttribute="top" secondItem="5ls-Cc-R7k" secondAttribute="top" id="Uyk-ig-mdI"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="1iL-wu-MNz"/>
+            <connections>
+                <outlet property="btnThumbsDown" destination="qmQ-ow-VAs" id="FwM-pJ-lnX"/>
+                <outlet property="btnThumbsUp" destination="TfR-4r-e3b" id="yVC-gf-cVX"/>
+                <outlet property="likeCollectionView" destination="SYX-NU-mqC" id="bzV-OM-BHx"/>
+            </connections>
+            <point key="canvasLocation" x="140.57971014492756" y="181.80803571428569"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_thums_down_selected" width="40" height="38.5"/>
+        <image name="icon_thums_down_unselected" width="40" height="38.5"/>
+        <image name="icon_thums_up_selected" width="40" height="38.5"/>
+        <image name="icon_thums_up_unselected" width="40" height="38.5"/>
+        <namedColor name="AppBlueColor">
+            <color red="0.14900000393390656" green="0.73299998044967651" blue="0.92900002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

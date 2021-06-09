@@ -18,6 +18,38 @@
             endingLineNumber = "43"
             landmarkName = "signUpUser(name:email:password:completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B1C1E162-72AB-44B9-8BAA-D3F0DD927843 - c2be9ac49c82b9b8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Zygo.SignUpViewModel.signUpUser(name: Swift.String, email: Swift.String, password: Swift.String, completion: (Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Model/SignUpViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "230">
+               </Location>
+               <Location
+                  uuid = "B1C1E162-72AB-44B9-8BAA-D3F0DD927843 - 7c3d1636645514b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; () in Zygo.SignUpViewModel.signUpUser(name: Swift.String, email: Swift.String, password: Swift.String, completion: (Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Model/SignUpViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "249">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -36,34 +68,34 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "D79ED048-CB45-48B3-BAB1-68AD24F66A38 - f381648653f52642"
+                  uuid = "D79ED048-CB45-48B3-BAB1-68AD24F66A38 - 579a2cb35321bcab"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Zygo.RegistrationServices.signUp(user: Zygo.SignUpUserDTO, completion: (Swift.String, Swift.Bool) -&gt; ()) -&gt; ()"
+                  symbolName = "Zygo.RegistrationServices.signUp(user: Zygo.SignUpUserDTO, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "Zygo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/priyagandhi/Downloads/Zygo-2/Zygo/Services/RegistrationServices.swift"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Services/RegistrationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "20"
                   endingLineNumber = "20"
-                  offsetFromSymbolStart = "572">
+                  offsetFromSymbolStart = "478">
                </Location>
                <Location
-                  uuid = "D79ED048-CB45-48B3-BAB1-68AD24F66A38 - c3e7678f89b9f8ce"
+                  uuid = "D79ED048-CB45-48B3-BAB1-68AD24F66A38 - 8b34f4078492f27a"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.RegistrationServices.signUp(user: Zygo.SignUpUserDTO, completion: (Swift.String, Swift.Bool) -&gt; ()) -&gt; ()"
+                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.RegistrationServices.signUp(user: Zygo.SignUpUserDTO, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "Zygo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/priyagandhi/Downloads/Zygo-2/Zygo/Services/RegistrationServices.swift"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Services/RegistrationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "23"
                   endingLineNumber = "23"
-                  offsetFromSymbolStart = "120">
+                  offsetFromSymbolStart = "78">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -100,34 +132,34 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "7F4944CC-FE47-4EC6-8979-5861A5786585 - c3e7678f89b9f8ce"
+                  uuid = "7F4944CC-FE47-4EC6-8979-5861A5786585 - 8b34f4078492f27a"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.RegistrationServices.signUp(user: Zygo.SignUpUserDTO, completion: (Swift.String, Swift.Bool) -&gt; ()) -&gt; ()"
+                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.RegistrationServices.signUp(user: Zygo.SignUpUserDTO, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "Zygo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/priyagandhi/Downloads/Zygo-2/Zygo/Services/RegistrationServices.swift"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Services/RegistrationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "23"
                   endingLineNumber = "23"
-                  offsetFromSymbolStart = "120">
+                  offsetFromSymbolStart = "78">
                </Location>
                <Location
-                  uuid = "7F4944CC-FE47-4EC6-8979-5861A5786585 - c3e7678f89b9f8ce"
+                  uuid = "7F4944CC-FE47-4EC6-8979-5861A5786585 - 8b34f4078492f27a"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.RegistrationServices.signUp(user: Zygo.SignUpUserDTO, completion: (Swift.String, Swift.Bool) -&gt; ()) -&gt; ()"
+                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.RegistrationServices.signUp(user: Zygo.SignUpUserDTO, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "Zygo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/priyagandhi/Downloads/Zygo-2/Zygo/Services/RegistrationServices.swift"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Services/RegistrationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "23"
                   endingLineNumber = "23"
-                  offsetFromSymbolStart = "200">
+                  offsetFromSymbolStart = "207">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -146,38 +178,6 @@
             endingLineNumber = "69"
             landmarkName = "request(withUrl:method:headers:body:isPreviousRequestCancel:completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6260B2E2-1390-4B9C-A981-E60162210492 - 5f09f177f520401b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Zygo.NetworkManager.request(withUrl: Swift.String, method: Alamofire.HTTPMethod, headers: Swift.Optional&lt;Swift.Dictionary&lt;Swift.String, Swift.String&gt;&gt;, body: Swift.Dictionary&lt;Swift.String, Any&gt;, isPreviousRequestCancel: Swift.Bool, completion: (Zygo.ServiceResponse) -&gt; ()) -&gt; ()"
-                  moduleName = "Zygo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/priyagandhi/Downloads/Zygo-2/Zygo/Services/NetworkManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "70"
-                  endingLineNumber = "70"
-                  offsetFromSymbolStart = "928">
-               </Location>
-               <Location
-                  uuid = "6260B2E2-1390-4B9C-A981-E60162210492 - fa7a9aeff2020a31"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "default argument 2 of Zygo.NetworkManager.request(withUrl: Swift.String, method: Alamofire.HTTPMethod, headers: Swift.Optional&lt;Swift.Dictionary&lt;Swift.String, Swift.String&gt;&gt;, body: Swift.Dictionary&lt;Swift.String, Any&gt;, isPreviousRequestCancel: Swift.Bool, completion: (Zygo.ServiceResponse) -&gt; ()) -&gt; ()"
-                  moduleName = "Zygo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/priyagandhi/Downloads/Zygo-2/Zygo/Services/NetworkManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "69"
-                  endingLineNumber = "69"
-                  offsetFromSymbolStart = "20">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -192,8 +192,40 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "139"
             endingLineNumber = "139"
-            landmarkName = "uploadImage(withUrl:method:headers:params:imageData:imageName:completion:)"
+            landmarkName = "serializeResponse(response:completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D050B4E9-E721-414F-8B57-6A613EE1DC3F - 3af3eae7eff984b0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Zygo.NetworkManager.serializeResponse(response: Alamofire.DataResponse&lt;Swift.String, Alamofire.AFError&gt;, completion: (Zygo.ServiceResponse) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Services/NetworkManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "139"
+                  endingLineNumber = "139"
+                  offsetFromSymbolStart = "266">
+               </Location>
+               <Location
+                  uuid = "D050B4E9-E721-414F-8B57-6A613EE1DC3F - 7540b734a3efaeb7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in Zygo.NetworkManager.serializeResponse(response: Alamofire.DataResponse&lt;Swift.String, Alamofire.AFError&gt;, completion: (Zygo.ServiceResponse) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Services/NetworkManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "139"
+                  endingLineNumber = "139"
+                  offsetFromSymbolStart = "466">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -208,7 +240,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "143"
             endingLineNumber = "143"
-            landmarkName = "uploadImage(withUrl:method:headers:params:imageData:imageName:completion:)"
+            landmarkName = "serializeResponse(response:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -224,8 +256,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "148"
             endingLineNumber = "148"
-            landmarkName = "NetworkManager"
-            landmarkType = "3">
+            landmarkName = "serializeResponse(response:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -272,8 +304,40 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "54"
             endingLineNumber = "54"
-            landmarkName = "signIn(email:password:completion:)"
+            landmarkName = "signIn(user:completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "620D149F-D4B6-4DD0-A9CD-EC4D62F2E201 - 9fcf505c90c963c2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Zygo.RegistrationServices.signIn(user: Zygo.SignUpUserDTO, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Zygo.UserDTO&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Services/RegistrationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "798">
+               </Location>
+               <Location
+                  uuid = "620D149F-D4B6-4DD0-A9CD-EC4D62F2E201 - 3abbe5fc70acb28f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.RegistrationServices.signIn(user: Zygo.SignUpUserDTO, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Zygo.UserDTO&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Services/RegistrationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "188">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -286,9 +350,9 @@
             filePath = "Zygo/Services/RegistrationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "resendVerificationLink(for:completion:)"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "signIn(user:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -306,6 +370,38 @@
             endingLineNumber = "71"
             landmarkName = "signuInPressed(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B5C126A5-47C9-4B0E-88B0-710168ADAC91 - c3250a54d529d795"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Bool&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; () in Zygo.SignInViewController.signuInPressed(__C.UIButton) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Controller/SignInViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "194">
+               </Location>
+               <Location
+                  uuid = "B5C126A5-47C9-4B0E-88B0-710168ADAC91 - d2bc76993794fc6f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Optional&lt;Swift.Bool&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; () in Zygo.SignInViewController.signuInPressed(__C.UIButton) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Controller/SignInViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "41">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -370,6 +466,38 @@
             endingLineNumber = "71"
             landmarkName = "signupPressed(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "612492FA-24CF-42DE-9A48-757FA0EA3825 - 45e6c03bf4086de6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Zygo.SignUpViewController.signupPressed(__C.UIButton) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Controller/SignUpViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "3144">
+               </Location>
+               <Location
+                  uuid = "612492FA-24CF-42DE-9A48-757FA0EA3825 - ff80a66831baeb46"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Bool&gt;) -&gt; () in Zygo.SignUpViewController.signupPressed(__C.UIButton) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Controller/SignUpViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "154">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -418,6 +546,38 @@
             endingLineNumber = "38"
             landmarkName = "signInUser(email:password:completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3FBF1227-753B-4D28-ACE2-CA5E9F253077 - 71f3ffffd8efd050"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Zygo.UserDTO&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; () in Zygo.SignInViewModel.signInUser(email: Swift.String, password: Swift.String, completion: (Swift.Optional&lt;Swift.Bool&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Model/SignInViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "38"
+                  endingLineNumber = "38"
+                  offsetFromSymbolStart = "586">
+               </Location>
+               <Location
+                  uuid = "3FBF1227-753B-4D28-ACE2-CA5E9F253077 - 3c1a89b2dfda013e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Zygo.UserDTO&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; () in Zygo.SignInViewModel.signInUser(email: Swift.String, password: Swift.String, completion: (Swift.Optional&lt;Swift.Bool&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Model/SignInViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "374">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -446,10 +606,42 @@
             filePath = "Zygo/Services/RegistrationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "verifyEmail(for:completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0455787F-B1D6-4653-8F60-28604374ADD4 - 86f23b121adce75"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.RegistrationServices.verifyEmail(for: Swift.String, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Services/RegistrationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
+                  offsetFromSymbolStart = "170">
+               </Location>
+               <Location
+                  uuid = "0455787F-B1D6-4653-8F60-28604374ADD4 - 86f23b121adce75"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.RegistrationServices.verifyEmail(for: Swift.String, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Services/RegistrationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
+                  offsetFromSymbolStart = "299">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -462,9 +654,9 @@
             filePath = "Zygo/Services/RegistrationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
-            landmarkName = "forgotPassword(for:pass:cPass:completion:)"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "verifyEmail(for:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -510,10 +702,42 @@
             filePath = "Zygo/Services/RegistrationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "verifyEmail(for:completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1422E85B-72C7-44E6-A03B-A7D044AEBF6F - 30053cbb0a24639f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Zygo.RegistrationServices.verifyEmail(for: Swift.String, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Services/RegistrationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
+                  offsetFromSymbolStart = "230">
+               </Location>
+               <Location
+                  uuid = "1422E85B-72C7-44E6-A03B-A7D044AEBF6F - 86f23b121adce75"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.RegistrationServices.verifyEmail(for: Swift.String, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Services/RegistrationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
+                  offsetFromSymbolStart = "170">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -526,8 +750,8 @@
             filePath = "Zygo/Services/RegistrationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "verifyEmail(for:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -544,8 +768,40 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "56"
             endingLineNumber = "56"
-            landmarkName = "signIn(email:password:completion:)"
+            landmarkName = "signIn(user:completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "6D7797B6-61FA-44EB-95BC-539FE147C721 - 3abbe5fc70acb28f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.RegistrationServices.signIn(user: Zygo.SignUpUserDTO, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Zygo.UserDTO&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Services/RegistrationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "188">
+               </Location>
+               <Location
+                  uuid = "6D7797B6-61FA-44EB-95BC-539FE147C721 - 3abbe5fc70acb28f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.RegistrationServices.signIn(user: Zygo.SignUpUserDTO, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Zygo.UserDTO&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Services/RegistrationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "317">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -574,344 +830,40 @@
             filePath = "Zygo/Services/RegistrationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "forgotPassword(for:pass:cPass:completion:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7E9B069C-DA28-4F1C-ACB1-28EC2462393C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Zygo/View/Registration/SignUpViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "didLogin(user:)"
-            landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "7E9B069C-DA28-4F1C-ACB1-28EC2462393C - d107522a5a957953"
+                  uuid = "3729FFE4-7347-4B2A-B55D-506EC67A79B6 - 70773cf49bcff16d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Zygo.SignUpViewController.didLogin(user: Zygo.GoogleUserDTO) -&gt; ()"
+                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.RegistrationServices.forgotPassword(for: Swift.String, pass: Swift.String, cPass: Swift.String, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "Zygo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/priyagandhi/Downloads/Zygo-2/Zygo/View/Registration/SignUpViewController.swift"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Services/RegistrationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "93"
-                  endingLineNumber = "93"
-                  offsetFromSymbolStart = "116">
+                  startingLineNumber = "136"
+                  endingLineNumber = "136"
+                  offsetFromSymbolStart = "170">
                </Location>
                <Location
-                  uuid = "7E9B069C-DA28-4F1C-ACB1-28EC2462393C - 5b25a9781adc2c81"
+                  uuid = "3729FFE4-7347-4B2A-B55D-506EC67A79B6 - 70773cf49bcff16d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Bool) -&gt; () in Zygo.SignUpViewController.didLogin(user: Zygo.GoogleUserDTO) -&gt; ()"
+                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.RegistrationServices.forgotPassword(for: Swift.String, pass: Swift.String, cPass: Swift.String, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "Zygo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/priyagandhi/Downloads/Zygo-2/Zygo/View/Registration/SignUpViewController.swift"
+                  urlString = "file:///Users/priyagandhi/Documents/Freelance/Zygo/Zygo/Services/RegistrationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "60">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B9B98E6F-22CB-4996-AF68-AA3FC4ACC489"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Zygo/ViewModel/SignInViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "googleSignInUser(accessToken:completion:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "B9B98E6F-22CB-4996-AF68-AA3FC4ACC489 - 4fe0ba422e375d10"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Zygo.SignInViewModel.googleSignInUser(accessToken: Swift.String, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "Zygo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/priyagandhi/Downloads/Zygo-2/Zygo/ViewModel/SignInViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "216">
-               </Location>
-               <Location
-                  uuid = "B9B98E6F-22CB-4996-AF68-AA3FC4ACC489 - b9a90cd88edfe3e3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.String&gt;, Swift.Bool, Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; () in Zygo.SignInViewModel.googleSignInUser(accessToken: Swift.String, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "Zygo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/priyagandhi/Downloads/Zygo-2/Zygo/ViewModel/SignInViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "308">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "945FE473-B37D-448E-AA02-2853A6658534"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Zygo/Services/RegistrationServices.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "googleSignIn(accessToken:completion:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "945FE473-B37D-448E-AA02-2853A6658534 - b5124ccaa432c42c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Zygo.RegistrationServices.googleSignIn(accessToken: Swift.String, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Bool, Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Zygo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/priyagandhi/Downloads/Zygo-2/Zygo/Services/RegistrationServices.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "83"
-                  endingLineNumber = "83"
-                  offsetFromSymbolStart = "772">
-               </Location>
-               <Location
-                  uuid = "945FE473-B37D-448E-AA02-2853A6658534 - d82eb0278a567b48"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.RegistrationServices.googleSignIn(accessToken: Swift.String, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Bool, Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Zygo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/priyagandhi/Downloads/Zygo-2/Zygo/Services/RegistrationServices.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "86"
-                  endingLineNumber = "86"
-                  offsetFromSymbolStart = "120">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7FFEF6FE-93F9-4256-80E4-6E6F5F64CEAC"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Zygo/Services/RegistrationServices.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "googleSignIn(accessToken:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B0AADBDB-AC0A-4B2A-A83B-D76E661EC3CF"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Zygo/Common/GoogleLoginManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "login(from:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "85695DF3-2963-4179-AF10-D7CE73306503"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Zygo/Common/GoogleLoginManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "login(from:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "25B805E2-BDD7-449B-B2C6-B5B73A0742FA"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Zygo/Common/GoogleLoginManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "sign(_:didSignInFor:withError:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0C05BC65-C801-4922-B88E-A4DF75F61C60"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Zygo/Common/GoogleLoginManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "sign(_:didSignInFor:withError:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6D6EF4A7-019B-4FFD-9981-87DE3C42B6C2"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Zygo/Common/GoogleLoginManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "init(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A5B0E703-D1C2-467D-A116-7BFCAFD3EA63"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Zygo/Common/FacebookManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "login(from:completion:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "A5B0E703-D1C2-467D-A116-7BFCAFD3EA63 - f8e630d22c6036cd"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.FBSDKLoginManagerLoginResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Zygo.FacebookManager.login(from: __C.UIViewController, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Zygo.FBUserDTO&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Zygo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/priyagandhi/Downloads/Zygo-2/Zygo/Common/FacebookManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "25"
-                  endingLineNumber = "25"
-                  offsetFromSymbolStart = "1128">
-               </Location>
-               <Location
-                  uuid = "A5B0E703-D1C2-467D-A116-7BFCAFD3EA63 - ebd39700234933d1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.FBSDKGraphRequestConnection&gt;, Swift.Optional&lt;Any&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (Swift.Optional&lt;__C.FBSDKLoginManagerLoginResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Zygo.FacebookManager.login(from: __C.UIViewController, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Zygo.FBUserDTO&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Zygo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/priyagandhi/Downloads/Zygo-2/Zygo/Common/FacebookManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "26"
-                  endingLineNumber = "26"
-                  offsetFromSymbolStart = "188">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "829C1D8D-EDFE-47A7-BDA5-0144E4C5D594"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Zygo/Services/RegistrationServices.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "googleSignIn(accessToken:completion:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "829C1D8D-EDFE-47A7-BDA5-0144E4C5D594 - b5124ccaa432c42c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Zygo.RegistrationServices.googleSignIn(accessToken: Swift.String, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Bool, Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Zygo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/priyagandhi/Downloads/Zygo-2/Zygo/Services/RegistrationServices.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "83"
-                  endingLineNumber = "83"
-                  offsetFromSymbolStart = "772">
-               </Location>
-               <Location
-                  uuid = "829C1D8D-EDFE-47A7-BDA5-0144E4C5D594 - d82eb0278a567b48"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.RegistrationServices.googleSignIn(accessToken: Swift.String, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Bool, Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Zygo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/priyagandhi/Downloads/Zygo-2/Zygo/Services/RegistrationServices.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "86"
-                  endingLineNumber = "86"
-                  offsetFromSymbolStart = "120">
+                  startingLineNumber = "136"
+                  endingLineNumber = "136"
+                  offsetFromSymbolStart = "299">
                </Location>
             </Locations>
          </BreakpointContent>

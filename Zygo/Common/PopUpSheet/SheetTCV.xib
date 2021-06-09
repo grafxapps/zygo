@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.ttf">
+            <string>Poppins-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SheetTCV" rowHeight="75" id="KGk-i7-Jjw" customClass="SheetTCV" customModule="Zygo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="344" height="75"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="344" height="75"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FqM-eX-aeF">
+                        <rect key="frame" x="30" y="0.0" width="284" height="75"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LAV-oh-grq">
+                                <rect key="frame" x="5" y="10" width="249" height="55"/>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                                <color key="textColor" red="0.23529411764705882" green="0.26666666666666666" blue="0.27450980392156865" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_uncheck_circle" translatesAutoresizingMaskIntoConstraints="NO" id="ze5-MW-rkN">
+                                <rect key="frame" x="259" y="25" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ze5-MW-rkN" secondAttribute="height" multiplier="1:1" id="xmK-f3-pic"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BnJ-YO-v71">
+                                <rect key="frame" x="0.0" y="74" width="284" height="1"/>
+                                <color key="backgroundColor" name="AppSeperatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="koR-TR-O8d"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="LAV-oh-grq" firstAttribute="centerY" secondItem="FqM-eX-aeF" secondAttribute="centerY" id="3dD-Q2-ifp"/>
+                            <constraint firstItem="LAV-oh-grq" firstAttribute="top" secondItem="FqM-eX-aeF" secondAttribute="top" constant="10" id="ARQ-cN-Lni"/>
+                            <constraint firstAttribute="bottom" secondItem="BnJ-YO-v71" secondAttribute="bottom" id="Rat-2Y-dWz"/>
+                            <constraint firstItem="ze5-MW-rkN" firstAttribute="centerY" secondItem="FqM-eX-aeF" secondAttribute="centerY" id="XgZ-6K-fbf"/>
+                            <constraint firstAttribute="trailing" secondItem="BnJ-YO-v71" secondAttribute="trailing" id="aS0-o2-STF"/>
+                            <constraint firstItem="LAV-oh-grq" firstAttribute="leading" secondItem="FqM-eX-aeF" secondAttribute="leading" constant="5" id="b8U-2o-0Im"/>
+                            <constraint firstAttribute="bottom" secondItem="LAV-oh-grq" secondAttribute="bottom" constant="10" id="d7I-Ln-3IU"/>
+                            <constraint firstItem="ze5-MW-rkN" firstAttribute="leading" secondItem="LAV-oh-grq" secondAttribute="trailing" constant="5" id="hPB-TD-EDn"/>
+                            <constraint firstItem="BnJ-YO-v71" firstAttribute="leading" secondItem="FqM-eX-aeF" secondAttribute="leading" id="idj-Pd-PO7"/>
+                            <constraint firstAttribute="trailing" secondItem="ze5-MW-rkN" secondAttribute="trailing" id="tZd-cg-BK6"/>
+                        </constraints>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bwD-mi-Erb">
+                        <rect key="frame" x="0.0" y="0.0" width="344" height="75"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="bwD-mi-Erb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="6vj-lc-hMv"/>
+                    <constraint firstAttribute="bottom" secondItem="bwD-mi-Erb" secondAttribute="bottom" id="FSx-zM-D3j"/>
+                    <constraint firstAttribute="trailing" secondItem="FqM-eX-aeF" secondAttribute="trailing" constant="30" id="Iuu-7R-yUy"/>
+                    <constraint firstAttribute="trailing" secondItem="bwD-mi-Erb" secondAttribute="trailing" id="Y1F-KF-SCa"/>
+                    <constraint firstAttribute="bottom" secondItem="FqM-eX-aeF" secondAttribute="bottom" id="dDW-K1-gC5"/>
+                    <constraint firstItem="FqM-eX-aeF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="n9c-Ga-fbP"/>
+                    <constraint firstItem="bwD-mi-Erb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="n9h-FK-NAS"/>
+                    <constraint firstItem="FqM-eX-aeF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="qp4-uG-VhV"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnSelect" destination="bwD-mi-Erb" id="8lF-tg-cSq"/>
+                <outlet property="iconImageView" destination="ze5-MW-rkN" id="Hhr-Uo-WB7"/>
+                <outlet property="lblTitle" destination="LAV-oh-grq" id="WgQ-rD-PVf"/>
+            </connections>
+            <point key="canvasLocation" x="0.0" y="75.334821428571431"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_uncheck_circle" width="25" height="25"/>
+        <namedColor name="AppSeperatorColor">
+            <color red="0.43900001049041748" green="0.43900001049041748" blue="0.43900001049041748" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -24,7 +24,7 @@ class ForgotPasswordViewModel: NSObject {
         }
         
         if !email.isEmailValid(){
-            Helper.shared.alert(title: Constants.appName, message: "Please enter valid email address.")
+            Helper.shared.alert(title: Constants.appName, message: "Please enter a valid email address.")
             completion(false)
             return
         }
@@ -68,6 +68,43 @@ class ForgotPasswordViewModel: NSObject {
         
         Helper.shared.startLoading()
         self.signupService.forgotPassword(for: code, pass: pass, cPass: cPass) { [weak self] (msg, isErr) in
+            if self == nil{
+                completion(false)
+                return
+            }
+            
+            DispatchQueue.main.async {
+                Helper.shared.stopLoading()
+                Helper.shared.alert(title: Constants.appName, message: msg) {
+                    completion(!isErr)
+                }
+            }
+        }
+    }
+    
+    func updatePassword(oldPassword: String, pass: String, cPass : String, completion: @escaping (Bool) -> Void){
+        
+
+        if oldPassword.isEmpty{
+            completion(false)
+            Helper.shared.alert(title: Constants.appName, message: "Please enter a valid old password.")
+            return
+        }
+        
+        if !pass.isValidPasswordLength(){
+            Helper.shared.alert(title: Constants.appName, message: "Please enter a valid password.")
+            completion(false)
+            return
+        }
+        
+        if !(cPass == pass){
+            Helper.shared.alert(title: Constants.appName, message: "Password doesn't match.")
+            completion(false)
+            return
+        }
+        
+        Helper.shared.startLoading()
+        self.signupService.updatePassword(for: oldPassword, pass: pass) { [weak self] (msg, isErr) in
             if self == nil{
                 completion(false)
                 return

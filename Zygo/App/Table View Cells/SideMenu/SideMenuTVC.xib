@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.ttf">
+            <string>Poppins-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SideMenuTVC" rowHeight="114" id="KGk-i7-Jjw" customClass="SideMenuTVC" customModule="Zygo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="114"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="114"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DUA-Vy-Y80">
+                        <rect key="frame" x="25" y="0.0" width="270" height="114"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tCR-hX-aHw">
+                                <rect key="frame" x="5" y="10" width="237" height="94"/>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="20"/>
+                                <color key="textColor" red="0.23529411759999999" green="0.2666666667" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_next" translatesAutoresizingMaskIntoConstraints="NO" id="pEW-zi-Qd4">
+                                <rect key="frame" x="247" y="45.5" width="23" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="pEW-zi-Qd4" secondAttribute="height" multiplier="1:1" id="zES-vo-68s"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="tCR-hX-aHw" firstAttribute="leading" secondItem="DUA-Vy-Y80" secondAttribute="leading" constant="5" id="1f8-tM-0JX"/>
+                            <constraint firstItem="pEW-zi-Qd4" firstAttribute="leading" secondItem="tCR-hX-aHw" secondAttribute="trailing" constant="5" id="4CD-sJ-iBO"/>
+                            <constraint firstItem="pEW-zi-Qd4" firstAttribute="centerY" secondItem="DUA-Vy-Y80" secondAttribute="centerY" id="GJi-Tl-Eaq"/>
+                            <constraint firstAttribute="trailing" secondItem="pEW-zi-Qd4" secondAttribute="trailing" id="GOQ-PO-Buy"/>
+                            <constraint firstItem="tCR-hX-aHw" firstAttribute="centerY" secondItem="DUA-Vy-Y80" secondAttribute="centerY" id="flf-m6-hac"/>
+                            <constraint firstItem="tCR-hX-aHw" firstAttribute="top" secondItem="DUA-Vy-Y80" secondAttribute="top" constant="10" id="h5H-lF-dIm"/>
+                            <constraint firstAttribute="bottom" secondItem="tCR-hX-aHw" secondAttribute="bottom" constant="10" id="uwN-IT-c8b"/>
+                        </constraints>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6u-26-Rgp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="114"/>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1bV-aF-MiV">
+                        <rect key="frame" x="0.0" y="113" width="320" height="1"/>
+                        <color key="backgroundColor" name="AppSeperatorColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="0YK-me-B6y"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="N6u-26-Rgp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="7oq-C5-TKK"/>
+                    <constraint firstAttribute="trailing" secondItem="1bV-aF-MiV" secondAttribute="trailing" id="Klr-A9-jOc"/>
+                    <constraint firstAttribute="bottom" secondItem="DUA-Vy-Y80" secondAttribute="bottom" id="XmK-qC-GN6"/>
+                    <constraint firstItem="DUA-Vy-Y80" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="d5p-4i-dfu"/>
+                    <constraint firstAttribute="trailing" secondItem="DUA-Vy-Y80" secondAttribute="trailing" constant="25" id="dHl-VO-3g5"/>
+                    <constraint firstAttribute="bottom" secondItem="1bV-aF-MiV" secondAttribute="bottom" id="dc0-Gj-ac0"/>
+                    <constraint firstItem="N6u-26-Rgp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fih-ul-lU6"/>
+                    <constraint firstAttribute="bottom" secondItem="N6u-26-Rgp" secondAttribute="bottom" id="gbY-Bp-fep"/>
+                    <constraint firstItem="1bV-aF-MiV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="hvK-94-EMe"/>
+                    <constraint firstItem="DUA-Vy-Y80" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="q7e-38-L6I"/>
+                    <constraint firstAttribute="trailing" secondItem="N6u-26-Rgp" secondAttribute="trailing" id="uPa-T0-Cob"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnSelect" destination="N6u-26-Rgp" id="ZM6-Zb-sga"/>
+                <outlet property="lblTitle" destination="tCR-hX-aHw" id="Bly-yr-Y0Q"/>
+            </connections>
+            <point key="canvasLocation" x="140.57971014492756" y="119.19642857142857"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_next" width="13" height="23"/>
+        <namedColor name="AppSeperatorColor">
+            <color red="0.43900001049041748" green="0.43900001049041748" blue="0.43900001049041748" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,21 +16,6 @@
 		A64D708825C179A8000BC433 /* ForgotpasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64D708725C179A8000BC433 /* ForgotpasswordViewController.swift */; };
 		A64D708A25C17DA4000BC433 /* VerifyForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64D708925C17DA4000BC433 /* VerifyForgotPasswordViewController.swift */; };
 		A64D708C25C17F67000BC433 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64D708B25C17F67000BC433 /* ForgotPasswordViewModel.swift */; };
-		A64D718A25C5AF00000BC433 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A64D718925C5AEFA000BC433 /* Settings.storyboard */; };
-		A64D718C25C5AF2C000BC433 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64D718B25C5AF2C000BC433 /* HistoryViewController.swift */; };
-		A64D719C25C5AF58000BC433 /* AchievementsCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64D719A25C5AF58000BC433 /* AchievementsCVC.swift */; };
-		A64D719D25C5AF58000BC433 /* AchievementsCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A64D719B25C5AF58000BC433 /* AchievementsCVC.xib */; };
-		A64D71A125C5AF59000BC433 /* HistoryInfoTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A64D718E25C5AF51000BC433 /* HistoryInfoTVC.xib */; };
-		A64D71A225C5AF59000BC433 /* HistoryInfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64D718F25C5AF51000BC433 /* HistoryInfoTVC.swift */; };
-		A64D71A325C5AF59000BC433 /* NotificationSettingsTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A64D719125C5AF55000BC433 /* NotificationSettingsTVC.xib */; };
-		A64D71A425C5AF59000BC433 /* OtherSettingsTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A64D719225C5AF55000BC433 /* OtherSettingsTVC.xib */; };
-		A64D71A525C5AF59000BC433 /* OtherSettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64D719325C5AF55000BC433 /* OtherSettingsTVC.swift */; };
-		A64D71A625C5AF59000BC433 /* NotificationSettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64D719425C5AF55000BC433 /* NotificationSettingsTVC.swift */; };
-		A64D71A725C5AF59000BC433 /* AchievementsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64D719625C5AF57000BC433 /* AchievementsTVC.swift */; };
-		A64D71A825C5AF59000BC433 /* AchievementsTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A64D719725C5AF57000BC433 /* AchievementsTVC.xib */; };
-		A64D71A925C5AF59000BC433 /* PastWorkoutsTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A64D719F25C5AF59000BC433 /* PastWorkoutsTVC.xib */; };
-		A64D71AA25C5AF59000BC433 /* PastWorkoutsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64D71A025C5AF59000BC433 /* PastWorkoutsTVC.swift */; };
-		A64D71AC25C5AF70000BC433 /* AppleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64D71AB25C5AF70000BC433 /* AppleLoginManager.swift */; };
 		A67744BD25BC1A5300D18BA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67744BC25BC1A5300D18BA9 /* AppDelegate.swift */; };
 		A67744BF25BC1A5300D18BA9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67744BE25BC1A5300D18BA9 /* SceneDelegate.swift */; };
 		A67744C425BC1A5300D18BA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A67744C225BC1A5300D18BA9 /* Main.storyboard */; };
@@ -38,15 +23,11 @@
 		A67744C925BC1A5B00D18BA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A67744C825BC1A5B00D18BA9 /* Assets.xcassets */; };
 		A67744CC25BC1A5B00D18BA9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A67744CA25BC1A5B00D18BA9 /* LaunchScreen.storyboard */; };
 		A67744D525BC1AF100D18BA9 /* Registration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A67744D425BC1AF100D18BA9 /* Registration.storyboard */; };
-		A681E41C25C6C4B8007409AE /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A681E41B25C6C4B8007409AE /* ProfileViewController.swift */; };
-		A681E41E25C6C5C2007409AE /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A681E41D25C6C5C2007409AE /* InfoViewController.swift */; };
 		A68B139025BC572100610E99 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68B138F25BC572100610E99 /* NetworkManager.swift */; };
 		A68B139425BC592800610E99 /* RegistrationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68B139325BC592800610E99 /* RegistrationServices.swift */; };
 		A68B139625BC596B00610E99 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68B139525BC596B00610E99 /* SignUpViewModel.swift */; };
 		A68B13F125BC6A3800610E99 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68B13F025BC6A3800610E99 /* UserDTO.swift */; };
 		A68B13F325BC7CE500610E99 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68B13F225BC7CE500610E99 /* SignInViewModel.swift */; };
-		A68B140725BDAE2C00610E99 /* FacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68B140625BDAE2C00610E99 /* FacebookManager.swift */; };
-		A68B140925BDAE5F00610E99 /* GoogleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68B140825BDAE5F00610E99 /* GoogleLoginManager.swift */; };
 		A68B140B25BDC0E000610E99 /* WorkoutsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68B140A25BDC0E000610E99 /* WorkoutsViewController.swift */; };
 		A68B141025BDC23500610E99 /* WorkoutInfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68B140E25BDC23500610E99 /* WorkoutInfoTVC.swift */; };
 		A68B141125BDC23500610E99 /* WorkoutInfoTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A68B140F25BDC23500610E99 /* WorkoutInfoTVC.xib */; };
@@ -56,8 +37,8 @@
 		A68B141A25BDD4F000610E99 /* DownloadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68B141925BDD4F000610E99 /* DownloadsViewController.swift */; };
 		A68B141E25BDD55A00610E99 /* DownloadsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68B141C25BDD55A00610E99 /* DownloadsTVC.swift */; };
 		A68B141F25BDD55A00610E99 /* DownloadsTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A68B141D25BDD55A00610E99 /* DownloadsTVC.xib */; };
-		A6EAFD6125C86D1E007E3AE6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6EAFD6025C86D1E007E3AE6 /* GoogleService-Info.plist */; };
 		BC1E934A38B44E89A3D50648 /* Pods_Zygo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77DBEE42B1B796384A4758FB /* Pods_Zygo.framework */; };
+		E316A82C25F285A400E4A934 /* SubscriptionCancelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E316A82B25F285A100E4A934 /* SubscriptionCancelVC.swift */; };
 		E31A090825C43C2D00BB59F1 /* Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A08F625C43C2700BB59F1 /* Poppins-ExtraBoldItalic.ttf */; };
 		E31A090925C43C2D00BB59F1 /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A08F725C43C2800BB59F1 /* Poppins-SemiBoldItalic.ttf */; };
 		E31A090A25C43C2D00BB59F1 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A08F825C43C2800BB59F1 /* Poppins-Light.ttf */; };
@@ -76,8 +57,78 @@
 		E31A091725C43C2D00BB59F1 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A090525C43C2C00BB59F1 /* Poppins-Bold.ttf */; };
 		E31A091825C43C2D00BB59F1 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A090625C43C2D00BB59F1 /* Poppins-Italic.ttf */; };
 		E31A091925C43C2D00BB59F1 /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A090725C43C2D00BB59F1 /* Poppins-Thin.ttf */; };
+		E31DCD2325DC2FD400334D7D /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31DCD2225DC2FD400334D7D /* DateHelper.swift */; };
+		E324E6A025DFA23A002CD0D5 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E324E69E25DFA238002CD0D5 /* DownloadManager.swift */; };
+		E324E6A125DFA23A002CD0D5 /* DownloadManagerDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = E324E69F25DFA239002CD0D5 /* DownloadManagerDownload.swift */; };
+		E324E6A425DFA57B002CD0D5 /* ZygoWorkoutDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E324E6A325DFA57B002CD0D5 /* ZygoWorkoutDownloadManager.swift */; };
+		E324E6A725DFA5BE002CD0D5 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E324E6A625DFA5BE002CD0D5 /* Workout.swift */; };
+		E32E530A264D883E003BAEF0 /* FISoundEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = E32E52F7264D883D003BAEF0 /* FISoundEngine.m */; };
+		E32E530B264D883E003BAEF0 /* FISoundDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = E32E52F8264D883D003BAEF0 /* FISoundDevice.m */; };
+		E32E530C264D883E003BAEF0 /* FISampleBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E32E52F9264D883D003BAEF0 /* FISampleBuffer.m */; };
+		E32E530D264D883E003BAEF0 /* FIError.m in Sources */ = {isa = PBXBuildFile; fileRef = E32E52FA264D883D003BAEF0 /* FIError.m */; };
+		E32E530E264D883E003BAEF0 /* FISound.m in Sources */ = {isa = PBXBuildFile; fileRef = E32E52FB264D883D003BAEF0 /* FISound.m */; };
+		E32E530F264D883E003BAEF0 /* FISoundSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E32E52FD264D883D003BAEF0 /* FISoundSource.m */; };
+		E32E5310264D883E003BAEF0 /* FISoundContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E32E52FE264D883D003BAEF0 /* FISoundContext.m */; };
+		E32E5311264D883E003BAEF0 /* FISampleFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = E32E52FF264D883D003BAEF0 /* FISampleFormat.m */; };
+		E32E5312264D883E003BAEF0 /* FISampleDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E32E5304264D883D003BAEF0 /* FISampleDecoder.m */; };
+		E335DDD425CC601A0089C772 /* SideMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E335DDD325CC601A0089C772 /* SideMenu.storyboard */; };
+		E335DDD725CC74590089C772 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E335DDD625CC74590089C772 /* MenuViewController.swift */; };
+		E335DDDA25CC7ADE0089C772 /* SideMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E335DDD925CC7ADE0089C772 /* SideMenuViewModel.swift */; };
+		E335DDDF25CC7BEC0089C772 /* SideMenuTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E335DDDD25CC7BEC0089C772 /* SideMenuTVC.swift */; };
+		E335DDE025CC7BEC0089C772 /* SideMenuTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E335DDDE25CC7BEC0089C772 /* SideMenuTVC.xib */; };
+		E335DDF425CD9ACE0089C772 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E335DDF325CD9ACE0089C772 /* Filter.swift */; };
+		E335DDF725CD9B9C0089C772 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E335DDF625CD9B9C0089C772 /* DatabaseManager.swift */; };
+		E335DE0225CDBCB40089C772 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E335DDFD25CDBCA80089C772 /* InfoViewController.swift */; };
+		E335DE0325CDBCB40089C772 /* BluetoothViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E335DDFE25CDBCAA0089C772 /* BluetoothViewController.swift */; };
+		E335DE0425CDBCB40089C772 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E335DDFF25CDBCAC0089C772 /* PrivacyPolicyViewController.swift */; };
+		E335DE0525CDBCB40089C772 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E335DE0025CDBCB00089C772 /* SettingsViewController.swift */; };
+		E335DE0625CDBCB40089C772 /* YourAchievementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E335DE0125CDBCB30089C772 /* YourAchievementViewController.swift */; };
+		E335DE0925CE75300089C772 /* SettingsHV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E335DE0825CE75300089C772 /* SettingsHV.swift */; };
+		E335DE0C25CE753E0089C772 /* SettingsHV.xib in Resources */ = {isa = PBXBuildFile; fileRef = E335DE0B25CE753E0089C772 /* SettingsHV.xib */; };
+		E341129325E6C90300F1C53A /* WorkoutLogDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E341129225E6C90300F1C53A /* WorkoutLogDTO.swift */; };
 		E342290125C4412000CE4ABE /* CreateProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E342290025C4412000CE4ABE /* CreateProfileViewModel.swift */; };
 		E342290425C4448D00CE4ABE /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E342290325C4448D00CE4ABE /* UserServices.swift */; };
+		E344A1BC25C9B14600168519 /* FacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344A1BA25C9B14300168519 /* FacebookManager.swift */; };
+		E344A1BD25C9B14600168519 /* GoogleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344A1BB25C9B14600168519 /* GoogleLoginManager.swift */; };
+		E344A1C025C9B15200168519 /* AppleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344A1BF25C9B15200168519 /* AppleLoginManager.swift */; };
+		E344A1C925C9B22100168519 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344A1C725C9B22100168519 /* ProfileViewController.swift */; };
+		E344A1D925C9B24400168519 /* AchievementsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344A1CC25C9B23E00168519 /* AchievementsTVC.swift */; };
+		E344A1DA25C9B24400168519 /* AchievementsTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E344A1CD25C9B23E00168519 /* AchievementsTVC.xib */; };
+		E344A1DB25C9B24400168519 /* HistoryInfoTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E344A1CF25C9B24000168519 /* HistoryInfoTVC.xib */; };
+		E344A1DC25C9B24400168519 /* HistoryInfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344A1D025C9B24000168519 /* HistoryInfoTVC.swift */; };
+		E344A1DD25C9B24400168519 /* PastWorkoutsTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E344A1D225C9B24200168519 /* PastWorkoutsTVC.xib */; };
+		E344A1DE25C9B24400168519 /* PastWorkoutsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344A1D325C9B24200168519 /* PastWorkoutsTVC.swift */; };
+		E344A1DF25C9B24400168519 /* NotificationSettingsTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E344A1D525C9B24400168519 /* NotificationSettingsTVC.xib */; };
+		E344A1E025C9B24400168519 /* OtherSettingsTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E344A1D625C9B24400168519 /* OtherSettingsTVC.xib */; };
+		E344A1E125C9B24400168519 /* OtherSettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344A1D725C9B24400168519 /* OtherSettingsTVC.swift */; };
+		E344A1E225C9B24400168519 /* NotificationSettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344A1D825C9B24400168519 /* NotificationSettingsTVC.swift */; };
+		E344A1E825C9B24C00168519 /* AchievementsCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344A1E625C9B24C00168519 /* AchievementsCVC.swift */; };
+		E344A1E925C9B24C00168519 /* AchievementsCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E344A1E725C9B24C00168519 /* AchievementsCVC.xib */; };
+		E344A1EC25C9B29B00168519 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344A1EB25C9B29B00168519 /* HistoryViewController.swift */; };
+		E349E53225C59F3C0054A54D /* WorkoutsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E349E53125C59F3C0054A54D /* WorkoutsViewModel.swift */; };
+		E349E53525C59F490054A54D /* WorkoutsServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E349E53425C59F490054A54D /* WorkoutsServices.swift */; };
+		E349E53825C5BEAB0054A54D /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E349E53725C5BEAB0054A54D /* FilterViewModel.swift */; };
+		E35F245725D7C882004E2B8C /* ShadowSmallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F245525D7C87F004E2B8C /* ShadowSmallView.swift */; };
+		E35F245825D7C882004E2B8C /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F245625D7C881004E2B8C /* ShadowView.swift */; };
+		E35F245B25D7CA84004E2B8C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E35F245A25D7CA84004E2B8C /* QuartzCore.framework */; };
+		E35F246C25D80E27004E2B8C /* WorkoutPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F246B25D80E27004E2B8C /* WorkoutPlayerViewModel.swift */; };
+		E35F24A925DBA18D004E2B8C /* FeedbackSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E35F24A725DBA18A004E2B8C /* FeedbackSheetViewController.xib */; };
+		E35F24AA25DBA18D004E2B8C /* FeedbackSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F24A825DBA18D004E2B8C /* FeedbackSheetViewController.swift */; };
+		E35F24B425DBA1CF004E2B8C /* DefaultFeedbackTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E35F24B225DBA1CD004E2B8C /* DefaultFeedbackTVC.xib */; };
+		E35F24B525DBA1CF004E2B8C /* DefaultFeedbackTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F24B325DBA1CF004E2B8C /* DefaultFeedbackTVC.swift */; };
+		E35F24B925DBA1E0004E2B8C /* LikeCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E35F24B725DBA1DD004E2B8C /* LikeCVC.xib */; };
+		E35F24BA25DBA1E0004E2B8C /* LikeCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F24B825DBA1E0004E2B8C /* LikeCVC.swift */; };
+		E35F24BE25DBA682004E2B8C /* FeedbackAchievementTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F24BC25DBA682004E2B8C /* FeedbackAchievementTVC.swift */; };
+		E35F24BF25DBA682004E2B8C /* FeedbackAchievementTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E35F24BD25DBA682004E2B8C /* FeedbackAchievementTVC.xib */; };
+		E35F24C225DBA932004E2B8C /* AchievementDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F24C125DBA932004E2B8C /* AchievementDTO.swift */; };
+		E379625525DCD9E50024B5C9 /* FeedbackAchievementCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E379625325DCD9E50024B5C9 /* FeedbackAchievementCVC.swift */; };
+		E379625625DCD9E50024B5C9 /* FeedbackAchievementCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E379625425DCD9E50024B5C9 /* FeedbackAchievementCVC.xib */; };
+		E379627625DD3FF10024B5C9 /* TempoTrainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E379627525DD3FF10024B5C9 /* TempoTrainerViewController.swift */; };
+		E379627C25DD8C5B0024B5C9 /* sound_drop.wav in Resources */ = {isa = PBXBuildFile; fileRef = E379627925DD8C530024B5C9 /* sound_drop.wav */; };
+		E379627D25DD8C5B0024B5C9 /* sound_ding.wav in Resources */ = {isa = PBXBuildFile; fileRef = E379627A25DD8C580024B5C9 /* sound_ding.wav */; };
+		E379627E25DD8C5B0024B5C9 /* sound_beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = E379627B25DD8C5A0024B5C9 /* sound_beep.wav */; };
+		E379628125DD8D380024B5C9 /* TempoTrainerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E379628025DD8D380024B5C9 /* TempoTrainerManager.swift */; };
+		E385B6F325E8F59B00681D44 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385B6F225E8F59B00681D44 /* LocationManager.swift */; };
 		E38A0F0725C552E200D3FAAC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = E38A0EDA25C552E200D3FAAC /* LICENSE */; };
 		E38A0F0825C552E200D3FAAC /* NVActivityIndicatorAnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38A0EDD25C552E200D3FAAC /* NVActivityIndicatorAnimationDelegate.swift */; };
 		E38A0F0925C552E200D3FAAC /* NVActivityIndicatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38A0EDF25C552E200D3FAAC /* NVActivityIndicatorPresenter.swift */; };
@@ -119,11 +170,55 @@
 		E38A0F2D25C552E300D3FAAC /* NVActivityIndicatorAnimationBallPulseRise.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38A0F0425C552E200D3FAAC /* NVActivityIndicatorAnimationBallPulseRise.swift */; };
 		E38A0F2E25C552E300D3FAAC /* NVActivityIndicatorAnimationOrbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38A0F0525C552E200D3FAAC /* NVActivityIndicatorAnimationOrbit.swift */; };
 		E38A0F2F25C552E300D3FAAC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = E38A0F0625C552E200D3FAAC /* README.md */; };
+		E38A0F3225C570A400D3FAAC /* WorkoutDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38A0F3125C570A400D3FAAC /* WorkoutDTO.swift */; };
+		E38A0F3525C57B7800D3FAAC /* WorkoutInstructorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38A0F3425C57B7800D3FAAC /* WorkoutInstructorDTO.swift */; };
+		E3AC185325C86C16009C092D /* SheetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AC185225C86C16009C092D /* SheetDTO.swift */; };
+		E3B1988C25D4505700AC6CB9 /* WorkoutDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D8DC9D25CEF9FE00949256 /* WorkoutDetailViewController.swift */; };
+		E3B4531A25F674E3000DA41B /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B4531925F674E3000DA41B /* ChangePasswordVC.swift */; };
+		E3C2DAC4262C51CD000E14F5 /* HomeTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C2DAC3262C51CD000E14F5 /* HomeTabBar.swift */; };
+		E3C393DE25E74968008AF486 /* SeriesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C393DC25E74968008AF486 /* SeriesTVC.swift */; };
+		E3C393DF25E74968008AF486 /* SeriesTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3C393DD25E74968008AF486 /* SeriesTVC.xib */; };
+		E3C393E425E74A17008AF486 /* SeriesCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3C393E225E74A17008AF486 /* SeriesCVC.xib */; };
+		E3C393E525E74A17008AF486 /* SeriesCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C393E325E74A17008AF486 /* SeriesCVC.swift */; };
+		E3C393E825E75402008AF486 /* ZBluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C393E725E75402008AF486 /* ZBluetoothManager.swift */; };
+		E3CFCC6325EE6254000C481A /* HistoryWorkoutsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFCC6225EE6254000C481A /* HistoryWorkoutsHeaderView.swift */; };
+		E3CFCC6625EE625F000C481A /* HistoryWorkoutsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3CFCC6525EE625F000C481A /* HistoryWorkoutsHeaderView.xib */; };
+		E3CFCC8025EE6EC8000C481A /* SwiftyStoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = E3CFCC7F25EE6EC8000C481A /* SwiftyStoreKit */; };
+		E3CFCC8325EE6EEA000C481A /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFCC8225EE6EEA000C481A /* SubscriptionManager.swift */; };
+		E3CFCC8625EE6F09000C481A /* SubscriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFCC8525EE6F09000C481A /* SubscriptionViewModel.swift */; };
+		E3CFCC8925EE9F5F000C481A /* SubscriptionServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFCC8825EE9F5F000C481A /* SubscriptionServices.swift */; };
+		E3CFCC8C25EEA07C000C481A /* ProductFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFCC8B25EEA07C000C481A /* ProductFetcher.swift */; };
+		E3D8DC5925CEAFD700949256 /* WorkoutPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D8DC5825CEAFD700949256 /* WorkoutPlayerViewController.swift */; };
+		E3D8DC6525CEF81100949256 /* WorkoutSeriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D8DC6425CEF81100949256 /* WorkoutSeriesViewController.swift */; };
+		E3D8DC7D25CEF9BE00949256 /* EquipmentCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D8DC7925CEF9BE00949256 /* EquipmentCVC.swift */; };
+		E3D8DC7E25CEF9BE00949256 /* EquipmentCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3D8DC7A25CEF9BE00949256 /* EquipmentCVC.xib */; };
+		E3D8DC7F25CEF9BE00949256 /* WorkoutHeaderTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D8DC7B25CEF9BE00949256 /* WorkoutHeaderTVC.swift */; };
+		E3D8DC8025CEF9BE00949256 /* WorkoutHeaderTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3D8DC7C25CEF9BE00949256 /* WorkoutHeaderTVC.xib */; };
+		E3D8DC9025CEF9D400949256 /* StartWorkoutTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3D8DC8325CEF9D200949256 /* StartWorkoutTVC.xib */; };
+		E3D8DC9125CEF9D400949256 /* WorkoutPlanTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D8DC8425CEF9D200949256 /* WorkoutPlanTVC.swift */; };
+		E3D8DC9225CEF9D400949256 /* WorkoutDetailInfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D8DC8525CEF9D200949256 /* WorkoutDetailInfoTVC.swift */; };
+		E3D8DC9325CEF9D400949256 /* StartWorkoutTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D8DC8625CEF9D200949256 /* StartWorkoutTVC.swift */; };
+		E3D8DC9425CEF9D400949256 /* WorkoutPlanTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3D8DC8725CEF9D200949256 /* WorkoutPlanTVC.xib */; };
+		E3D8DC9525CEF9D400949256 /* EquipmentTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D8DC8825CEF9D200949256 /* EquipmentTVC.swift */; };
+		E3D8DC9625CEF9D400949256 /* WorkoutDetailInfoTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3D8DC8925CEF9D200949256 /* WorkoutDetailInfoTVC.xib */; };
+		E3D8DC9725CEF9D400949256 /* WorkoutTypeTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3D8DC8A25CEF9D200949256 /* WorkoutTypeTVC.xib */; };
+		E3D8DC9825CEF9D400949256 /* EquipmentTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3D8DC8B25CEF9D200949256 /* EquipmentTVC.xib */; };
+		E3D8DC9925CEF9D400949256 /* WorkoutTypeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D8DC8C25CEF9D200949256 /* WorkoutTypeTVC.swift */; };
+		E3D8DC9A25CEF9D400949256 /* BluetoothTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D8DC8E25CEF9D400949256 /* BluetoothTVC.swift */; };
+		E3D8DC9B25CEF9D400949256 /* BluetoothTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3D8DC8F25CEF9D400949256 /* BluetoothTVC.xib */; };
+		E3E02E8E25CAFBE9003960C8 /* FilterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E02E8D25CAFBE9003960C8 /* FilterDTO.swift */; };
 		E3F5EEB125C3F0D4001D9BC1 /* PreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F5EEB025C3F0D4001D9BC1 /* PreferenceManager.swift */; };
+		E3FABF3F25C8647200324511 /* BottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FABF3D25C8647100324511 /* BottomSheetVC.swift */; };
+		E3FABF4025C8647200324511 /* BottomSheetVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3FABF3E25C8647200324511 /* BottomSheetVC.xib */; };
+		E3FABF4525C8658300324511 /* SheetTCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FABF4325C8658300324511 /* SheetTCV.swift */; };
+		E3FABF4625C8658300324511 /* SheetTCV.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3FABF4425C8658300324511 /* SheetTCV.xib */; };
+		E3FB14C52637E6E00075AB49 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E3FB14C42637E6E00075AB49 /* GoogleService-Info.plist */; };
 		E3FB368F25C3F3B30070DA9C /* WorkoutInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FB368E25C3F3B30070DA9C /* WorkoutInfoDTO.swift */; };
 		E3FB369325C3F3DE0070DA9C /* NotificationInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FB369225C3F3DE0070DA9C /* NotificationInfoDTO.swift */; };
 		E3FB369625C3F4060070DA9C /* FriendsInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FB369525C3F4060070DA9C /* FriendsInfoDTO.swift */; };
 		E3FB369A25C408CE0070DA9C /* CreateProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FB369925C408CE0070DA9C /* CreateProfileViewController.swift */; };
+		E3FE0A9725F15A02000D7FAB /* PairVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FE0A9525F15A00000D7FAB /* PairVC.swift */; };
+		E3FE0A9825F15A02000D7FAB /* PairVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3FE0A9625F15A02000D7FAB /* PairVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -138,21 +233,6 @@
 		A64D708725C179A8000BC433 /* ForgotpasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotpasswordViewController.swift; sourceTree = "<group>"; };
 		A64D708925C17DA4000BC433 /* VerifyForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		A64D708B25C17F67000BC433 /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
-		A64D718925C5AEFA000BC433 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
-		A64D718B25C5AF2C000BC433 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
-		A64D718E25C5AF51000BC433 /* HistoryInfoTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryInfoTVC.xib; sourceTree = "<group>"; };
-		A64D718F25C5AF51000BC433 /* HistoryInfoTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryInfoTVC.swift; sourceTree = "<group>"; };
-		A64D719125C5AF55000BC433 /* NotificationSettingsTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationSettingsTVC.xib; sourceTree = "<group>"; };
-		A64D719225C5AF55000BC433 /* OtherSettingsTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherSettingsTVC.xib; sourceTree = "<group>"; };
-		A64D719325C5AF55000BC433 /* OtherSettingsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherSettingsTVC.swift; sourceTree = "<group>"; };
-		A64D719425C5AF55000BC433 /* NotificationSettingsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTVC.swift; sourceTree = "<group>"; };
-		A64D719625C5AF57000BC433 /* AchievementsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementsTVC.swift; sourceTree = "<group>"; };
-		A64D719725C5AF57000BC433 /* AchievementsTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AchievementsTVC.xib; sourceTree = "<group>"; };
-		A64D719A25C5AF58000BC433 /* AchievementsCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementsCVC.swift; sourceTree = "<group>"; };
-		A64D719B25C5AF58000BC433 /* AchievementsCVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AchievementsCVC.xib; sourceTree = "<group>"; };
-		A64D719F25C5AF59000BC433 /* PastWorkoutsTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PastWorkoutsTVC.xib; sourceTree = "<group>"; };
-		A64D71A025C5AF59000BC433 /* PastWorkoutsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PastWorkoutsTVC.swift; sourceTree = "<group>"; };
-		A64D71AB25C5AF70000BC433 /* AppleLoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleLoginManager.swift; sourceTree = "<group>"; };
 		A67744B925BC1A5300D18BA9 /* Zygo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zygo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A67744BC25BC1A5300D18BA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A67744BE25BC1A5300D18BA9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -162,15 +242,11 @@
 		A67744CB25BC1A5B00D18BA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A67744CD25BC1A5B00D18BA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A67744D425BC1AF100D18BA9 /* Registration.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Registration.storyboard; sourceTree = "<group>"; };
-		A681E41B25C6C4B8007409AE /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		A681E41D25C6C5C2007409AE /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		A68B138F25BC572100610E99 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		A68B139325BC592800610E99 /* RegistrationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationServices.swift; sourceTree = "<group>"; };
 		A68B139525BC596B00610E99 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		A68B13F025BC6A3800610E99 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		A68B13F225BC7CE500610E99 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
-		A68B140625BDAE2C00610E99 /* FacebookManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookManager.swift; sourceTree = "<group>"; };
-		A68B140825BDAE5F00610E99 /* GoogleLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginManager.swift; sourceTree = "<group>"; };
 		A68B140A25BDC0E000610E99 /* WorkoutsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsViewController.swift; sourceTree = "<group>"; };
 		A68B140E25BDC23500610E99 /* WorkoutInfoTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutInfoTVC.swift; sourceTree = "<group>"; };
 		A68B140F25BDC23500610E99 /* WorkoutInfoTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutInfoTVC.xib; sourceTree = "<group>"; };
@@ -180,7 +256,7 @@
 		A68B141925BDD4F000610E99 /* DownloadsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsViewController.swift; sourceTree = "<group>"; };
 		A68B141C25BDD55A00610E99 /* DownloadsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsTVC.swift; sourceTree = "<group>"; };
 		A68B141D25BDD55A00610E99 /* DownloadsTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadsTVC.xib; sourceTree = "<group>"; };
-		A6EAFD6025C86D1E007E3AE6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E316A82B25F285A100E4A934 /* SubscriptionCancelVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionCancelVC.swift; sourceTree = "<group>"; };
 		E31A08F625C43C2700BB59F1 /* Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		E31A08F725C43C2800BB59F1 /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		E31A08F825C43C2800BB59F1 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
@@ -199,8 +275,90 @@
 		E31A090525C43C2C00BB59F1 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		E31A090625C43C2D00BB59F1 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
 		E31A090725C43C2D00BB59F1 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Thin.ttf"; sourceTree = "<group>"; };
+		E31DCD2225DC2FD400334D7D /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		E324E69E25DFA238002CD0D5 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
+		E324E69F25DFA239002CD0D5 /* DownloadManagerDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManagerDownload.swift; sourceTree = "<group>"; };
+		E324E6A325DFA57B002CD0D5 /* ZygoWorkoutDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZygoWorkoutDownloadManager.swift; sourceTree = "<group>"; };
+		E324E6A625DFA5BE002CD0D5 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		E32E52F7264D883D003BAEF0 /* FISoundEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISoundEngine.m; sourceTree = "<group>"; };
+		E32E52F8264D883D003BAEF0 /* FISoundDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISoundDevice.m; sourceTree = "<group>"; };
+		E32E52F9264D883D003BAEF0 /* FISampleBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISampleBuffer.m; sourceTree = "<group>"; };
+		E32E52FA264D883D003BAEF0 /* FIError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIError.m; sourceTree = "<group>"; };
+		E32E52FB264D883D003BAEF0 /* FISound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISound.m; sourceTree = "<group>"; };
+		E32E52FC264D883D003BAEF0 /* FISampleDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FISampleDecoder.h; sourceTree = "<group>"; };
+		E32E52FD264D883D003BAEF0 /* FISoundSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISoundSource.m; sourceTree = "<group>"; };
+		E32E52FE264D883D003BAEF0 /* FISoundContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISoundContext.m; sourceTree = "<group>"; };
+		E32E52FF264D883D003BAEF0 /* FISampleFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISampleFormat.m; sourceTree = "<group>"; };
+		E32E5300264D883D003BAEF0 /* FISoundEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FISoundEngine.h; sourceTree = "<group>"; };
+		E32E5301264D883D003BAEF0 /* FISampleBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FISampleBuffer.h; sourceTree = "<group>"; };
+		E32E5302264D883D003BAEF0 /* FISoundDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FISoundDevice.h; sourceTree = "<group>"; };
+		E32E5303264D883D003BAEF0 /* FISoundSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FISoundSource.h; sourceTree = "<group>"; };
+		E32E5304264D883D003BAEF0 /* FISampleDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISampleDecoder.m; sourceTree = "<group>"; };
+		E32E5305264D883D003BAEF0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		E32E5306264D883D003BAEF0 /* FIError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIError.h; sourceTree = "<group>"; };
+		E32E5307264D883D003BAEF0 /* FISound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FISound.h; sourceTree = "<group>"; };
+		E32E5308264D883D003BAEF0 /* FISampleFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FISampleFormat.h; sourceTree = "<group>"; };
+		E32E5309264D883D003BAEF0 /* FISoundContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FISoundContext.h; sourceTree = "<group>"; };
+		E32E5314264D8877003BAEF0 /* Zygo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zygo-Bridging-Header.h"; sourceTree = "<group>"; };
+		E335DDD325CC601A0089C772 /* SideMenu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SideMenu.storyboard; sourceTree = "<group>"; };
+		E335DDD625CC74590089C772 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		E335DDD925CC7ADE0089C772 /* SideMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewModel.swift; sourceTree = "<group>"; };
+		E335DDDD25CC7BEC0089C772 /* SideMenuTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTVC.swift; sourceTree = "<group>"; };
+		E335DDDE25CC7BEC0089C772 /* SideMenuTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuTVC.xib; sourceTree = "<group>"; };
+		E335DDF325CD9ACE0089C772 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		E335DDF625CD9B9C0089C772 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		E335DDFD25CDBCA80089C772 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		E335DDFE25CDBCAA0089C772 /* BluetoothViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothViewController.swift; sourceTree = "<group>"; };
+		E335DDFF25CDBCAC0089C772 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
+		E335DE0025CDBCB00089C772 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		E335DE0125CDBCB30089C772 /* YourAchievementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourAchievementViewController.swift; sourceTree = "<group>"; };
+		E335DE0825CE75300089C772 /* SettingsHV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHV.swift; sourceTree = "<group>"; };
+		E335DE0B25CE753E0089C772 /* SettingsHV.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsHV.xib; sourceTree = "<group>"; };
+		E341129225E6C90300F1C53A /* WorkoutLogDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutLogDTO.swift; sourceTree = "<group>"; };
 		E342290025C4412000CE4ABE /* CreateProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileViewModel.swift; sourceTree = "<group>"; };
 		E342290325C4448D00CE4ABE /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
+		E344A1BA25C9B14300168519 /* FacebookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookManager.swift; sourceTree = "<group>"; };
+		E344A1BB25C9B14600168519 /* GoogleLoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleLoginManager.swift; sourceTree = "<group>"; };
+		E344A1BF25C9B15200168519 /* AppleLoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleLoginManager.swift; sourceTree = "<group>"; };
+		E344A1C725C9B22100168519 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		E344A1CC25C9B23E00168519 /* AchievementsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementsTVC.swift; sourceTree = "<group>"; };
+		E344A1CD25C9B23E00168519 /* AchievementsTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AchievementsTVC.xib; sourceTree = "<group>"; };
+		E344A1CF25C9B24000168519 /* HistoryInfoTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryInfoTVC.xib; sourceTree = "<group>"; };
+		E344A1D025C9B24000168519 /* HistoryInfoTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryInfoTVC.swift; sourceTree = "<group>"; };
+		E344A1D225C9B24200168519 /* PastWorkoutsTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PastWorkoutsTVC.xib; sourceTree = "<group>"; };
+		E344A1D325C9B24200168519 /* PastWorkoutsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PastWorkoutsTVC.swift; sourceTree = "<group>"; };
+		E344A1D525C9B24400168519 /* NotificationSettingsTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationSettingsTVC.xib; sourceTree = "<group>"; };
+		E344A1D625C9B24400168519 /* OtherSettingsTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherSettingsTVC.xib; sourceTree = "<group>"; };
+		E344A1D725C9B24400168519 /* OtherSettingsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherSettingsTVC.swift; sourceTree = "<group>"; };
+		E344A1D825C9B24400168519 /* NotificationSettingsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTVC.swift; sourceTree = "<group>"; };
+		E344A1E625C9B24C00168519 /* AchievementsCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementsCVC.swift; sourceTree = "<group>"; };
+		E344A1E725C9B24C00168519 /* AchievementsCVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AchievementsCVC.xib; sourceTree = "<group>"; };
+		E344A1EB25C9B29B00168519 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		E349E53125C59F3C0054A54D /* WorkoutsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsViewModel.swift; sourceTree = "<group>"; };
+		E349E53425C59F490054A54D /* WorkoutsServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsServices.swift; sourceTree = "<group>"; };
+		E349E53725C5BEAB0054A54D /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
+		E35F245525D7C87F004E2B8C /* ShadowSmallView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowSmallView.swift; sourceTree = "<group>"; };
+		E35F245625D7C881004E2B8C /* ShadowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
+		E35F245A25D7CA84004E2B8C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E35F246B25D80E27004E2B8C /* WorkoutPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPlayerViewModel.swift; sourceTree = "<group>"; };
+		E35F24A725DBA18A004E2B8C /* FeedbackSheetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedbackSheetViewController.xib; sourceTree = "<group>"; };
+		E35F24A825DBA18D004E2B8C /* FeedbackSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackSheetViewController.swift; sourceTree = "<group>"; };
+		E35F24B225DBA1CD004E2B8C /* DefaultFeedbackTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DefaultFeedbackTVC.xib; sourceTree = "<group>"; };
+		E35F24B325DBA1CF004E2B8C /* DefaultFeedbackTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultFeedbackTVC.swift; sourceTree = "<group>"; };
+		E35F24B725DBA1DD004E2B8C /* LikeCVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LikeCVC.xib; sourceTree = "<group>"; };
+		E35F24B825DBA1E0004E2B8C /* LikeCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeCVC.swift; sourceTree = "<group>"; };
+		E35F24BC25DBA682004E2B8C /* FeedbackAchievementTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackAchievementTVC.swift; sourceTree = "<group>"; };
+		E35F24BD25DBA682004E2B8C /* FeedbackAchievementTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackAchievementTVC.xib; sourceTree = "<group>"; };
+		E35F24C125DBA932004E2B8C /* AchievementDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDTO.swift; sourceTree = "<group>"; };
+		E379625325DCD9E50024B5C9 /* FeedbackAchievementCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackAchievementCVC.swift; sourceTree = "<group>"; };
+		E379625425DCD9E50024B5C9 /* FeedbackAchievementCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackAchievementCVC.xib; sourceTree = "<group>"; };
+		E379627525DD3FF10024B5C9 /* TempoTrainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempoTrainerViewController.swift; sourceTree = "<group>"; };
+		E379627925DD8C530024B5C9 /* sound_drop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sound_drop.wav; sourceTree = "<group>"; };
+		E379627A25DD8C580024B5C9 /* sound_ding.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sound_ding.wav; sourceTree = "<group>"; };
+		E379627B25DD8C5A0024B5C9 /* sound_beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sound_beep.wav; sourceTree = "<group>"; };
+		E379628025DD8D380024B5C9 /* TempoTrainerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoTrainerManager.swift; sourceTree = "<group>"; };
+		E385B6EE25E78B8A00681D44 /* Zygo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Zygo.entitlements; sourceTree = "<group>"; };
+		E385B6F225E8F59B00681D44 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E38A0EDA25C552E200D3FAAC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		E38A0EDD25C552E200D3FAAC /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
 		E38A0EDF25C552E200D3FAAC /* NVActivityIndicatorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorPresenter.swift; sourceTree = "<group>"; };
@@ -242,11 +400,54 @@
 		E38A0F0425C552E200D3FAAC /* NVActivityIndicatorAnimationBallPulseRise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallPulseRise.swift; sourceTree = "<group>"; };
 		E38A0F0525C552E200D3FAAC /* NVActivityIndicatorAnimationOrbit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationOrbit.swift; sourceTree = "<group>"; };
 		E38A0F0625C552E200D3FAAC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E38A0F3125C570A400D3FAAC /* WorkoutDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDTO.swift; sourceTree = "<group>"; };
+		E38A0F3425C57B7800D3FAAC /* WorkoutInstructorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutInstructorDTO.swift; sourceTree = "<group>"; };
+		E3AC185225C86C16009C092D /* SheetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetDTO.swift; sourceTree = "<group>"; };
+		E3B4531925F674E3000DA41B /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
+		E3C2DAC3262C51CD000E14F5 /* HomeTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBar.swift; sourceTree = "<group>"; };
+		E3C393DC25E74968008AF486 /* SeriesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesTVC.swift; sourceTree = "<group>"; };
+		E3C393DD25E74968008AF486 /* SeriesTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SeriesTVC.xib; sourceTree = "<group>"; };
+		E3C393E225E74A17008AF486 /* SeriesCVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SeriesCVC.xib; sourceTree = "<group>"; };
+		E3C393E325E74A17008AF486 /* SeriesCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesCVC.swift; sourceTree = "<group>"; };
+		E3C393E725E75402008AF486 /* ZBluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZBluetoothManager.swift; sourceTree = "<group>"; };
+		E3CFCC6225EE6254000C481A /* HistoryWorkoutsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryWorkoutsHeaderView.swift; sourceTree = "<group>"; };
+		E3CFCC6525EE625F000C481A /* HistoryWorkoutsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryWorkoutsHeaderView.xib; sourceTree = "<group>"; };
+		E3CFCC8225EE6EEA000C481A /* SubscriptionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
+		E3CFCC8525EE6F09000C481A /* SubscriptionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionViewModel.swift; sourceTree = "<group>"; };
+		E3CFCC8825EE9F5F000C481A /* SubscriptionServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionServices.swift; sourceTree = "<group>"; };
+		E3CFCC8B25EEA07C000C481A /* ProductFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductFetcher.swift; sourceTree = "<group>"; };
+		E3D8DC5825CEAFD700949256 /* WorkoutPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPlayerViewController.swift; sourceTree = "<group>"; };
+		E3D8DC6425CEF81100949256 /* WorkoutSeriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSeriesViewController.swift; sourceTree = "<group>"; };
+		E3D8DC7925CEF9BE00949256 /* EquipmentCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EquipmentCVC.swift; sourceTree = "<group>"; };
+		E3D8DC7A25CEF9BE00949256 /* EquipmentCVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EquipmentCVC.xib; sourceTree = "<group>"; };
+		E3D8DC7B25CEF9BE00949256 /* WorkoutHeaderTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutHeaderTVC.swift; sourceTree = "<group>"; };
+		E3D8DC7C25CEF9BE00949256 /* WorkoutHeaderTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorkoutHeaderTVC.xib; sourceTree = "<group>"; };
+		E3D8DC8325CEF9D200949256 /* StartWorkoutTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartWorkoutTVC.xib; sourceTree = "<group>"; };
+		E3D8DC8425CEF9D200949256 /* WorkoutPlanTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutPlanTVC.swift; sourceTree = "<group>"; };
+		E3D8DC8525CEF9D200949256 /* WorkoutDetailInfoTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutDetailInfoTVC.swift; sourceTree = "<group>"; };
+		E3D8DC8625CEF9D200949256 /* StartWorkoutTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartWorkoutTVC.swift; sourceTree = "<group>"; };
+		E3D8DC8725CEF9D200949256 /* WorkoutPlanTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorkoutPlanTVC.xib; sourceTree = "<group>"; };
+		E3D8DC8825CEF9D200949256 /* EquipmentTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EquipmentTVC.swift; sourceTree = "<group>"; };
+		E3D8DC8925CEF9D200949256 /* WorkoutDetailInfoTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorkoutDetailInfoTVC.xib; sourceTree = "<group>"; };
+		E3D8DC8A25CEF9D200949256 /* WorkoutTypeTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorkoutTypeTVC.xib; sourceTree = "<group>"; };
+		E3D8DC8B25CEF9D200949256 /* EquipmentTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EquipmentTVC.xib; sourceTree = "<group>"; };
+		E3D8DC8C25CEF9D200949256 /* WorkoutTypeTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutTypeTVC.swift; sourceTree = "<group>"; };
+		E3D8DC8E25CEF9D400949256 /* BluetoothTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothTVC.swift; sourceTree = "<group>"; };
+		E3D8DC8F25CEF9D400949256 /* BluetoothTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BluetoothTVC.xib; sourceTree = "<group>"; };
+		E3D8DC9D25CEF9FE00949256 /* WorkoutDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutDetailViewController.swift; sourceTree = "<group>"; };
+		E3E02E8D25CAFBE9003960C8 /* FilterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDTO.swift; sourceTree = "<group>"; };
 		E3F5EEB025C3F0D4001D9BC1 /* PreferenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceManager.swift; sourceTree = "<group>"; };
+		E3FABF3D25C8647100324511 /* BottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetVC.swift; sourceTree = "<group>"; };
+		E3FABF3E25C8647200324511 /* BottomSheetVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomSheetVC.xib; sourceTree = "<group>"; };
+		E3FABF4325C8658300324511 /* SheetTCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTCV.swift; sourceTree = "<group>"; };
+		E3FABF4425C8658300324511 /* SheetTCV.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SheetTCV.xib; sourceTree = "<group>"; };
+		E3FB14C42637E6E00075AB49 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E3FB368E25C3F3B30070DA9C /* WorkoutInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutInfoDTO.swift; sourceTree = "<group>"; };
 		E3FB369225C3F3DE0070DA9C /* NotificationInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationInfoDTO.swift; sourceTree = "<group>"; };
 		E3FB369525C3F4060070DA9C /* FriendsInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsInfoDTO.swift; sourceTree = "<group>"; };
 		E3FB369925C408CE0070DA9C /* CreateProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileViewController.swift; sourceTree = "<group>"; };
+		E3FE0A9525F15A00000D7FAB /* PairVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairVC.swift; sourceTree = "<group>"; };
+		E3FE0A9625F15A02000D7FAB /* PairVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PairVC.xib; sourceTree = "<group>"; };
 		E6D8450FBE78ED07A8B8F09E /* Pods-Zygo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zygo.debug.xcconfig"; path = "Target Support Files/Pods-Zygo/Pods-Zygo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -255,6 +456,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3CFCC8025EE6EC8000C481A /* SwiftyStoreKit in Frameworks */,
+				E35F245B25D7CA84004E2B8C /* QuartzCore.framework in Frameworks */,
 				BC1E934A38B44E89A3D50648 /* Pods_Zygo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,6 +468,7 @@
 		043F3D85263CC80C38BCD801 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E35F245A25D7CA84004E2B8C /* QuartzCore.framework */,
 				77DBEE42B1B796384A4758FB /* Pods_Zygo.framework */,
 			);
 			name = Frameworks;
@@ -282,10 +486,17 @@
 		A63E7C2925BC2C8A00CC9564 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E335DDF225CD9A4C0089C772 /* Database */,
 				A68B13F025BC6A3800610E99 /* UserDTO.swift */,
+				E3CFCC8B25EEA07C000C481A /* ProductFetcher.swift */,
 				E3FB368E25C3F3B30070DA9C /* WorkoutInfoDTO.swift */,
 				E3FB369225C3F3DE0070DA9C /* NotificationInfoDTO.swift */,
 				E3FB369525C3F4060070DA9C /* FriendsInfoDTO.swift */,
+				E38A0F3125C570A400D3FAAC /* WorkoutDTO.swift */,
+				E38A0F3425C57B7800D3FAAC /* WorkoutInstructorDTO.swift */,
+				E3E02E8D25CAFBE9003960C8 /* FilterDTO.swift */,
+				E35F24C125DBA932004E2B8C /* AchievementDTO.swift */,
+				E341129225E6C90300F1C53A /* WorkoutLogDTO.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -293,76 +504,33 @@
 		A63E7C2A25BC2CE900CC9564 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E32E52F5264D883D003BAEF0 /* FISSound */,
+				E3FE0A9625F15A02000D7FAB /* PairVC.xib */,
+				E3FE0A9525F15A00000D7FAB /* PairVC.swift */,
+				E3CFCC8225EE6EEA000C481A /* SubscriptionManager.swift */,
+				E324E69D25DFA22C002CD0D5 /* DownloadManager */,
+				E35F245525D7C87F004E2B8C /* ShadowSmallView.swift */,
+				E35F245625D7C881004E2B8C /* ShadowView.swift */,
+				E3FABF4225C8655800324511 /* PopUpSheet */,
 				E38A0ED925C552E200D3FAAC /* NVActivityIndicatorView */,
 				A63E7C2B25BC2CFC00CC9564 /* Helper.swift */,
 				A63E7C2D25BC2D0700CC9564 /* Constants.swift */,
-				A68B140625BDAE2C00610E99 /* FacebookManager.swift */,
-				A68B140825BDAE5F00610E99 /* GoogleLoginManager.swift */,
+				E344A1BF25C9B15200168519 /* AppleLoginManager.swift */,
+				E3C393E725E75402008AF486 /* ZBluetoothManager.swift */,
+				E344A1BA25C9B14300168519 /* FacebookManager.swift */,
+				E344A1BB25C9B14600168519 /* GoogleLoginManager.swift */,
 				A63E7C2F25BC2D1300CC9564 /* CustomExtensions.swift */,
 				E3F5EEB025C3F0D4001D9BC1 /* PreferenceManager.swift */,
+				E31DCD2225DC2FD400334D7D /* DateHelper.swift */,
+				E379628025DD8D380024B5C9 /* TempoTrainerManager.swift */,
+				E385B6F225E8F59B00681D44 /* LocationManager.swift */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		A64D718D25C5AF51000BC433 /* History */ = {
-			isa = PBXGroup;
-			children = (
-				A64D718E25C5AF51000BC433 /* HistoryInfoTVC.xib */,
-				A64D718F25C5AF51000BC433 /* HistoryInfoTVC.swift */,
-			);
-			path = History;
-			sourceTree = "<group>";
-		};
-		A64D719025C5AF55000BC433 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				A64D719125C5AF55000BC433 /* NotificationSettingsTVC.xib */,
-				A64D719225C5AF55000BC433 /* OtherSettingsTVC.xib */,
-				A64D719325C5AF55000BC433 /* OtherSettingsTVC.swift */,
-				A64D719425C5AF55000BC433 /* NotificationSettingsTVC.swift */,
-			);
-			path = Settings;
-			sourceTree = "<group>";
-		};
-		A64D719525C5AF57000BC433 /* Achievements */ = {
-			isa = PBXGroup;
-			children = (
-				A64D719625C5AF57000BC433 /* AchievementsTVC.swift */,
-				A64D719725C5AF57000BC433 /* AchievementsTVC.xib */,
-			);
-			path = Achievements;
-			sourceTree = "<group>";
-		};
-		A64D719825C5AF58000BC433 /* Collection View Cells */ = {
-			isa = PBXGroup;
-			children = (
-				A64D719925C5AF58000BC433 /* Achievements */,
-			);
-			path = "Collection View Cells";
-			sourceTree = "<group>";
-		};
-		A64D719925C5AF58000BC433 /* Achievements */ = {
-			isa = PBXGroup;
-			children = (
-				A64D719A25C5AF58000BC433 /* AchievementsCVC.swift */,
-				A64D719B25C5AF58000BC433 /* AchievementsCVC.xib */,
-			);
-			path = Achievements;
-			sourceTree = "<group>";
-		};
-		A64D719E25C5AF59000BC433 /* Past Workouts */ = {
-			isa = PBXGroup;
-			children = (
-				A64D719F25C5AF59000BC433 /* PastWorkoutsTVC.xib */,
-				A64D71A025C5AF59000BC433 /* PastWorkoutsTVC.swift */,
-			);
-			path = "Past Workouts";
 			sourceTree = "<group>";
 		};
 		A67744B025BC1A5300D18BA9 = {
 			isa = PBXGroup;
 			children = (
-				A6EAFD6025C86D1E007E3AE6 /* GoogleService-Info.plist */,
 				A67744BB25BC1A5300D18BA9 /* Zygo */,
 				A67744BA25BC1A5300D18BA9 /* Products */,
 				5F332290C510AE0771D1DCC8 /* Pods */,
@@ -381,6 +549,7 @@
 		A67744BB25BC1A5300D18BA9 /* Zygo */ = {
 			isa = PBXGroup;
 			children = (
+				E385B6EE25E78B8A00681D44 /* Zygo.entitlements */,
 				A68B138E25BC570E00610E99 /* Services */,
 				E3F5EEA925C3EE15001D9BC1 /* App */,
 				A63E7C2925BC2C8A00CC9564 /* Model */,
@@ -395,26 +564,21 @@
 		A67744D325BC1ABA00D18BA9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A681E41A25C6C4A0007409AE /* Settings */,
-				A64D71AB25C5AF70000BC433 /* AppleLoginManager.swift */,
-				A64D718B25C5AF2C000BC433 /* HistoryViewController.swift */,
+				E3C2DAC3262C51CD000E14F5 /* HomeTabBar.swift */,
+				E35F248125D834CE004E2B8C /* Feedback */,
+				E335DDD225CC60020089C772 /* SideMenu */,
+				E344A1C525C9B22100168519 /* Settings */,
 				E3FB369825C408AC0070DA9C /* Registration */,
-				E3FB369925C408CE0070DA9C /* CreateProfileViewController.swift */,
 				A63E7C3625BC448B00CC9564 /* SubscriptionViewController.swift */,
+				E316A82B25F285A100E4A934 /* SubscriptionCancelVC.swift */,
 				A68B140A25BDC0E000610E99 /* WorkoutsViewController.swift */,
+				E3D8DC9D25CEF9FE00949256 /* WorkoutDetailViewController.swift */,
+				E3D8DC5825CEAFD700949256 /* WorkoutPlayerViewController.swift */,
+				E3D8DC6425CEF81100949256 /* WorkoutSeriesViewController.swift */,
 				A68B141725BDD0AB00610E99 /* FilterViewController.swift */,
 				A68B141925BDD4F000610E99 /* DownloadsViewController.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		A681E41A25C6C4A0007409AE /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				A681E41B25C6C4B8007409AE /* ProfileViewController.swift */,
-				A681E41D25C6C5C2007409AE /* InfoViewController.swift */,
-			);
-			path = Settings;
 			sourceTree = "<group>";
 		};
 		A68B138E25BC570E00610E99 /* Services */ = {
@@ -423,6 +587,8 @@
 				A68B138F25BC572100610E99 /* NetworkManager.swift */,
 				A68B139325BC592800610E99 /* RegistrationServices.swift */,
 				E342290325C4448D00CE4ABE /* UserServices.swift */,
+				E349E53425C59F490054A54D /* WorkoutsServices.swift */,
+				E3CFCC8825EE9F5F000C481A /* SubscriptionServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -430,10 +596,14 @@
 		A68B140C25BDC21100610E99 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
-				A64D719525C5AF57000BC433 /* Achievements */,
-				A64D718D25C5AF51000BC433 /* History */,
-				A64D719E25C5AF59000BC433 /* Past Workouts */,
-				A64D719025C5AF55000BC433 /* Settings */,
+				E3C393DB25E74968008AF486 /* Series */,
+				E335DDDC25CC7BC20089C772 /* SideMenu */,
+				E3D8DC8D25CEF9D400949256 /* Bluetooth */,
+				E3D8DC8225CEF9D200949256 /* Workout Detail */,
+				E344A1CB25C9B23E00168519 /* Achievements */,
+				E344A1CE25C9B24000168519 /* History */,
+				E344A1D125C9B24200168519 /* Past Workouts */,
+				E344A1D425C9B24400168519 /* Settings */,
 				A68B141B25BDD54400610E99 /* Downloads */,
 				A68B141225BDCF8000610E99 /* Filter */,
 				A68B140D25BDC21C00610E99 /* Workout Info */,
@@ -491,6 +661,197 @@
 				E31A08FA25C43C2900BB59F1 /* Poppins-ThinItalic.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		E324E69D25DFA22C002CD0D5 /* DownloadManager */ = {
+			isa = PBXGroup;
+			children = (
+				E324E69E25DFA238002CD0D5 /* DownloadManager.swift */,
+				E324E69F25DFA239002CD0D5 /* DownloadManagerDownload.swift */,
+				E324E6A325DFA57B002CD0D5 /* ZygoWorkoutDownloadManager.swift */,
+			);
+			path = DownloadManager;
+			sourceTree = "<group>";
+		};
+		E32E52F5264D883D003BAEF0 /* FISSound */ = {
+			isa = PBXGroup;
+			children = (
+				E32E52F6264D883D003BAEF0 /* Plumbing */,
+			);
+			path = FISSound;
+			sourceTree = "<group>";
+		};
+		E32E52F6264D883D003BAEF0 /* Plumbing */ = {
+			isa = PBXGroup;
+			children = (
+				E32E52F7264D883D003BAEF0 /* FISoundEngine.m */,
+				E32E52F8264D883D003BAEF0 /* FISoundDevice.m */,
+				E32E52F9264D883D003BAEF0 /* FISampleBuffer.m */,
+				E32E52FA264D883D003BAEF0 /* FIError.m */,
+				E32E52FB264D883D003BAEF0 /* FISound.m */,
+				E32E52FC264D883D003BAEF0 /* FISampleDecoder.h */,
+				E32E52FD264D883D003BAEF0 /* FISoundSource.m */,
+				E32E52FE264D883D003BAEF0 /* FISoundContext.m */,
+				E32E52FF264D883D003BAEF0 /* FISampleFormat.m */,
+				E32E5300264D883D003BAEF0 /* FISoundEngine.h */,
+				E32E5301264D883D003BAEF0 /* FISampleBuffer.h */,
+				E32E5302264D883D003BAEF0 /* FISoundDevice.h */,
+				E32E5303264D883D003BAEF0 /* FISoundSource.h */,
+				E32E5304264D883D003BAEF0 /* FISampleDecoder.m */,
+				E32E5305264D883D003BAEF0 /* Tests-Prefix.pch */,
+				E32E5306264D883D003BAEF0 /* FIError.h */,
+				E32E5307264D883D003BAEF0 /* FISound.h */,
+				E32E5308264D883D003BAEF0 /* FISampleFormat.h */,
+				E32E5309264D883D003BAEF0 /* FISoundContext.h */,
+			);
+			path = Plumbing;
+			sourceTree = "<group>";
+		};
+		E335DDD225CC60020089C772 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				E335DDD625CC74590089C772 /* MenuViewController.swift */,
+			);
+			path = SideMenu;
+			sourceTree = "<group>";
+		};
+		E335DDDC25CC7BC20089C772 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				E335DDDD25CC7BEC0089C772 /* SideMenuTVC.swift */,
+				E335DDDE25CC7BEC0089C772 /* SideMenuTVC.xib */,
+			);
+			path = SideMenu;
+			sourceTree = "<group>";
+		};
+		E335DDF225CD9A4C0089C772 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				E335DDF325CD9ACE0089C772 /* Filter.swift */,
+				E324E6A625DFA5BE002CD0D5 /* Workout.swift */,
+				E335DDF625CD9B9C0089C772 /* DatabaseManager.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		E344A1C525C9B22100168519 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				E335DDFE25CDBCAA0089C772 /* BluetoothViewController.swift */,
+				E335DDFF25CDBCAC0089C772 /* PrivacyPolicyViewController.swift */,
+				E335DE0025CDBCB00089C772 /* SettingsViewController.swift */,
+				E335DE0125CDBCB30089C772 /* YourAchievementViewController.swift */,
+				E344A1C725C9B22100168519 /* ProfileViewController.swift */,
+				E335DDFD25CDBCA80089C772 /* InfoViewController.swift */,
+				E344A1EB25C9B29B00168519 /* HistoryViewController.swift */,
+				E379627525DD3FF10024B5C9 /* TempoTrainerViewController.swift */,
+				E3B4531925F674E3000DA41B /* ChangePasswordVC.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		E344A1CB25C9B23E00168519 /* Achievements */ = {
+			isa = PBXGroup;
+			children = (
+				E344A1CC25C9B23E00168519 /* AchievementsTVC.swift */,
+				E344A1CD25C9B23E00168519 /* AchievementsTVC.xib */,
+			);
+			path = Achievements;
+			sourceTree = "<group>";
+		};
+		E344A1CE25C9B24000168519 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				E344A1CF25C9B24000168519 /* HistoryInfoTVC.xib */,
+				E344A1D025C9B24000168519 /* HistoryInfoTVC.swift */,
+				E3CFCC6225EE6254000C481A /* HistoryWorkoutsHeaderView.swift */,
+				E3CFCC6525EE625F000C481A /* HistoryWorkoutsHeaderView.xib */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		E344A1D125C9B24200168519 /* Past Workouts */ = {
+			isa = PBXGroup;
+			children = (
+				E344A1D225C9B24200168519 /* PastWorkoutsTVC.xib */,
+				E344A1D325C9B24200168519 /* PastWorkoutsTVC.swift */,
+			);
+			path = "Past Workouts";
+			sourceTree = "<group>";
+		};
+		E344A1D425C9B24400168519 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				E344A1D525C9B24400168519 /* NotificationSettingsTVC.xib */,
+				E344A1D625C9B24400168519 /* OtherSettingsTVC.xib */,
+				E344A1D725C9B24400168519 /* OtherSettingsTVC.swift */,
+				E344A1D825C9B24400168519 /* NotificationSettingsTVC.swift */,
+				E335DE0825CE75300089C772 /* SettingsHV.swift */,
+				E335DE0B25CE753E0089C772 /* SettingsHV.xib */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		E344A1E425C9B24C00168519 /* Collection View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E3C393E125E74A17008AF486 /* Series */,
+				E3D8DC7825CEF9BE00949256 /* Workout detail */,
+				E344A1E525C9B24C00168519 /* Achievements */,
+			);
+			path = "Collection View Cells";
+			sourceTree = "<group>";
+		};
+		E344A1E525C9B24C00168519 /* Achievements */ = {
+			isa = PBXGroup;
+			children = (
+				E344A1E625C9B24C00168519 /* AchievementsCVC.swift */,
+				E344A1E725C9B24C00168519 /* AchievementsCVC.xib */,
+			);
+			path = Achievements;
+			sourceTree = "<group>";
+		};
+		E35F248125D834CE004E2B8C /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				E35F24A825DBA18D004E2B8C /* FeedbackSheetViewController.swift */,
+				E35F24A725DBA18A004E2B8C /* FeedbackSheetViewController.xib */,
+				E35F249125D83A29004E2B8C /* UITableViewCells */,
+				E35F249025D83A1D004E2B8C /* UICollectionViewCells */,
+			);
+			path = Feedback;
+			sourceTree = "<group>";
+		};
+		E35F249025D83A1D004E2B8C /* UICollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				E35F24B825DBA1E0004E2B8C /* LikeCVC.swift */,
+				E35F24B725DBA1DD004E2B8C /* LikeCVC.xib */,
+				E379625325DCD9E50024B5C9 /* FeedbackAchievementCVC.swift */,
+				E379625425DCD9E50024B5C9 /* FeedbackAchievementCVC.xib */,
+			);
+			path = UICollectionViewCells;
+			sourceTree = "<group>";
+		};
+		E35F249125D83A29004E2B8C /* UITableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				E35F24B325DBA1CF004E2B8C /* DefaultFeedbackTVC.swift */,
+				E35F24B225DBA1CD004E2B8C /* DefaultFeedbackTVC.xib */,
+				E35F24BC25DBA682004E2B8C /* FeedbackAchievementTVC.swift */,
+				E35F24BD25DBA682004E2B8C /* FeedbackAchievementTVC.xib */,
+			);
+			path = UITableViewCells;
+			sourceTree = "<group>";
+		};
+		E379627825DD8C450024B5C9 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				E379627B25DD8C5A0024B5C9 /* sound_beep.wav */,
+				E379627A25DD8C580024B5C9 /* sound_ding.wav */,
+				E379627925DD8C530024B5C9 /* sound_drop.wav */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		E38A0ED925C552E200D3FAAC /* NVActivityIndicatorView */ = {
@@ -573,17 +934,72 @@
 			path = Animations;
 			sourceTree = "<group>";
 		};
+		E3C393DB25E74968008AF486 /* Series */ = {
+			isa = PBXGroup;
+			children = (
+				E3C393DC25E74968008AF486 /* SeriesTVC.swift */,
+				E3C393DD25E74968008AF486 /* SeriesTVC.xib */,
+			);
+			path = Series;
+			sourceTree = "<group>";
+		};
+		E3C393E125E74A17008AF486 /* Series */ = {
+			isa = PBXGroup;
+			children = (
+				E3C393E225E74A17008AF486 /* SeriesCVC.xib */,
+				E3C393E325E74A17008AF486 /* SeriesCVC.swift */,
+			);
+			path = Series;
+			sourceTree = "<group>";
+		};
+		E3D8DC7825CEF9BE00949256 /* Workout detail */ = {
+			isa = PBXGroup;
+			children = (
+				E3D8DC7925CEF9BE00949256 /* EquipmentCVC.swift */,
+				E3D8DC7A25CEF9BE00949256 /* EquipmentCVC.xib */,
+				E3D8DC7B25CEF9BE00949256 /* WorkoutHeaderTVC.swift */,
+				E3D8DC7C25CEF9BE00949256 /* WorkoutHeaderTVC.xib */,
+			);
+			path = "Workout detail";
+			sourceTree = "<group>";
+		};
+		E3D8DC8225CEF9D200949256 /* Workout Detail */ = {
+			isa = PBXGroup;
+			children = (
+				E3D8DC8925CEF9D200949256 /* WorkoutDetailInfoTVC.xib */,
+				E3D8DC8525CEF9D200949256 /* WorkoutDetailInfoTVC.swift */,
+				E3D8DC8A25CEF9D200949256 /* WorkoutTypeTVC.xib */,
+				E3D8DC8C25CEF9D200949256 /* WorkoutTypeTVC.swift */,
+				E3D8DC8B25CEF9D200949256 /* EquipmentTVC.xib */,
+				E3D8DC8825CEF9D200949256 /* EquipmentTVC.swift */,
+				E3D8DC8325CEF9D200949256 /* StartWorkoutTVC.xib */,
+				E3D8DC8625CEF9D200949256 /* StartWorkoutTVC.swift */,
+				E3D8DC8725CEF9D200949256 /* WorkoutPlanTVC.xib */,
+				E3D8DC8425CEF9D200949256 /* WorkoutPlanTVC.swift */,
+			);
+			path = "Workout Detail";
+			sourceTree = "<group>";
+		};
+		E3D8DC8D25CEF9D400949256 /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				E3D8DC8E25CEF9D400949256 /* BluetoothTVC.swift */,
+				E3D8DC8F25CEF9D400949256 /* BluetoothTVC.xib */,
+			);
+			path = Bluetooth;
+			sourceTree = "<group>";
+		};
 		E3F5EEA925C3EE15001D9BC1 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				A64D719825C5AF58000BC433 /* Collection View Cells */,
+				E344A1E425C9B24C00168519 /* Collection View Cells */,
 				A68B140C25BDC21100610E99 /* Table View Cells */,
 				A67744BC25BC1A5300D18BA9 /* AppDelegate.swift */,
 				A67744BE25BC1A5300D18BA9 /* SceneDelegate.swift */,
 				A67744D425BC1AF100D18BA9 /* Registration.storyboard */,
-				A64D718925C5AEFA000BC433 /* Settings.storyboard */,
 				A67744C225BC1A5300D18BA9 /* Main.storyboard */,
 				A67744CA25BC1A5B00D18BA9 /* LaunchScreen.storyboard */,
+				E335DDD325CC601A0089C772 /* SideMenu.storyboard */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -591,10 +1007,13 @@
 		E3F5EEAC25C3EE6A001D9BC1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E379627825DD8C450024B5C9 /* Sounds */,
 				E31A08F425C43BF900BB59F1 /* Fonts */,
 				A67744CD25BC1A5B00D18BA9 /* Info.plist */,
+				E3FB14C42637E6E00075AB49 /* GoogleService-Info.plist */,
 				A67744C525BC1A5300D18BA9 /* Zygo.xcdatamodeld */,
 				A67744C825BC1A5B00D18BA9 /* Assets.xcassets */,
+				E32E5314264D8877003BAEF0 /* Zygo-Bridging-Header.h */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -605,9 +1024,26 @@
 				A68B139525BC596B00610E99 /* SignUpViewModel.swift */,
 				A68B13F225BC7CE500610E99 /* SignInViewModel.swift */,
 				A64D708B25C17F67000BC433 /* ForgotPasswordViewModel.swift */,
+				E3CFCC8525EE6F09000C481A /* SubscriptionViewModel.swift */,
 				E342290025C4412000CE4ABE /* CreateProfileViewModel.swift */,
+				E349E53125C59F3C0054A54D /* WorkoutsViewModel.swift */,
+				E349E53725C5BEAB0054A54D /* FilterViewModel.swift */,
+				E335DDD925CC7ADE0089C772 /* SideMenuViewModel.swift */,
+				E35F246B25D80E27004E2B8C /* WorkoutPlayerViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E3FABF4225C8655800324511 /* PopUpSheet */ = {
+			isa = PBXGroup;
+			children = (
+				E3FABF3D25C8647100324511 /* BottomSheetVC.swift */,
+				E3FABF3E25C8647200324511 /* BottomSheetVC.xib */,
+				E3FABF4325C8658300324511 /* SheetTCV.swift */,
+				E3FABF4425C8658300324511 /* SheetTCV.xib */,
+				E3AC185225C86C16009C092D /* SheetDTO.swift */,
+			);
+			path = PopUpSheet;
 			sourceTree = "<group>";
 		};
 		E3FB369825C408AC0070DA9C /* Registration */ = {
@@ -617,6 +1053,7 @@
 				A63E7C3425BC415100CC9564 /* SignInViewController.swift */,
 				A64D708925C17DA4000BC433 /* VerifyForgotPasswordViewController.swift */,
 				A64D708725C179A8000BC433 /* ForgotpasswordViewController.swift */,
+				E3FB369925C408CE0070DA9C /* CreateProfileViewController.swift */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -640,6 +1077,9 @@
 			dependencies = (
 			);
 			name = Zygo;
+			packageProductDependencies = (
+				E3CFCC7F25EE6EC8000C481A /* SwiftyStoreKit */,
+			);
 			productName = Zygo;
 			productReference = A67744B925BC1A5300D18BA9 /* Zygo.app */;
 			productType = "com.apple.product-type.application";
@@ -652,7 +1092,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
 				LastUpgradeCheck = 1220;
-				ORGANIZATIONNAME = "Priya Gandhi";
+				ORGANIZATIONNAME = Somparkash;
 				TargetAttributes = {
 					A67744B825BC1A5300D18BA9 = {
 						CreatedOnToolsVersion = 11.5;
@@ -668,6 +1108,9 @@
 				Base,
 			);
 			mainGroup = A67744B025BC1A5300D18BA9;
+			packageReferences = (
+				E3CFCC7E25EE6EC8000C481A /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */,
+			);
 			productRefGroup = A67744BA25BC1A5300D18BA9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -685,38 +1128,62 @@
 				E31A091625C43C2D00BB59F1 /* Poppins-Black.ttf in Resources */,
 				E31A090925C43C2D00BB59F1 /* Poppins-SemiBoldItalic.ttf in Resources */,
 				E38A0F0725C552E200D3FAAC /* LICENSE in Resources */,
-				A64D719D25C5AF58000BC433 /* AchievementsCVC.xib in Resources */,
+				E344A1E925C9B24C00168519 /* AchievementsCVC.xib in Resources */,
 				A68B141625BDCF9100610E99 /* FilterTVC.xib in Resources */,
-				A64D71A425C5AF59000BC433 /* OtherSettingsTVC.xib in Resources */,
 				E31A090B25C43C2D00BB59F1 /* Poppins-BoldItalic.ttf in Resources */,
+				E3C393DF25E74968008AF486 /* SeriesTVC.xib in Resources */,
+				E3D8DC9725CEF9D400949256 /* WorkoutTypeTVC.xib in Resources */,
+				E3FABF4625C8658300324511 /* SheetTCV.xib in Resources */,
 				A67744CC25BC1A5B00D18BA9 /* LaunchScreen.storyboard in Resources */,
+				E3D8DC9025CEF9D400949256 /* StartWorkoutTVC.xib in Resources */,
+				E344A1DB25C9B24400168519 /* HistoryInfoTVC.xib in Resources */,
 				E31A090F25C43C2D00BB59F1 /* Poppins-ExtraLightItalic.ttf in Resources */,
-				A64D71A825C5AF59000BC433 /* AchievementsTVC.xib in Resources */,
 				E31A091125C43C2D00BB59F1 /* Poppins-LightItalic.ttf in Resources */,
 				E31A091725C43C2D00BB59F1 /* Poppins-Bold.ttf in Resources */,
 				E31A090E25C43C2D00BB59F1 /* Poppins-ExtraLight.ttf in Resources */,
+				E335DDD425CC601A0089C772 /* SideMenu.storyboard in Resources */,
+				E3D8DC9825CEF9D400949256 /* EquipmentTVC.xib in Resources */,
+				E379625625DCD9E50024B5C9 /* FeedbackAchievementCVC.xib in Resources */,
 				A67744D525BC1AF100D18BA9 /* Registration.storyboard in Resources */,
 				E31A090C25C43C2D00BB59F1 /* Poppins-ThinItalic.ttf in Resources */,
+				E344A1DA25C9B24400168519 /* AchievementsTVC.xib in Resources */,
+				E3D8DC8025CEF9BE00949256 /* WorkoutHeaderTVC.xib in Resources */,
+				E35F24B925DBA1E0004E2B8C /* LikeCVC.xib in Resources */,
+				E379627E25DD8C5B0024B5C9 /* sound_beep.wav in Resources */,
+				E344A1DF25C9B24400168519 /* NotificationSettingsTVC.xib in Resources */,
+				E3D8DC9625CEF9D400949256 /* WorkoutDetailInfoTVC.xib in Resources */,
 				E31A091425C43C2D00BB59F1 /* Poppins-BlackItalic.ttf in Resources */,
+				E3FABF4025C8647200324511 /* BottomSheetVC.xib in Resources */,
+				E379627C25DD8C5B0024B5C9 /* sound_drop.wav in Resources */,
+				E3D8DC9425CEF9D400949256 /* WorkoutPlanTVC.xib in Resources */,
+				E344A1DD25C9B24400168519 /* PastWorkoutsTVC.xib in Resources */,
 				E31A090825C43C2D00BB59F1 /* Poppins-ExtraBoldItalic.ttf in Resources */,
-				A64D71A925C5AF59000BC433 /* PastWorkoutsTVC.xib in Resources */,
-				A64D71A325C5AF59000BC433 /* NotificationSettingsTVC.xib in Resources */,
 				E31A090D25C43C2D00BB59F1 /* Poppins-Medium.ttf in Resources */,
+				E3C393E425E74A17008AF486 /* SeriesCVC.xib in Resources */,
 				E38A0F2F25C552E300D3FAAC /* README.md in Resources */,
+				E35F24B425DBA1CF004E2B8C /* DefaultFeedbackTVC.xib in Resources */,
 				E31A090A25C43C2D00BB59F1 /* Poppins-Light.ttf in Resources */,
+				E3FE0A9825F15A02000D7FAB /* PairVC.xib in Resources */,
 				A67744C925BC1A5B00D18BA9 /* Assets.xcassets in Resources */,
+				E3FB14C52637E6E00075AB49 /* GoogleService-Info.plist in Resources */,
+				E344A1E025C9B24400168519 /* OtherSettingsTVC.xib in Resources */,
 				A68B141F25BDD55A00610E99 /* DownloadsTVC.xib in Resources */,
 				E31A091225C43C2D00BB59F1 /* Poppins-ExtraBold.ttf in Resources */,
+				E35F24A925DBA18D004E2B8C /* FeedbackSheetViewController.xib in Resources */,
+				E3D8DC7E25CEF9BE00949256 /* EquipmentCVC.xib in Resources */,
 				E31A091825C43C2D00BB59F1 /* Poppins-Italic.ttf in Resources */,
+				E335DE0C25CE753E0089C772 /* SettingsHV.xib in Resources */,
 				E31A091925C43C2D00BB59F1 /* Poppins-Thin.ttf in Resources */,
-				A6EAFD6125C86D1E007E3AE6 /* GoogleService-Info.plist in Resources */,
 				E31A091025C43C2D00BB59F1 /* Poppins-SemiBold.ttf in Resources */,
 				A67744C425BC1A5300D18BA9 /* Main.storyboard in Resources */,
+				E35F24BF25DBA682004E2B8C /* FeedbackAchievementTVC.xib in Resources */,
 				E31A091325C43C2D00BB59F1 /* Poppins-MediumItalic.ttf in Resources */,
+				E335DDE025CC7BEC0089C772 /* SideMenuTVC.xib in Resources */,
 				A68B141125BDC23500610E99 /* WorkoutInfoTVC.xib in Resources */,
+				E3CFCC6625EE625F000C481A /* HistoryWorkoutsHeaderView.xib in Resources */,
 				E31A091525C43C2D00BB59F1 /* Poppins-Regular.ttf in Resources */,
-				A64D71A125C5AF59000BC433 /* HistoryInfoTVC.xib in Resources */,
-				A64D718A25C5AF00000BC433 /* Settings.storyboard in Resources */,
+				E379627D25DD8C5B0024B5C9 /* sound_ding.wav in Resources */,
+				E3D8DC9B25CEF9D400949256 /* BluetoothTVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -786,87 +1253,156 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3CFCC8325EE6EEA000C481A /* SubscriptionManager.swift in Sources */,
+				E3D8DC9925CEF9D400949256 /* WorkoutTypeTVC.swift in Sources */,
 				E38A0F0B25C552E200D3FAAC /* NVActivityIndicatorShape.swift in Sources */,
+				E3B1988C25D4505700AC6CB9 /* WorkoutDetailViewController.swift in Sources */,
 				E38A0F2B25C552E300D3FAAC /* NVActivityIndicatorAnimationLineScaleParty.swift in Sources */,
+				E3D8DC7F25CEF9BE00949256 /* WorkoutHeaderTVC.swift in Sources */,
 				E38A0F2725C552E200D3FAAC /* NVActivityIndicatorAnimationPacman.swift in Sources */,
+				E3B4531A25F674E3000DA41B /* ChangePasswordVC.swift in Sources */,
+				E324E6A425DFA57B002CD0D5 /* ZygoWorkoutDownloadManager.swift in Sources */,
 				E38A0F2425C552E200D3FAAC /* NVActivityIndicatorAnimationBallScaleMultiple.swift in Sources */,
 				E38A0F1E25C552E200D3FAAC /* NVActivityIndicatorAnimationBallPulse.swift in Sources */,
 				E3F5EEB125C3F0D4001D9BC1 /* PreferenceManager.swift in Sources */,
+				E349E53825C5BEAB0054A54D /* FilterViewModel.swift in Sources */,
 				A68B141525BDCF9100610E99 /* FilterTVC.swift in Sources */,
 				E38A0F0D25C552E200D3FAAC /* NVActivityIndicatorAnimationBallRotate.swift in Sources */,
+				E38A0F3525C57B7800D3FAAC /* WorkoutInstructorDTO.swift in Sources */,
+				E316A82C25F285A400E4A934 /* SubscriptionCancelVC.swift in Sources */,
 				E3FB369325C3F3DE0070DA9C /* NotificationInfoDTO.swift in Sources */,
+				E335DDF425CD9ACE0089C772 /* Filter.swift in Sources */,
 				E38A0F2D25C552E300D3FAAC /* NVActivityIndicatorAnimationBallPulseRise.swift in Sources */,
+				E335DDDA25CC7ADE0089C772 /* SideMenuViewModel.swift in Sources */,
+				E344A1BD25C9B14600168519 /* GoogleLoginManager.swift in Sources */,
+				E32E530A264D883E003BAEF0 /* FISoundEngine.m in Sources */,
 				E38A0F2E25C552E300D3FAAC /* NVActivityIndicatorAnimationOrbit.swift in Sources */,
+				E344A1EC25C9B29B00168519 /* HistoryViewController.swift in Sources */,
+				E31DCD2325DC2FD400334D7D /* DateHelper.swift in Sources */,
 				E38A0F1425C552E200D3FAAC /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift in Sources */,
 				A68B141E25BDD55A00610E99 /* DownloadsTVC.swift in Sources */,
 				E342290425C4448D00CE4ABE /* UserServices.swift in Sources */,
+				E32E530F264D883E003BAEF0 /* FISoundSource.m in Sources */,
 				A67744BD25BC1A5300D18BA9 /* AppDelegate.swift in Sources */,
-				A64D718C25C5AF2C000BC433 /* HistoryViewController.swift in Sources */,
-				A64D71A725C5AF59000BC433 /* AchievementsTVC.swift in Sources */,
 				E38A0F1B25C552E200D3FAAC /* NVActivityIndicatorAnimationBallClipRotatePulse.swift in Sources */,
 				A63E7C3325BC2FBA00CC9564 /* SignUpViewController.swift in Sources */,
+				E324E6A025DFA23A002CD0D5 /* DownloadManager.swift in Sources */,
 				E38A0F2325C552E200D3FAAC /* NVActivityIndicatorAnimationBallGridBeat.swift in Sources */,
+				E32E530E264D883E003BAEF0 /* FISound.m in Sources */,
 				A64D708C25C17F67000BC433 /* ForgotPasswordViewModel.swift in Sources */,
+				E3AC185325C86C16009C092D /* SheetDTO.swift in Sources */,
 				A68B141025BDC23500610E99 /* WorkoutInfoTVC.swift in Sources */,
-				A681E41C25C6C4B8007409AE /* ProfileViewController.swift in Sources */,
 				E38A0F2925C552E300D3FAAC /* NVActivityIndicatorAnimationCubeTransition.swift in Sources */,
+				E32E530C264D883E003BAEF0 /* FISampleBuffer.m in Sources */,
 				E38A0F1725C552E200D3FAAC /* NVActivityIndicatorAnimationBallZigZag.swift in Sources */,
 				E38A0F1125C552E200D3FAAC /* NVActivityIndicatorAnimationBallTrianglePath.swift in Sources */,
+				E3FABF4525C8658300324511 /* SheetTCV.swift in Sources */,
 				E38A0F1F25C552E200D3FAAC /* NVActivityIndicatorAnimationBlank.swift in Sources */,
 				A63E7C3025BC2D1300CC9564 /* CustomExtensions.swift in Sources */,
+				E379628125DD8D380024B5C9 /* TempoTrainerManager.swift in Sources */,
 				E38A0F1325C552E200D3FAAC /* NVActivityIndicatorAnimationLineScalePulseOut.swift in Sources */,
+				E324E6A725DFA5BE002CD0D5 /* Workout.swift in Sources */,
+				E344A1E125C9B24400168519 /* OtherSettingsTVC.swift in Sources */,
 				E38A0F1C25C552E200D3FAAC /* NVActivityIndicatorAnimationSquareSpin.swift in Sources */,
+				E32E530B264D883E003BAEF0 /* FISoundDevice.m in Sources */,
+				E379627625DD3FF10024B5C9 /* TempoTrainerViewController.swift in Sources */,
+				E3C393DE25E74968008AF486 /* SeriesTVC.swift in Sources */,
 				E38A0F2C25C552E300D3FAAC /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift in Sources */,
+				E3D8DC9525CEF9D400949256 /* EquipmentTVC.swift in Sources */,
+				E324E6A125DFA23A002CD0D5 /* DownloadManagerDownload.swift in Sources */,
+				E35F24BE25DBA682004E2B8C /* FeedbackAchievementTVC.swift in Sources */,
 				A68B139025BC572100610E99 /* NetworkManager.swift in Sources */,
-				A64D71A225C5AF59000BC433 /* HistoryInfoTVC.swift in Sources */,
+				E38A0F3225C570A400D3FAAC /* WorkoutDTO.swift in Sources */,
+				E344A1DE25C9B24400168519 /* PastWorkoutsTVC.swift in Sources */,
 				E38A0F1525C552E200D3FAAC /* NVActivityIndicatorAnimationBallZigZagDeflect.swift in Sources */,
-				A68B140925BDAE5F00610E99 /* GoogleLoginManager.swift in Sources */,
+				E344A1C925C9B22100168519 /* ProfileViewController.swift in Sources */,
+				E3D8DC9125CEF9D400949256 /* WorkoutPlanTVC.swift in Sources */,
+				E335DDDF25CC7BEC0089C772 /* SideMenuTVC.swift in Sources */,
+				E349E53525C59F490054A54D /* WorkoutsServices.swift in Sources */,
+				E3D8DC7D25CEF9BE00949256 /* EquipmentCVC.swift in Sources */,
 				A68B139625BC596B00610E99 /* SignUpViewModel.swift in Sources */,
+				E335DE0325CDBCB40089C772 /* BluetoothViewController.swift in Sources */,
 				E38A0F1D25C552E200D3FAAC /* NVActivityIndicatorAnimationBallRotateChase.swift in Sources */,
+				E35F24C225DBA932004E2B8C /* AchievementDTO.swift in Sources */,
+				E335DE0625CDBCB40089C772 /* YourAchievementViewController.swift in Sources */,
+				E335DE0425CDBCB40089C772 /* PrivacyPolicyViewController.swift in Sources */,
+				E32E5311264D883E003BAEF0 /* FISampleFormat.m in Sources */,
 				E38A0F2A25C552E300D3FAAC /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */,
 				A68B139425BC592800610E99 /* RegistrationServices.swift in Sources */,
 				E38A0F1025C552E200D3FAAC /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift in Sources */,
-				A681E41E25C6C5C2007409AE /* InfoViewController.swift in Sources */,
-				A64D71AC25C5AF70000BC433 /* AppleLoginManager.swift in Sources */,
+				E35F245725D7C882004E2B8C /* ShadowSmallView.swift in Sources */,
 				E3FB369A25C408CE0070DA9C /* CreateProfileViewController.swift in Sources */,
 				E3FB369625C3F4060070DA9C /* FriendsInfoDTO.swift in Sources */,
+				E335DDF725CD9B9C0089C772 /* DatabaseManager.swift in Sources */,
 				E38A0F1625C552E200D3FAAC /* NVActivityIndicatorAnimationBallScale.swift in Sources */,
 				A68B13F325BC7CE500610E99 /* SignInViewModel.swift in Sources */,
+				E3C2DAC4262C51CD000E14F5 /* HomeTabBar.swift in Sources */,
+				E35F24BA25DBA1E0004E2B8C /* LikeCVC.swift in Sources */,
+				E35F24B525DBA1CF004E2B8C /* DefaultFeedbackTVC.swift in Sources */,
 				E38A0F0925C552E200D3FAAC /* NVActivityIndicatorPresenter.swift in Sources */,
 				E38A0F1925C552E200D3FAAC /* NVActivityIndicatorAnimationSemiCircleSpin.swift in Sources */,
-				A68B140725BDAE2C00610E99 /* FacebookManager.swift in Sources */,
-				A64D71A625C5AF59000BC433 /* NotificationSettingsTVC.swift in Sources */,
 				A63E7C2C25BC2CFC00CC9564 /* Helper.swift in Sources */,
+				E32E5312264D883E003BAEF0 /* FISampleDecoder.m in Sources */,
 				E38A0F2125C552E200D3FAAC /* NVActivityIndicatorAnimationAudioEqualizer.swift in Sources */,
+				E385B6F325E8F59B00681D44 /* LocationManager.swift in Sources */,
 				A63E7C3525BC415100CC9564 /* SignInViewController.swift in Sources */,
+				E32E530D264D883E003BAEF0 /* FIError.m in Sources */,
+				E3CFCC6325EE6254000C481A /* HistoryWorkoutsHeaderView.swift in Sources */,
 				A63E7C3725BC448B00CC9564 /* SubscriptionViewController.swift in Sources */,
+				E3D8DC9A25CEF9D400949256 /* BluetoothTVC.swift in Sources */,
+				E3FE0A9725F15A02000D7FAB /* PairVC.swift in Sources */,
+				E3C393E525E74A17008AF486 /* SeriesCVC.swift in Sources */,
+				E3D8DC6525CEF81100949256 /* WorkoutSeriesViewController.swift in Sources */,
+				E379625525DCD9E50024B5C9 /* FeedbackAchievementCVC.swift in Sources */,
+				E344A1E825C9B24C00168519 /* AchievementsCVC.swift in Sources */,
 				A68B141A25BDD4F000610E99 /* DownloadsViewController.swift in Sources */,
+				E335DDD725CC74590089C772 /* MenuViewController.swift in Sources */,
+				E35F246C25D80E27004E2B8C /* WorkoutPlayerViewModel.swift in Sources */,
 				A68B13F125BC6A3800610E99 /* UserDTO.swift in Sources */,
+				E3CFCC8925EE9F5F000C481A /* SubscriptionServices.swift in Sources */,
 				A64D708825C179A8000BC433 /* ForgotpasswordViewController.swift in Sources */,
 				E38A0F0F25C552E200D3FAAC /* NVActivityIndicatorAnimationBallClipRotate.swift in Sources */,
+				E344A1C025C9B15200168519 /* AppleLoginManager.swift in Sources */,
 				E38A0F0A25C552E200D3FAAC /* NVActivityIndicatorViewable.swift in Sources */,
 				A67744C725BC1A5300D18BA9 /* Zygo.xcdatamodeld in Sources */,
+				E344A1BC25C9B14600168519 /* FacebookManager.swift in Sources */,
+				E3D8DC5925CEAFD700949256 /* WorkoutPlayerViewController.swift in Sources */,
+				E344A1DC25C9B24400168519 /* HistoryInfoTVC.swift in Sources */,
+				E3CFCC8625EE6F09000C481A /* SubscriptionViewModel.swift in Sources */,
 				E38A0F2525C552E200D3FAAC /* NVActivityIndicatorAnimationLineScale.swift in Sources */,
 				A68B141825BDD0AB00610E99 /* FilterViewController.swift in Sources */,
 				E38A0F0E25C552E200D3FAAC /* NVActivityIndicatorAnimationBallGridPulse.swift in Sources */,
+				E349E53225C59F3C0054A54D /* WorkoutsViewModel.swift in Sources */,
+				E3C393E825E75402008AF486 /* ZBluetoothManager.swift in Sources */,
+				E3CFCC8C25EEA07C000C481A /* ProductFetcher.swift in Sources */,
 				A67744BF25BC1A5300D18BA9 /* SceneDelegate.swift in Sources */,
 				E38A0F1A25C552E200D3FAAC /* NVActivityIndicatorAnimationBallScaleRipple.swift in Sources */,
-				A64D719C25C5AF58000BC433 /* AchievementsCVC.swift in Sources */,
+				E335DE0525CDBCB40089C772 /* SettingsViewController.swift in Sources */,
+				E3D8DC9225CEF9D400949256 /* WorkoutDetailInfoTVC.swift in Sources */,
+				E32E5310264D883E003BAEF0 /* FISoundContext.m in Sources */,
+				E35F245825D7C882004E2B8C /* ShadowView.swift in Sources */,
 				E38A0F2025C552E200D3FAAC /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */,
 				E38A0F0C25C552E200D3FAAC /* NVActivityIndicatorView.swift in Sources */,
 				E38A0F2625C552E200D3FAAC /* NVActivityIndicatorAnimationBallScaleRippleMultiple.swift in Sources */,
+				E344A1D925C9B24400168519 /* AchievementsTVC.swift in Sources */,
 				A64D708A25C17DA4000BC433 /* VerifyForgotPasswordViewController.swift in Sources */,
+				E35F24AA25DBA18D004E2B8C /* FeedbackSheetViewController.swift in Sources */,
+				E335DE0925CE75300089C772 /* SettingsHV.swift in Sources */,
 				E38A0F1225C552E200D3FAAC /* NVActivityIndicatorAnimationBallDoubleBounce.swift in Sources */,
+				E341129325E6C90300F1C53A /* WorkoutLogDTO.swift in Sources */,
 				E3FB368F25C3F3B30070DA9C /* WorkoutInfoDTO.swift in Sources */,
-				A64D71AA25C5AF59000BC433 /* PastWorkoutsTVC.swift in Sources */,
 				A68B140B25BDC0E000610E99 /* WorkoutsViewController.swift in Sources */,
 				A63E7C2E25BC2D0700CC9564 /* Constants.swift in Sources */,
 				E38A0F1825C552E200D3FAAC /* NVActivityIndicatorAnimationBallBeat.swift in Sources */,
 				E38A0F2225C552E200D3FAAC /* NVActivityIndicatorAnimationTriangleSkewSpin.swift in Sources */,
+				E344A1E225C9B24400168519 /* NotificationSettingsTVC.swift in Sources */,
 				E38A0F2825C552E200D3FAAC /* NVActivityIndicatorAnimationBallPulseSync.swift in Sources */,
+				E3FABF3F25C8647200324511 /* BottomSheetVC.swift in Sources */,
 				E38A0F0825C552E200D3FAAC /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
-				A64D71A525C5AF59000BC433 /* OtherSettingsTVC.swift in Sources */,
 				E342290125C4412000CE4ABE /* CreateProfileViewModel.swift in Sources */,
+				E3D8DC9325CEF9D400949256 /* StartWorkoutTVC.swift in Sources */,
+				E3E02E8E25CAFBE9003960C8 /* FilterDTO.swift in Sources */,
+				E335DE0225CDBCB40089C772 /* InfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1013,8 +1549,10 @@
 			baseConfigurationReference = E6D8450FBE78ED07A8B8F09E /* Pods-Zygo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = Zygo/Zygo.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 79XU885769;
 				INFOPLIST_FILE = Zygo/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1022,9 +1560,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zygo.app;
+				MARKETING_VERSION = 1.0.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zygo.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = Zygo_Dev;
+				PROVISIONING_PROFILE_SPECIFIER = Zygo_Dis_27April21;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Zygo/Resources/Zygo-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1035,8 +1575,10 @@
 			baseConfigurationReference = 429D4ECF6C309880304ECEA1 /* Pods-Zygo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = Zygo/Zygo.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 79XU885769;
 				INFOPLIST_FILE = Zygo/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1044,9 +1586,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zygo.app;
+				MARKETING_VERSION = 1.0.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zygo.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = Zygo_Dev;
+				PROVISIONING_PROFILE_SPECIFIER = Zygo_Dis_27April21;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Zygo/Resources/Zygo-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1074,6 +1618,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E3CFCC7E25EE6EC8000C481A /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bizz84/SwiftyStoreKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.16.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E3CFCC7F25EE6EC8000C481A /* SwiftyStoreKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E3CFCC7E25EE6EC8000C481A /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */;
+			productName = SwiftyStoreKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		A67744C525BC1A5300D18BA9 /* Zygo.xcdatamodeld */ = {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SideMenuSwift
 
 class CustomExtensions: NSObject {
     
@@ -19,6 +20,10 @@ extension UIFont{
     
     static func appMedium(with size: CGFloat) -> UIFont{
         return UIFont(name: "Poppins-Medium", size: size)!
+    }
+    
+    static func appBold(with size: CGFloat) -> UIFont{
+        return UIFont(name: "Poppins-Bold", size: size)!
     }
 }
 extension UIApplication {
@@ -38,7 +43,16 @@ extension UIApplication {
     }
     
     class func statuBarFrame() -> CGSize{
-        return UIApplication.shared.windows.filter({ $0.isKeyWindow }).first?.windowScene?.statusBarManager?.statusBarFrame.size ?? CGSize(width: 0.0, height: 0.0)
+        if #available(iOS 13.0, *) {
+            return UIApplication.shared.windows.filter({ $0.isKeyWindow }).first?.windowScene?.statusBarManager?.statusBarFrame.size ?? CGSize(width: 0.0, height: 0.0)
+        } else {
+            // Fallback on earlier versions
+            return UIApplication.shared.statusBarFrame.size
+        }
+    }
+    
+    class func BottomSpace() -> CGFloat{
+        return UIApplication.shared.windows.filter({ $0.isKeyWindow }).first?.safeAreaInsets.bottom ?? 0
     }
 }
 extension Date{
@@ -60,16 +74,119 @@ extension Date{
         dateFormat.dateFormat = "yyyy-MM-dd"
         return dateFormat.string(from: self)
     }
+    func toDisplayBirthday() -> String{
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "MMM d, yyyy"
+        return dateFormat.string(from: self)
+    }
     
     func toServerBirthday() -> String{
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "yyyy-MM-dd"
         return dateFormat.string(from: self)
     }
+    
+    func toFormat(format: String) -> String{
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = format
+        dateFormat.locale = Locale.init(identifier: "en_US_POSIX")
+        return dateFormat.string(from: self)
+    }
+    
+    func convertToFormat(_ format: String, isUTC: Bool = false) -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        formatter.locale = Locale.init(identifier: "en_US_POSIX")
+        if isUTC{
+            formatter.timeZone = TimeZone(identifier: "UTC")
+        }
+        return formatter.string(from: self)
+    }
+    
+    func toSubscriptionDate() -> String{
+          return self.convertToFormat("yyyy-MM-dd HH:mm:ss")
+      }
+    
+    
 }
 extension String {
     func trimm() -> String{
         return self.trimmingCharacters(in: .whitespaces)
+    }
+    
+    func getImageURL() -> String{
+        if self.contains("http") || self.contains("https"){
+            return self
+        }else{
+            return Constants.imageBaseUrl + self
+        }
+    }
+    
+    func isDescriptionEmpty() -> Bool{
+        if self.isEmpty || self.lowercased() == "<br>"{
+            return true
+        }
+        
+        return false
+    }
+    
+    func toSubscriptionDate() -> Date{
+        return self.convertToFormat("yyyy-MM-dd HH:mm:ss")
+    }
+    
+    func convertToFormat(_ format: String) -> Date{
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        formatter.locale = Locale.init(identifier: "en_US_POSIX")
+        return formatter.date(from: self) ?? DateHelper.shared.currentLocalDateTime
+    }
+}
+
+extension Double{
+    func toMS() -> String{
+        let seconds = Int(self.truncatingRemainder(dividingBy: 60))
+        let minutes = Int(self/60.0)
+        
+        let stSeconds = seconds > 9 ? "\(seconds)" : "0\(seconds)"
+        
+        return "\(minutes):\(stSeconds)"
+    }
+    func toHMS() -> String{
+        
+        let seconds = Int(self.truncatingRemainder(dividingBy: 60))
+        let minutes = Int(self/60.0) % 60
+        let hours = Int(self/3600)
+        
+        let stMinutes = minutes > 9 ? "\(minutes)" : "0\(minutes)"
+        let stSeconds = seconds > 9 ? "\(seconds)" : "0\(seconds)"
+        let stHours = hours > 9 ? "\(hours)" : "0\(hours)"
+        
+        if hours > 0{
+            return "\(stHours):\(stMinutes):\(stSeconds)"
+        }else{
+            
+            
+            return "\(stMinutes):\(stSeconds)"
+        }
+        
+    }
+    
+    func toHM() -> String{
+        
+        //let seconds = Int(self.truncatingRemainder(dividingBy: 60))
+        let minutes = Int(self/60.0) % 60
+        let hours = Int(self/3600)
+        
+        let stMinutes = minutes > 9 ? "\(minutes)" : "0\(minutes)"
+        //let stSeconds = seconds > 9 ? "\(seconds)" : "0\(seconds)"
+        let stHours = hours > 9 ? "\(hours)" : "0\(hours)"
+        
+        if hours > 0{
+            return "\(stHours):\(stMinutes)"
+        }else{
+            return "00:\(stMinutes)"
+        }
+        
     }
 }
 
@@ -79,10 +196,22 @@ extension UIColor{
         return UIColor.init(named: "AppBlueColor")!
     }
     
+    static func appTitleDarkColor() -> UIColor{
+        return UIColor.init(named: "AppTitleDarkColor")!
+    }
+    
     static func appLightGrey() -> UIColor{
         return UIColor.init(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
     }
     
+    static func appPopularInfoColor() -> UIColor{
+        return UIColor.init(named: "AppPopularInfoColor")!
+    }
+    
+    static func appNewInfoColor() -> UIColor{
+        return UIColor.init(named: "AppNewInfoColor")!
+    }
+
 }
 
 
@@ -95,7 +224,7 @@ extension String{
     }
     
     func isValidPasswordLength() -> Bool{
-        return self.count >= 6
+        return self.count >= 8
     }
     
     func isPasswordValid() -> Bool{
@@ -166,11 +295,60 @@ extension String{
         return ceil(boundingBox.width)
     }
     
+    func size(withMaxWidth width: CGFloat, maxheight: CGFloat, font: UIFont) -> CGSize {
+        
+        let attributes = [NSAttributedString.Key.font: font]
+        
+        let attributedText = NSAttributedString(string: self, attributes: attributes)
+        let constraintRect = CGSize(width: width, height: maxheight)
+        let rect = attributedText.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).integral
+        
+        return rect.size
+    }
+    
     func toDate() -> Date{
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter.date(from: self)!
     }
+    
+    func toDateFormat(format: String) -> Date?{
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        formatter.locale = Locale.init(identifier: "en_US_POSIX")
+        return formatter.date(from: self)
+    }
+    
+    func toUTCDateFormat(format: String) -> Date?{
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        formatter.locale = Locale.init(identifier: "en_US_POSIX")
+        return formatter.date(from: self)
+    }
+    
+    func fromServerBirthday() -> Date?{
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "yyyy-MM-dd"
+        dateFormat.locale = Locale.init(identifier: "en_US_POSIX")
+        return dateFormat.date(from: self)
+    }
+    
+    func fromDisplayBirthday() -> Date?{
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "MMM d, yyyy"
+        dateFormat.locale = Locale.init(identifier: "en_US_POSIX")
+        return dateFormat.date(from: self)
+    }
+    
+    func toCreatedDate() -> Date{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000000Z"
+        formatter.locale = Locale.init(identifier: "en_US_POSIX")
+        return formatter.date(from: self) ?? DateHelper.shared.currentLocalDateTime
+    }
+    
+    
     
     func formattedNumber() -> String {
         let cleanPhoneNumber = self.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
@@ -207,6 +385,15 @@ extension String{
     }
 }
 
+extension NSCharacterSet {
+    func isCharInSet(char: Character) -> Bool {
+        var found = true
+        for ch in String(char).utf16 {
+            if !characterIsMember(ch) { found = false }
+        }
+        return found
+    }
+}
 
 class UICircleImageView: UIImageView {
     override func layoutSubviews() {
@@ -218,10 +405,65 @@ class UICircleImageView: UIImageView {
         self.layer.masksToBounds = true
     }
 }
+
+class UICircleView: UIView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let radius: CGFloat = self.bounds.size.width / 2.0
+        
+        self.layer.cornerRadius = radius
+        self.layer.masksToBounds = true
+    }
+}
+
+class UICircleShadowView: UIView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let radius: CGFloat = self.bounds.size.width / 2.0
+        
+        self.layer.cornerRadius = radius
+        self.layer.shadowColor = UIColor.lightGray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 1)
+        self.layer.shadowOpacity = 0.4
+        self.layer.shadowRadius = 3.0
+        //self.layer.masksToBounds = true
+    }
+}
+
+class UISeparatorShadowView: UIView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        //let radius: CGFloat = self.bounds.size.width / 2.0
+        
+        //self.layer.cornerRadius = radius
+        self.layer.shadowColor = UIColor.lightGray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 1)
+        self.layer.shadowOpacity = 0.4
+        self.layer.shadowRadius = 3.0
+        //self.layer.masksToBounds = true
+    }
+}
+
+class UIInstructorCircleImageView: UIImageView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let radius: CGFloat = self.bounds.size.width / 2.0
+        
+        self.layer.cornerRadius = radius
+        self.layer.borderWidth = 2.0
+        self.layer.borderColor = UIColor.appBlueColor().cgColor
+        self.layer.masksToBounds = true
+    }
+}
+
 extension UIView {
     func setupShadowViewAnimation(shadowRadius: CGFloat = 3.0,
-                                  shadowOpacity: Float = 0.5,
-                                  shadowColor: CGColor = UIColor.black.cgColor,
+                                  shadowOpacity: Float = 0.4,
+                                  shadowColor: CGColor = UIColor.lightGray.cgColor,
                                   shadowOffset: CGSize = CGSize.zero) {
         layer.masksToBounds = false
         layer.shadowColor = shadowColor
@@ -229,4 +471,97 @@ extension UIView {
         layer.shadowRadius = shadowRadius
         layer.shadowOpacity = shadowOpacity
     }
+    
+    func hideShadow(){
+        layer.shadowOpacity = 0
+    }
+    
+    func showShadow(shadowOpacity: Float = 0.4){
+        layer.shadowOpacity = shadowOpacity
+    }
+    
+}
+
+class NavigationController: UINavigationController {
+    
+    open override var childForStatusBarHidden: UIViewController? {
+        return self.topViewController
+    }
+    
+    open override var childForStatusBarStyle: UIViewController? {
+        return self.topViewController
+    }
+}
+
+public extension UIViewController {
+    
+    /// Access the nearest ancestor view controller hierarchy that is a side menu controller.
+    var sideMenuController: SideMenuController? {
+        return findSideMenuController(from: self)
+    }
+    
+    fileprivate func findSideMenuController(from viewController: UIViewController) -> SideMenuController? {
+        var sourceViewController: UIViewController? = viewController
+        repeat {
+            sourceViewController = sourceViewController?.parent
+            if let sideMenuController = sourceViewController as? SideMenuController {
+                return sideMenuController
+            }
+        } while (sourceViewController != nil)
+        return nil
+    }
+}
+
+extension String {
+    var htmlToAttributedString: NSMutableAttributedString? {
+        let modifiedFont = String(format:"<span style=\"font-family: 'Poppins-Regular', 'HelveticaNeue'; font-size: 13\">%@</span>", self)
+        
+        guard let data = modifiedFont.data(using: .utf8) else { return nil }
+        do {
+            
+            let attString = try NSAttributedString(data: data, options: [
+                .documentType: NSAttributedString.DocumentType.html,
+                .characterEncoding:String.Encoding.utf8.rawValue
+            ], documentAttributes: nil)
+            let mutableString = NSMutableAttributedString(attributedString: attString)
+            //mutableString.addAttribute(.font, value: UIFont.appRegular(with: 13.0), range: NSRange(location: 0, length: attString.string.count))
+            return mutableString
+        } catch {
+            return nil
+        }
+    }
+    var htmlToString: String {
+        return htmlToAttributedString?.string ?? ""
+    }
+}
+
+extension Dictionary {
+    var toJsonString: String {
+        guard let theJSONData = try? JSONSerialization.data(withJSONObject: self,
+                                                            options: [.prettyPrinted]) else {
+            return ""
+        }
+        
+        return String(data: theJSONData, encoding: .ascii) ?? ""
+    }
+}
+
+extension String{
+    func toDictionary() -> [String: Any] {
+        if let data = self.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] ?? [:]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return [:]
+    }
+    
+}
+
+extension Notification.Name{
+    static let fetchWorkouts = Notification.Name.init("Notifications_Fetch_Workouts")
+    static let UpdateCompletedWorkouts = Notification.Name.init("Notifications_Name")
+    static let removeObservers = Notification.Name.init("Notifications_Remove_Observers")
 }

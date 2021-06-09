@@ -9,8 +9,16 @@
 import UIKit
 import XLPagerTabStrip
 
+protocol InfoViewControllerDelegates {
+    func didPressSave()
+}
+
 class InfoViewController: UIViewController {
-    var itemInfo = IndicatorInfo(title: "Info")
+    
+    var itemInfo = IndicatorInfo(title: "INFO")
+    
+    var delegate: InfoViewControllerDelegates?
+    
     @IBOutlet weak var viewFName: UIView!
     @IBOutlet weak var viewLName: UIView!
     @IBOutlet weak var viewUName: UIView!
@@ -28,15 +36,32 @@ class InfoViewController: UIViewController {
     private lazy var datePicker = UIDatePicker()
     private lazy var genderPicker = UIPickerView()
     private lazy var user = PreferenceManager.shared.user
-    private lazy var viewModel = CreateProfileViewModel()
+    var viewModel: CreateProfileViewModel!
+    
+    var superObj: ProfileViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        self.setupUI()
+        self.setupUserInfo()
+        self.setupPicker()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.superObj.showChooseImage()
     }
     
     //MARK: - Setups
     func setupUI()  {
+        
+        txtFName.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
+        txtLName.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
+        txtUName.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
+        txtGender.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
+        txtBirthday.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
+        txtLocation.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
         
         Helper.shared.setupViewLayer(sender: self.viewFName, isSsubScriptionView: false);
         Helper.shared.setupViewLayer(sender: self.viewLName, isSsubScriptionView: false);
@@ -47,16 +72,31 @@ class InfoViewController: UIViewController {
     }
     
     func setupUserInfo(){
-        
+        user = PreferenceManager.shared.user
         self.txtFName.text = user.fName
         self.txtLName.text = user.lName
         self.txtUName.text = user.name
         self.txtGender.text = user.gender
         self.txtLocation.text = user.location
-        self.txtBirthday.text = user.birthday
+        
+        let tempUB = user.birthday
+        if let dob = tempUB.fromServerBirthday(){
+            self.datePicker.date = dob
+            self.txtBirthday.text = dob.toDisplayBirthday()
+        }
+        
+        self.viewModel.profileItem.email = user.email
+        self.viewModel.profileItem.name = user.name
+        self.viewModel.profileItem.fname = user.fName
+        self.viewModel.profileItem.lname = user.lName
+        self.viewModel.profileItem.gender = user.gender
+        self.viewModel.profileItem.birthday = datePicker.date.toServerBirthday().trim()
+        self.viewModel.profileItem.location = user.location
     }
+    
     func setupPicker(){
-        datePicker.maximumDate = Date()
+        datePicker.maximumDate = DateHelper.shared.currentLocalDateTime
+        
         datePicker.datePickerMode = .date
         if #available(iOS 13.4, *) {
             datePicker.preferredDatePickerStyle = .wheels
@@ -69,17 +109,18 @@ class InfoViewController: UIViewController {
         txtGender.inputView = genderPicker
         txtGender.delegate = self
     }
-
+    
     func alertForCustomGender(){
         
-        let alert = UIAlertController(title: nil, message: "Please enter your gender.", preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: "", preferredStyle: .alert)
         
         alert.addTextField { (textField) in
-            textField.placeholder = "Ex: Male/Female"
+            textField.placeholder = ""
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-            
+            self.txtGender.text = self.user.gender
+            self.viewModel.profileItem.gender = self.txtGender.text!.trim()
         }
         
         let doneAction = UIAlertAction(title: "Done", style: .default) { (action) in
@@ -94,6 +135,7 @@ class InfoViewController: UIViewController {
                 }
             }else{
                 self.txtGender.text = nGender
+                self.viewModel.profileItem.gender = self.txtGender.text!.trim()
             }
         }
         
@@ -102,79 +144,99 @@ class InfoViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-   @IBAction func logOutAction(_ sender: UIButton){
-           Helper.shared.logout()
-       }
-       
-       @IBAction func doneAction(_ sender: UIButton){
-           self.viewModel.profileItem.name = txtUName.text!.trim()
-           self.viewModel.profileItem.fname = txtFName.text!.trim()
-           self.viewModel.profileItem.lname = txtLName.text!.trim()
-           self.viewModel.profileItem.gender = txtGender.text!.trim()
-           self.viewModel.profileItem.birthday = txtBirthday.text!.trim()
-           self.viewModel.profileItem.location = txtLocation.text!.trim()
-           
-           if self.viewModel.isValidate(){
-               self.viewModel.createProfile { [weak self] (isCreate) in
-                   
-                   if isCreate{
-                       //Update User
-                       self?.user.name = self?.viewModel.profileItem.name ?? ""
-                       self?.user.fName = self?.viewModel.profileItem.fname ?? ""
-                       self?.user.lName = self?.viewModel.profileItem.lname ?? ""
-                       self?.user.gender = self?.viewModel.profileItem.gender ?? ""
-                       self?.user.birthday = self?.viewModel.profileItem.birthday ?? ""
-                       self?.user.location = self?.viewModel.profileItem.location ?? ""
-                       if let nUser = self?.user{
-                           PreferenceManager.shared.user = nUser
-                       }
-                       
-                       Helper.shared.setDashboardRoot()
-                   }
-               }
-               
-           }
-       }
-       
-   }
+    @IBAction func logOutAction(_ sender: UIButton){
+        Helper.shared.logout()
+    }
+    
+    @IBAction func doneAction(_ sender: UIButton){
+        self.viewModel.profileItem.email = user.email
+        self.viewModel.profileItem.name = txtUName.text!.trim()
+        self.viewModel.profileItem.fname = txtFName.text!.trim()
+        self.viewModel.profileItem.lname = txtLName.text!.trim()
+        self.viewModel.profileItem.gender = txtGender.text!.trim()
+        self.viewModel.profileItem.birthday = datePicker.date.toServerBirthday().trim()
+        self.viewModel.profileItem.location = txtLocation.text!.trim()
+        
+        if self.viewModel.isValidate(){
+            delegate?.didPressSave()
+        }
+    }
+    
+}
 
-   extension InfoViewController: UIPickerViewDelegate, UIPickerViewDataSource{
-       func numberOfComponents(in pickerView: UIPickerView) -> Int {
-           return 1
-       }
-       
-       func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-           return self.viewModel.arrGender.count
-       }
-       
-       func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-           return self.viewModel.arrGender[row].rawValue
-       }
-       
-       func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-           self.txtGender.text = self.viewModel.arrGender[row].rawValue
-       }
-   }
+extension InfoViewController: UIPickerViewDelegate, UIPickerViewDataSource{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.viewModel.arrGender.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return self.viewModel.arrGender[row].rawValue
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.txtGender.text = self.viewModel.arrGender[row].rawValue
+        self.viewModel.profileItem.gender = txtGender.text!.trim()
+    }
+}
 
 
-   extension InfoViewController: UITextFieldDelegate{
-       func textFieldDidEndEditing(_ textField: UITextField) {
-           if textField == txtBirthday{
-               self.txtBirthday.text = datePicker.date.toServerBirthday()
-           }
-           
-           if textField == txtGender{
-               let gender = self.viewModel.arrGender[genderPicker.selectedRow(inComponent: 0)]
-               if gender == .type{
-                   self.txtGender.text = ""
-                   self.alertForCustomGender()
-               }else{
-                   self.txtGender.text = gender.rawValue
-               }
-           }
-       }
-       
-   }
+extension InfoViewController: UITextFieldDelegate{
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == txtBirthday{
+            self.txtBirthday.text = datePicker.date.toDisplayBirthday()
+            self.viewModel.profileItem.birthday = datePicker.date.toServerBirthday().trim()
+        }
+        
+        if textField == txtGender{
+            let gender = self.viewModel.arrGender[genderPicker.selectedRow(inComponent: 0)]
+            if gender == .type{
+                self.txtGender.text = ""
+                self.alertForCustomGender()
+            }else{
+                self.txtGender.text = gender.rawValue
+                self.viewModel.profileItem.gender = txtGender.text!.trim()
+            }
+        }
+    }
+    
+    @objc func textDidChange(_ textField: UITextField){
+        if textField == txtUName{
+            
+            var fullText = textField.text!
+            fullText = fullText.replacingOccurrences(of: " ", with: "")
+            
+            txtUName.text = fullText
+            self.viewModel.profileItem.name = txtUName.text!.trim()
+        }else if textField == txtUName{
+            self.viewModel.profileItem.name = txtUName.text!.trim()
+        }else if textField == txtFName{
+            self.viewModel.profileItem.fname = txtFName.text!.trim()
+        }else if textField == txtLName{
+            self.viewModel.profileItem.lname = txtLName.text!.trim()
+        }else if textField == txtGender{
+            self.viewModel.profileItem.gender = txtGender.text!.trim()
+        }else if textField == txtBirthday{
+            self.viewModel.profileItem.birthday = datePicker.date.toServerBirthday().trim()
+        }else if textField == txtLocation{
+            self.viewModel.profileItem.location = txtLocation.text!.trim()
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == txtUName{
+            let inValidCharacterSet = NSCharacterSet.whitespaces
+            guard let firstChar = string.unicodeScalars.first else {return true}
+            return !(inValidCharacterSet as NSCharacterSet).isCharInSet(char: Character(firstChar))
+        }
+        
+        return true
+    }
+    
+}
 
 
 extension InfoViewController : IndicatorInfoProvider{

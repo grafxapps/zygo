@@ -54,16 +54,21 @@ extension GoogleLoginManager: GIDSignInDelegate{
                 print("\(error.localizedDescription)")
             }
             
-            if let del = self.delegate{
-                del.didFaildLogin(error: (error.localizedDescription))
-            }
+            GIDSignIn.sharedInstance()?.presentingViewController.dismiss(animated: true, completion: {
+                if let del = self.delegate{
+                    del.didFaildLogin(error: (error.localizedDescription))
+                }
+            })
             
             return
         }
         
-        if let del = self.delegate{
-            del.didLogin(user: GoogleUserDTO(user))
-        }
+        GIDSignIn.sharedInstance()?.presentingViewController.dismiss(animated: true, completion: {
+            if let del = self.delegate{
+                del.didLogin(user: GoogleUserDTO(user))
+            }
+        })
+        
     }
 }
 
@@ -75,7 +80,7 @@ struct GoogleUserDTO {
     var email: String = ""
     var profileImage: String = ""
     var accessToken: String = ""
-
+    
     
     init(_ user: GIDGoogleUser) {
         self.userId = user.userID ?? ""

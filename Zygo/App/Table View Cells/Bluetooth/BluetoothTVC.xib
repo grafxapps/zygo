@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.ttf">
+            <string>Poppins-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BluetoothTVC" rowHeight="67" id="KGk-i7-Jjw" customClass="BluetoothTVC" customModule="Zygo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sNa-wC-tiD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4X1-24-tP2">
+                                <rect key="frame" x="0.0" y="66" width="320" height="1"/>
+                                <color key="backgroundColor" name="AppSeperatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Cag-CM-VoK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zygo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CX4-bZ-b7A">
+                                <rect key="frame" x="25" y="23" width="41" height="21"/>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
+                                <color key="textColor" name="AppTitleDarkColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dSc-dB-Z9X">
+                                <rect key="frame" x="263" y="26" width="23" height="15.5"/>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="13"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_bluetooth_disable" translatesAutoresizingMaskIntoConstraints="NO" id="Qn4-mX-ZqK">
+                                <rect key="frame" x="291" y="25.5" width="14" height="16"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="4X1-24-tP2" secondAttribute="bottom" id="17J-gu-1dm"/>
+                            <constraint firstItem="CX4-bZ-b7A" firstAttribute="centerY" secondItem="sNa-wC-tiD" secondAttribute="centerY" id="1BL-ed-x8a"/>
+                            <constraint firstItem="4X1-24-tP2" firstAttribute="leading" secondItem="sNa-wC-tiD" secondAttribute="leading" id="5CA-1G-MY4"/>
+                            <constraint firstItem="Qn4-mX-ZqK" firstAttribute="leading" secondItem="dSc-dB-Z9X" secondAttribute="trailing" constant="5" id="KG2-9n-r5n"/>
+                            <constraint firstAttribute="trailing" secondItem="Qn4-mX-ZqK" secondAttribute="trailing" constant="15" id="Kui-8g-wuA"/>
+                            <constraint firstAttribute="trailing" secondItem="4X1-24-tP2" secondAttribute="trailing" id="hLP-Kh-5X9"/>
+                            <constraint firstItem="dSc-dB-Z9X" firstAttribute="centerY" secondItem="sNa-wC-tiD" secondAttribute="centerY" id="phk-m4-7FY"/>
+                            <constraint firstItem="CX4-bZ-b7A" firstAttribute="leading" secondItem="sNa-wC-tiD" secondAttribute="leading" constant="25" id="po4-bN-MCn"/>
+                            <constraint firstItem="Qn4-mX-ZqK" firstAttribute="centerY" secondItem="sNa-wC-tiD" secondAttribute="centerY" id="zEK-N8-ega"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="sNa-wC-tiD" secondAttribute="bottom" id="DQg-KD-569"/>
+                    <constraint firstItem="sNa-wC-tiD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Mex-NG-uJK"/>
+                    <constraint firstAttribute="trailing" secondItem="sNa-wC-tiD" secondAttribute="trailing" id="ecR-nt-m0h"/>
+                    <constraint firstItem="sNa-wC-tiD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="uwV-Hl-jis"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lblStatus" destination="dSc-dB-Z9X" id="KPy-lp-Z4n"/>
+                <outlet property="lblTitle" destination="CX4-bZ-b7A" id="vMh-xl-83b"/>
+                <outlet property="statusImageView" destination="Qn4-mX-ZqK" id="IfS-10-YX2"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="102.12053571428571"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_bluetooth_disable" width="14" height="16"/>
+        <namedColor name="AppSeperatorColor">
+            <color red="0.43900001049041748" green="0.43900001049041748" blue="0.43900001049041748" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppTitleDarkColor">
+            <color red="0.23499999940395355" green="0.2669999897480011" blue="0.27500000596046448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

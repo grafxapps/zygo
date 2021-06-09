@@ -37,13 +37,12 @@ final class RegistrationServices: NSObject {
     }
     
     func signIn(email: String, password: String, completion: @escaping (_ error: String?,_ isEmailVerified: Bool, [String: Any]) -> Void){
-        //TODO: Change this values
         let param = [
             "email": email,
             "password": password,
-            "device_id": Constants.appName,
+            "device_id": Helper.shared.deviceId,
             "device_type": Constants.deviceType,
-            "device_token": Constants.appName,
+            "device_token": PreferenceManager.shared.deviceToken,
             
         ] as [String : Any]
         
@@ -69,18 +68,22 @@ final class RegistrationServices: NSObject {
         }
     }
     
-    func googleSignIn(accessToken: String, completion: @escaping (_ error: String?,_ isEmailVerified: Bool, [String: Any]) -> Void){
-        //TODO: Change this values
+    func appleSignIn(appleID: String, uName: String, uEmail: String, completion: @escaping (_ error: String?,_ isEmailVerified: Bool, [String: Any]) -> Void){
+        
         let param = [
             "device_type": Constants.deviceType,
-            "login_type": Constants.deviceType,
-            "device_id": Constants.deviceType,
-            "device_token": Constants.deviceType,
-            "access_token": accessToken,
+            "login_type": LoginType.apple.rawValue,
+            "device_id": Helper.shared.deviceId,
+            "device_token": PreferenceManager.shared.deviceToken,
+            "apple_id": appleID,
+            "user_first_name": uName,
+            "user_display_name": uName,
+            "email": uEmail,
+
            
         ] as [String : Any]
         
-        NetworkManager.shared.request(withEndPoint: .googleSignIn, method: .post, headers: nil, params: param) { (response) in
+        NetworkManager.shared.request(withEndPoint: .appleSignIn, method: .post, headers: nil, params: param) { (response) in
             
             switch response{
             case .success(let jsonResponse):
@@ -101,39 +104,6 @@ final class RegistrationServices: NSObject {
             }
         }
     }
-    
-    func facebookSignIn(accessToken: String, completion: @escaping (_ error: String?,_ isEmailVerified: Bool, [String: Any]) -> Void){
-           //TODO: Change this values
-           let param = [
-               "device_type": Constants.deviceType,
-               "login_type": Constants.deviceType,
-               "device_id": Constants.deviceType,
-               "device_token": Constants.deviceType,
-               "access_token": accessToken,
-              
-           ] as [String : Any]
-           
-           NetworkManager.shared.request(withEndPoint: .facebookSignIn, method: .post, headers: nil, params: param) { (response) in
-               
-               switch response{
-               case .success(let jsonResponse):
-                   
-                   let isEmailVerified = NSNumber(value: (jsonResponse[AppKeys.isEmailVerified.rawValue] as? Int ?? 1)).boolValue
-                   
-                   let responseDict = jsonResponse[AppKeys.details.rawValue] as? [String:Any] ?? [:]
-                   
-                   let userToken = jsonResponse[AppKeys.accessToken.rawValue] as? String ?? ""
-                   PreferenceManager.shared.authToken = userToken
-                   completion(nil, isEmailVerified,responseDict)
-               case .failure(_, let message):
-                   print(message)
-                   completion(message,true,[:])
-               case .notConnectedToInternet:
-                   print(Constants.internetNotWorking)
-                   completion(Constants.internetNotWorking,true,[:])
-               }
-           }
-       }
     
     func resendVerificationLink(for email: String, completion: @escaping (String?) -> Void){
         
@@ -199,6 +169,125 @@ final class RegistrationServices: NSObject {
                 completion(message,true)
             case .notConnectedToInternet:
                 completion(Constants.internetNotWorking,true)
+            }
+        }
+    }
+    
+    func updatePassword(for oldPassword: String, pass: String, completion: @escaping (String, Bool) -> Void){
+        let params : [String : Any] = [
+            "old_password": oldPassword,
+            "new_passowrd": pass
+        ]
+        
+        let header = NetworkManager.shared.getHeader()
+        
+        NetworkManager.shared.request(withEndPoint: .changePassword, method: .post, headers: header, params: params) { (response) in
+            switch response{
+            case .success( let jsonResponse):
+                
+                guard let msg = jsonResponse["message"] as? String else {
+                    completion("Password was updated successfully.",false)
+                    return
+                }
+                completion(msg,false)
+            case .failure(_ , let message):
+                completion(message,true)
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking,true)
+            }
+        }
+    }
+    
+    func googleSignIn(accessToken: String, completion: @escaping (_ error: String?,_ isEmailVerified: Bool, [String: Any]) -> Void){
+
+        let param = [
+            "device_type": Constants.deviceType,
+            "login_type": LoginType.google.rawValue,
+            "device_id": Helper.shared.deviceId,
+            "device_token": PreferenceManager.shared.deviceToken,
+            "access_token": accessToken,
+            
+        ] as [String : Any]
+        
+        NetworkManager.shared.request(withEndPoint: .googleSignIn, method: .post, headers: nil, params: param) { (response) in
+            
+            switch response{
+            case .success(let jsonResponse):
+                
+                let isEmailVerified = NSNumber(value: (jsonResponse[AppKeys.isEmailVerified.rawValue] as? Int ?? 1)).boolValue
+                
+                let responseDict = jsonResponse[AppKeys.details.rawValue] as? [String:Any] ?? [:]
+                
+                let userToken = jsonResponse[AppKeys.accessToken.rawValue] as? String ?? ""
+                PreferenceManager.shared.authToken = userToken
+                completion(nil, isEmailVerified,responseDict)
+            case .failure(_, let message):
+                print(message)
+                completion(message,true,[:])
+            case .notConnectedToInternet:
+                print(Constants.internetNotWorking)
+                completion(Constants.internetNotWorking,true,[:])
+            }
+        }
+    }
+    
+    func facebookSignIn(accessToken: String, completion: @escaping (_ error: String?,_ isEmailVerified: Bool, [String: Any]) -> Void){
+
+        let param = [
+            "device_type": Constants.deviceType,
+            "login_type": LoginType.facebook.rawValue,
+            "device_id": Helper.shared.deviceId,
+            "device_token": PreferenceManager.shared.deviceToken,
+            "access_token": accessToken,
+            
+        ] as [String : Any]
+        
+        NetworkManager.shared.request(withEndPoint: .facebookSignIn, method: .post, headers: nil, params: param) { (response) in
+            
+            switch response{
+            case .success(let jsonResponse):
+                
+                let isEmailVerified = NSNumber(value: (jsonResponse[AppKeys.isEmailVerified.rawValue] as? Int ?? 1)).boolValue
+                
+                let responseDict = jsonResponse[AppKeys.details.rawValue] as? [String:Any] ?? [:]
+                
+                let userToken = jsonResponse[AppKeys.accessToken.rawValue] as? String ?? ""
+                PreferenceManager.shared.authToken = userToken
+                completion(nil, isEmailVerified,responseDict)
+            case .failure(_, let message):
+                print(message)
+                completion(message,true,[:])
+            case .notConnectedToInternet:
+                print(Constants.internetNotWorking)
+                completion(Constants.internetNotWorking,true,[:])
+            }
+        }
+    }
+    
+    func updateDeviceToken(deviceToken : String, completion: @escaping (String, Bool) -> Void){
+        let header = NetworkManager.shared.getHeader()
+
+        let param = [
+            "device_token": deviceToken,
+            "device_last_authentication": DateHelper.shared.currentLocalDateTime.timeIntervalSince1970,
+            "app_version_last_authentication": Bundle.main.versionNumber
+        ] as [String : Any]
+        
+        NetworkManager.shared.request(withEndPoint: .updateToken, method: .post, headers: header, params: param) { (response) in
+            
+            switch response{
+            case .success(let jsonResponse):
+                guard let responseDict = jsonResponse["message"] as? String else {
+                    completion(Constants.internalServerError, true)
+                    return
+                }
+                completion(responseDict,false)
+            case .failure(_, let message):
+                print(message)
+                completion(message, true)
+            case .notConnectedToInternet:
+                print(Constants.internetNotWorking)
+                completion(Constants.internetNotWorking, true)
             }
         }
     }

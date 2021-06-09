@@ -1,59 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AchievementsCVC" id="gTV-IL-0wX" customClass="AchievementsCVC" customModule="Zygo" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="196" height="192"/>
+            <rect key="frame" x="0.0" y="0.0" width="176" height="192"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="196" height="192"/>
+                <rect key="frame" x="0.0" y="0.0" width="176" height="192"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JvO-cg-Vev">
-                        <rect key="frame" x="0.0" y="0.0" width="196" height="192"/>
+                        <rect key="frame" x="0.0" y="0.0" width="176" height="192"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sJU-3Y-C4g">
-                                <rect key="frame" x="49.5" y="12" width="97" height="95"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="95" id="0Qs-0k-B5P"/>
-                                    <constraint firstAttribute="width" constant="97" id="vkx-52-Pkw"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ndjnjcdncjncjcnjncjcncjncdjnjcnjnjndccdc njndcndcjncdjncdjncdnjcncdjncdncd cdncdjncdn" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mus-Zl-vUR">
-                                <rect key="frame" x="15" y="120" width="166" height="57"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mus-Zl-vUR">
+                                <rect key="frame" x="5" y="105" width="166" height="77"/>
+                                <string key="text">Complete All Short Workouts in the 12
+of Christmas</string>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
+                                <color key="textColor" name="AppTitleDarkColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bx9-Bb-Nf2" customClass="UICircleShadowView" customModule="Zygo" customModuleProvider="target">
+                                <rect key="frame" x="46.5" y="12" width="83" height="83"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_workout_complete" translatesAutoresizingMaskIntoConstraints="NO" id="4ZE-P8-8Yk" customClass="UICircleImageView" customModule="Zygo" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="8" width="67" height="67"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="4ZE-P8-8Yk" firstAttribute="leading" secondItem="Bx9-Bb-Nf2" secondAttribute="leading" constant="8" id="QqI-AS-aV4"/>
+                                    <constraint firstItem="4ZE-P8-8Yk" firstAttribute="top" secondItem="Bx9-Bb-Nf2" secondAttribute="top" constant="8" id="VXZ-2S-9xd"/>
+                                    <constraint firstAttribute="trailing" secondItem="4ZE-P8-8Yk" secondAttribute="trailing" constant="8" id="hCR-44-LEi"/>
+                                    <constraint firstAttribute="bottom" secondItem="4ZE-P8-8Yk" secondAttribute="bottom" constant="8" id="lS6-z0-Php"/>
+                                    <constraint firstAttribute="width" constant="83" id="y8E-aK-E9L"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Mus-Zl-vUR" secondAttribute="bottom" constant="15" id="DrB-AZ-ClJ"/>
-                            <constraint firstItem="Mus-Zl-vUR" firstAttribute="leading" secondItem="JvO-cg-Vev" secondAttribute="leading" constant="15" id="YgK-fB-wPR"/>
-                            <constraint firstItem="Mus-Zl-vUR" firstAttribute="top" secondItem="sJU-3Y-C4g" secondAttribute="bottom" constant="13" id="aLc-G1-Uwv"/>
-                            <constraint firstAttribute="trailing" secondItem="Mus-Zl-vUR" secondAttribute="trailing" constant="15" id="dTn-Wp-l8x"/>
-                            <constraint firstItem="sJU-3Y-C4g" firstAttribute="top" secondItem="JvO-cg-Vev" secondAttribute="top" constant="12" id="pos-TM-fGQ"/>
-                            <constraint firstItem="sJU-3Y-C4g" firstAttribute="centerX" secondItem="JvO-cg-Vev" secondAttribute="centerX" id="syz-aX-mIU"/>
+                            <constraint firstAttribute="bottom" secondItem="Mus-Zl-vUR" secondAttribute="bottom" constant="10" id="DrB-AZ-ClJ"/>
+                            <constraint firstItem="Bx9-Bb-Nf2" firstAttribute="width" secondItem="Bx9-Bb-Nf2" secondAttribute="height" multiplier="1:1" id="QpQ-3n-315"/>
+                            <constraint firstItem="Mus-Zl-vUR" firstAttribute="top" secondItem="Bx9-Bb-Nf2" secondAttribute="bottom" constant="10" id="RdE-gV-vzs"/>
+                            <constraint firstItem="Bx9-Bb-Nf2" firstAttribute="centerX" secondItem="JvO-cg-Vev" secondAttribute="centerX" id="W7e-LY-wBy"/>
+                            <constraint firstItem="Mus-Zl-vUR" firstAttribute="leading" secondItem="JvO-cg-Vev" secondAttribute="leading" constant="5" id="YgK-fB-wPR"/>
+                            <constraint firstAttribute="trailing" secondItem="Mus-Zl-vUR" secondAttribute="trailing" constant="5" id="dTn-Wp-l8x"/>
+                            <constraint firstItem="Bx9-Bb-Nf2" firstAttribute="top" secondItem="JvO-cg-Vev" secondAttribute="top" constant="12" id="mU8-gh-P85"/>
                         </constraints>
                     </view>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="JvO-cg-Vev" secondAttribute="trailing" id="Jug-Q7-lOz"/>
                 <constraint firstItem="JvO-cg-Vev" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Qir-Kf-m27"/>
                 <constraint firstItem="JvO-cg-Vev" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ais-y4-gVw"/>
                 <constraint firstAttribute="bottom" secondItem="JvO-cg-Vev" secondAttribute="bottom" id="rin-Bn-WRX"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <size key="customSize" width="196" height="192"/>
-            <point key="canvasLocation" x="246.37681159420291" y="139.95535714285714"/>
+            <size key="customSize" width="176" height="192"/>
+            <connections>
+                <outlet property="iconImageView" destination="4ZE-P8-8Yk" id="eIh-6O-6Ge"/>
+                <outlet property="lblTitle" destination="Mus-Zl-vUR" id="D5L-oJ-jvV"/>
+            </connections>
+            <point key="canvasLocation" x="231.8840579710145" y="139.95535714285714"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="icon_workout_complete" width="95" height="95"/>
+        <namedColor name="AppTitleDarkColor">
+            <color red="0.23499999940395355" green="0.2669999897480011" blue="0.27500000596046448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

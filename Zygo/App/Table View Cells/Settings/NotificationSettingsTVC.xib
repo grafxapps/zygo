@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -24,23 +27,33 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7yD-BU-dMT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zN7-GI-mpa">
-                                <rect key="frame" x="20" y="21.5" width="54" height="21"/>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="20"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zN7-GI-mpa">
+                                <rect key="frame" x="20" y="21.5" width="236" height="21"/>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
+                                <color key="textColor" name="AppTitleDarkColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VSy-5e-KTd">
                                 <rect key="frame" x="261" y="17" width="51" height="31"/>
                             </switch>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B2t-Yg-RTs">
+                                <rect key="frame" x="0.0" y="63" width="320" height="1"/>
+                                <color key="backgroundColor" name="AppSeperatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Xkz-Dx-fN2"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="B2t-Yg-RTs" secondAttribute="trailing" id="3so-Lu-pHg"/>
                             <constraint firstItem="zN7-GI-mpa" firstAttribute="centerY" secondItem="7yD-BU-dMT" secondAttribute="centerY" id="FV6-Xp-fIb"/>
                             <constraint firstAttribute="trailing" secondItem="VSy-5e-KTd" secondAttribute="trailing" constant="10" id="K3F-b8-iFA"/>
                             <constraint firstItem="zN7-GI-mpa" firstAttribute="leading" secondItem="7yD-BU-dMT" secondAttribute="leading" constant="20" id="S9a-ev-bUh"/>
+                            <constraint firstAttribute="bottom" secondItem="B2t-Yg-RTs" secondAttribute="bottom" id="YHQ-oo-WxK"/>
                             <constraint firstAttribute="bottom" secondItem="VSy-5e-KTd" secondAttribute="bottom" constant="16" id="ltB-L0-02U"/>
-                            <constraint firstAttribute="bottom" secondItem="zN7-GI-mpa" secondAttribute="bottom" constant="21.5" id="xpY-sa-0St"/>
+                            <constraint firstItem="VSy-5e-KTd" firstAttribute="leading" secondItem="zN7-GI-mpa" secondAttribute="trailing" constant="5" id="tSW-Zy-cqf"/>
+                            <constraint firstItem="B2t-Yg-RTs" firstAttribute="leading" secondItem="7yD-BU-dMT" secondAttribute="leading" id="wlc-TS-oze"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -54,8 +67,20 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="lblTitle" destination="zN7-GI-mpa" id="QJo-Q0-qW4"/>
+                <outlet property="switchNoti" destination="VSy-5e-KTd" id="6hC-sc-N7a"/>
             </connections>
             <point key="canvasLocation" x="140.57971014492756" y="100.44642857142857"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <namedColor name="AppSeperatorColor">
+            <color red="0.43900001049041748" green="0.43900001049041748" blue="0.43900001049041748" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppTitleDarkColor">
+            <color red="0.23499999940395355" green="0.2669999897480011" blue="0.27500000596046448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

@@ -51,6 +51,7 @@ final class NetworkManager : NSObject{
     }
     
     func cancelRequestURL(url: URL){
+        print("Previous Cancelled")
         if self.dataRequestArray.count > 0{
             
             let arrRequests = self.dataRequestArray.filter({ $0.request?.url == url })
@@ -75,13 +76,15 @@ final class NetworkManager : NSObject{
         
         //Append Query param
         if method == .get{
-            var queryItems: [URLQueryItem] = []
-            for key in body.keys{
-                queryItems.append(URLQueryItem(name: key, value: "\(body[key] ?? "")"))
+            let keys = body.keys
+            if keys.count > 0{
+                var queryItems: [URLQueryItem] = []
+                for key in keys{
+                    queryItems.append(URLQueryItem(name: key, value: "\(body[key] ?? "")"))
+                }
+                
+                mURL.queryItems = queryItems
             }
-            
-            mURL.queryItems = queryItems
-            
         }
         
         var request = URLRequest(url: mURL.url!)

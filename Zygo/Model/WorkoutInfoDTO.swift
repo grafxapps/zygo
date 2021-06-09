@@ -61,6 +61,3 @@ struct WorkoutInfoDTO {
     }
 }
 
-
-
-

@@ -23,6 +23,8 @@ struct UserDTO {
     var location: String = ""
     var lastLocation: String = ""
     var isActive: Int = -1
+    var timeInWater: Double = 0
+    var workoutCount: Int = 0
     
     init(_ dict: [String:Any]) {
         
@@ -37,10 +39,14 @@ struct UserDTO {
         self.isActive = dict["user_is_active"] as? Int ?? -1
         self.profilePic = dict["user_profile_pic"] as? String ?? ""
         self.gender = dict["user_gender"] as? String ?? ""
+        
         self.birthday = dict["user_birthday"] as? String ?? ""
+        
         self.location = dict["profile_location"] as? String ?? ""
         self.lastLocation = dict["last_location"] as? String ?? ""
         
+        self.timeInWater = dict["time_in_water"] as? Double ?? 0
+        self.workoutCount =  dict["workout_count"] as? Int ?? 0
         
     }
     
@@ -57,8 +63,64 @@ struct UserDTO {
             "profile_location": self.location,
             "last_location": self.lastLocation,
             "user_first_name": self.fName,
-            "user_last_name": self.lName
+            "user_last_name": self.lName,
+            "workout_count": self.workoutCount,
+            "time_in_water": self.timeInWater
         ]
     }
 }
 
+
+struct UserSubscriptionInfoDTO {
+    
+    var planId: String = ""
+    var subscriptionId: String = ""
+    var promoCodeId: String = ""
+    var trailDays: String = ""
+    var amount: String = ""
+    var startDate: Date = DateHelper.shared.currentLocalDateTime
+    var expireDate: Date = DateHelper.shared.currentLocalDateTime
+    var subscriptionStatus: SubscriptionStatus = .inactive
+    var subscriptionType: String = ""
+    
+    init(_ dict: [String: Any]) {
+        
+        self.planId = dict["plan_id"] as? String ?? ""
+        self.subscriptionId = dict["subscription_id"] as? String ?? ""
+        self.promoCodeId = dict["promo_code_id"] as? String ?? ""
+        self.trailDays = dict["trail_days"] as? String ?? ""
+        self.amount = dict["amount"] as? String ?? ""
+        
+        let strStartDate = dict["start_date"] as? String ?? ""
+        if !strStartDate.isEmpty{
+            self.startDate = strStartDate.convertToFormat("yyyy-MM-dd HH:mm:ss")
+        }
+        
+        let strExpireDate = dict["expire_date"] as? String ?? ""
+        if !strExpireDate.isEmpty{
+            self.expireDate = strExpireDate.convertToFormat("yyyy-MM-dd HH:mm:ss")
+        }
+        
+        self.subscriptionStatus = SubscriptionStatus(rawValue: dict["subscription_status"] as? String ?? "") ?? .inactive
+        self.subscriptionType = dict["subscription_type"] as? String ?? ""
+    }
+    
+    func toDict() -> [String: Any]{
+        return [
+            "plan_id": self.planId,
+            "subscription_id": self.subscriptionId,
+            "promo_code_id": self.promoCodeId,
+            "trail_days": self.trailDays,
+            "start_date": self.startDate.convertToFormat("yyyy-MM-dd HH:mm:ss"),
+            "expire_date": self.expireDate.convertToFormat("yyyy-MM-dd HH:mm:ss"),
+            "amount": self.amount,
+            "subscription_status": self.subscriptionStatus.rawValue,
+            "subscription_type": self.subscriptionType
+        ]
+    }
+}
+
+enum SubscriptionStatus: String {
+    case active = "active"
+    case inactive = "inactive"
+}

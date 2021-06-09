@@ -9,8 +9,11 @@
 import UIKit
 
 class OtherSettingsTVC: UITableViewCell {
+    
     @IBOutlet weak var lblTitle : UILabel!
-
+    
+    static let identifier = "OtherSettingsTVC"
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

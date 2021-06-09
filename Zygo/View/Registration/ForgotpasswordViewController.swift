@@ -8,17 +8,16 @@
 
 import UIKit
 
-class ForgotpasswordViewController: UIViewController
-{
+class ForgotpasswordViewController: UIViewController {
     @IBOutlet weak var viewCode: UIView!
     @IBOutlet weak var viewPassword: UIView!
     @IBOutlet weak var viewCPassword: UIView!
-
+    
     @IBOutlet weak var txtCode: UITextField!
     @IBOutlet weak var txtCPassword: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     var viewModel: ForgotPasswordViewModel!
- 
+    
     //MARK:-Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,4 +59,3 @@ class ForgotpasswordViewController: UIViewController
         self.navigationController?.popViewController(animated: true)
     }
 }
-

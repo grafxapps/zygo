@@ -11,6 +11,9 @@ import UIKit
 class NotificationSettingsTVC: UITableViewCell {
     
     @IBOutlet weak var lblTitle : UILabel!
+    @IBOutlet weak var switchNoti : UISwitch!
+    
+    static let identifier = "NotificationSettingsTVC"
 
     override func awakeFromNib() {
         super.awakeFromNib()

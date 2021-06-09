@@ -10,7 +10,13 @@ target 'Zygo' do
   pod 'FBSDKCoreKit/Swift'
   pod 'FBSDKLoginKit/Swift'
   pod 'GoogleSignIn'
-pod 'XLPagerTabStrip', '~> 9.0'
+  pod 'XLPagerTabStrip'
+  pod 'SDWebImage'
+  pod 'RealmSwift'
+  pod 'SideMenuSwift'
+  pod 'TrueTime'
+  pod 'Firebase/Messaging'
+  pod 'AlamofireImage', '~> 4.1'
   # Pods for Zygo
-
+  
 end

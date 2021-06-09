@@ -22,13 +22,13 @@ final class SignUpViewModel: NSObject {
             Helper.shared.alert(title: Constants.appName, message: "Please enter your email address.")
             return false
         }else if !userItem.email.isEmailValid(){
-            Helper.shared.alert(title: Constants.appName, message: "Please enter valid email address.")
+            Helper.shared.alert(title: Constants.appName, message: "Please enter a valid email address.")
             return false
         }else if userItem.password.isEmpty{
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter your password.", comment: ""))
             return false
         }else if !userItem.password.isValidPasswordLength(){
-            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Password must be atleast 6 digits long", comment: ""))
+            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Password must be at least 8 digits long", comment: ""))
             return false
         }
         

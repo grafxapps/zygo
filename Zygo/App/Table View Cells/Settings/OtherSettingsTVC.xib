@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -25,17 +28,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSc-zI-AdS">
-                                <rect key="frame" x="20" y="21.5" width="54" height="21"/>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="20"/>
-                                <nil key="textColor"/>
+                                <rect key="frame" x="20" y="21.5" width="280" height="21"/>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
+                                <color key="textColor" name="AppTitleDarkColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hAj-8Q-0i8">
+                                <rect key="frame" x="0.0" y="63" width="320" height="1"/>
+                                <color key="backgroundColor" name="AppSeperatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="tcb-tn-DRR"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="wSc-zI-AdS" firstAttribute="leading" secondItem="Iof-ii-AGa" secondAttribute="leading" constant="20" id="Bh7-nz-LxH"/>
-                            <constraint firstAttribute="bottom" secondItem="wSc-zI-AdS" secondAttribute="bottom" constant="21.5" id="gdD-yQ-R7Z"/>
+                            <constraint firstAttribute="trailing" secondItem="wSc-zI-AdS" secondAttribute="trailing" constant="20" id="LwI-hp-fig"/>
+                            <constraint firstAttribute="bottom" secondItem="hAj-8Q-0i8" secondAttribute="bottom" id="nbo-10-vMS"/>
+                            <constraint firstItem="hAj-8Q-0i8" firstAttribute="leading" secondItem="Iof-ii-AGa" secondAttribute="leading" id="rOg-cJ-Lot"/>
                             <constraint firstItem="wSc-zI-AdS" firstAttribute="centerY" secondItem="Iof-ii-AGa" secondAttribute="centerY" id="str-qF-oN7"/>
+                            <constraint firstAttribute="trailing" secondItem="hAj-8Q-0i8" secondAttribute="trailing" id="wLY-IX-0jg"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -50,7 +63,18 @@
             <connections>
                 <outlet property="lblTitle" destination="wSc-zI-AdS" id="hM8-oq-9Xa"/>
             </connections>
-            <point key="canvasLocation" x="139" y="94"/>
+            <point key="canvasLocation" x="137.68115942028987" y="93.75"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <namedColor name="AppSeperatorColor">
+            <color red="0.43900001049041748" green="0.43900001049041748" blue="0.43900001049041748" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppTitleDarkColor">
+            <color red="0.23499999940395355" green="0.2669999897480011" blue="0.27500000596046448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

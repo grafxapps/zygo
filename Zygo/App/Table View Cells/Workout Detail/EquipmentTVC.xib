@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.ttf">
+            <string>Poppins-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EquipmentTVC" rowHeight="135" id="KGk-i7-Jjw" customClass="EquipmentTVC" customModule="Zygo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="145"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="145"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="reC-DE-XfP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="145"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Equipment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dYb-7c-R3X">
+                                <rect key="frame" x="25" y="15" width="77.5" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="ZlO-Yh-cbc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="fWV-PJ-mMg">
+                                <rect key="frame" x="0.0" y="50" width="320" height="80"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="oiY-Xa-tMx"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="htq-x3-lWX">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <connections>
+                                    <outlet property="dataSource" destination="KGk-i7-Jjw" id="HQP-ay-LDO"/>
+                                    <outlet property="delegate" destination="KGk-i7-Jjw" id="Nhe-UM-RGq"/>
+                                </connections>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Gv-vF-bby">
+                                <rect key="frame" x="0.0" y="144" width="320" height="1"/>
+                                <color key="backgroundColor" name="AppSeperatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="1" id="4IA-Lu-aOA"/>
+                                    <constraint firstAttribute="height" constant="1" id="5Wu-z1-owe"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="jbp-GE-FU4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="AppSeperatorColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="fWV-PJ-mMg" secondAttribute="bottom" constant="15" id="29H-mx-QId"/>
+                            <constraint firstItem="dYb-7c-R3X" firstAttribute="top" secondItem="reC-DE-XfP" secondAttribute="top" constant="15" id="4qE-YD-eeg"/>
+                            <constraint firstItem="fWV-PJ-mMg" firstAttribute="top" secondItem="dYb-7c-R3X" secondAttribute="bottom" constant="15" id="D45-jw-rVI"/>
+                            <constraint firstItem="fWV-PJ-mMg" firstAttribute="leading" secondItem="reC-DE-XfP" secondAttribute="leading" id="GhY-q2-bTQ"/>
+                            <constraint firstAttribute="bottom" secondItem="9Gv-vF-bby" secondAttribute="bottom" id="i1I-Eb-s15"/>
+                            <constraint firstAttribute="trailing" secondItem="fWV-PJ-mMg" secondAttribute="trailing" id="n30-O5-lGg"/>
+                            <constraint firstItem="9Gv-vF-bby" firstAttribute="leading" secondItem="reC-DE-XfP" secondAttribute="leading" id="o9r-hb-DZn"/>
+                            <constraint firstAttribute="trailing" secondItem="9Gv-vF-bby" secondAttribute="trailing" id="qto-1H-dFs"/>
+                            <constraint firstItem="dYb-7c-R3X" firstAttribute="leading" secondItem="reC-DE-XfP" secondAttribute="leading" constant="25" id="ru6-Iu-NR5"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="reC-DE-XfP" secondAttribute="bottom" id="0m2-tq-gip"/>
+                    <constraint firstItem="reC-DE-XfP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="2MF-Hf-w3l"/>
+                    <constraint firstItem="reC-DE-XfP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="GdX-Pj-87z"/>
+                    <constraint firstAttribute="trailing" secondItem="reC-DE-XfP" secondAttribute="trailing" id="jjG-gI-oDD"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="collecEquip" destination="fWV-PJ-mMg" id="HOk-0h-Lcm"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="124.88839285714285"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="AppSeperatorColor">
+            <color red="0.43900001049041748" green="0.43900001049041748" blue="0.43900001049041748" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

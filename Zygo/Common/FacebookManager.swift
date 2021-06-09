@@ -12,25 +12,28 @@ import FBSDKLoginKit
 class FacebookManager: NSObject {
     static let shared = FacebookManager()
     
-    func login(from viewcontroller: UIViewController, completion: @escaping (String?, FBUserDTO?) -> Void){
+    func login(from viewcontroller: UIViewController, completion: @escaping (String?, String) -> Void){
         let fbLoginManager : LoginManager = LoginManager()
-        fbLoginManager.logIn(permissions: ["public_profile","email"], from: viewcontroller) { (result, error) -> Void in
-            if error != nil {
-                completion(error!.localizedDescription, nil)
-                viewcontroller.dismiss(animated: true, completion: nil)
-            } else if result!.isCancelled {
-                completion("Cancelled", nil)
-                viewcontroller.dismiss(animated: true, completion: nil)
-            } else {
-                GraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(normal), email"]).start(completionHandler: { (connection, result, error) -> Void in
-                    if (error == nil){
-                        let fbDetails = result as! [String:Any]
-                    
-                        completion(nil,FBUserDTO(fbDetails))
-                    }
-                })
+        fbLoginManager.logIn(permissions: [ .publicProfile, .email ], viewController: viewcontroller) { loginResult in
+            switch loginResult {
+            case .failed(let error):
+                print(error)
+                viewcontroller.dismiss(animated: true) {
+                    completion(error.localizedDescription, "")
+                }
+            case .cancelled:
+                print("User cancelled login.")
+                viewcontroller.dismiss(animated: true) {
+                    completion("User cancelled login.", "")
+                }
+            case .success(_ , _, let accessToken):
+                viewcontroller.dismiss(animated: true) {
+                    completion(nil,accessToken.tokenString)
+                }
+                break
             }
         }
+        
     }
     
     func logout(){

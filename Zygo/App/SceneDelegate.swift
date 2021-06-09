@@ -7,11 +7,26 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import AVFoundation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        
+        guard let url = URLContexts.first?.url else {
+            return
+        }
+        
+        ApplicationDelegate.shared.application(
+            UIApplication.shared,
+            open: url,
+            sourceApplication: nil,
+            annotation: [UIApplication.OpenURLOptionsKey.annotation]
+        )
+    }
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -21,25 +36,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             let window = UIWindow(windowScene: windowScene)
             
-//            let storyBoard = UIStoryboard(name: "Settings", bundle: nil)
-//            let navigationController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController")
-//            window.rootViewController = navigationController
-//            
-        if PreferenceManager.shared.isUserLogin{
+            if PreferenceManager.shared.isUserLogin{
                 
-                //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
-                let userItem = PreferenceManager.shared.user
-                if userItem.gender.isEmpty{//MEANS PROFILE ISN'T UPDATED
-                    
+                if !SubscriptionManager.shared.isValidSubscription(){//It means user is not subscribe yet
                     let storyBoard = UIStoryboard(name: "Registration", bundle: nil)
-                    let navigationController = storyBoard.instantiateViewController(withIdentifier: "CreateProfileViewController")
+                    let navigationController = storyBoard.instantiateViewController(withIdentifier: "SubscriptionViewController")
                     window.rootViewController = navigationController
-                    
                 }else{
-                    //MOVE TO DASHBOARD
-                    let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let viewController = mainStoryboard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-                    window.rootViewController = viewController
+                    
+                    //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
+                    let userItem = PreferenceManager.shared.user
+                    if userItem.gender.isEmpty || userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
+                        
+                        let storyBoard = UIStoryboard(name: "Registration", bundle: nil)
+                        let navigationController = storyBoard.instantiateViewController(withIdentifier: "CreateProfileViewController")
+                        window.rootViewController = navigationController
+                        
+                    }else{
+                        //MOVE TO DASHBOARD
+                        let mainStoryboard: UIStoryboard = UIStoryboard(name: "SideMenu", bundle: nil)
+                        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "SideMenu")// as! SideMenu
+                        window.rootViewController = viewController
+                    }
                 }
                 
             }else{
@@ -47,7 +65,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 let navigationController = storyBoard.instantiateViewController(withIdentifier: "LoginNavigation") as! UINavigationController
                 window.rootViewController = navigationController
             }
-           
+            
             
             self.window = window
             window.makeKeyAndVisible()
@@ -67,6 +85,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        
+        //Clear Pending Notification banners
+        UIApplication.shared.applicationIconBadgeNumber = 1
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        
+        do{
+            try AVAudioSession.sharedInstance().setCategory(.playback, options: .defaultToSpeaker)
+            try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+        }catch{
+            print("Faild to set Audio Session")
+        }
+        
+        Helper.shared.forceUpgrade()
+        
     }
     
     func sceneWillResignActive(_ scene: UIScene) {

@@ -11,6 +11,9 @@ import UIKit
 class FilterTVC: UITableViewCell {
 
     @IBOutlet weak var lblTitle : UILabel!
+    
+    static let identifier: String = "FilterTVC"
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

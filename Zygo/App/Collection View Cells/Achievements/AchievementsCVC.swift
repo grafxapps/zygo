@@ -9,7 +9,12 @@
 import UIKit
 
 class AchievementsCVC: UICollectionViewCell {
+    
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var iconImageView: UIImageView!
 
+    static let identifier = "AchievementsCVC"
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

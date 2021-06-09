@@ -15,13 +15,15 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb191387176047974</string>
+				<string>fb2849507365305525</string>
 			</array>
 		</dict>
 		<dict>
@@ -34,15 +36,32 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
-	<string>191387176047974</string>
+	<string>2849507365305525</string>
 	<key>FacebookDisplayName</key>
 	<string>Zygo</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>App wants to access bluetooth to connect nearby devices</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>App wants to access bluetooth to connect nearby devices</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow camera access to capture profile image</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Access to your phone’s location will help us customize content.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Access to your phone’s location will help us customize content.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Access to your phone’s location will help us customize content.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>LSApplicationQueriesSchemes</key>
@@ -75,15 +94,20 @@
 					<key>UISceneDelegateClassName</key>
 					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
 					<key>UISceneStoryboardFile</key>
-					<string>Settings</string>
+					<string>Registration</string>
 				</dict>
 			</array>
 		</dict>
 	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
-	<string>Settings</string>
+	<string>Registration</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

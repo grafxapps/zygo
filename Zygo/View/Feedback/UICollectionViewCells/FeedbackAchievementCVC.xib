@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.ttf">
+            <string>Poppins-Medium</string>
+        </array>
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="FeedbackAchievementCVC" customModule="Zygo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="266" height="190"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="266" height="190"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yLs-7h-bb0">
+                        <rect key="frame" x="0.0" y="0.0" width="266" height="190"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Achievement text goes here. You have completed all workouts using water-wings." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sR3-ft-uZK">
+                                <rect key="frame" x="10" y="85" width="246" height="56"/>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                                <color key="textColor" red="0.62352941176470589" green="0.63921568627450975" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="New Achievement" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YdE-3X-8Ud">
+                                <rect key="frame" x="10" y="42" width="246" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="hGf-s8-ZE8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="20"/>
+                                <color key="textColor" name="AppTitleDarkColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Water-wings Wizard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rFt-1n-ZFW">
+                                <rect key="frame" x="10" y="10" width="246" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="031-7C-FZX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
+                                <color key="textColor" name="AppTitleDarkColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="sR3-ft-uZK" firstAttribute="leading" secondItem="yLs-7h-bb0" secondAttribute="leading" constant="10" id="65k-WF-ZVA"/>
+                            <constraint firstItem="rFt-1n-ZFW" firstAttribute="top" secondItem="yLs-7h-bb0" secondAttribute="top" constant="10" id="CBW-qp-e5N"/>
+                            <constraint firstItem="rFt-1n-ZFW" firstAttribute="leading" secondItem="yLs-7h-bb0" secondAttribute="leading" constant="10" id="DcF-Pa-OEB"/>
+                            <constraint firstItem="sR3-ft-uZK" firstAttribute="top" secondItem="YdE-3X-8Ud" secondAttribute="bottom" constant="15" id="EZz-vj-gnD"/>
+                            <constraint firstAttribute="trailing" secondItem="sR3-ft-uZK" secondAttribute="trailing" constant="10" id="H2f-E5-Adm"/>
+                            <constraint firstItem="rFt-1n-ZFW" firstAttribute="centerX" secondItem="yLs-7h-bb0" secondAttribute="centerX" id="OZl-Nb-pr4"/>
+                            <constraint firstAttribute="trailing" secondItem="rFt-1n-ZFW" secondAttribute="trailing" constant="10" id="Oba-HR-hl5"/>
+                            <constraint firstItem="YdE-3X-8Ud" firstAttribute="top" secondItem="rFt-1n-ZFW" secondAttribute="bottom" constant="15" id="W4K-tP-oUB"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="sR3-ft-uZK" secondAttribute="bottom" constant="10" id="gCi-6l-sVx"/>
+                            <constraint firstItem="YdE-3X-8Ud" firstAttribute="leading" secondItem="yLs-7h-bb0" secondAttribute="leading" constant="10" id="u3O-59-nlK"/>
+                            <constraint firstAttribute="trailing" secondItem="YdE-3X-8Ud" secondAttribute="trailing" constant="10" id="xXv-le-3mL"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="yLs-7h-bb0" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Fba-Ai-zYA"/>
+                <constraint firstAttribute="trailing" secondItem="yLs-7h-bb0" secondAttribute="trailing" id="QPN-gd-xIe"/>
+                <constraint firstAttribute="bottom" secondItem="yLs-7h-bb0" secondAttribute="bottom" id="ajz-f5-7MY"/>
+                <constraint firstItem="yLs-7h-bb0" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="kCJ-cC-VI1"/>
+            </constraints>
+            <size key="customSize" width="266" height="190"/>
+            <connections>
+                <outlet property="lblDescription" destination="sR3-ft-uZK" id="Fgq-lB-5NU"/>
+                <outlet property="lblTitle" destination="rFt-1n-ZFW" id="9TC-N3-sif"/>
+            </connections>
+            <point key="canvasLocation" x="297.10144927536237" y="141.96428571428569"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <namedColor name="AppTitleDarkColor">
+            <color red="0.23499999940395355" green="0.2669999897480011" blue="0.27500000596046448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

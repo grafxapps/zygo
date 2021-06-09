@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedbackAchievementTVC" rowHeight="176" id="KGk-i7-Jjw" customClass="FeedbackAchievementTVC" customModule="Zygo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p3z-HI-hYq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="M1E-UY-6Cr">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="190"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uMi-SP-6le">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
+                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Wz9-Ex-0ib">
+                                <rect key="frame" x="98.5" y="187" width="123" height="28"/>
+                                <color key="pageIndicatorTintColor" name="AppSeperatorColor"/>
+                                <color key="currentPageIndicatorTintColor" name="AppBlueColor"/>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Wz9-Ex-0ib" firstAttribute="centerX" secondItem="p3z-HI-hYq" secondAttribute="centerX" id="5Zh-TL-ZHa"/>
+                            <constraint firstAttribute="bottom" secondItem="M1E-UY-6Cr" secondAttribute="bottom" constant="20" id="65J-hZ-x5F"/>
+                            <constraint firstAttribute="bottom" secondItem="Wz9-Ex-0ib" secondAttribute="bottom" constant="-5" id="JHw-Cw-vxg"/>
+                            <constraint firstItem="M1E-UY-6Cr" firstAttribute="leading" secondItem="p3z-HI-hYq" secondAttribute="leading" id="NtI-mq-Uu6"/>
+                            <constraint firstAttribute="trailing" secondItem="M1E-UY-6Cr" secondAttribute="trailing" id="bYm-Cc-veR"/>
+                            <constraint firstItem="M1E-UY-6Cr" firstAttribute="top" secondItem="p3z-HI-hYq" secondAttribute="top" id="fq9-GP-WEs"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="p3z-HI-hYq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="GoK-dQ-p2a"/>
+                    <constraint firstAttribute="bottom" secondItem="p3z-HI-hYq" secondAttribute="bottom" id="s3o-uW-b43"/>
+                    <constraint firstItem="p3z-HI-hYq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="uKh-YL-jVg"/>
+                    <constraint firstAttribute="trailing" secondItem="p3z-HI-hYq" secondAttribute="trailing" id="xNf-QA-Fim"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="collectionView" destination="M1E-UY-6Cr" id="3Hv-H6-nwB"/>
+                <outlet property="pageControl" destination="Wz9-Ex-0ib" id="Hm3-pQ-fdq"/>
+            </connections>
+            <point key="canvasLocation" x="140.57971014492756" y="139.95535714285714"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="AppBlueColor">
+            <color red="0.14900000393390656" green="0.73299998044967651" blue="0.92900002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppSeperatorColor">
+            <color red="0.43900001049041748" green="0.43900001049041748" blue="0.43900001049041748" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

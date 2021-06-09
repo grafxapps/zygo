@@ -17,29 +17,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_white_logo" translatesAutoresizingMaskIntoConstraints="NO" id="ZLz-l1-9pa">
-                                <rect key="frame" x="90" y="393" width="234" height="110"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_white_logo" translatesAutoresizingMaskIntoConstraints="NO" id="QWW-fb-iVw">
+                                <rect key="frame" x="107" y="393" width="200" height="110"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="AppBlueColor"/>
                         <constraints>
-                            <constraint firstItem="ZLz-l1-9pa" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="3hU-k6-AJ6"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZLz-l1-9pa" secondAttribute="trailing" constant="90" id="DCL-0K-rWN"/>
-                            <constraint firstItem="ZLz-l1-9pa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="90" id="J28-wx-HU4"/>
-                            <constraint firstItem="ZLz-l1-9pa" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="dmZ-Dh-NTO"/>
+                            <constraint firstItem="QWW-fb-iVw" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Dwf-P6-AZm"/>
+                            <constraint firstItem="QWW-fb-iVw" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="uNW-Gr-egw"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
     <resources>
         <image name="app_white_logo" width="200" height="110"/>
         <namedColor name="AppBlueColor">
-            <color red="0.14901960784313725" green="0.73333333333333328" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.14900000393390656" green="0.73299998044967651" blue="0.92900002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

@@ -7,8 +7,14 @@
 //
 
 import UIKit
+import AuthenticationServices
+
+protocol SignUpViewControllerDelegates {
+    func signUpSuccess(email: String, password: String)
+}
 
 class SignUpViewController: UIViewController, GoogleLoginManagerDelegate {
+    
     @IBOutlet weak var viewEmail: UIView!
     @IBOutlet weak var viewPassword: UIView!
     @IBOutlet weak var viewName: UIView!
@@ -17,14 +23,14 @@ class SignUpViewController: UIViewController, GoogleLoginManagerDelegate {
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     
+    var delegate: SignUpViewControllerDelegates?
+    
     private let viewModel = SignUpViewModel()
     private let sviewModel = SignInViewModel()
-
+    
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        GoogleLoginManager.shared.delegate = self;
-
         setupUI()
     }
     
@@ -41,23 +47,48 @@ class SignUpViewController: UIViewController, GoogleLoginManagerDelegate {
     }
     
     @IBAction func termsOfUsePressed(_ sender: UIButton){
+        let url = URL(string: Constants.termsOfService)
+        Helper.shared.openUrl(url: url)
     }
     
     @IBAction func privacyPolicyPressed(_ sender: UIButton){
+        let url = URL(string: Constants.privacyPolicy)
+        Helper.shared.openUrl(url: url)
     }
     
     @IBAction func appleButtonPressed(_ sender: UIButton){
+        self.handleAppleIdRequest()
     }
     
     @IBAction func facebookButtonPressed(_ sender: UIButton){
-        FacebookManager.shared.login(from: self) { (msg, fbObj) in
-            self.sviewModel.facebookSignInUser(accessToken: fbObj?.userId ?? "") { (isErr) in
-                
+        FacebookManager.shared.login(from: self) { (error, token) in
+            
+            if error != nil{
+                Helper.shared.alert(title: Constants.appName, message: error!)
+                return
+            }
+            
+            if !token.isEmpty{
+                self.sviewModel.facebookSignInUser(accessToken: token) { [weak self] (isLogin) in
+                    DispatchQueue.main.async {
+                        Helper.shared.stopLoading()
+                        if self == nil{
+                            return
+                        }
+                        
+                        if isLogin{
+                            AppDelegate.app.checkUserLoginStatus()
+                        }else{
+                            FacebookManager.shared.logout()
+                        }
+                    }
+                }
             }
         }
     }
     
     @IBAction func googleButtonPressed(_ sender: UIButton){
+        GoogleLoginManager.shared.delegate = self
         GoogleLoginManager.shared.login(from: self)
         
     }
@@ -81,6 +112,7 @@ class SignUpViewController: UIViewController, GoogleLoginManagerDelegate {
                         return
                     }
                     if isSignUp{
+                        self?.delegate?.signUpSuccess(email: self?.viewModel.userItem.email ?? "", password: self?.viewModel.userItem.password ?? "")
                         self?.navigationController?.popViewController(animated: true)
                     }
                 }
@@ -90,11 +122,65 @@ class SignUpViewController: UIViewController, GoogleLoginManagerDelegate {
     
     //MARK:- Google SignIn Delegates
     func didLogin(user: GoogleUserDTO) {
-        sviewModel.googleSignInUser(accessToken: user.accessToken) { (isError) in
-            AppDelegate.app.checkUserLoginStatus()
+        sviewModel.googleSignInUser(accessToken: user.accessToken) { [weak self] (isLogin) in
+            DispatchQueue.main.async {
+                Helper.shared.stopLoading()
+                if self == nil{
+                    return
+                }
+                
+                if isLogin{
+                    AppDelegate.app.checkUserLoginStatus()
+                }else{
+                    GoogleLoginManager.shared.logout()
+                }
+            }
         }
     }
     
     func didFaildLogin(error: String) {
+    }
+}
+
+extension SignUpViewController: ASAuthorizationControllerDelegate {
+    
+    @objc func handleAppleIdRequest() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print(error.localizedDescription)
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            
+            DispatchQueue.main.async {
+                
+                let appleId = "\(appleIDCredential.user)"
+                let appleUserFirstName = "\(appleIDCredential.fullName?.givenName ?? "")"
+                let appleUserLastName = "\(appleIDCredential.fullName?.familyName ?? "")"
+                let appleUserEmail = "\(appleIDCredential.email ?? "")"
+                self.sviewModel.appleSignInUser(appleID: appleId, uName: appleUserFirstName+appleUserLastName, uEmail: appleUserEmail) { (isError) in
+                    AppDelegate.app.checkUserLoginStatus()
+                }
+            }
+            
+        }
+    }
+    
+}
+
+extension SignUpViewController: ASAuthorizationControllerPresentationContextProviding {
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
     }
 }

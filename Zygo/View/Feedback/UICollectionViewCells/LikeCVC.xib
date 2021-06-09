@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.ttf">
+            <string>Poppins-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LikeCVC" id="gTV-IL-0wX" customClass="LikeCVC" customModule="Zygo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="181" height="87"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="181" height="87"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aeh-nW-EI1">
+                        <rect key="frame" x="0.0" y="0.0" width="181" height="87"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uFG-Ym-gOI">
+                                <rect key="frame" x="0.0" y="0.0" width="181" height="87"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                <state key="normal" title="1">
+                                    <color key="titleColor" name="AppTitleDarkColor"/>
+                                </state>
+                                <state key="selected">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="uFG-Ym-gOI" firstAttribute="leading" secondItem="Aeh-nW-EI1" secondAttribute="leading" id="FyT-Ge-Itq"/>
+                            <constraint firstAttribute="trailing" secondItem="uFG-Ym-gOI" secondAttribute="trailing" id="KJz-7l-K5I"/>
+                            <constraint firstItem="uFG-Ym-gOI" firstAttribute="top" secondItem="Aeh-nW-EI1" secondAttribute="top" id="que-S4-e21"/>
+                            <constraint firstAttribute="bottom" secondItem="uFG-Ym-gOI" secondAttribute="bottom" id="wfF-rm-oWh"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="Aeh-nW-EI1" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="0wK-W8-bdh"/>
+                <constraint firstItem="Aeh-nW-EI1" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="5JM-c2-64j"/>
+                <constraint firstAttribute="trailing" secondItem="Aeh-nW-EI1" secondAttribute="trailing" id="L8Z-pa-m64"/>
+                <constraint firstAttribute="trailing" secondItem="Aeh-nW-EI1" secondAttribute="trailing" id="OM9-Ky-aJ4"/>
+                <constraint firstAttribute="bottom" secondItem="Aeh-nW-EI1" secondAttribute="bottom" id="ZuD-bf-FWX"/>
+                <constraint firstItem="Aeh-nW-EI1" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ePw-cd-Vkn"/>
+                <constraint firstItem="Aeh-nW-EI1" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ji2-AQ-G2j"/>
+                <constraint firstAttribute="bottom" secondItem="Aeh-nW-EI1" secondAttribute="bottom" id="kmp-UH-B7S"/>
+            </constraints>
+            <size key="customSize" width="193" height="99"/>
+            <connections>
+                <outlet property="btnTitle" destination="uFG-Ym-gOI" id="XKk-KI-suS"/>
+            </connections>
+            <point key="canvasLocation" x="244.20289855072465" y="146.98660714285714"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <namedColor name="AppTitleDarkColor">
+            <color red="0.23499999940395355" green="0.2669999897480011" blue="0.27500000596046448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

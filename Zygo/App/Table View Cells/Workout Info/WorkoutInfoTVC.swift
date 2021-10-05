@@ -11,6 +11,8 @@ import SDWebImage
 
 class WorkoutInfoTVC: UITableViewCell {
     
+    static let identifier = "WorkoutInfoTVC"
+    
     @IBOutlet weak var lblWorkoutName: UILabel!
     @IBOutlet weak var lblInstructorName: UILabel!
     @IBOutlet weak var lblWorkoutType: UILabel!
@@ -73,6 +75,15 @@ class WorkoutInfoTVC: UITableViewCell {
     
     func setupForLabels(item: WorkoutDTO){
         
+        self.lblInfoTitle.text = ""
+        self.infoView.isHidden = true
+        
+        if !item.introVideo.isEmpty || !item.closingVideo.isEmpty{
+            self.infoView.isHidden = false
+            self.infoView.backgroundColor = .appNewBlackColor()
+            self.lblInfoTitle.text = "VIDEO"
+            self.lblInfoTitle.textColor = .white
+        }
         
         let currentDate = DateHelper.shared.currentLocalDateTime
         print("Current Date: \(currentDate)")

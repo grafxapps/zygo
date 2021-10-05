@@ -100,7 +100,7 @@ final class PreferenceManager: NSObject {
         set{
             defaults.set(newValue, forKey: PreferenceKey.DeviceToken.rawValue)
         }get{
-            return defaults.value(forKey: PreferenceKey.DeviceToken.rawValue) as? String ?? ""
+            return defaults.value(forKey: PreferenceKey.DeviceToken.rawValue) as? String ?? "ZYGOIOSDEVICETOKEN"
         }
     }
     
@@ -173,6 +173,30 @@ final class PreferenceManager: NSObject {
             return defaults.value(forKey: PreferenceKey.AppCurrentVersion.rawValue) as? String ?? ""
         }
     }
+    
+    var branchLinkWorkoutId: Int? {
+        set{
+            defaults.set(newValue, forKey: PreferenceKey.BranchLinkWorkoutId.rawValue)
+        }get{
+            return defaults.value(forKey: PreferenceKey.BranchLinkWorkoutId.rawValue) as? Int
+        }
+    }
+    
+    var isNotTakenByMe : Bool {
+        set{
+            defaults.set(newValue, forKey: PreferenceKey.IsNotTakenByMe.rawValue)
+        }get{
+            return defaults.value(forKey: PreferenceKey.IsNotTakenByMe.rawValue) as? Bool ?? false
+        }
+    }
+    
+    var isTakenByMe : Bool {
+        set{
+            defaults.set(newValue, forKey: PreferenceKey.IsTakenByMe.rawValue)
+        }get{
+            return defaults.value(forKey: PreferenceKey.IsTakenByMe.rawValue) as? Bool ?? false
+        }
+    }
 }
 
 
@@ -196,5 +220,10 @@ enum PreferenceKey : String{
     
     case TempoTrainer = "TempoTrainer"
     case AppCurrentVersion = "App_Current_Version"
+    
+    case BranchLinkWorkoutId = "Z_Branch_link_Workout_id"
+    
+    case IsTakenByMe = "Z_Is_Taken_By_Me"
+    case IsNotTakenByMe = "Z_Is_Not_Take_me"
     
 }

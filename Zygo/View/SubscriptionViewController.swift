@@ -10,15 +10,19 @@ import UIKit
 import StoreKit
 import SwiftyStoreKit
 import IQKeyboardManagerSwift
+import KlaviyoSwift
 
 class SubscriptionViewController: UIViewController {
     
+    @IBOutlet weak var saveView : UIView!
+    
     @IBOutlet weak var viewSubscription : UIView!
+    @IBOutlet weak var lblMonthlyPrice : UILabel!
+    
+    @IBOutlet weak var viewYearlySubscription : UIView!
+    @IBOutlet weak var lblYearlyPrice : UILabel!
     
     @IBOutlet weak var btnRedeemCode : UIButton!
-    
-    
-    @IBOutlet weak var lblMonthlyPrice : UILabel!
     
     private let viewModel = SubscriptionViewModel()
     var isForChangeSubscription: Bool = false
@@ -49,6 +53,10 @@ class SubscriptionViewController: UIViewController {
     
     func setupUI()  {
         Helper.shared.setupViewLayer(sender: self.viewSubscription, isSsubScriptionView: true);
+        
+        Helper.shared.setupViewLayer(sender: self.viewYearlySubscription, isSsubScriptionView: true);
+        
+        Helper.shared.setupViewLayer(sender: self.saveView, isSsubScriptionView: true)
     }
     
     //MARK: - UIButton Action
@@ -85,8 +93,14 @@ class SubscriptionViewController: UIViewController {
                 return
             }
             Helper.shared.startLoading()
+            var prize : Float = 14.99
+            if purachsedSubc!.productId == SubscriptionManager.RegisteredPurchase.autoRenewableMonthly.rawValue{
+                prize = 14.99
+            }else if purachsedSubc!.productId == SubscriptionManager.RegisteredPurchase.autoRenewableYearly.rawValue{
+                prize = 149.99
+            }
             
-            self.viewModel.updateReceipt(expiryDate: purachsedSubc!.expiryDate.toSubscriptionDate(), transactionId: purachsedSubc!.transactionId, productId: purachsedSubc!.productId) { (retryError, isUploaded) in
+            self.viewModel.updateReceipt(expiryDate: purachsedSubc!.expiryDate.toSubscriptionDate(), transactionId: purachsedSubc!.transactionId, productId: purachsedSubc!.productId, amount: prize) { (retryError, isUploaded) in
                 
                 if isUploaded{
                     //  PreferenceManager.shared.isSubscriptionPending = false
@@ -189,6 +203,29 @@ class SubscriptionViewController: UIViewController {
         //Helper.shared.setDashboardRoot()
         
     }
+    
+    @IBAction func subscribeYearlyAction (sender : UIButton){
+        
+        let product = SubscriptionManager.RegisteredPurchase.autoRenewableYearly.rawValue
+        Helper.shared.startLoading()
+        SubscriptionManager.shared.purchase(product: SubscriptionManager.RegisteredPurchase(rawValue: product)!) { (error) in
+            Helper.shared.stopLoading()
+            if error != nil{
+                Helper.shared.alert(title: Constants.appName, message: error!)
+                return
+            }
+            
+            //Verify Receipt
+            //For Update on server need to fetch receipt from app.
+            self.verifyPucrchased(product: SubscriptionManager.RegisteredPurchase(rawValue: product)!)
+            
+        }
+        
+        
+        //PreferenceManager.shared.isSubscriptionPending = false
+        //Helper.shared.setDashboardRoot()
+        
+    }
 }
 //MARK: - InApp Purchase
 extension SubscriptionViewController{
@@ -210,6 +247,8 @@ extension SubscriptionViewController{
             switch productType {
             case .autoRenewableMonthly:
                 self.updateMonthlyProductInfo(product: product)
+            case .autoRenewableYearly:
+                self.updateYearlyProductInfo(product: product)
             }
         }
     }
@@ -225,6 +264,20 @@ extension SubscriptionViewController{
         attributeString.addAttributes([.foregroundColor: UIColor.appBlueColor()], range: NSRange(location: 0, length: price.count + 6))
         
         lblMonthlyPrice.attributedText = attributeString
+        
+    }
+    
+    func updateYearlyProductInfo(product: SKProduct){
+        
+        //  lblMonthlyDurationTitle.text = SubscriptionManager.shared.getDurationTitle(product: product, defaultTitle: "Month")
+        
+        let price = product.localizedPrice ?? "$149.99"
+        let attributeString = NSMutableAttributedString(string: "\(price)/year")
+        attributeString.addAttributes([.font: UIFont.appBold(with: 26.0)], range: NSRange(location: 0, length: price.count))
+        attributeString.addAttributes([.font: UIFont.appBold(with: 14.0)], range: NSRange(location: price.count, length: 5))
+        attributeString.addAttributes([.foregroundColor: UIColor.appBlueColor()], range: NSRange(location: 0, length: price.count + 5))
+        
+        lblYearlyPrice.attributedText = attributeString
         
     }
     

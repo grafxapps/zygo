@@ -40,7 +40,7 @@ class DateHelper: NSObject {
     
     var workoutCompletedDate: String{
         get{
-            return self.currentLocalDateTime.toFormat(format: "yyyy-dd-MM")
+            return self.currentLocalDateTime.toFormat(format: "yyyy-MM-dd")
         }
     }
     

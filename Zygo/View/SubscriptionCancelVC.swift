@@ -56,7 +56,14 @@ class SubscriptionCancelVC: UIViewController {
             }
             Helper.shared.startLoading()
             
-            self.viewModel.updateReceipt(expiryDate: purachsedSubc!.expiryDate.toSubscriptionDate(), transactionId: purachsedSubc!.transactionId, productId: purachsedSubc!.productId) { (retryError, isUploaded) in
+            var prize : Float = 14.99
+            if purachsedSubc!.productId == SubscriptionManager.RegisteredPurchase.autoRenewableMonthly.rawValue{
+                prize = 14.99
+            }else if purachsedSubc!.productId == SubscriptionManager.RegisteredPurchase.autoRenewableYearly.rawValue{
+                prize = 149.99
+            }
+            
+            self.viewModel.updateReceipt(expiryDate: purachsedSubc!.expiryDate.toSubscriptionDate(), transactionId: purachsedSubc!.transactionId, productId: purachsedSubc!.productId, amount: prize) { (retryError, isUploaded) in
                 
                 if isUploaded{
                     Helper.shared.alert(title: "Success!", message: "Plan successully updated.") {
@@ -120,6 +127,18 @@ class SubscriptionCancelVC: UIViewController {
         
         if PreferenceManager.shared.currentSubscribedProduct?.type ?? "" == SubscriptionType.Stripe.rawValue{
             //Hit API
+            
+            self.viewModel.cancelStripeSubscription { (isCancelled) in
+                
+                if isCancelled{
+                    Helper.shared.alert(title: Constants.appName, message: "Your subscription has been cancelled successfully."){
+                        self.backAction()
+                    }
+                }
+                
+            }
+            return
+        }else if PreferenceManager.shared.currentSubscribedProduct?.type ?? "" == SubscriptionType.Google.rawValue{
             Helper.shared.alert(title: Constants.appName, message: "Sorry, this subscription was not purchased through Apple, and so can only be managed on an android device.")
             return
         }
@@ -152,7 +171,7 @@ class SubscriptionCancelVC: UIViewController {
     }
     
     @IBAction func reseemCodeAction (sender : UIButton){
-    
+        
     }
 }
 
@@ -174,10 +193,32 @@ extension SubscriptionCancelVC{
         for product in result.retrievedProducts{
             let productType = SubscriptionManager.RegisteredPurchase(rawValue: product.productIdentifier)!
             
+            var cIdentifier = PreferenceManager.shared.currentSubscribedProduct?.productId ?? ""
+            if cIdentifier.isEmpty{
+                cIdentifier = SubscriptionManager.RegisteredPurchase.autoRenewableYearly.rawValue
+            }
             switch productType {
             case .autoRenewableMonthly:
-                self.updateMonthlyProductInfo(product: product)
+                if cIdentifier == SubscriptionManager.RegisteredPurchase.autoRenewableMonthly.rawValue{
+                    self.updateMonthlyProductInfo(product: product)
+                }
+                
+            case .autoRenewableYearly:
+                if cIdentifier == SubscriptionManager.RegisteredPurchase.autoRenewableYearly.rawValue{
+                    self.updateYearlyProductInfo(product: product)
+                }
+                print("")
             }
+        }
+        
+        if self.lblMonthlyPrice.text!.isEmpty{
+            let price = "$14.99"
+            let attributeString = NSMutableAttributedString(string: "\(price)/month")
+            attributeString.addAttributes([.font: UIFont.appBold(with: 26.0)], range: NSRange(location: 0, length: price.count))
+            attributeString.addAttributes([.font: UIFont.appBold(with: 14.0)], range: NSRange(location: price.count, length: 6))
+            attributeString.addAttributes([.foregroundColor: UIColor.appBlueColor()], range: NSRange(location: 0, length: price.count + 6))
+            
+            lblMonthlyPrice.attributedText = attributeString
         }
     }
     
@@ -196,4 +237,17 @@ extension SubscriptionCancelVC{
     }
     
     
+    func updateYearlyProductInfo(product: SKProduct){
+        
+        //  lblMonthlyDurationTitle.text = SubscriptionManager.shared.getDurationTitle(product: product, defaultTitle: "Month")
+        
+        let price = product.localizedPrice ?? "$149.99"
+        let attributeString = NSMutableAttributedString(string: "\(price)/year")
+        attributeString.addAttributes([.font: UIFont.appBold(with: 26.0)], range: NSRange(location: 0, length: price.count))
+        attributeString.addAttributes([.font: UIFont.appBold(with: 14.0)], range: NSRange(location: price.count, length: 5))
+        attributeString.addAttributes([.foregroundColor: UIColor.appBlueColor()], range: NSRange(location: 0, length: price.count + 5))
+        
+        lblMonthlyPrice.attributedText = attributeString
+        
+    }
 }

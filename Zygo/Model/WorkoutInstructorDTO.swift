@@ -15,6 +15,8 @@ struct WorkoutInstructorDTO{
     var instructorPic: String = ""
     var instructorBio: String = ""
     var instructorVideo: String = ""
+    var instructorVideoThumbnail: String = ""
+    var socialMedia: String = ""
     var createdAt: String = ""
     var updatedAt: String = ""
     
@@ -26,6 +28,8 @@ struct WorkoutInstructorDTO{
         self.instructorPic = dict["instructor_pic"] as? String ?? ""
         self.instructorBio = dict["instructor_bio"] as? String ?? ""
         self.instructorVideo = dict["instructor_video"] as? String ?? ""
+        self.instructorVideoThumbnail = dict["instructor_video_thumbnail"] as? String ?? ""
+        self.socialMedia = dict["social_media"] as? String ?? ""
         self.createdAt = dict["created_at"] as? String ?? ""
         self.updatedAt = dict["updated_at"] as? String ?? ""
         
@@ -39,6 +43,8 @@ struct WorkoutInstructorDTO{
             "instructor_pic": self.instructorPic,
             "instructor_bio": self.instructorBio,
             "instructor_video": self.instructorVideo,
+            "instructor_video_thumbnail": self.instructorVideoThumbnail,
+            "social_media": self.socialMedia,
             "created_at": self.createdAt,
             "updated_at": self.updatedAt
         ]

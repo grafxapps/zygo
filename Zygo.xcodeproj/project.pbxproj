@@ -62,6 +62,9 @@
 		E324E6A125DFA23A002CD0D5 /* DownloadManagerDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = E324E69F25DFA239002CD0D5 /* DownloadManagerDownload.swift */; };
 		E324E6A425DFA57B002CD0D5 /* ZygoWorkoutDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E324E6A325DFA57B002CD0D5 /* ZygoWorkoutDownloadManager.swift */; };
 		E324E6A725DFA5BE002CD0D5 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E324E6A625DFA5BE002CD0D5 /* Workout.swift */; };
+		E32A24172684F34C00442F19 /* Instructor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E32A24162684F34C00442F19 /* Instructor.storyboard */; };
+		E32A241D2684F4F700442F19 /* InstructorProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32A241B2684F4F700442F19 /* InstructorProfileTVC.swift */; };
+		E32A241E2684F4F700442F19 /* InstructorProfileTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32A241C2684F4F700442F19 /* InstructorProfileTVC.xib */; };
 		E32E530A264D883E003BAEF0 /* FISoundEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = E32E52F7264D883D003BAEF0 /* FISoundEngine.m */; };
 		E32E530B264D883E003BAEF0 /* FISoundDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = E32E52F8264D883D003BAEF0 /* FISoundDevice.m */; };
 		E32E530C264D883E003BAEF0 /* FISampleBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E32E52F9264D883D003BAEF0 /* FISampleBuffer.m */; };
@@ -105,6 +108,9 @@
 		E344A1E825C9B24C00168519 /* AchievementsCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344A1E625C9B24C00168519 /* AchievementsCVC.swift */; };
 		E344A1E925C9B24C00168519 /* AchievementsCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E344A1E725C9B24C00168519 /* AchievementsCVC.xib */; };
 		E344A1EC25C9B29B00168519 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344A1EB25C9B29B00168519 /* HistoryViewController.swift */; };
+		E3475CBA26C23A0C00B595DC /* InstructorsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3475CB926C23A0C00B595DC /* InstructorsListViewController.swift */; };
+		E3475CBE26C23B6100B595DC /* InstructorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3475CBC26C23B6100B595DC /* InstructorTVC.swift */; };
+		E3475CBF26C23B6100B595DC /* InstructorTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3475CBD26C23B6100B595DC /* InstructorTVC.xib */; };
 		E349E53225C59F3C0054A54D /* WorkoutsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E349E53125C59F3C0054A54D /* WorkoutsViewModel.swift */; };
 		E349E53525C59F490054A54D /* WorkoutsServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E349E53425C59F490054A54D /* WorkoutsServices.swift */; };
 		E349E53825C5BEAB0054A54D /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E349E53725C5BEAB0054A54D /* FilterViewModel.swift */; };
@@ -121,6 +127,10 @@
 		E35F24BE25DBA682004E2B8C /* FeedbackAchievementTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F24BC25DBA682004E2B8C /* FeedbackAchievementTVC.swift */; };
 		E35F24BF25DBA682004E2B8C /* FeedbackAchievementTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E35F24BD25DBA682004E2B8C /* FeedbackAchievementTVC.xib */; };
 		E35F24C225DBA932004E2B8C /* AchievementDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F24C125DBA932004E2B8C /* AchievementDTO.swift */; };
+		E36611F5268A174E0034A311 /* InstructorVideoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36611F3268A174E0034A311 /* InstructorVideoTVC.swift */; };
+		E36611F6268A174E0034A311 /* InstructorVideoTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E36611F4268A174E0034A311 /* InstructorVideoTVC.xib */; };
+		E36611F9268A1DDD0034A311 /* InstructorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36611F8268A1DDD0034A311 /* InstructorViewController.swift */; };
+		E36611FC268A2F9E0034A311 /* InstructorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36611FB268A2F9E0034A311 /* InstructorViewModel.swift */; };
 		E379625525DCD9E50024B5C9 /* FeedbackAchievementCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E379625325DCD9E50024B5C9 /* FeedbackAchievementCVC.swift */; };
 		E379625625DCD9E50024B5C9 /* FeedbackAchievementCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E379625425DCD9E50024B5C9 /* FeedbackAchievementCVC.xib */; };
 		E379627625DD3FF10024B5C9 /* TempoTrainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E379627525DD3FF10024B5C9 /* TempoTrainerViewController.swift */; };
@@ -172,7 +182,19 @@
 		E38A0F2F25C552E300D3FAAC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = E38A0F0625C552E200D3FAAC /* README.md */; };
 		E38A0F3225C570A400D3FAAC /* WorkoutDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38A0F3125C570A400D3FAAC /* WorkoutDTO.swift */; };
 		E38A0F3525C57B7800D3FAAC /* WorkoutInstructorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38A0F3425C57B7800D3FAAC /* WorkoutInstructorDTO.swift */; };
+		E39230542678FB160060EFC4 /* CustomAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39230522678FB160060EFC4 /* CustomAlertVC.swift */; };
+		E39230552678FB160060EFC4 /* CustomAlertVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E39230532678FB160060EFC4 /* CustomAlertVC.xib */; };
+		E39230592678FB5F0060EFC4 /* DismissingAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39230572678FB5E0060EFC4 /* DismissingAnimator.swift */; };
+		E392305A2678FB5F0060EFC4 /* PresentingAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39230582678FB5E0060EFC4 /* PresentingAnimator.swift */; };
+		E3AA40F82695FB7A0063C073 /* ScreenRecordingProtoector.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AA40F72695FB7A0063C073 /* ScreenRecordingProtoector.swift */; };
+		E3AA40FD2696232C0063C073 /* PlaylistTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AA40FB2696232C0063C073 /* PlaylistTVC.swift */; };
+		E3AA40FE2696232C0063C073 /* PlaylistTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3AA40FC2696232C0063C073 /* PlaylistTVC.xib */; };
+		E3AA41022696241D0063C073 /* PlaylistInfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AA41002696241D0063C073 /* PlaylistInfoTVC.swift */; };
+		E3AA41032696241D0063C073 /* PlaylistInfoTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3AA41012696241D0063C073 /* PlaylistInfoTVC.xib */; };
+		E3AA4106269626E70063C073 /* PlayListDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AA4105269626E70063C073 /* PlayListDTO.swift */; };
 		E3AC185325C86C16009C092D /* SheetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AC185225C86C16009C092D /* SheetDTO.swift */; };
+		E3B063DE268A31C400304004 /* InstructorWorkoutTitleTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B063DC268A31C400304004 /* InstructorWorkoutTitleTVC.swift */; };
+		E3B063DF268A31C400304004 /* InstructorWorkoutTitleTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3B063DD268A31C400304004 /* InstructorWorkoutTitleTVC.xib */; };
 		E3B1988C25D4505700AC6CB9 /* WorkoutDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D8DC9D25CEF9FE00949256 /* WorkoutDetailViewController.swift */; };
 		E3B4531A25F674E3000DA41B /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B4531925F674E3000DA41B /* ChangePasswordVC.swift */; };
 		E3C2DAC4262C51CD000E14F5 /* HomeTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C2DAC3262C51CD000E14F5 /* HomeTabBar.swift */; };
@@ -208,6 +230,8 @@
 		E3D8DC9B25CEF9D400949256 /* BluetoothTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3D8DC8F25CEF9D400949256 /* BluetoothTVC.xib */; };
 		E3E02E8E25CAFBE9003960C8 /* FilterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E02E8D25CAFBE9003960C8 /* FilterDTO.swift */; };
 		E3F5EEB125C3F0D4001D9BC1 /* PreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F5EEB025C3F0D4001D9BC1 /* PreferenceManager.swift */; };
+		E3F8102B269763D00070847A /* PlaylistViewMoreTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F81029269763D00070847A /* PlaylistViewMoreTVC.swift */; };
+		E3F8102C269763D00070847A /* PlaylistViewMoreTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3F8102A269763D00070847A /* PlaylistViewMoreTVC.xib */; };
 		E3FABF3F25C8647200324511 /* BottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FABF3D25C8647100324511 /* BottomSheetVC.swift */; };
 		E3FABF4025C8647200324511 /* BottomSheetVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3FABF3E25C8647200324511 /* BottomSheetVC.xib */; };
 		E3FABF4525C8658300324511 /* SheetTCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FABF4325C8658300324511 /* SheetTCV.swift */; };
@@ -280,6 +304,9 @@
 		E324E69F25DFA239002CD0D5 /* DownloadManagerDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManagerDownload.swift; sourceTree = "<group>"; };
 		E324E6A325DFA57B002CD0D5 /* ZygoWorkoutDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZygoWorkoutDownloadManager.swift; sourceTree = "<group>"; };
 		E324E6A625DFA5BE002CD0D5 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		E32A24162684F34C00442F19 /* Instructor.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Instructor.storyboard; sourceTree = "<group>"; };
+		E32A241B2684F4F700442F19 /* InstructorProfileTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructorProfileTVC.swift; sourceTree = "<group>"; };
+		E32A241C2684F4F700442F19 /* InstructorProfileTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstructorProfileTVC.xib; sourceTree = "<group>"; };
 		E32E52F7264D883D003BAEF0 /* FISoundEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISoundEngine.m; sourceTree = "<group>"; };
 		E32E52F8264D883D003BAEF0 /* FISoundDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISoundDevice.m; sourceTree = "<group>"; };
 		E32E52F9264D883D003BAEF0 /* FISampleBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISampleBuffer.m; sourceTree = "<group>"; };
@@ -314,6 +341,11 @@
 		E335DE0125CDBCB30089C772 /* YourAchievementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourAchievementViewController.swift; sourceTree = "<group>"; };
 		E335DE0825CE75300089C772 /* SettingsHV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHV.swift; sourceTree = "<group>"; };
 		E335DE0B25CE753E0089C772 /* SettingsHV.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsHV.xib; sourceTree = "<group>"; };
+		E337F988269479E100510D42 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		E337F9AD26947C7B00510D42 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		E337F9AF26947CAA00510D42 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		E337F9B126947CB500510D42 /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
+		E337F9B326947CBD00510D42 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		E341129225E6C90300F1C53A /* WorkoutLogDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutLogDTO.swift; sourceTree = "<group>"; };
 		E342290025C4412000CE4ABE /* CreateProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileViewModel.swift; sourceTree = "<group>"; };
 		E342290325C4448D00CE4ABE /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
@@ -334,6 +366,9 @@
 		E344A1E625C9B24C00168519 /* AchievementsCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementsCVC.swift; sourceTree = "<group>"; };
 		E344A1E725C9B24C00168519 /* AchievementsCVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AchievementsCVC.xib; sourceTree = "<group>"; };
 		E344A1EB25C9B29B00168519 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		E3475CB926C23A0C00B595DC /* InstructorsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructorsListViewController.swift; sourceTree = "<group>"; };
+		E3475CBC26C23B6100B595DC /* InstructorTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructorTVC.swift; sourceTree = "<group>"; };
+		E3475CBD26C23B6100B595DC /* InstructorTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstructorTVC.xib; sourceTree = "<group>"; };
 		E349E53125C59F3C0054A54D /* WorkoutsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsViewModel.swift; sourceTree = "<group>"; };
 		E349E53425C59F490054A54D /* WorkoutsServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsServices.swift; sourceTree = "<group>"; };
 		E349E53725C5BEAB0054A54D /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
@@ -350,6 +385,10 @@
 		E35F24BC25DBA682004E2B8C /* FeedbackAchievementTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackAchievementTVC.swift; sourceTree = "<group>"; };
 		E35F24BD25DBA682004E2B8C /* FeedbackAchievementTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackAchievementTVC.xib; sourceTree = "<group>"; };
 		E35F24C125DBA932004E2B8C /* AchievementDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDTO.swift; sourceTree = "<group>"; };
+		E36611F3268A174E0034A311 /* InstructorVideoTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructorVideoTVC.swift; sourceTree = "<group>"; };
+		E36611F4268A174E0034A311 /* InstructorVideoTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstructorVideoTVC.xib; sourceTree = "<group>"; };
+		E36611F8268A1DDD0034A311 /* InstructorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructorViewController.swift; sourceTree = "<group>"; };
+		E36611FB268A2F9E0034A311 /* InstructorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructorViewModel.swift; sourceTree = "<group>"; };
 		E379625325DCD9E50024B5C9 /* FeedbackAchievementCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackAchievementCVC.swift; sourceTree = "<group>"; };
 		E379625425DCD9E50024B5C9 /* FeedbackAchievementCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackAchievementCVC.xib; sourceTree = "<group>"; };
 		E379627525DD3FF10024B5C9 /* TempoTrainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempoTrainerViewController.swift; sourceTree = "<group>"; };
@@ -402,7 +441,19 @@
 		E38A0F0625C552E200D3FAAC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E38A0F3125C570A400D3FAAC /* WorkoutDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDTO.swift; sourceTree = "<group>"; };
 		E38A0F3425C57B7800D3FAAC /* WorkoutInstructorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutInstructorDTO.swift; sourceTree = "<group>"; };
+		E39230522678FB160060EFC4 /* CustomAlertVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAlertVC.swift; sourceTree = "<group>"; };
+		E39230532678FB160060EFC4 /* CustomAlertVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomAlertVC.xib; sourceTree = "<group>"; };
+		E39230572678FB5E0060EFC4 /* DismissingAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissingAnimator.swift; sourceTree = "<group>"; };
+		E39230582678FB5E0060EFC4 /* PresentingAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentingAnimator.swift; sourceTree = "<group>"; };
+		E3AA40F72695FB7A0063C073 /* ScreenRecordingProtoector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenRecordingProtoector.swift; sourceTree = "<group>"; };
+		E3AA40FB2696232C0063C073 /* PlaylistTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistTVC.swift; sourceTree = "<group>"; };
+		E3AA40FC2696232C0063C073 /* PlaylistTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistTVC.xib; sourceTree = "<group>"; };
+		E3AA41002696241D0063C073 /* PlaylistInfoTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistInfoTVC.swift; sourceTree = "<group>"; };
+		E3AA41012696241D0063C073 /* PlaylistInfoTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistInfoTVC.xib; sourceTree = "<group>"; };
+		E3AA4105269626E70063C073 /* PlayListDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListDTO.swift; sourceTree = "<group>"; };
 		E3AC185225C86C16009C092D /* SheetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetDTO.swift; sourceTree = "<group>"; };
+		E3B063DC268A31C400304004 /* InstructorWorkoutTitleTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructorWorkoutTitleTVC.swift; sourceTree = "<group>"; };
+		E3B063DD268A31C400304004 /* InstructorWorkoutTitleTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstructorWorkoutTitleTVC.xib; sourceTree = "<group>"; };
 		E3B4531925F674E3000DA41B /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		E3C2DAC3262C51CD000E14F5 /* HomeTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBar.swift; sourceTree = "<group>"; };
 		E3C393DC25E74968008AF486 /* SeriesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesTVC.swift; sourceTree = "<group>"; };
@@ -437,6 +488,8 @@
 		E3D8DC9D25CEF9FE00949256 /* WorkoutDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutDetailViewController.swift; sourceTree = "<group>"; };
 		E3E02E8D25CAFBE9003960C8 /* FilterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDTO.swift; sourceTree = "<group>"; };
 		E3F5EEB025C3F0D4001D9BC1 /* PreferenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceManager.swift; sourceTree = "<group>"; };
+		E3F81029269763D00070847A /* PlaylistViewMoreTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewMoreTVC.swift; sourceTree = "<group>"; };
+		E3F8102A269763D00070847A /* PlaylistViewMoreTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistViewMoreTVC.xib; sourceTree = "<group>"; };
 		E3FABF3D25C8647100324511 /* BottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetVC.swift; sourceTree = "<group>"; };
 		E3FABF3E25C8647200324511 /* BottomSheetVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomSheetVC.xib; sourceTree = "<group>"; };
 		E3FABF4325C8658300324511 /* SheetTCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTCV.swift; sourceTree = "<group>"; };
@@ -468,6 +521,11 @@
 		043F3D85263CC80C38BCD801 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E337F9B326947CBD00510D42 /* CoreTelephony.framework */,
+				E337F9B126947CB500510D42 /* AppTrackingTransparency.framework */,
+				E337F9AF26947CAA00510D42 /* StoreKit.framework */,
+				E337F9AD26947C7B00510D42 /* iAd.framework */,
+				E337F988269479E100510D42 /* AdSupport.framework */,
 				E35F245A25D7CA84004E2B8C /* QuartzCore.framework */,
 				77DBEE42B1B796384A4758FB /* Pods_Zygo.framework */,
 			);
@@ -497,6 +555,7 @@
 				E3E02E8D25CAFBE9003960C8 /* FilterDTO.swift */,
 				E35F24C125DBA932004E2B8C /* AchievementDTO.swift */,
 				E341129225E6C90300F1C53A /* WorkoutLogDTO.swift */,
+				E3AA4105269626E70063C073 /* PlayListDTO.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -504,6 +563,10 @@
 		A63E7C2A25BC2CE900CC9564 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E39230572678FB5E0060EFC4 /* DismissingAnimator.swift */,
+				E39230582678FB5E0060EFC4 /* PresentingAnimator.swift */,
+				E39230522678FB160060EFC4 /* CustomAlertVC.swift */,
+				E39230532678FB160060EFC4 /* CustomAlertVC.xib */,
 				E32E52F5264D883D003BAEF0 /* FISSound */,
 				E3FE0A9625F15A02000D7FAB /* PairVC.xib */,
 				E3FE0A9525F15A00000D7FAB /* PairVC.swift */,
@@ -524,6 +587,7 @@
 				E31DCD2225DC2FD400334D7D /* DateHelper.swift */,
 				E379628025DD8D380024B5C9 /* TempoTrainerManager.swift */,
 				E385B6F225E8F59B00681D44 /* LocationManager.swift */,
+				E3AA40F72695FB7A0063C073 /* ScreenRecordingProtoector.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -596,6 +660,8 @@
 		A68B140C25BDC21100610E99 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
+				E3AA40FA2696230E0063C073 /* Playlist */,
+				E32A24192684F4D500442F19 /* Instructor */,
 				E3C393DB25E74968008AF486 /* Series */,
 				E335DDDC25CC7BC20089C772 /* SideMenu */,
 				E3D8DC8D25CEF9D400949256 /* Bluetooth */,
@@ -673,6 +739,21 @@
 			path = DownloadManager;
 			sourceTree = "<group>";
 		};
+		E32A24192684F4D500442F19 /* Instructor */ = {
+			isa = PBXGroup;
+			children = (
+				E32A241B2684F4F700442F19 /* InstructorProfileTVC.swift */,
+				E32A241C2684F4F700442F19 /* InstructorProfileTVC.xib */,
+				E36611F3268A174E0034A311 /* InstructorVideoTVC.swift */,
+				E36611F4268A174E0034A311 /* InstructorVideoTVC.xib */,
+				E3B063DC268A31C400304004 /* InstructorWorkoutTitleTVC.swift */,
+				E3B063DD268A31C400304004 /* InstructorWorkoutTitleTVC.xib */,
+				E3475CBC26C23B6100B595DC /* InstructorTVC.swift */,
+				E3475CBD26C23B6100B595DC /* InstructorTVC.xib */,
+			);
+			path = Instructor;
+			sourceTree = "<group>";
+		};
 		E32E52F5264D883D003BAEF0 /* FISSound */ = {
 			isa = PBXGroup;
 			children = (
@@ -746,6 +827,8 @@
 				E344A1EB25C9B29B00168519 /* HistoryViewController.swift */,
 				E379627525DD3FF10024B5C9 /* TempoTrainerViewController.swift */,
 				E3B4531925F674E3000DA41B /* ChangePasswordVC.swift */,
+				E36611F8268A1DDD0034A311 /* InstructorViewController.swift */,
+				E3475CB926C23A0C00B595DC /* InstructorsListViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -934,6 +1017,19 @@
 			path = Animations;
 			sourceTree = "<group>";
 		};
+		E3AA40FA2696230E0063C073 /* Playlist */ = {
+			isa = PBXGroup;
+			children = (
+				E3AA40FB2696232C0063C073 /* PlaylistTVC.swift */,
+				E3AA40FC2696232C0063C073 /* PlaylistTVC.xib */,
+				E3AA41002696241D0063C073 /* PlaylistInfoTVC.swift */,
+				E3AA41012696241D0063C073 /* PlaylistInfoTVC.xib */,
+				E3F81029269763D00070847A /* PlaylistViewMoreTVC.swift */,
+				E3F8102A269763D00070847A /* PlaylistViewMoreTVC.xib */,
+			);
+			path = Playlist;
+			sourceTree = "<group>";
+		};
 		E3C393DB25E74968008AF486 /* Series */ = {
 			isa = PBXGroup;
 			children = (
@@ -1000,6 +1096,7 @@
 				A67744C225BC1A5300D18BA9 /* Main.storyboard */,
 				A67744CA25BC1A5B00D18BA9 /* LaunchScreen.storyboard */,
 				E335DDD325CC601A0089C772 /* SideMenu.storyboard */,
+				E32A24162684F34C00442F19 /* Instructor.storyboard */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1030,6 +1127,7 @@
 				E349E53725C5BEAB0054A54D /* FilterViewModel.swift */,
 				E335DDD925CC7ADE0089C772 /* SideMenuViewModel.swift */,
 				E35F246B25D80E27004E2B8C /* WorkoutPlayerViewModel.swift */,
+				E36611FB268A2F9E0034A311 /* InstructorViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1070,7 +1168,6 @@
 				A67744B625BC1A5300D18BA9 /* Frameworks */,
 				A67744B725BC1A5300D18BA9 /* Resources */,
 				036B5AA906620ADC4FE91EE5 /* [CP] Embed Pods Frameworks */,
-				3131136EBDEF1E61CB2922A3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1125,6 +1222,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3475CBF26C23B6100B595DC /* InstructorTVC.xib in Resources */,
 				E31A091625C43C2D00BB59F1 /* Poppins-Black.ttf in Resources */,
 				E31A090925C43C2D00BB59F1 /* Poppins-SemiBoldItalic.ttf in Resources */,
 				E38A0F0725C552E200D3FAAC /* LICENSE in Resources */,
@@ -1133,7 +1231,10 @@
 				E31A090B25C43C2D00BB59F1 /* Poppins-BoldItalic.ttf in Resources */,
 				E3C393DF25E74968008AF486 /* SeriesTVC.xib in Resources */,
 				E3D8DC9725CEF9D400949256 /* WorkoutTypeTVC.xib in Resources */,
+				E32A24172684F34C00442F19 /* Instructor.storyboard in Resources */,
+				E3F8102C269763D00070847A /* PlaylistViewMoreTVC.xib in Resources */,
 				E3FABF4625C8658300324511 /* SheetTCV.xib in Resources */,
+				E32A241E2684F4F700442F19 /* InstructorProfileTVC.xib in Resources */,
 				A67744CC25BC1A5B00D18BA9 /* LaunchScreen.storyboard in Resources */,
 				E3D8DC9025CEF9D400949256 /* StartWorkoutTVC.xib in Resources */,
 				E344A1DB25C9B24400168519 /* HistoryInfoTVC.xib in Resources */,
@@ -1155,8 +1256,10 @@
 				E31A091425C43C2D00BB59F1 /* Poppins-BlackItalic.ttf in Resources */,
 				E3FABF4025C8647200324511 /* BottomSheetVC.xib in Resources */,
 				E379627C25DD8C5B0024B5C9 /* sound_drop.wav in Resources */,
+				E36611F6268A174E0034A311 /* InstructorVideoTVC.xib in Resources */,
 				E3D8DC9425CEF9D400949256 /* WorkoutPlanTVC.xib in Resources */,
 				E344A1DD25C9B24400168519 /* PastWorkoutsTVC.xib in Resources */,
+				E3AA41032696241D0063C073 /* PlaylistInfoTVC.xib in Resources */,
 				E31A090825C43C2D00BB59F1 /* Poppins-ExtraBoldItalic.ttf in Resources */,
 				E31A090D25C43C2D00BB59F1 /* Poppins-Medium.ttf in Resources */,
 				E3C393E425E74A17008AF486 /* SeriesCVC.xib in Resources */,
@@ -1167,6 +1270,7 @@
 				A67744C925BC1A5B00D18BA9 /* Assets.xcassets in Resources */,
 				E3FB14C52637E6E00075AB49 /* GoogleService-Info.plist in Resources */,
 				E344A1E025C9B24400168519 /* OtherSettingsTVC.xib in Resources */,
+				E39230552678FB160060EFC4 /* CustomAlertVC.xib in Resources */,
 				A68B141F25BDD55A00610E99 /* DownloadsTVC.xib in Resources */,
 				E31A091225C43C2D00BB59F1 /* Poppins-ExtraBold.ttf in Resources */,
 				E35F24A925DBA18D004E2B8C /* FeedbackSheetViewController.xib in Resources */,
@@ -1174,6 +1278,8 @@
 				E31A091825C43C2D00BB59F1 /* Poppins-Italic.ttf in Resources */,
 				E335DE0C25CE753E0089C772 /* SettingsHV.xib in Resources */,
 				E31A091925C43C2D00BB59F1 /* Poppins-Thin.ttf in Resources */,
+				E3AA40FE2696232C0063C073 /* PlaylistTVC.xib in Resources */,
+				E3B063DF268A31C400304004 /* InstructorWorkoutTitleTVC.xib in Resources */,
 				E31A091025C43C2D00BB59F1 /* Poppins-SemiBold.ttf in Resources */,
 				A67744C425BC1A5300D18BA9 /* Main.storyboard in Resources */,
 				E35F24BF25DBA682004E2B8C /* FeedbackAchievementTVC.xib in Resources */,
@@ -1205,23 +1311,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Zygo/Pods-Zygo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3131136EBDEF1E61CB2922A3 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Zygo/Pods-Zygo-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Zygo/Pods-Zygo-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Zygo/Pods-Zygo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		439FABD930B03094EDD34E2C /* [CP] Check Pods Manifest.lock */ = {
@@ -1277,6 +1366,7 @@
 				E344A1BD25C9B14600168519 /* GoogleLoginManager.swift in Sources */,
 				E32E530A264D883E003BAEF0 /* FISoundEngine.m in Sources */,
 				E38A0F2E25C552E300D3FAAC /* NVActivityIndicatorAnimationOrbit.swift in Sources */,
+				E36611F5268A174E0034A311 /* InstructorVideoTVC.swift in Sources */,
 				E344A1EC25C9B29B00168519 /* HistoryViewController.swift in Sources */,
 				E31DCD2325DC2FD400334D7D /* DateHelper.swift in Sources */,
 				E38A0F1425C552E200D3FAAC /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift in Sources */,
@@ -1285,6 +1375,8 @@
 				E32E530F264D883E003BAEF0 /* FISoundSource.m in Sources */,
 				A67744BD25BC1A5300D18BA9 /* AppDelegate.swift in Sources */,
 				E38A0F1B25C552E200D3FAAC /* NVActivityIndicatorAnimationBallClipRotatePulse.swift in Sources */,
+				E32A241D2684F4F700442F19 /* InstructorProfileTVC.swift in Sources */,
+				E39230592678FB5F0060EFC4 /* DismissingAnimator.swift in Sources */,
 				A63E7C3325BC2FBA00CC9564 /* SignUpViewController.swift in Sources */,
 				E324E6A025DFA23A002CD0D5 /* DownloadManager.swift in Sources */,
 				E38A0F2325C552E200D3FAAC /* NVActivityIndicatorAnimationBallGridBeat.swift in Sources */,
@@ -1293,6 +1385,7 @@
 				E3AC185325C86C16009C092D /* SheetDTO.swift in Sources */,
 				A68B141025BDC23500610E99 /* WorkoutInfoTVC.swift in Sources */,
 				E38A0F2925C552E300D3FAAC /* NVActivityIndicatorAnimationCubeTransition.swift in Sources */,
+				E3AA40FD2696232C0063C073 /* PlaylistTVC.swift in Sources */,
 				E32E530C264D883E003BAEF0 /* FISampleBuffer.m in Sources */,
 				E38A0F1725C552E200D3FAAC /* NVActivityIndicatorAnimationBallZigZag.swift in Sources */,
 				E38A0F1125C552E200D3FAAC /* NVActivityIndicatorAnimationBallTrianglePath.swift in Sources */,
@@ -1300,6 +1393,7 @@
 				E38A0F1F25C552E200D3FAAC /* NVActivityIndicatorAnimationBlank.swift in Sources */,
 				A63E7C3025BC2D1300CC9564 /* CustomExtensions.swift in Sources */,
 				E379628125DD8D380024B5C9 /* TempoTrainerManager.swift in Sources */,
+				E3AA40F82695FB7A0063C073 /* ScreenRecordingProtoector.swift in Sources */,
 				E38A0F1325C552E200D3FAAC /* NVActivityIndicatorAnimationLineScalePulseOut.swift in Sources */,
 				E324E6A725DFA5BE002CD0D5 /* Workout.swift in Sources */,
 				E344A1E125C9B24400168519 /* OtherSettingsTVC.swift in Sources */,
@@ -1313,8 +1407,10 @@
 				E35F24BE25DBA682004E2B8C /* FeedbackAchievementTVC.swift in Sources */,
 				A68B139025BC572100610E99 /* NetworkManager.swift in Sources */,
 				E38A0F3225C570A400D3FAAC /* WorkoutDTO.swift in Sources */,
+				E3475CBA26C23A0C00B595DC /* InstructorsListViewController.swift in Sources */,
 				E344A1DE25C9B24400168519 /* PastWorkoutsTVC.swift in Sources */,
 				E38A0F1525C552E200D3FAAC /* NVActivityIndicatorAnimationBallZigZagDeflect.swift in Sources */,
+				E36611F9268A1DDD0034A311 /* InstructorViewController.swift in Sources */,
 				E344A1C925C9B22100168519 /* ProfileViewController.swift in Sources */,
 				E3D8DC9125CEF9D400949256 /* WorkoutPlanTVC.swift in Sources */,
 				E335DDDF25CC7BEC0089C772 /* SideMenuTVC.swift in Sources */,
@@ -1330,13 +1426,18 @@
 				E38A0F2A25C552E300D3FAAC /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */,
 				A68B139425BC592800610E99 /* RegistrationServices.swift in Sources */,
 				E38A0F1025C552E200D3FAAC /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift in Sources */,
+				E3475CBE26C23B6100B595DC /* InstructorTVC.swift in Sources */,
 				E35F245725D7C882004E2B8C /* ShadowSmallView.swift in Sources */,
 				E3FB369A25C408CE0070DA9C /* CreateProfileViewController.swift in Sources */,
+				E3AA4106269626E70063C073 /* PlayListDTO.swift in Sources */,
 				E3FB369625C3F4060070DA9C /* FriendsInfoDTO.swift in Sources */,
 				E335DDF725CD9B9C0089C772 /* DatabaseManager.swift in Sources */,
+				E3F8102B269763D00070847A /* PlaylistViewMoreTVC.swift in Sources */,
 				E38A0F1625C552E200D3FAAC /* NVActivityIndicatorAnimationBallScale.swift in Sources */,
 				A68B13F325BC7CE500610E99 /* SignInViewModel.swift in Sources */,
 				E3C2DAC4262C51CD000E14F5 /* HomeTabBar.swift in Sources */,
+				E3AA41022696241D0063C073 /* PlaylistInfoTVC.swift in Sources */,
+				E39230542678FB160060EFC4 /* CustomAlertVC.swift in Sources */,
 				E35F24BA25DBA1E0004E2B8C /* LikeCVC.swift in Sources */,
 				E35F24B525DBA1CF004E2B8C /* DefaultFeedbackTVC.swift in Sources */,
 				E38A0F0925C552E200D3FAAC /* NVActivityIndicatorPresenter.swift in Sources */,
@@ -1350,6 +1451,7 @@
 				E3CFCC6325EE6254000C481A /* HistoryWorkoutsHeaderView.swift in Sources */,
 				A63E7C3725BC448B00CC9564 /* SubscriptionViewController.swift in Sources */,
 				E3D8DC9A25CEF9D400949256 /* BluetoothTVC.swift in Sources */,
+				E392305A2678FB5F0060EFC4 /* PresentingAnimator.swift in Sources */,
 				E3FE0A9725F15A02000D7FAB /* PairVC.swift in Sources */,
 				E3C393E525E74A17008AF486 /* SeriesCVC.swift in Sources */,
 				E3D8DC6525CEF81100949256 /* WorkoutSeriesViewController.swift in Sources */,
@@ -1378,6 +1480,7 @@
 				A67744BF25BC1A5300D18BA9 /* SceneDelegate.swift in Sources */,
 				E38A0F1A25C552E200D3FAAC /* NVActivityIndicatorAnimationBallScaleRipple.swift in Sources */,
 				E335DE0525CDBCB40089C772 /* SettingsViewController.swift in Sources */,
+				E3B063DE268A31C400304004 /* InstructorWorkoutTitleTVC.swift in Sources */,
 				E3D8DC9225CEF9D400949256 /* WorkoutDetailInfoTVC.swift in Sources */,
 				E32E5310264D883E003BAEF0 /* FISoundContext.m in Sources */,
 				E35F245825D7C882004E2B8C /* ShadowView.swift in Sources */,
@@ -1398,6 +1501,7 @@
 				E344A1E225C9B24400168519 /* NotificationSettingsTVC.swift in Sources */,
 				E38A0F2825C552E200D3FAAC /* NVActivityIndicatorAnimationBallPulseSync.swift in Sources */,
 				E3FABF3F25C8647200324511 /* BottomSheetVC.swift in Sources */,
+				E36611FC268A2F9E0034A311 /* InstructorViewModel.swift in Sources */,
 				E38A0F0825C552E200D3FAAC /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
 				E342290125C4412000CE4ABE /* CreateProfileViewModel.swift in Sources */,
 				E3D8DC9325CEF9D400949256 /* StartWorkoutTVC.swift in Sources */,
@@ -1550,9 +1654,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Zygo/Zygo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 79XU885769;
 				INFOPLIST_FILE = Zygo/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1560,10 +1664,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zygo.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = Zygo_Dis_27April21;
+				PROVISIONING_PROFILE_SPECIFIER = ZygoDevelopment05July21;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Zygo/Resources/Zygo-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1576,9 +1680,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Zygo/Zygo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 79XU885769;
 				INFOPLIST_FILE = Zygo/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1586,10 +1690,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zygo.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = Zygo_Dis_27April21;
+				PROVISIONING_PROFILE_SPECIFIER = ZygoDevelopment05July21;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Zygo/Resources/Zygo-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

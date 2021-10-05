@@ -3,4 +3,342 @@
    uuid = "1CA75358-DE62-4523-9B62-CDC017D241D5"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C8CFF20D-AFA3-441C-B0AF-BAA9643E9792"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Zygo/View/SubscriptionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "verifyPucrchased(product:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C8CFF20D-AFA3-441C-B0AF-BAA9643E9792 - 6c5efcffc6500204"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Optional&lt;(Swift.String, Swift.String)&gt;, Swift.Optional&lt;SwiftyStoreKit.VerifySubscriptionResult&gt;) -&gt; () in Zygo.SubscriptionViewController.verifyPucrchased(product: Zygo.SubscriptionManager.RegisteredPurchase) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/som/Documents/My%20Projects/Ongoing%20Projects/Zygo/V2/zygo/Zygo/View/SubscriptionViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "148"
+                  endingLineNumber = "148"
+                  offsetFromSymbolStart = "1256">
+               </Location>
+               <Location
+                  uuid = "C8CFF20D-AFA3-441C-B0AF-BAA9643E9792 - 702593aba1b830bf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.String&gt;, Swift.Bool) -&gt; () in closure #1 () -&gt; () in closure #1 (Swift.Optional&lt;(Swift.String, Swift.String)&gt;, Swift.Optional&lt;SwiftyStoreKit.VerifySubscriptionResult&gt;) -&gt; () in Zygo.SubscriptionViewController.verifyPucrchased(product: Zygo.SubscriptionManager.RegisteredPurchase) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/som/Documents/My%20Projects/Ongoing%20Projects/Zygo/V2/zygo/Zygo/View/SubscriptionViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "150"
+                  endingLineNumber = "150"
+                  offsetFromSymbolStart = "148">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AFC5A7F6-9929-45FF-ABE2-228EE3043860"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Zygo/View/SubscriptionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "verifyPucrchased(product:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E40ED43F-5D45-4AAC-9D56-48F17D07BC73"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Zygo/View/SubscriptionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "verifyPucrchased(product:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C84A380A-E3D5-43B1-9F24-02AEBA37687C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Zygo/ViewModel/SubscriptionViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "uloadReceipt(receipt:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CA9F2EDF-7F0D-4874-8119-D3A6397A1DF6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Zygo/ViewModel/SubscriptionViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "uloadReceipt(receipt:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "CA9F2EDF-7F0D-4874-8119-D3A6397A1DF6 - f7d841b6c6068002"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Zygo.SubscriptionViewModel.uloadReceipt(receipt: SwiftyStoreKit.VerifySubscriptionResult, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/som/Documents/My%20Projects/Ongoing%20Projects/Zygo/V2/zygo/Zygo/ViewModel/SubscriptionViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "500">
+               </Location>
+               <Location
+                  uuid = "CA9F2EDF-7F0D-4874-8119-D3A6397A1DF6 - f7d841b6c6068002"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Zygo.SubscriptionViewModel.uloadReceipt(receipt: SwiftyStoreKit.VerifySubscriptionResult, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/som/Documents/My%20Projects/Ongoing%20Projects/Zygo/V2/zygo/Zygo/ViewModel/SubscriptionViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "592">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C7923AE5-B2FF-469C-ADBD-D4355F18C45E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Zygo/ViewModel/SubscriptionViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "uloadReceipt(receipt:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C7923AE5-B2FF-469C-ADBD-D4355F18C45E - f7d841b6c6068fc4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Zygo.SubscriptionViewModel.uloadReceipt(receipt: SwiftyStoreKit.VerifySubscriptionResult, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/som/Documents/My%20Projects/Ongoing%20Projects/Zygo/V2/zygo/Zygo/ViewModel/SubscriptionViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "640">
+               </Location>
+               <Location
+                  uuid = "C7923AE5-B2FF-469C-ADBD-D4355F18C45E - f9eecbf13d2c8e0a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SwiftyStoreKit.ReceiptItem, SwiftyStoreKit.ReceiptItem) -&gt; Swift.Bool in Zygo.SubscriptionViewModel.uloadReceipt(receipt: SwiftyStoreKit.VerifySubscriptionResult, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/som/Documents/My%20Projects/Ongoing%20Projects/Zygo/V2/zygo/Zygo/ViewModel/SubscriptionViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "220">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D076A44B-AF8E-4625-950F-54D5A69DCEEA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Zygo/Services/SubscriptionServices.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "updateSubscription(userId:expiryDate:transactionId:productId:amount:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D076A44B-AF8E-4625-950F-54D5A69DCEEA - f26361b54032a931"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Zygo.SubscriptionServices.updateSubscription(userId: Swift.Int, expiryDate: Swift.String, transactionId: Swift.String, productId: Swift.String, amount: Swift.Float, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/som/Documents/My%20Projects/Ongoing%20Projects/Zygo/V2/zygo/Zygo/Services/SubscriptionServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "848">
+               </Location>
+               <Location
+                  uuid = "D076A44B-AF8E-4625-950F-54D5A69DCEEA - 25bd40a747d62aa9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Zygo.ServiceResponse) -&gt; () in Zygo.SubscriptionServices.updateSubscription(userId: Swift.Int, expiryDate: Swift.String, transactionId: Swift.String, productId: Swift.String, amount: Swift.Float, completion: (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/som/Documents/My%20Projects/Ongoing%20Projects/Zygo/V2/zygo/Zygo/Services/SubscriptionServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "112">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6E0BCB7B-04D2-4F29-B24F-6F75A068CA87"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Zygo/ViewModel/WorkoutsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "getUserProfile()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "631B6979-C4D4-43BB-9DB4-82360BE4F5DF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Zygo/ViewModel/WorkoutsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "getUserProfile()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "631B6979-C4D4-43BB-9DB4-82360BE4F5DF - d43bef805e49418b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Zygo.WorkoutsViewModel.getUserProfile() -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/som/Documents/My%20Projects/Ongoing%20Projects/Zygo/V2/zygo/Zygo/ViewModel/WorkoutsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "631B6979-C4D4-43BB-9DB4-82360BE4F5DF - cf168a32e4da3d5e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.String&gt;) -&gt; () in Zygo.WorkoutsViewModel.getUserProfile() -&gt; ()"
+                  moduleName = "Zygo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/som/Documents/My%20Projects/Ongoing%20Projects/Zygo/V2/zygo/Zygo/ViewModel/WorkoutsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "284">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3D0AE502-5513-4C7A-A5F2-83D085E6603C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Zygo/ViewModel/WorkoutsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "getUserProfile()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D03E93E4-5054-4621-A1E9-8ED3567091DD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Zygo/Common/SubscriptionManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "isValidSubscription()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

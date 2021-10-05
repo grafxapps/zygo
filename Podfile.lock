@@ -13,6 +13,7 @@ PODS:
   - Bolts/AppLinks (1.9.1):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.1)
+  - Branch (1.39.3)
   - Facebook-iOS-SDK (4.38.0):
     - Bolts (~> 1.9)
     - Facebook-iOS-SDK/CoreKit (= 4.38.0)
@@ -72,8 +73,8 @@ PODS:
     - GoogleUtilities/UserDefaults (~> 7.0)
   - GoogleDataTransport (8.2.0):
     - nanopb (~> 2.30907.0)
-  - GoogleSignIn (5.0.2):
-    - AppAuth (~> 1.2)
+  - GoogleSignIn (6.0.2):
+    - AppAuth (~> 1.4)
     - GTMAppAuth (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
   - GoogleUtilities/AppDelegateSwizzler (7.2.0):
@@ -93,20 +94,18 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.2.0):
     - GoogleUtilities/Logger
-  - GTMAppAuth (1.1.0):
+  - GTMAppAuth (1.2.2):
     - AppAuth/Core (~> 1.4)
-    - GTMSessionFetcher (~> 1.4)
-  - GTMSessionFetcher (1.5.0):
-    - GTMSessionFetcher/Full (= 1.5.0)
-  - GTMSessionFetcher/Core (1.5.0)
-  - GTMSessionFetcher/Full (1.5.0):
-    - GTMSessionFetcher/Core (= 1.5.0)
+    - GTMSessionFetcher/Core (~> 1.5)
+  - GTMSessionFetcher/Core (1.6.1)
   - IQKeyboardManagerSwift (6.5.6)
+  - KlaviyoSwift (1.5.0)
   - nanopb (2.30907.0):
     - nanopb/decode (= 2.30907.0)
     - nanopb/encode (= 2.30907.0)
   - nanopb/decode (2.30907.0)
   - nanopb/encode (2.30907.0)
+  - pop (1.0.12)
   - PromisesObjC (1.2.12)
   - Realm (10.5.1):
     - Realm/Headers (= 10.5.1)
@@ -117,21 +116,26 @@ PODS:
     - SDWebImage/Core (= 5.10.2)
   - SDWebImage/Core (5.10.2)
   - SideMenuSwift (2.0.7)
+  - SimpleAnimation (0.4.2)
   - TrueTime (5.0.3)
   - XLPagerTabStrip (9.0.0)
 
 DEPENDENCIES:
   - Alamofire
   - AlamofireImage (~> 4.1)
+  - Branch
   - Facebook-iOS-SDK (~> 4.38)
   - FBSDKCoreKit/Swift
   - FBSDKLoginKit/Swift
   - Firebase/Messaging
   - GoogleSignIn
   - IQKeyboardManagerSwift
+  - KlaviyoSwift
+  - pop (~> 1.0)
   - RealmSwift
   - SDWebImage
   - SideMenuSwift
+  - SimpleAnimation
   - TrueTime
   - XLPagerTabStrip
 
@@ -141,6 +145,7 @@ SPEC REPOS:
     - AlamofireImage
     - AppAuth
     - Bolts
+    - Branch
     - Facebook-iOS-SDK
     - FBSDKCoreKit
     - FBSDKLoginKit
@@ -157,12 +162,15 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - IQKeyboardManagerSwift
+    - KlaviyoSwift
     - nanopb
+    - pop
     - PromisesObjC
     - Realm
     - RealmSwift
     - SDWebImage
     - SideMenuSwift
+    - SimpleAnimation
     - TrueTime
     - XLPagerTabStrip
 
@@ -171,6 +179,7 @@ SPEC CHECKSUMS:
   AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
+  Branch: 13df8e1a6985745a03389146df1eeda723645a97
   Facebook-iOS-SDK: 9077b67c4178ea46c62997bcf2b6314ca6555440
   FBSDKCoreKit: ada5c8a05188daefc9addb985c52b8a1b26da519
   FBSDKLoginKit: caa165495afa29a12324cb2307fe6e5b33783142
@@ -182,20 +191,23 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 47fcb3b70d6349cfd471f430b01bbd01a7698e8f
   FirebaseMessaging: a2a23671eb281b1eed38b155af8549b335a4a38b
   GoogleDataTransport: 1024b1a4dfbd7a0e92cb20d7e0a6f1fb66b449a4
-  GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
+  GoogleSignIn: fd381840dbe7c1137aa6dc30849a5c3e070c034a
   GoogleUtilities: d866834472f1324d080496bc67ab3ce5d0d46027
-  GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
-  GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
+  GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
+  GTMSessionFetcher: 36689134877faeb055b27dfa4ccc9ceaa42e029e
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
+  KlaviyoSwift: 7627dd618a02c58b593f17e7be2018e545a4b33b
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
+  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Realm: 77fcb4e0b9f2963ea06f584749a0d7dc9cab95e1
   RealmSwift: 6abe6aa6cd8b70cc1a87afcb9232cabea74ff1ac
   SDWebImage: b969dcfc02c40a5da71eac0b03b8f1a0c794a86f
   SideMenuSwift: ffbbc88d23741932177ad1320df837cedfb3bc5e
+  SimpleAnimation: 5430010b9548f392e7459290acce01c9ceba7171
   TrueTime: b49551ffafb28a9dee04e51b226f42a416010842
   XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
 
-PODFILE CHECKSUM: a5efa94f974f9140e04d25362ed87d605144c66d
+PODFILE CHECKSUM: 62d47287033795998930346523d8fb7b6e218ebe
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.10.2

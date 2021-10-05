@@ -52,9 +52,14 @@ class TempoTrainerViewController: UIViewController {
     private var trainer: TempoTrainerManager.TemoTrainer = TempoTrainerManager.TemoTrainer([:])
     private var lightColor = UIColor(displayP3Red: 209.0/255.0, green: 209.0/255.0 , blue: 209.0/255.0, alpha: 1.0)
     
+    private var strokeRatePicker: UIPickerView!
+    private var lapIntervalPicker: UIPickerView!
+    
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setupPicker()
         
         self.viewStrokes.setupShadowViewAnimation(shadowRadius: 4.0, shadowOpacity: 0.5, shadowOffset: CGSize(width: 0, height: 4.0))
         self.viewSeconds.setupShadowViewAnimation(shadowRadius: 4.0, shadowOpacity: 0.5, shadowOffset: CGSize(width: 0, height: 4.0))
@@ -104,6 +109,22 @@ class TempoTrainerViewController: UIViewController {
     }
     
     //MARK:- Setup
+    func setupPicker(){
+        strokeRatePicker = UIPickerView()
+        strokeRatePicker.dataSource = self
+        strokeRatePicker.delegate = self
+        strokeRatePicker.selectRow(49, inComponent: 0, animated: false)
+        
+        self.txtStroke.inputView = strokeRatePicker
+        
+        lapIntervalPicker = UIPickerView()
+        lapIntervalPicker.dataSource = self
+        lapIntervalPicker.delegate = self
+        lapIntervalPicker.selectRow(45, inComponent: 0, animated: false)
+        
+        self.txtSeconds.inputView = lapIntervalPicker
+    }
+    
     func removeObservers(){
         NotificationCenter.default.removeObserver(self)
     }
@@ -504,13 +525,21 @@ extension TempoTrainerViewController : UITextFieldDelegate{
                 textField.text = previousStrokeText
             }
             
+            let selectedrow = strokeRatePicker.selectedRow(inComponent: 0) + 1
+            self.txtStroke.text = "\(selectedrow)"
+            
             //If stroke rate is grater than maximum stroke rate then set maximum stroke rate
             self.checkStrokeMaximumValue()
             
         }else if textField == txtSeconds{
+            
             if textField.text!.trim().isEmpty{
                 textField.text = previousSecondsText
             }
+            
+            
+            let selectedrow = lapIntervalPicker.selectedRow(inComponent: 0) + 5
+            self.txtSeconds.text = "\(selectedrow)"
             
             self.checkLapIntervalMinimumValue()
         }
@@ -526,3 +555,33 @@ extension TempoTrainerViewController : UITextFieldDelegate{
     
 }
 
+
+extension TempoTrainerViewController: UIPickerViewDataSource, UIPickerViewDelegate{
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == lapIntervalPicker{
+            return 995
+        }
+        return 120
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == lapIntervalPicker{
+            return "\(row+5)"
+        }
+        return "\(row+1)"
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        if pickerView == lapIntervalPicker{
+            self.txtSeconds.text = "\(row+5)"
+        }else{
+            self.txtStroke.text = "\(row+1)"
+        }
+    }
+}

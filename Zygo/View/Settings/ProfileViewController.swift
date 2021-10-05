@@ -57,6 +57,22 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
         if !user.profilePic.isEmpty{
             self.imageView.sd_setImage(with: URL(string: user.profilePic.getImageURL()), placeholderImage: UIImage(named: "icon_default"), options: .refreshCached, completed: nil)
         }
+        
+        user = PreferenceManager.shared.user
+
+        let tempUB = user.birthday
+        if let dob = tempUB.fromServerBirthday(){
+            self.viewModel.profileItem.birthday = dob.toServerBirthday().trim()
+        }
+        
+        self.viewModel.profileItem.email = user.email
+        self.viewModel.profileItem.name = user.name
+        self.viewModel.profileItem.fname = user.fName
+        self.viewModel.profileItem.lname = user.lName
+        self.viewModel.profileItem.gender = user.gender
+        self.viewModel.profileItem.location = user.location
+        self.viewModel.profileItem.tSerialNumber = user.tSerialNumber
+        self.viewModel.profileItem.hSerialNumber = user.hSerialNumber
     }
     
     func setupTabBars(){
@@ -110,6 +126,14 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
             return true
         }
         
+        if self.viewModel.profileItem.tSerialNumber != user.tSerialNumber{
+            return true
+        }
+        
+        if self.viewModel.profileItem.hSerialNumber != user.hSerialNumber{
+            return true
+        }
+        
         return false
     }
     
@@ -146,6 +170,9 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
                 self?.user.gender = self?.viewModel.profileItem.gender ?? ""
                 self?.user.birthday = self?.viewModel.profileItem.birthday ?? ""
                 self?.user.location = self?.viewModel.profileItem.location ?? ""
+                self?.user.tSerialNumber = self?.viewModel.profileItem.tSerialNumber ?? ""
+                self?.user.hSerialNumber = self?.viewModel.profileItem.hSerialNumber ?? ""
+                
                 if let nUser = self?.user{
                     PreferenceManager.shared.user = nUser
                 }
@@ -170,7 +197,7 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
     
     // MARK: - PagerTabStripDataSource
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        return [infoVC, historyVC]
+        return [historyVC, infoVC]
     }
 }
 

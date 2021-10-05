@@ -9,6 +9,7 @@
 import UIKit
 import FBSDKCoreKit
 import AVFoundation
+import Branch
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -19,6 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let url = URLContexts.first?.url else {
             return
         }
+        
+        Branch.getInstance().application(UIApplication.shared, open: url, sourceApplication: nil, annotation: [UIApplication.OpenURLOptionsKey.annotation])
         
         ApplicationDelegate.shared.application(
             UIApplication.shared,
@@ -38,27 +41,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             if PreferenceManager.shared.isUserLogin{
                 
-                if !SubscriptionManager.shared.isValidSubscription(){//It means user is not subscribe yet
-                    let storyBoard = UIStoryboard(name: "Registration", bundle: nil)
-                    let navigationController = storyBoard.instantiateViewController(withIdentifier: "SubscriptionViewController")
-                    window.rootViewController = navigationController
-                }else{
-                    
-                    //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
-                    let userItem = PreferenceManager.shared.user
-                    if userItem.gender.isEmpty || userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
+                //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
+                let userItem = PreferenceManager.shared.user
+                if userItem.gender.isEmpty || userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
+                    if !SubscriptionManager.shared.isValidSubscription(){//It means user is not subscribe yet
+                        let storyBoard = UIStoryboard(name: "Registration", bundle: nil)
+                        let navigationController = storyBoard.instantiateViewController(withIdentifier: "SubscriptionViewController")
+                        window.rootViewController = navigationController
+                    }else{
                         
                         let storyBoard = UIStoryboard(name: "Registration", bundle: nil)
                         let navigationController = storyBoard.instantiateViewController(withIdentifier: "CreateProfileViewController")
                         window.rootViewController = navigationController
-                        
-                    }else{
-                        //MOVE TO DASHBOARD
-                        let mainStoryboard: UIStoryboard = UIStoryboard(name: "SideMenu", bundle: nil)
-                        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "SideMenu")// as! SideMenu
-                        window.rootViewController = viewController
                     }
+                }else{
+                    //MOVE TO DASHBOARD
+                    let mainStoryboard: UIStoryboard = UIStoryboard(name: "SideMenu", bundle: nil)
+                    let viewController = mainStoryboard.instantiateViewController(withIdentifier: "SideMenu")// as! SideMenu
+                    window.rootViewController = viewController
                 }
+                //}
                 
             }else{
                 let storyBoard = UIStoryboard(name: "Registration", bundle: nil)
@@ -69,6 +71,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             self.window = window
             window.makeKeyAndVisible()
+        }
+        
+        
+        if let userActivity = connectionOptions.userActivities.first{
+            self.scene(scene, continue: userActivity)
         }
         
         //Disable dark mode
@@ -118,6 +125,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+    }
+    
+    
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        Branch.getInstance().continue(userActivity)
     }
 }
 

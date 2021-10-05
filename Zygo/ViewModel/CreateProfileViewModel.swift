@@ -50,6 +50,43 @@ final class CreateProfileViewModel: NSObject {
         return true
     }
     
+    func isInfoValidate() -> Bool{
+        if profileItem.email.isEmpty{
+            Helper.shared.alert(title: Constants.appName, message: "Please enter your email address.")
+            return false
+        }else if !profileItem.email.isEmailValid(){
+            Helper.shared.alert(title: Constants.appName, message: "Please enter a valid email address.")
+            return false
+        }
+        if profileItem.name.isEmpty{
+            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter your user name.", comment: ""))
+            return false
+        }else if profileItem.fname.isEmpty{
+            Helper.shared.alert(title: Constants.appName, message: "Please enter your first name.")
+            return false
+        }else if profileItem.lname.isEmpty{
+            Helper.shared.alert(title: Constants.appName, message: "Please enter your last name.")
+            return false
+        }else if profileItem.gender.isEmpty{
+            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please select your gender.", comment: ""))
+            return false
+        }else if profileItem.birthday.isEmpty{
+            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please select your birth date.", comment: ""))
+            return false
+        }else if profileItem.location.isEmpty{
+            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter your address.", comment: ""))
+            return false
+        }else if !profileItem.tSerialNumber.dropFirst().isEmpty && profileItem.tSerialNumber.dropFirst().count < 8{
+            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid serial number.", comment: ""))
+            return false
+        }else if !profileItem.hSerialNumber.dropFirst().isEmpty && profileItem.hSerialNumber.dropFirst().count < 8{
+            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid serial number.", comment: ""))
+            return false
+        }
+        
+        return true
+    }
+    
     func createProfile(completion: @escaping (Bool, String) -> Void){
         Helper.shared.startLoading()
         userService.createProfile(user: self.profileItem) { [weak self] (error, profileImage) in
@@ -68,7 +105,6 @@ final class CreateProfileViewModel: NSObject {
                 completion(true, profileImage)
             }
         }
-        
     }
     
     func updateProfile(completion: @escaping (Bool, String) -> Void){
@@ -158,5 +194,7 @@ struct CreateProfileDTO {
     var birthday : String = ""
     var birthdayDisplay : String = ""
     var location : String = ""
+    var hSerialNumber: String = ""
+    var tSerialNumber: String = ""
     var image: UIImage?
 }

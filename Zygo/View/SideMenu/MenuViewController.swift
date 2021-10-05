@@ -89,8 +89,15 @@ class MenuViewController: UIViewController {
         case .termsService:
             let url = URL(string: Constants.termsOfService)
             Helper.shared.openUrl(url: url)
+        case .instructors:
+            let instructorsVC = UIStoryboard(name: "Instructor", bundle: nil).instantiateViewController(withIdentifier: "InstructorsListViewController") as! InstructorsListViewController
+            self.getCurrentNavigationController()?.pushViewController(instructorsVC, animated: true)
         }
         
+        self.perform(#selector(self.hide), with: nil, afterDelay: 0.2)
+    }
+    
+    @objc func hide(){
         sideMenuController?.hideMenu()
     }
     

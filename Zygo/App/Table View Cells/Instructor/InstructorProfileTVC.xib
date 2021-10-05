@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Bold.ttf">
+            <string>Poppins-Bold</string>
+        </array>
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InstructorProfileTVC" rowHeight="473" id="KGk-i7-Jjw" customClass="InstructorProfileTVC" customModule="Zygo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="473"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="473"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u1f-sb-Fb8">
+                        <rect key="frame" x="97.5" y="35" width="125" height="125"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="opV-0j-25L" customClass="UIInstructorCircleImageView" customModule="Zygo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1EO-1f-zDP" customClass="UICircleImageView" customModule="Zygo" customModuleProvider="target">
+                                <rect key="frame" x="5" y="5" width="115" height="115"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mEa-PU-OpH">
+                                <rect key="frame" x="89" y="89" width="36" height="36"/>
+                                <state key="normal" image="icon_insta"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="opV-0j-25L" firstAttribute="top" secondItem="u1f-sb-Fb8" secondAttribute="top" id="1rJ-Hd-EyI"/>
+                            <constraint firstAttribute="bottom" secondItem="opV-0j-25L" secondAttribute="bottom" id="7Rn-Q4-hRy"/>
+                            <constraint firstItem="1EO-1f-zDP" firstAttribute="leading" secondItem="u1f-sb-Fb8" secondAttribute="leading" constant="5" id="92m-EJ-UmT"/>
+                            <constraint firstAttribute="trailing" secondItem="opV-0j-25L" secondAttribute="trailing" id="O65-aN-Mte"/>
+                            <constraint firstAttribute="trailing" secondItem="mEa-PU-OpH" secondAttribute="trailing" id="OMd-RE-QXo"/>
+                            <constraint firstAttribute="trailing" secondItem="1EO-1f-zDP" secondAttribute="trailing" constant="5" id="PJo-6g-bs3"/>
+                            <constraint firstItem="1EO-1f-zDP" firstAttribute="top" secondItem="u1f-sb-Fb8" secondAttribute="top" constant="5" id="RBn-hD-wAf"/>
+                            <constraint firstAttribute="height" constant="125" id="aZw-IT-Pt6"/>
+                            <constraint firstAttribute="width" constant="125" id="gAb-6q-Pam"/>
+                            <constraint firstItem="opV-0j-25L" firstAttribute="leading" secondItem="u1f-sb-Fb8" secondAttribute="leading" id="igU-Gs-7uk"/>
+                            <constraint firstAttribute="bottom" secondItem="1EO-1f-zDP" secondAttribute="bottom" constant="5" id="qW2-V7-0ba"/>
+                            <constraint firstAttribute="bottom" secondItem="mEa-PU-OpH" secondAttribute="bottom" id="qnh-kd-phi"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Darya Malikova" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZV-aL-ELj">
+                        <rect key="frame" x="10" y="175" width="300" height="23.5"/>
+                        <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="20"/>
+                        <color key="textColor" name="AppTitleDarkColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eiq-6Z-Xx3">
+                        <rect key="frame" x="25" y="218.5" width="270" height="1"/>
+                        <color key="backgroundColor" name="AppSeperatorColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="mQK-bx-Y8o"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jax-3J-6U4">
+                        <rect key="frame" x="25" y="254.5" width="270" height="218.5"/>
+                        <string key="text">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero’s De Finibus Bonorum et Malorum for use in a type specimen book.</string>
+                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
+                        <color key="textColor" name="AppTitleDarkColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="CZV-aL-ELj" secondAttribute="trailing" constant="10" id="6fM-ya-2wz"/>
+                    <constraint firstAttribute="trailing" secondItem="eiq-6Z-Xx3" secondAttribute="trailing" constant="25" id="9XD-38-heW"/>
+                    <constraint firstItem="eiq-6Z-Xx3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="9jc-sq-MvT"/>
+                    <constraint firstItem="eiq-6Z-Xx3" firstAttribute="top" secondItem="CZV-aL-ELj" secondAttribute="bottom" constant="20" id="BjM-Ea-kFu"/>
+                    <constraint firstItem="u1f-sb-Fb8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="35" id="TzF-iG-R1F"/>
+                    <constraint firstAttribute="trailing" secondItem="Jax-3J-6U4" secondAttribute="trailing" constant="25" id="Vx7-ja-5Xk"/>
+                    <constraint firstItem="u1f-sb-Fb8" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="eWp-2l-aUB"/>
+                    <constraint firstAttribute="bottom" secondItem="Jax-3J-6U4" secondAttribute="bottom" id="g9U-2V-Lfb"/>
+                    <constraint firstItem="CZV-aL-ELj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="gnr-qU-Vdr"/>
+                    <constraint firstItem="Jax-3J-6U4" firstAttribute="top" secondItem="eiq-6Z-Xx3" secondAttribute="bottom" constant="35" id="jTt-qM-FNC"/>
+                    <constraint firstItem="CZV-aL-ELj" firstAttribute="top" secondItem="u1f-sb-Fb8" secondAttribute="bottom" constant="15" id="sJV-85-N66"/>
+                    <constraint firstItem="Jax-3J-6U4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="wBM-vW-x1C"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnInsta" destination="mEa-PU-OpH" id="q31-Vr-FkA"/>
+                <outlet property="lblDescription" destination="Jax-3J-6U4" id="qSl-WM-6Ft"/>
+                <outlet property="lblName" destination="CZV-aL-ELj" id="LSH-Bh-8I1"/>
+                <outlet property="profileImageView" destination="1EO-1f-zDP" id="L6H-hy-V2o"/>
+            </connections>
+            <point key="canvasLocation" x="-17.39130434782609" y="203.23660714285714"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_insta" width="36" height="36"/>
+        <namedColor name="AppSeperatorColor">
+            <color red="0.43900001049041748" green="0.43900001049041748" blue="0.43900001049041748" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppTitleDarkColor">
+            <color red="0.23499999940395355" green="0.2669999897480011" blue="0.27500000596046448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -28,7 +28,7 @@ struct GroupedFilterDTO {
                 filters.sort(by: { Int($0.fTitle) ?? 0 < Int($1.fTitle) ?? 0 })
             }else if self.title == "Difficulty Level"{
                 filters.sort(by: { $0.fId < $1.fId })
-            }else{
+            }else if self.title != "Workout Type"{
                 filters.sort(by: { $0.fTitle.localizedCaseInsensitiveCompare($1.fTitle) == .orderedAscending })
             }
         }
@@ -52,7 +52,7 @@ struct GroupedFilterDTO {
                     filters.sort(by: { Int($0.fTitle) ?? 0 < Int($1.fTitle) ?? 0 })
                 }else if self.title == "Difficulty Level"{
                     filters.sort(by: { $0.fId < $1.fId })
-                }else{
+                }else if self.title != "Workout Type"{
                     filters.sort(by: { $0.fTitle.localizedCaseInsensitiveCompare($1.fTitle) == .orderedAscending })
                 }
             }
@@ -71,7 +71,7 @@ struct GroupedFilterDTO {
                     filters.sort(by: { Int($0.fTitle) ?? 0 < Int($1.fTitle) ?? 0 })
                 }else if self.title == "Difficulty Level"{
                     filters.sort(by: { $0.fId < $1.fId })
-                }else{
+                }else if self.title != "Workout Type"{
                     filters.sort(by: { $0.fTitle.localizedCaseInsensitiveCompare($1.fTitle) == .orderedAscending })
                 }
             }

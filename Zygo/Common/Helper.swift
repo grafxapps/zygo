@@ -156,7 +156,8 @@ final class Helper: NSObject {
             PreferenceManager.shared.clear {
                 NotificationCenter.default.post(name: .removeObservers, object: nil)
                 TempoTrainerManager.shared.stopTrainer()
-                
+                GoogleLoginManager.shared.logout()
+                FacebookManager.shared.logout()
                 //Clear Pending Notification banners
                 UIApplication.shared.applicationIconBadgeNumber = 1
                 UIApplication.shared.applicationIconBadgeNumber = 0
@@ -178,7 +179,7 @@ final class Helper: NSObject {
     func getWorkoutCellHeight() -> CGFloat{
         let topHeader: CGFloat = 0.0
         let bottomHeight: CGFloat = 40.0
-        let imageHeight = (ScreenSize.SCREEN_WIDTH - 44.0)/2.4
+        let imageHeight = (ScreenSize.SCREEN_WIDTH - 42.0)/2.4
         let totalCellHeight = topHeader + bottomHeight + imageHeight
         return totalCellHeight
     }
@@ -292,6 +293,32 @@ final class Helper: NSObject {
         }
     }
     
+    func shareWorkout(url: URL){
+        let objectsToShare:URL = url
+        let sharedObjects:[AnyObject] = [objectsToShare as AnyObject]
+        let activityViewController = UIActivityViewController(activityItems : sharedObjects, applicationActivities: nil)
+        //activityViewController.popoverPresentationController?.sourceView = self.view
+        activityViewController.excludedActivityTypes = []
+        
+        UIApplication.topViewController()?.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    func pushToWorkout(wId: Int){
+        
+        var workoutItem = WorkoutDTO([:])
+        workoutItem.workoutId = wId
+        let playerVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WorkoutDetailViewController") as! WorkoutDetailViewController
+        playerVC.workoutItem = workoutItem
+        playerVC.isFromBranch = true
+        playerVC.hidesBottomBarWhenPushed = true
+        
+        let navController = UINavigationController(rootViewController: playerVC)
+        navController.isNavigationBarHidden = true
+        navController.modalPresentationStyle = .overFullScreen
+        UIApplication.topViewController()?.present(navController, animated: true, completion: nil)
+        
+    }
+    
 }
 
 
@@ -345,9 +372,9 @@ class Keychain {
             let resultsDict = result as? NSDictionary,
             let resultsData = resultsDict.value(forKey: kSecValueData as String) as? Data,
             status == noErr
-            else {
-                logPrint("Load status: ", status)
-                return nil
+        else {
+            logPrint("Load status: ", status)
+            return nil
         }
         return String(data: resultsData, encoding: .utf8)
     }

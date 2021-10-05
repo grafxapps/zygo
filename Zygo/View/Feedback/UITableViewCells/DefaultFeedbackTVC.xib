@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -107,15 +107,26 @@
                                 <color key="textColor" name="AppBlueColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VwL-9q-1C0">
+                                <rect key="frame" x="266" y="0.5" width="54" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="VwL-9q-1C0" secondAttribute="height" multiplier="27:22" id="O8G-25-gJt"/>
+                                    <constraint firstAttribute="height" constant="44" id="k24-kx-pqe"/>
+                                </constraints>
+                                <state key="normal" image="icon_share"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="VwL-9q-1C0" firstAttribute="centerY" secondItem="neb-eu-Sgx" secondAttribute="centerY" multiplier="0.95" id="F4c-Ji-8XC"/>
                             <constraint firstAttribute="trailing" secondItem="ZIw-RB-Yxb" secondAttribute="trailing" id="GDu-Gy-04h"/>
+                            <constraint firstItem="VwL-9q-1C0" firstAttribute="width" secondItem="VwL-9q-1C0" secondAttribute="height" multiplier="27:22" id="N0Z-jO-uz8"/>
                             <constraint firstItem="neb-eu-Sgx" firstAttribute="centerX" secondItem="HfT-w1-GfN" secondAttribute="centerX" id="S6s-Wf-1aJ"/>
                             <constraint firstItem="96D-U1-On8" firstAttribute="top" secondItem="neb-eu-Sgx" secondAttribute="bottom" constant="25" id="UMC-g3-cCE"/>
                             <constraint firstItem="ZIw-RB-Yxb" firstAttribute="top" secondItem="96D-U1-On8" secondAttribute="bottom" constant="25" id="XUj-ua-iJY"/>
                             <constraint firstItem="96D-U1-On8" firstAttribute="centerX" secondItem="HfT-w1-GfN" secondAttribute="centerX" id="XXD-8g-Dqe"/>
                             <constraint firstItem="neb-eu-Sgx" firstAttribute="top" secondItem="HfT-w1-GfN" secondAttribute="top" constant="14" id="aNh-e0-HjS"/>
+                            <constraint firstAttribute="trailing" secondItem="VwL-9q-1C0" secondAttribute="trailing" id="bUm-Mi-0Fo"/>
                             <constraint firstItem="ZIw-RB-Yxb" firstAttribute="leading" secondItem="HfT-w1-GfN" secondAttribute="leading" id="doB-9J-qbx"/>
                             <constraint firstAttribute="bottom" secondItem="ZIw-RB-Yxb" secondAttribute="bottom" constant="9" id="lE7-FR-wlU"/>
                         </constraints>
@@ -130,6 +141,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="1iL-wu-MNz"/>
             <connections>
+                <outlet property="btnShare" destination="VwL-9q-1C0" id="VRx-n6-vGe"/>
                 <outlet property="btnThumbsDown" destination="qmQ-ow-VAs" id="FwM-pJ-lnX"/>
                 <outlet property="btnThumbsUp" destination="TfR-4r-e3b" id="yVC-gf-cVX"/>
                 <outlet property="likeCollectionView" destination="SYX-NU-mqC" id="bzV-OM-BHx"/>
@@ -138,6 +150,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="icon_share" width="22" height="29"/>
         <image name="icon_thums_down_selected" width="40" height="38.5"/>
         <image name="icon_thums_down_unselected" width="40" height="38.5"/>
         <image name="icon_thums_up_selected" width="40" height="38.5"/>

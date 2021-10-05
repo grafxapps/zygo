@@ -198,8 +198,9 @@ final class RegistrationServices: NSObject {
         }
     }
     
+    var accToken: String = ""
     func googleSignIn(accessToken: String, completion: @escaping (_ error: String?,_ isEmailVerified: Bool, [String: Any]) -> Void){
-
+        self.accToken = String(format: "%@", accessToken)
         let param = [
             "device_type": Constants.deviceType,
             "login_type": LoginType.google.rawValue,
@@ -207,9 +208,10 @@ final class RegistrationServices: NSObject {
             "device_token": PreferenceManager.shared.deviceToken,
             "access_token": accessToken,
             
-        ] as [String : Any]
+        ] as [String : String]
+        print("Gmail: \(param)")
         
-        NetworkManager.shared.request(withEndPoint: .googleSignIn, method: .post, headers: nil, params: param) { (response) in
+        NetworkManager.shared.request(withEndPoint: .googleSignIn, method: .post, headers: [:], params: param) { (response) in
             
             switch response{
             case .success(let jsonResponse):
@@ -269,8 +271,9 @@ final class RegistrationServices: NSObject {
 
         let param = [
             "device_token": deviceToken,
-            "device_last_authentication": DateHelper.shared.currentLocalDateTime.timeIntervalSince1970,
-            "app_version_last_authentication": Bundle.main.versionNumber
+            "device_last_authentication": DateHelper.shared.currentUTCDateTime.timeIntervalSince1970,
+            "app_version_last_authentication": Bundle.main.versionNumber,
+            "device_type": "iOS"
         ] as [String : Any]
         
         NetworkManager.shared.request(withEndPoint: .updateToken, method: .post, headers: header, params: param) { (response) in

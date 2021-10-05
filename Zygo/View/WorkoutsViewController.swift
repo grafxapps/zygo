@@ -35,6 +35,11 @@ class WorkoutsViewController: UIViewController {
         self.viewModel.getUserProfile()   
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        AppDelegate.app.protector.preventScreenShoot()
+    }
+    
     deinit {
         self.removeObservers()
     }
@@ -60,7 +65,7 @@ class WorkoutsViewController: UIViewController {
         }
         
         let selectedFilters = PreferenceManager.shared.selectedFilters
-        if selectedFilters.count > 0{
+        if selectedFilters.count > 0 || PreferenceManager.shared.isNotTakenByMe || PreferenceManager.shared.isTakenByMe{
             self.viewModel.getFilteredWorkouts(isLoading:isLoading, isLoadingStop: false, selectedFilters: selectedFilters) { [weak self] (isError) in
                 if isError{
                     self?.lblNoData.isHidden = true
@@ -144,6 +149,15 @@ class WorkoutsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.showFilterWorkouts), name: .fetchWorkouts, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.removeObservers), name: .removeObservers, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateCompltedWorkouts), name: .UpdateCompletedWorkouts, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didSelectTab), name: .didSelectClassesTab, object: nil)
+        
+    }
+    
+    @objc func didSelectTab(){
+        if self.viewModel.arrWorkouts.count > 0{
+            self.tblWorkouts.scroll(to: .top, animated: true)
+        }
         
     }
     

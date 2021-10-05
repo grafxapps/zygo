@@ -71,6 +71,15 @@ class DownloadsTVC: UITableViewCell {
     
     func setupForLabels(item: WorkoutDTO){
         
+        self.lblInfoTitle.text = ""
+        self.infoView.isHidden = true
+        
+        if !item.introVideo.isEmpty || !item.closingVideo.isEmpty{
+            self.infoView.isHidden = false
+            self.infoView.backgroundColor = .appNewBlackColor()
+            self.lblInfoTitle.text = "VIDEO"
+            self.lblInfoTitle.textColor = .white
+        }
         
         let currentDate = DateHelper.shared.currentLocalDateTime
         if let previousDate = Calendar.current.date(byAdding: .day, value: -3, to: currentDate){

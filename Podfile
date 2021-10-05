@@ -19,4 +19,10 @@ target 'Zygo' do
   pod 'AlamofireImage', '~> 4.1'
   # Pods for Zygo
   
+  pod 'pop', '~> 1.0'
+  pod "SimpleAnimation"
+  pod 'Branch'
+  pod "KlaviyoSwift"
+
+  
 end

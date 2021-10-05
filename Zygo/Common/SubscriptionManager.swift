@@ -48,7 +48,15 @@ class SubscriptionManager: NSObject {
             }
             
             let userId = PreferenceManager.shared.userId
-            self.paymentService.updateSubscription(userId: userId, expiryDate: purachsedSubc!.expiryDate, transactionId: purachsedSubc!.transactionId, productId: purachsedSubc!.productId, amount: "") { (error, userInfo) in
+            
+            var prize : Float = 14.99
+            if purachsedSubc!.productId == SubscriptionManager.RegisteredPurchase.autoRenewableMonthly.rawValue{
+                prize = 14.99
+            }else if purachsedSubc!.productId == SubscriptionManager.RegisteredPurchase.autoRenewableYearly.rawValue{
+                prize = 149.99
+            }
+            
+            self.paymentService.updateSubscription(userId: userId, expiryDate: purachsedSubc!.expiryDate, transactionId: purachsedSubc!.transactionId, productId: purachsedSubc!.productId, amount: prize ) { (error, userInfo) in
                 
                 DispatchQueue.main.async {
                     
@@ -98,7 +106,7 @@ class SubscriptionManager: NSObject {
         
         //self.fetcher = TAProductFetcher(productIds: [RegisteredPurchase.autoRenewableYearly.rawValue, RegisteredPurchase.autoRenewableMonthly.rawValue, RegisteredPurchase.autoRenewableWeekly.rawValue], callback: completion)
         //self.fetcher?.start()
-        self.fetchProducts(products: [ RegisteredPurchase.autoRenewableMonthly.rawValue], completion: completion)
+        self.fetchProducts(products: [ RegisteredPurchase.autoRenewableMonthly.rawValue, RegisteredPurchase.autoRenewableYearly.rawValue], completion: completion)
     }
     
     func fetchProducts(products: Set<String>, completion: @escaping (RetrieveResults) -> Void){
@@ -115,7 +123,7 @@ class SubscriptionManager: NSObject {
             case .success(let receipt):
                 print("Verify receipt Success: \(receipt)")
                 
-                let purchaseResult = SwiftyStoreKit.verifySubscriptions(ofType: .autoRenewable, productIds: [RegisteredPurchase.autoRenewableMonthly.rawValue], inReceipt: receipt)
+                let purchaseResult = SwiftyStoreKit.verifySubscriptions(ofType: .autoRenewable, productIds: [RegisteredPurchase.autoRenewableMonthly.rawValue, RegisteredPurchase.autoRenewableYearly.rawValue], inReceipt: receipt)
                 
                 switch purchaseResult {
                 case .purchased(let expiryDate, let items):
@@ -149,9 +157,9 @@ class SubscriptionManager: NSObject {
                 case .noReceiptData:
                     completion("You don't have an active subscription.", nil)
                 case .networkError(let error):
-                    completion("Network error while verifying receipt: \(error)", nil)
+                    completion("Network error while verifying receipt.", nil)
                 default:
-                    completion("Receipt verification failed: \(error)" , nil)
+                    completion("Receipt verification failed" , nil)
                 }
             }
         }
@@ -175,10 +183,12 @@ class SubscriptionManager: NSObject {
                         inReceipt: receipt)
                     completion(nil, purchaseResult)
                     print(purchaseResult)
-                    
-                    /*let (title, message) = self.messageForVerifySubscriptions(purchaseResult, productIds: [productId])
-                     print("Title :\(title)")
-                     print("Message :\(message)")*/
+                case .autoRenewableYearly:
+                    let purchaseResult = SwiftyStoreKit.verifySubscription(
+                        ofType: .autoRenewable,
+                        productId: productId,
+                        inReceipt: receipt)
+                    completion(nil, purchaseResult)
                 }
                 
             case .error:
@@ -201,6 +211,7 @@ extension SubscriptionManager{
     //TODO: Change It
     enum RegisteredPurchase: String {
         case autoRenewableMonthly  = "com.zygo.ios.month"
+        case autoRenewableYearly  = "com.zygo.ios.year"
     }
     
     private static let IAPSecretKey = "5c29e2b65b1f472290b814f97cd7e70d"//"711244f8a8ff4bb1a7380dcd394c1079"
@@ -238,7 +249,7 @@ extension SubscriptionManager{
         case .error(let error):
             print("Purchase Failed: \(error)")
             switch error.code {
-            case .unknown: return error.localizedDescription
+            case .unknown: return (error as NSError).localizedDescription
             case .clientInvalid: // client is not allowed to issue the request, etc.
                 return "The payment process failed. Please try again."
             case .paymentCancelled: // user cancelled the request, etc.

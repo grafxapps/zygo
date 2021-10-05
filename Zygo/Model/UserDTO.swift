@@ -26,6 +26,9 @@ struct UserDTO {
     var timeInWater: Double = 0
     var workoutCount: Int = 0
     
+    var hSerialNumber: String = ""
+    var tSerialNumber: String = ""
+    
     init(_ dict: [String:Any]) {
         
         self.created = dict["created_at"] as? String ?? ""
@@ -48,6 +51,9 @@ struct UserDTO {
         self.timeInWater = dict["time_in_water"] as? Double ?? 0
         self.workoutCount =  dict["workout_count"] as? Int ?? 0
         
+        self.hSerialNumber = dict["handset_serial_number"] as? String ?? ""
+        self.tSerialNumber = dict["transmitter_serial_number"] as? String ?? ""
+        
     }
     
     func toDict() -> [String:Any]{
@@ -65,7 +71,9 @@ struct UserDTO {
             "user_first_name": self.fName,
             "user_last_name": self.lName,
             "workout_count": self.workoutCount,
-            "time_in_water": self.timeInWater
+            "time_in_water": self.timeInWater,
+            "transmitter_serial_number": self.tSerialNumber,
+            "handset_serial_number": self.hSerialNumber
         ]
     }
 }

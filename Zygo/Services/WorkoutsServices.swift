@@ -43,8 +43,19 @@ final class WorkoutsServices: NSObject {
             if item.filters.count > 0{
                 let key = item.title.replacingOccurrences(of: " ", with: "_").lowercased()
                 let value = item.filters.map({ "\($0.fId)" }).joined(separator: ",")
-                params["\(key)_id"] = value
+                if key == "video"{
+                    params["with_video"] = value
+                }else{
+                    params["\(key)_id"] = value
+                }
+                
             }
+        }
+        
+        if PreferenceManager.shared.isTakenByMe{
+            params["taken_by_me"] = 1
+        }else if PreferenceManager.shared.isNotTakenByMe{
+            params["not_taken_by_me"] = 1
         }
         
         NetworkManager.shared.request(withEndPoint: .getWorkouts, method: .get, headers: header, params: params) { (response) in
@@ -108,7 +119,18 @@ final class WorkoutsServices: NSObject {
                     return
                 }
                 
-                completion(nil, WorkoutDTO(dataDict))
+                print("Workout Detail: \(response)")
+                let arrtempPlayList = response["playlist"] as? [[String: Any]] ?? []
+                var arrPlaylist: [PlayListDTO] = []
+                for playlistDict in arrtempPlayList{
+                    let pItem = PlayListDTO(playlistDict)
+                    arrPlaylist.append(pItem)
+                }
+                
+                var item = WorkoutDTO(dataDict)
+                item.playlist = arrPlaylist
+                
+                completion(nil, item)
             case .failure(_ , let message):
                 completion(message, nil)
             case .notConnectedToInternet:
@@ -208,6 +230,58 @@ final class WorkoutsServices: NSObject {
                 completion(message)
             case .notConnectedToInternet:
                 completion(Constants.internetNotWorking)
+            }
+        }
+    }
+    
+    
+    func getInstructorsList(completion: @escaping (String?, [WorkoutInstructorDTO]) -> Void){
+        let header = NetworkManager.shared.getHeader()
+        
+        NetworkManager.shared.request(withEndPoint: .getInstructorsList, method: .get, headers: header, params: [:]) { (response) in
+            switch response{
+            case .success(let response):
+                print(response)
+                let arrTempInstructors = response["instructor"] as? [[String: Any]] ?? []
+                
+                var arrInstructors: [WorkoutInstructorDTO] = []
+                for instructorDict in arrTempInstructors{
+                    let item = WorkoutInstructorDTO(instructorDict)
+                    arrInstructors.append(item)
+                }
+                completion(nil, arrInstructors)
+            case .failure(_ , let message):
+                completion(message, [])
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking, [])
+            }
+        }
+    }
+    
+    func getInstructor(instructorId: Int, completion: @escaping (String?, WorkoutInstructorDTO, [WorkoutDTO]) -> Void){
+        let header = NetworkManager.shared.getHeader()
+        let params : [String : Any] = [
+            "id": instructorId,
+        ]
+        
+        NetworkManager.shared.request(withEndPoint: .getinstructor, method: .get, headers: header, params: params) { (response) in
+            switch response{
+            case .success(let response):
+                
+                let instructorDict = response["instructor"] as? [String: Any] ?? [:]
+                let arrTempWorkouts = response["workouts"] as? [[String: Any]] ?? []
+                
+                var arrWorkouts: [WorkoutDTO] = []
+                for workoutDict in arrTempWorkouts{
+                    arrWorkouts.append(WorkoutDTO(workoutDict))
+                }
+                
+                let item = WorkoutInstructorDTO(instructorDict)
+                completion(nil, item, arrWorkouts)
+            case .failure(_ , let message):
+                completion(message, WorkoutInstructorDTO([:]), [])
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking, WorkoutInstructorDTO([:]), [])
             }
         }
     }

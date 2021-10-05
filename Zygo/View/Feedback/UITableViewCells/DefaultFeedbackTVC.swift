@@ -18,6 +18,8 @@ class DefaultFeedbackTVC: UITableViewCell {
     @IBOutlet weak var btnThumbsUp : UIButton!
     @IBOutlet weak var btnThumbsDown : UIButton!
     
+    @IBOutlet weak var btnShare : UIButton!
+    
     @IBOutlet weak var likeCollectionView : UICollectionView!
     
     var delegate: DefaultFeedbackTVCDelegates?

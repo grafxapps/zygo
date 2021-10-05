@@ -8,5 +8,10 @@
 	<array>
 		<string>Default</string>
 	</array>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:zygoswimmers.app.link</string>
+		<string>applinks:zygoswimmers-alternate.app.link</string>
+	</array>
 </dict>
 </plist>

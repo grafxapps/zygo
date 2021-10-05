@@ -9,8 +9,6 @@
 import UIKit
 import Alamofire
 
-
-
 enum ServiceResponse {
     case success(response: [String : Any])
     case failure(statusCode: HTTPStatusCode, message: String)
@@ -51,7 +49,7 @@ final class NetworkManager : NSObject{
     }
     
     func cancelRequestURL(url: URL){
-        print("Previous Cancelled")
+        //print("Previous Cancelled")
         if self.dataRequestArray.count > 0{
             
             let arrRequests = self.dataRequestArray.filter({ $0.request?.url == url })
@@ -101,7 +99,7 @@ final class NetworkManager : NSObject{
         }
         
         if method == .post{
-            request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+            request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
         }
         /*var newHeader : HTTPHeaders = [:]
          if headers != nil{
@@ -148,6 +146,39 @@ final class NetworkManager : NSObject{
         }
     }
     
+    
+    func googleLogin(parameters: [String: Any]){
+        let headers = [
+          "content-type": "application/json",
+          "cache-control": "no-cache"
+        ]
+
+        do{
+            
+        let postData = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+
+        let request = NSMutableURLRequest(url: NSURL(string: Constants.baseUrl + APIEndPoint.googleSignIn.rawValue)! as URL,
+                                                cachePolicy: .useProtocolCachePolicy,
+                                            timeoutInterval: 10.0)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = headers
+        request.httpBody = postData
+
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+          if (error != nil) {
+            print(error)
+          } else {
+            let httpResponse = response as? HTTPURLResponse
+            print(httpResponse)
+          }
+        })
+
+        dataTask.resume()
+        }catch{
+            print("Params error")
+        }
+    }
     
     func serializeResponse(response: Alamofire.AFDataResponse<String>,  completion: @escaping (ServiceResponse) -> Void) {
         

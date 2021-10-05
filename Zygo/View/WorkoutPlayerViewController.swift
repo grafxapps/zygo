@@ -8,6 +8,7 @@
 
 import UIKit
 import AVKit
+import SimpleAnimation
 
 //MARK: -
 class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewControllerDelegates {
@@ -21,20 +22,38 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
     @IBOutlet weak var instructorImageView: UICircleImageView!
     @IBOutlet weak var txtDescription: UITextView!
     @IBOutlet weak var workoutImage: UIImageView!
+    
     @IBOutlet weak var seekBar: UISlider!
+    @IBOutlet weak var videoSeekBar: UISlider!
+    
     @IBOutlet weak var btnPlay: UIButton!
+    @IBOutlet weak var btnVideoPlayBig: UIButton!
+    @IBOutlet weak var btnVideoPlaySmall: UIButton!
+    
     @IBOutlet weak var endWorkout: UIButton!
     
     @IBOutlet weak var playerLoader: UIActivityIndicatorView!
     
     @IBOutlet weak var descriptionHeightConstrait: NSLayoutConstraint!
     @IBOutlet weak var introViewBottomConstrait: NSLayoutConstraint!
+    @IBOutlet weak var videoControlsBottomConstrait: NSLayoutConstraint!
+    @IBOutlet weak var videoControlsCenterConstrait: NSLayoutConstraint!
+    
+    @IBOutlet weak var videoPlayerFullScreenView: UIView!
+    @IBOutlet weak var videoPlayerContentView: UIView!
+    @IBOutlet weak var videoPlayerView: UIView!
+    @IBOutlet weak var videoControlsView: UIView!
+    @IBOutlet weak var skipVideo: UIView!
+    
+    @IBOutlet weak var audioControlsView: UIView!
+    @IBOutlet weak var audioContentView: UIView!
     
     var workoutItem: WorkoutDTO!
     var localWorkout: Workout?
     
     private var playerItem: AVPlayerItem?
     private var player: AVPlayer?
+    private var playerLayer: AVPlayerLayer?
     private var playerCurrentTime: CMTime = CMTime.zero
     private var playerEndTime: CMTime = CMTime.zero
     private var playerStatus: PlayerStatus = .notStarted
@@ -44,12 +63,18 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
     private var timeObserverToken: Any?
     
     private let viewModel = WorkoutPlayerViewModel()
+    private let videoPlayerRatio: CGFloat = 1.772
+    private var isClosingVideo: Bool = false
     
     //MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
         self.setupDetailInfo(workoutItem)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     //MARK: - Setup
@@ -131,21 +156,76 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
         newDescription?.addAttribute(.foregroundColor, value: self.txtDescription.textColor!, range: NSRange(location: 0, length: newDescription?.string.count ?? 0))
         self.txtDescription.attributedText = newDescription
         
-        guard var url = URL(string: item.audioURL.getImageURL()) else{
-            return
+        if !item.introVideo.isEmpty{
+            
+            guard let url = URL(string: item.introVideo.getImageURL()) else{
+                return
+            }
+            self.setupVideoPlayer(url)
+            
+            
+        }else if !item.audioURL.isEmpty{
+            
+            //Hide Video content and controls view
+            self.videoPlayerContentView.isHidden = true
+            self.videoControlsView.isHidden = true
+            
+            guard var url = URL(string: item.audioURL.getImageURL()) else{
+                return
+            }
+            
+            if localWorkout != nil{
+                url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                url.appendPathComponent("DownloadedAudios/\(localWorkout!.workoutIdentifier).mp3")
+            }
+            
+            self.setupAudioPlayer(url)
+        }else if !item.closingVideo.isEmpty{
+            
+            guard let url = URL(string: item.closingVideo.getImageURL()) else{
+                return
+            }
+            self.isClosingVideo = true
+            self.setupVideoPlayer(url)
+            
+        }
+    }
+    
+    func setupVideoPlayer(_ mURL: URL){
+        
+        self.showPlayerLoader()
+        self.removeObservers()
+        DispatchQueue.global(qos: .default).async {
+            let asset = AVAsset(url: mURL)
+            
+            self.playerItem = AVPlayerItem(asset: asset)
+            self.player = AVPlayer(playerItem: self.playerItem!)
+            self.player?.automaticallyWaitsToMinimizeStalling = false
+            DispatchQueue.main.async {
+                self.playerLayer = AVPlayerLayer(player: self.player!)
+                self.playerLayer?.frame = CGRect(x: 0, y: 0, width: (ScreenSize.SCREEN_WIDTH - 40.0), height: (ScreenSize.SCREEN_WIDTH - 40.0)/self.videoPlayerRatio)
+                self.playerLayer?.cornerRadius = 10.0
+                self.playerLayer?.masksToBounds = true
+                self.playerLayer?.videoGravity = .resizeAspectFill
+                self.videoSeekBar.minimumValue = 0
+                self.videoSeekBar.maximumValue = Float(asset.duration.seconds)
+                
+                self.lblCurrentTime.text = Double(0).toMS()
+                self.lblEndTime.text = Double(asset.duration.seconds).toMS()
+                self.playerCurrentTime = CMTime(seconds: 0, preferredTimescale: asset.duration.timescale)
+                self.playerEndTime = asset.duration
+                self.videoPlayerView.layer.addSublayer(self.playerLayer!)
+                self.addObservers()
+            }
+            
         }
         
-        if localWorkout != nil{
-            url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            url.appendPathComponent("DownloadedAudios/\(localWorkout!.workoutIdentifier).mp3")
-        }
-        
-        self.setupAudioPlayer(url)
     }
     
     func setupAudioPlayer(_ mURL: URL){
         
         self.showPlayerLoader()
+        self.removeObservers()
         
         DispatchQueue.global(qos: .default).async {
             let asset = AVAsset(url: mURL)
@@ -154,7 +234,6 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
             self.player = AVPlayer(playerItem: self.playerItem!)
             self.player?.automaticallyWaitsToMinimizeStalling = false
             DispatchQueue.main.async {
-                
                 
                 self.seekBar.minimumValue = 0
                 self.seekBar.maximumValue = Float(asset.duration.seconds)
@@ -183,22 +262,48 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
     func updateCurrentTime(time: Double){
         let timeScale = self.playerCurrentTime.timescale
         self.playerCurrentTime = CMTime(seconds: time, preferredTimescale: timeScale)
-        self.seekBar.value = Float(time)
-        self.lblCurrentTime.text = Double(time).toMS()
-        self.updateSkipIntroView()
+        if isVideo{
+            self.videoSeekBar.value = Float(time)
+        }else{
+            self.seekBar.value = Float(time)
+            self.updateSkipIntroView()
+        }
         
+        self.lblCurrentTime.text = Double(time).toMS()
     }
     
     func pausePlayer(){
         self.player?.pause()
-        self.btnPlay.isSelected = false
+        if isVideo{
+            self.btnVideoPlaySmall.isSelected = false
+        }else{
+            self.btnPlay.isSelected = false
+        }
+        
         self.playerStatus = .paused
     }
     
     @objc func playPlayer(){
+        
+        //TODO: Enable for screen recording
+        if UIScreen.main.isCaptured {
+            Helper.shared.alert(title: Constants.appName, message: "Please stop screen recording to play this workout.")
+            return
+        }
+        
         self.player?.play()
-        self.btnPlay.isSelected = true
+        if isVideo{
+            self.btnVideoPlaySmall.isSelected = true
+            self.btnVideoPlayBig.isHidden = true
+        }else{
+            self.btnPlay.isSelected = true
+        }
+        
         self.playerStatus = .running
+    }
+    
+    var isVideo: Bool{
+        return self.playerLayer != nil
     }
     
     func showPlayerLoader(){
@@ -210,10 +315,22 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
     func hidePlayerLoader(){
         self.playerLoader.stopAnimating()
         self.playerLoader.isHidden = true
-        self.btnPlay.isHidden = false
+        if isVideo{
+            self.btnVideoPlayBig.isHidden = false
+        }else{
+            self.btnPlay.isHidden = false
+        }
+        
     }
     
     func isWorkoutHalfCompleted() -> Bool{
+        
+        if self.isVideo && !self.isClosingVideo{
+            if !self.workoutItem.audioURL.isEmpty{//Audio Workout is there
+                return false
+            }
+        }
+        
         let cTime = self.playerCurrentTime.seconds
         let eTime = self.playerEndTime.seconds
         if cTime > (eTime/2.0){
@@ -257,18 +374,106 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
         self.navigationController?.popToRootViewController(animated: true)
     }
     
+    func showAudioContent(completion: @escaping () -> Void){
+        self.audioControlsView.isHidden = false
+        self.audioControlsView.alpha = 0
+        
+        self.audioContentView.isHidden = false
+        self.audioContentView.alpha = 0
+        
+        UIView.animate(withDuration: 1.0) {
+            self.audioControlsView.alpha = 1
+            self.audioContentView.alpha = 1
+        } completion: { (complete) in
+            completion()
+        }
+        
+    }
+    
+    func hideAudioContent(completion: @escaping () -> Void){
+        
+        UIView.animate(withDuration: 1.0) {
+            self.audioControlsView.alpha = 0
+            self.audioContentView.alpha = 0
+        } completion: { (complete) in
+            self.audioContentView.isHidden = true
+            self.audioControlsView.isHidden = true
+            completion()
+        }
+    }
+    
+    func showVideoContent(completion: @escaping () -> Void){
+        self.videoControlsView.isHidden = false
+        self.videoControlsView.alpha = 0
+        
+        self.videoPlayerContentView.isHidden = false
+        self.videoPlayerContentView.alpha = 0
+        
+        UIView.animate(withDuration: 1.0) {
+            self.videoControlsView.alpha = 1
+            self.videoPlayerContentView.alpha = 1
+        } completion: { (complete) in
+            completion()
+        }
+        
+    }
+    
+    func hideVideoContent(completion: @escaping () -> Void){
+        
+        UIView.animate(withDuration: 1.0) {
+            self.videoPlayerContentView.alpha = 0
+            self.videoControlsView.alpha = 0
+            self.skipVideo.alpha = 0
+        } completion: { (complete) in
+            self.videoPlayerContentView.isHidden = true
+            self.videoControlsView.isHidden = true
+            self.skipVideo.isHidden = true
+            completion()
+        }
+    }
+    
     //MARK: - Observers
     func addObservers(){
-        self.removeObservers()
+        //self.removeObservers()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.playerStalled), name: .AVPlayerItemPlaybackStalled, object: playerItem)
         
         self.statusObservation = playerItem?.observe(\AVPlayerItem.status) {
             [unowned self] object, change in
             NSLog("playerItem status change \(object.status.rawValue)")
             if object.status == .readyToPlay {
                 self.hidePlayerLoader()
-                self.playPlayer()
+                
+                if !isVideo{
+                    self.showAudioContent(){
+                        
+                    }
+                    self.playPlayer()
+                }else if self.isClosingVideo{
+                    self.skipVideo.isHidden = true
+                    self.showVideoContent {
+                        
+                    }
+                    self.videoPlayAction(UIButton())
+                }else{//Video
+                    
+                    self.showVideoContent {
+                        if !self.workoutItem.audioURL.isEmpty || !self.workoutItem.closingVideo.isEmpty{
+                            self.skipVideo.isHidden = false
+                            self.skipVideo.slideIn(from: .bottom)
+                        }
+                    }
+                    
+                    //if self.playerStatus == .running{
+                    self.videoPlayAction(UIButton())
+                    //}
+                }
+                
                 self.player?.currentItem?.outputs.first?.suppressesPlayerRendering = true;
                 self.player?.volume = 1.0
+            }else if object.status == .failed{
+                Helper.shared.alert(title: Constants.appName, message: "Faild to load media. Please try again."){
+                    self.back()
+                }
             }
         }
         
@@ -283,10 +488,79 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
         nc.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: self.player?.currentItem, queue: .main) { [weak self] _ in
             self?.player?.seek(to: CMTime.zero)
             self?.pausePlayer()
-            self?.completeWorkout()
+            if self?.isVideo ?? true{
+                
+                //Check for audio if available then show audio player other wise check for end video if availabe then play it. else complete workout
+                
+                self?.playerLayer?.removeFromSuperlayer()
+                self?.playerLayer = nil
+                
+                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+                
+                if self?.isClosingVideo ?? false{
+                    self?.completeWorkout()
+                }else{
+                    if !(self?.workoutItem.audioURL.isEmpty ?? true){
+                        
+                        //Hide Video Content view and controls
+                        self?.hideVideoContent {
+                            self?.videoSeekBar.value = 0
+                            self?.seekBar.value = 0
+                            
+                            guard var url = URL(string: self?.workoutItem.audioURL.getImageURL() ?? "") else{
+                                self?.completeWorkout()
+                                return
+                            }
+                            
+                            if self!.localWorkout != nil{
+                                url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                                url.appendPathComponent("DownloadedAudios/\(self!.localWorkout!.workoutIdentifier).mp3")
+                            }
+                            
+                            self?.setupAudioPlayer(url)
+                        }
+                        
+                    }else if !(self?.workoutItem.closingVideo.isEmpty ?? true){
+                        
+                        self?.isClosingVideo = true
+                        self?.hideVideoContent {
+                            guard let url = URL(string: self?.workoutItem.closingVideo.getImageURL() ?? "") else{
+                                self?.completeWorkout()
+                                return
+                            }
+                            
+                            self?.setupVideoPlayer(url)
+                        }
+                        
+                    }else{
+                        self?.completeWorkout()
+                    }
+                }
+            }else{//Audio complete
+                if !(self?.workoutItem.closingVideo.isEmpty ?? true){
+                    self?.isClosingVideo = true
+                    //Show Video Content view and controls
+                    self?.hideAudioContent {
+                        guard let url = URL(string: self?.workoutItem.closingVideo.getImageURL() ?? "") else{
+                            self?.completeWorkout()
+                            return
+                        }
+                        
+                        self?.setupVideoPlayer(url)
+                    }
+                }else{
+                    self?.completeWorkout()
+                }
+            }
         }
         
         self.addPeriodicTimeObserver()
+    }
+    
+    @objc func playerStalled() {
+        if playerStatus == .running{
+            self.player?.play()
+        }
     }
     
     func removeObservers(){
@@ -373,6 +647,29 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func videoPlayAction(_ sender: UIButton){
+        UIView.animate(withDuration: 0.4) {
+            self.btnVideoPlayBig.alpha = 0.0
+        } completion: { (isComplete) in
+            if isComplete{
+                self.btnVideoPlayBig.isHidden = true
+            }
+        }
+        
+        //self.videoControlsView.isHidden = false
+        //self.videoControlsView.slideIn(from: .bottom)
+        
+        self.playPlayer()
+    }
+    
+    @IBAction func videoPlayPauseAction(_ sender: UIButton){
+        if self.btnVideoPlaySmall.isSelected{
+            self.pausePlayer()
+        }else{
+            self.playPlayer()
+        }
+    }
+    
     @IBAction func playPauseAction(_ sender: UIButton){
         if self.btnPlay.isSelected{
             self.pausePlayer()
@@ -383,27 +680,41 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
     
     @IBAction func seekBarValueChangeAction(_ sender: UISlider){
         self.pausePlayer()
-        self.updateCurrentTime(time: Double(seekBar.value))
+        if isVideo{
+            self.updateCurrentTime(time: Double(videoSeekBar.value))
+        }else{
+            self.updateCurrentTime(time: Double(seekBar.value))
+        }
+        
         self.player?.seek(to: self.playerCurrentTime)
     }
     
     @IBAction func seekBarValueChangeEnd(_ sender: UISlider){
-        self.updateCurrentTime(time: Double(seekBar.value))
+        if isVideo{
+            self.updateCurrentTime(time: Double(videoSeekBar.value))
+        }else{
+            self.updateCurrentTime(time: Double(seekBar.value))
+        }
         self.player?.seek(to: self.playerCurrentTime)
         self.playPlayer()
     }
     
     @IBAction func endWorkoutAction(_ sender: UIButton){
-        if self.isWorkoutHalfCompleted(){
+        if self.isClosingVideo{
             self.completeWorkout()
         }else{
-            Helper.shared.alertYesNoActions(title: nil, message: "Are you sure you want to end this workout?", yesActionTitle: "Yes", noActionTitle: "No") { (isYes) in
-                if isYes{
-                    //self.completeWorkout()
-                    self.back()
+            if self.isWorkoutHalfCompleted(){
+                self.completeWorkout()
+            }else{
+                Helper.shared.alertYesNoActions(title: nil, message: "Are you sure you want to end this workout?", yesActionTitle: "Yes", noActionTitle: "No") { (isYes) in
+                    if isYes{
+                        //self.completeWorkout()
+                        self.back()
+                    }
                 }
             }
         }
+        
     }
     
     @IBAction func skipIntroAction(){
@@ -412,6 +723,89 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
         self.player?.seek(to: self.playerCurrentTime)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         self.perform(#selector(self.playPlayer), with: nil, afterDelay: 1)//Play after one second delay as per documentation
+    }
+    
+    @IBAction func skipVideoAction(){
+        
+        self.playerLayer?.removeFromSuperlayer()
+        self.playerLayer = nil
+        
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        
+        if !(self.workoutItem.audioURL.isEmpty){
+            
+            //Hide Video Content view and controls
+            self.hideVideoContent {
+                guard var url = URL(string: self.workoutItem.audioURL.getImageURL()) else{
+                    self.completeWorkout()
+                    return
+                }
+                
+                if self.localWorkout != nil{
+                    url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                    url.appendPathComponent("DownloadedAudios/\(self.localWorkout!.workoutIdentifier).mp3")
+                }
+                
+                self.setupAudioPlayer(url)
+            }
+        }else if !(self.workoutItem.closingVideo.isEmpty){
+            
+            self.isClosingVideo = true
+            
+            self.hideVideoContent {
+                guard let url = URL(string: self.workoutItem.closingVideo.getImageURL()) else{
+                    self.completeWorkout()
+                    return
+                }
+                
+                self.setupVideoPlayer(url)
+            }
+        }else{
+            self.completeWorkout()
+        }
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        if (UIDevice.current.orientation.isLandscape) {
+            
+            DispatchQueue.main.async {
+                self.videoControlsView.translatesAutoresizingMaskIntoConstraints = false
+                if self.playerLayer != nil{
+                    self.playerLayer?.removeFromSuperlayer()
+                    self.videoPlayerFullScreenView.isHidden = false
+                    self.playerLayer?.frame = self.view.frame
+                    self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+                    self.videoPlayerFullScreenView.layer.addSublayer(self.playerLayer!)
+                    
+                    self.videoControlsBottomConstrait.priority = .defaultLow
+                    self.videoControlsCenterConstrait.priority = .defaultHigh
+                    
+                    self.view.layoutIfNeeded()
+                    self.view.bringSubviewToFront(self.videoControlsView)
+                }
+                
+            }
+            print("Device is landscape")
+        }else{
+            
+            self.videoPlayerFullScreenView.isHidden = true
+            self.videoControlsView.translatesAutoresizingMaskIntoConstraints = false
+            if self.playerLayer != nil{
+                let contentHeight = (ScreenSize.SCREEN_WIDTH - 40.0)/self.videoPlayerRatio
+                self.playerLayer?.removeFromSuperlayer()
+                self.playerLayer?.frame = CGRect(x: 0, y: 0, width: (ScreenSize.SCREEN_WIDTH - 40.0), height: contentHeight)
+                self.videoPlayerView.layer.addSublayer(self.playerLayer!)
+            }
+            
+            self.videoControlsBottomConstrait.priority = .defaultHigh
+            self.videoControlsCenterConstrait.priority = .defaultLow
+            self.view.layoutIfNeeded()
+            self.view.bringSubviewToFront(self.videoControlsView)
+        }
+    }
+    
+    override var shouldAutorotate: Bool {
+        return true
     }
 }
 

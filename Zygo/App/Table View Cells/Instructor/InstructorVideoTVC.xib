@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InstructorVideoTVC" rowHeight="354" id="KGk-i7-Jjw" customClass="InstructorVideoTVC" customModule="Zygo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="211"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="211"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="esg-k9-oBC">
+                        <rect key="frame" x="20" y="0.0" width="374" height="211"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a3V-gr-bLk">
+                                <rect key="frame" x="0.0" y="0.0" width="374" height="211"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i8W-fy-0wb">
+                                <rect key="frame" x="0.0" y="0.0" width="374" height="211"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2n7-b0-7rO">
+                                <rect key="frame" x="167.5" y="79" width="39" height="53"/>
+                                <state key="normal" image="icon_play_white_big"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" name="AppNewInfoColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="esg-k9-oBC" secondAttribute="height" multiplier="1.772" id="08n-Qr-Yf2"/>
+                            <constraint firstItem="i8W-fy-0wb" firstAttribute="top" secondItem="esg-k9-oBC" secondAttribute="top" id="1Dz-pK-W8d"/>
+                            <constraint firstItem="a3V-gr-bLk" firstAttribute="top" secondItem="esg-k9-oBC" secondAttribute="top" id="1RC-67-GkL"/>
+                            <constraint firstItem="i8W-fy-0wb" firstAttribute="leading" secondItem="esg-k9-oBC" secondAttribute="leading" id="V1w-UH-Ig4"/>
+                            <constraint firstAttribute="bottom" secondItem="a3V-gr-bLk" secondAttribute="bottom" id="Xoy-sM-vde"/>
+                            <constraint firstAttribute="trailing" secondItem="a3V-gr-bLk" secondAttribute="trailing" id="ZID-Tp-7r1"/>
+                            <constraint firstItem="2n7-b0-7rO" firstAttribute="centerX" secondItem="esg-k9-oBC" secondAttribute="centerX" id="aGE-WO-EYk"/>
+                            <constraint firstItem="a3V-gr-bLk" firstAttribute="leading" secondItem="esg-k9-oBC" secondAttribute="leading" id="bKs-QQ-IaB"/>
+                            <constraint firstAttribute="trailing" secondItem="i8W-fy-0wb" secondAttribute="trailing" id="edh-HP-uap"/>
+                            <constraint firstItem="2n7-b0-7rO" firstAttribute="centerY" secondItem="esg-k9-oBC" secondAttribute="centerY" id="lai-5d-2NF"/>
+                            <constraint firstAttribute="bottom" secondItem="i8W-fy-0wb" secondAttribute="bottom" id="xHl-Q1-UDU"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="esg-k9-oBC" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Fao-vt-QT2"/>
+                    <constraint firstAttribute="trailing" secondItem="esg-k9-oBC" secondAttribute="trailing" constant="20" id="FyD-3z-tIw"/>
+                    <constraint firstAttribute="bottom" secondItem="esg-k9-oBC" secondAttribute="bottom" id="P3U-kE-eVf"/>
+                    <constraint firstItem="esg-k9-oBC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="rDE-Qo-dmx"/>
+                    <constraint firstItem="esg-k9-oBC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ycU-ND-0fJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnBigPlay" destination="2n7-b0-7rO" id="Oxg-eG-Pfq"/>
+                <outlet property="videoContentView" destination="i8W-fy-0wb" id="fXp-Lr-RZB"/>
+                <outlet property="videoImageView" destination="a3V-gr-bLk" id="iNT-0b-CSo"/>
+            </connections>
+            <point key="canvasLocation" x="59.420289855072468" y="199.21875"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_play_white_big" width="39" height="53"/>
+        <namedColor name="AppNewInfoColor">
+            <color red="0.10599999874830246" green="0.49799999594688416" blue="0.55299997329711914" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

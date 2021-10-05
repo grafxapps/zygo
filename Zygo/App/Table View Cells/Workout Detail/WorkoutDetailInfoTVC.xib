@@ -96,10 +96,16 @@
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bc1-7E-Jwg">
+                                        <rect key="frame" x="0.0" y="0.0" width="177.5" height="45"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="2"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="bc1-7E-Jwg" firstAttribute="top" secondItem="c3Q-Pl-mbP" secondAttribute="top" id="03T-17-f1x"/>
                                     <constraint firstItem="SxW-wE-VwG" firstAttribute="centerX" secondItem="c3Q-Pl-mbP" secondAttribute="centerX" id="E51-xO-Lul"/>
+                                    <constraint firstItem="bc1-7E-Jwg" firstAttribute="trailing" secondItem="aTY-WY-F3S" secondAttribute="trailing" id="Ijt-PN-JZb"/>
                                     <constraint firstItem="h31-RA-Qhg" firstAttribute="leading" secondItem="f6r-o1-pGC" secondAttribute="leading" id="Jyp-SA-p8a"/>
                                     <constraint firstAttribute="trailing" secondItem="9Jo-0G-CQF" secondAttribute="trailing" id="NB7-La-ip9"/>
                                     <constraint firstItem="SxW-wE-VwG" firstAttribute="centerY" secondItem="c3Q-Pl-mbP" secondAttribute="centerY" id="dit-AV-xSe"/>
@@ -110,8 +116,10 @@
                                     <constraint firstAttribute="bottom" secondItem="h31-RA-Qhg" secondAttribute="bottom" id="ogY-nP-vtu"/>
                                     <constraint firstItem="c3Q-Pl-mbP" firstAttribute="top" secondItem="f6r-o1-pGC" secondAttribute="top" id="pLB-KA-9Ns"/>
                                     <constraint firstItem="aTY-WY-F3S" firstAttribute="centerY" secondItem="SxW-wE-VwG" secondAttribute="centerY" id="rFi-mP-9nS"/>
+                                    <constraint firstItem="bc1-7E-Jwg" firstAttribute="leading" secondItem="c3Q-Pl-mbP" secondAttribute="leading" id="rZO-wE-Rzc"/>
                                     <constraint firstItem="h31-RA-Qhg" firstAttribute="top" secondItem="c3Q-Pl-mbP" secondAttribute="bottom" constant="10" id="wzk-Sa-Q6E"/>
                                     <constraint firstItem="9Jo-0G-CQF" firstAttribute="centerY" secondItem="SxW-wE-VwG" secondAttribute="centerY" id="xJu-Fp-8oV"/>
+                                    <constraint firstItem="bc1-7E-Jwg" firstAttribute="bottom" secondItem="c3Q-Pl-mbP" secondAttribute="bottom" id="yIt-8t-UON"/>
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_full_wave" translatesAutoresizingMaskIntoConstraints="NO" id="zmh-U7-Lms">
@@ -168,6 +176,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnInstructor" destination="bc1-7E-Jwg" id="tT1-jg-Nw3"/>
                 <outlet property="descriptionHeightConstraint" destination="HKZ-rX-oQ0" id="aBi-Nt-qLf"/>
                 <outlet property="instructorImageView" destination="SxW-wE-VwG" id="CPG-Rv-JF1"/>
                 <outlet property="lblDesc" destination="h31-RA-Qhg" id="Bkq-UM-Cgk"/>
@@ -176,7 +185,7 @@
                 <outlet property="lblTitle" destination="8kS-UY-pSM" id="HAU-5L-EuH"/>
                 <outlet property="levelView" destination="9Jo-0G-CQF" id="GFx-9q-JkX"/>
             </connections>
-            <point key="canvasLocation" x="138" y="176"/>
+            <point key="canvasLocation" x="137.68115942028987" y="175.78125"/>
         </tableViewCell>
     </objects>
     <resources>

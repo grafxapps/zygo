@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.ttf">
+            <string>Poppins-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="313" id="KGk-i7-Jjw" customClass="PlaylistTVC" customModule="Zygo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="313"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="313"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Playlist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69N-pb-Iti">
+                        <rect key="frame" x="20" y="25" width="51" height="23"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="23" id="EAt-st-Mka"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                        <color key="textColor" name="AppTitleDarkColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7dy-EY-e8C">
+                        <rect key="frame" x="25" y="48" width="270" height="230"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="230" id="e1g-Pa-bqd"/>
+                        </constraints>
+                        <connections>
+                            <outlet property="dataSource" destination="KGk-i7-Jjw" id="3C4-ui-Qeq"/>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="cC5-1G-x5c"/>
+                        </connections>
+                    </tableView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PLd-SV-01U">
+                        <rect key="frame" x="25" y="278" width="270" height="25"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tas-jV-7ZJ">
+                                <rect key="frame" x="73.5" y="-4.5" width="123" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="123" id="gVr-h6-mhf"/>
+                                </constraints>
+                                <state key="normal" title="View More">
+                                    <color key="titleColor" name="AppTitleDarkColor"/>
+                                </state>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_down_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="o1A-Zt-ppK">
+                                <rect key="frame" x="186.5" y="10.5" width="12" height="9"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kpn-0w-CTv">
+                                <rect key="frame" x="0.0" y="24" width="270" height="1"/>
+                                <color key="backgroundColor" name="AppSeperatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="8va-ZB-GYG"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Tas-jV-7ZJ" firstAttribute="centerX" secondItem="PLd-SV-01U" secondAttribute="centerX" id="5Mk-Xe-2Te"/>
+                            <constraint firstItem="o1A-Zt-ppK" firstAttribute="centerY" secondItem="PLd-SV-01U" secondAttribute="centerY" multiplier="1.2" id="G7f-Uc-5ao"/>
+                            <constraint firstAttribute="trailing" secondItem="kpn-0w-CTv" secondAttribute="trailing" id="Uq6-BI-QwY"/>
+                            <constraint firstAttribute="bottom" secondItem="kpn-0w-CTv" secondAttribute="bottom" id="eL0-61-CqF"/>
+                            <constraint firstItem="kpn-0w-CTv" firstAttribute="leading" secondItem="PLd-SV-01U" secondAttribute="leading" id="eO8-Ye-r8f"/>
+                            <constraint firstItem="o1A-Zt-ppK" firstAttribute="leading" secondItem="Tas-jV-7ZJ" secondAttribute="trailing" constant="-10" id="fdv-5r-Gbx"/>
+                            <constraint firstItem="Tas-jV-7ZJ" firstAttribute="centerY" secondItem="PLd-SV-01U" secondAttribute="centerY" id="i3P-3J-7Tf"/>
+                            <constraint firstAttribute="height" constant="25" id="kFA-3R-1rb"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="7dy-EY-e8C" secondAttribute="trailing" constant="25" id="2iw-1y-9XI"/>
+                    <constraint firstItem="69N-pb-Iti" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="25" id="6ca-ga-U2N"/>
+                    <constraint firstItem="PLd-SV-01U" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="Dc0-yx-OO5"/>
+                    <constraint firstItem="7dy-EY-e8C" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="GjF-kF-IIJ"/>
+                    <constraint firstItem="69N-pb-Iti" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Gpv-Dd-cES"/>
+                    <constraint firstItem="7dy-EY-e8C" firstAttribute="top" secondItem="69N-pb-Iti" secondAttribute="bottom" id="Og6-l8-1Uo"/>
+                    <constraint firstAttribute="trailing" secondItem="PLd-SV-01U" secondAttribute="trailing" constant="25" id="SNI-FY-cad"/>
+                    <constraint firstAttribute="bottom" secondItem="PLd-SV-01U" secondAttribute="bottom" constant="30" id="cis-8m-Yb2"/>
+                    <constraint firstItem="PLd-SV-01U" firstAttribute="top" secondItem="7dy-EY-e8C" secondAttribute="bottom" id="mQd-4a-fcN"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnViewMore" destination="Tas-jV-7ZJ" id="BZx-uE-wjI"/>
+                <outlet property="tblList" destination="7dy-EY-e8C" id="SKs-AH-93o"/>
+                <outlet property="viewMoreContentView" destination="PLd-SV-01U" id="Z4x-HW-1Lz"/>
+            </connections>
+            <point key="canvasLocation" x="-17.39130434782609" y="185.82589285714286"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_down_arrow" width="12" height="9"/>
+        <namedColor name="AppSeperatorColor">
+            <color red="0.43900001049041748" green="0.43900001049041748" blue="0.43900001049041748" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppTitleDarkColor">
+            <color red="0.23499999940395355" green="0.2669999897480011" blue="0.27500000596046448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

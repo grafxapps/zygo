@@ -23,7 +23,18 @@ let service = RegistrationServices()
 extension HomeTabBar{
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        
+        let index = item.tag
+        if index == 0{//Classes
+            NotificationCenter.default.post(name: .didSelectClassesTab, object: nil)
+        }else if index == 1{//Series
+            NotificationCenter.default.post(name: .didSelectSeriesTab, object: nil)
+        }else if index == 2{//Downloads
+            NotificationCenter.default.post(name: .didSelectDownloadsTab, object: nil)
+        }else if index == 3{//Pacing
+            NotificationCenter.default.post(name: .didSelectPacingTab, object: nil)
+        }else if index == 4{//Profile
+            NotificationCenter.default.post(name: .didSelectProfileTab, object: nil)
+        }
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {

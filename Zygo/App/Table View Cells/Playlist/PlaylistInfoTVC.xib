@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Bold.ttf">
+            <string>Poppins-Bold</string>
+        </array>
+        <array key="Poppins-Medium.ttf">
+            <string>Poppins-Medium</string>
+        </array>
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlaylistInfoTVC" rowHeight="71" id="KGk-i7-Jjw" customClass="PlaylistInfoTVC" customModule="Zygo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="382" height="95.5"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="382" height="95.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jnD-cd-jAC">
+                        <rect key="frame" x="0.0" y="0.0" width="382" height="95.5"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playlist_default" translatesAutoresizingMaskIntoConstraints="NO" id="ZbW-SY-r8a">
+                                <rect key="frame" x="25" y="25" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="VEq-zJ-fZn"/>
+                                    <constraint firstAttribute="width" constant="45" id="o6D-9v-ejc"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Breathe, Stretch, Shake (feat. P. Diddy)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gf1-y5-Ima">
+                                <rect key="frame" x="85" y="21" width="287" height="15.5"/>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
+                                <color key="textColor" name="AppTitleDarkColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Mase, P. Diddy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IYx-64-dyY">
+                                <rect key="frame" x="85" y="33.5" width="292" height="15.5"/>
+                                <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="13"/>
+                                <color key="textColor" name="AppBlueColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6RO-12-fE1">
+                                <rect key="frame" x="25" y="94.5" width="332" height="1"/>
+                                <color key="backgroundColor" name="AppSeperatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="5jV-b8-tNa"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album Name Goes Here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oc7-AG-S91">
+                                <rect key="frame" x="85" y="49" width="292" height="33.5"/>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="9"/>
+                                <color key="textColor" name="AppTitleDarkColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="6RO-12-fE1" secondAttribute="bottom" id="099-fN-YFb"/>
+                            <constraint firstItem="ZbW-SY-r8a" firstAttribute="top" secondItem="jnD-cd-jAC" secondAttribute="top" constant="25" id="5Be-uw-QFR"/>
+                            <constraint firstAttribute="trailing" secondItem="6RO-12-fE1" secondAttribute="trailing" constant="25" id="6W4-74-b6o"/>
+                            <constraint firstItem="6RO-12-fE1" firstAttribute="leading" secondItem="jnD-cd-jAC" secondAttribute="leading" constant="25" id="E0P-fx-Guc"/>
+                            <constraint firstItem="oc7-AG-S91" firstAttribute="leading" secondItem="ZbW-SY-r8a" secondAttribute="trailing" constant="15" id="Ef3-MK-MBg"/>
+                            <constraint firstAttribute="trailing" secondItem="oc7-AG-S91" secondAttribute="trailing" constant="5" id="Flh-Vb-dgG"/>
+                            <constraint firstItem="IYx-64-dyY" firstAttribute="top" secondItem="gf1-y5-Ima" secondAttribute="bottom" constant="-3" id="K24-Jd-xbU"/>
+                            <constraint firstItem="oc7-AG-S91" firstAttribute="top" secondItem="IYx-64-dyY" secondAttribute="bottom" id="aov-0V-OEG"/>
+                            <constraint firstAttribute="trailing" secondItem="gf1-y5-Ima" secondAttribute="trailing" constant="10" id="dO4-tT-l4G"/>
+                            <constraint firstItem="gf1-y5-Ima" firstAttribute="leading" secondItem="ZbW-SY-r8a" secondAttribute="trailing" constant="15" id="gNu-f2-xv8"/>
+                            <constraint firstItem="gf1-y5-Ima" firstAttribute="top" secondItem="ZbW-SY-r8a" secondAttribute="top" constant="-4" id="htW-VT-YGt"/>
+                            <constraint firstItem="IYx-64-dyY" firstAttribute="leading" secondItem="ZbW-SY-r8a" secondAttribute="trailing" constant="15" id="k24-Uv-fuh"/>
+                            <constraint firstItem="ZbW-SY-r8a" firstAttribute="leading" secondItem="jnD-cd-jAC" secondAttribute="leading" constant="25" id="k4z-dL-BTn"/>
+                            <constraint firstAttribute="trailing" secondItem="IYx-64-dyY" secondAttribute="trailing" constant="5" id="oEB-9e-Nzz"/>
+                            <constraint firstAttribute="bottom" secondItem="oc7-AG-S91" secondAttribute="bottom" constant="13" id="vLf-3T-o8I"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="jnD-cd-jAC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="AVV-nn-h9h"/>
+                    <constraint firstItem="jnD-cd-jAC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="F9j-UJ-qNv"/>
+                    <constraint firstAttribute="bottom" secondItem="jnD-cd-jAC" secondAttribute="bottom" id="GgY-1h-kte"/>
+                    <constraint firstAttribute="trailing" secondItem="jnD-cd-jAC" secondAttribute="trailing" id="Js5-65-RJ2"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lblAlbumName" destination="oc7-AG-S91" id="PrZ-mp-Kja"/>
+                <outlet property="lblArtistName" destination="IYx-64-dyY" id="Phg-rv-lfM"/>
+                <outlet property="lblSongName" destination="gf1-y5-Ima" id="NHV-2F-cBH"/>
+                <outlet property="playlistImageView" destination="ZbW-SY-r8a" id="zPx-7r-kx2"/>
+            </connections>
+            <point key="canvasLocation" x="27.536231884057973" y="104.79910714285714"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="playlist_default" width="45" height="45"/>
+        <namedColor name="AppBlueColor">
+            <color red="0.14900000393390656" green="0.73299998044967651" blue="0.92900002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppSeperatorColor">
+            <color red="0.43900001049041748" green="0.43900001049041748" blue="0.43900001049041748" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppTitleDarkColor">
+            <color red="0.23499999940395355" green="0.2669999897480011" blue="0.27500000596046448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

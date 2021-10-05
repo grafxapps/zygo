@@ -19,8 +19,10 @@ final class UserServices: NSObject {
             "user_gender": user.gender,
             "user_birthday": user.birthday,
             "profile_location": user.location,
+            "transmitter_serial_number": user.tSerialNumber,
+            "handset_serial_number": user.hSerialNumber
         ] as [String : String]
-        
+        print(param)
         let imageData = user.image?.jpegData(compressionQuality: 0.2)
         let header = NetworkManager.shared.getHeader()
         let url = Constants.baseUrl + APIEndPoint.updateProfile.rawValue
@@ -45,7 +47,7 @@ final class UserServices: NSObject {
             NetworkManager.shared.request(withEndPoint: .getProfile, method: .get, headers: header, params: [:]) { (response) in
                 switch response{
                 case .success(let jsonresponse):
-                    
+                    print(jsonresponse)
                     let jsonResponse = jsonresponse[AppKeys.data.rawValue] as? [String:Any] ?? [:]
                     
                     let user = UserDTO(jsonResponse)
@@ -59,19 +61,50 @@ final class UserServices: NSObject {
                     
                     if let subInfoDic = jsonResponse["user_subscriptions"] as? [String: Any]{
                         
-                        let planId = subInfoDic["plan_id"] as? String ?? ""
-                        let subscriptionId = subInfoDic["subscription_id"] as? String ?? ""
-                        let strExpireDate = subInfoDic["expire_date"] as? String ?? ""
                         let subscriptionType = subInfoDic["subscription_type"] as? String ?? ""
+                        if subscriptionType == SubscriptionType.Apple.rawValue{
+                            let planId = subInfoDic["apple_plan_id"] as? String ?? ""
+                            let subscriptionId = subInfoDic["apple_subscription_id"] as? String ?? ""
+                            let strExpireDate = subInfoDic["expire_date"] as? String ?? ""
+                            
+                            
+                            let subscriptionDict = [
+                                "expiry_date": strExpireDate,
+                                "transaction_id": subscriptionId,
+                                "plan_id": planId,
+                                "subscription_type": subscriptionType
+                            ]
+                            
+                            PreferenceManager.shared.currentSubscribedProduct = PurchasedSubscription(subscriptionDict)
+                        }else if subscriptionType == SubscriptionType.Stripe.rawValue{
+                            let planId = subInfoDic["stripe_plan_id"] as? String ?? ""
+                            let subscriptionId = subInfoDic["subscription_id"] as? String ?? ""
+                            let strExpireDate = subInfoDic["expire_date"] as? String ?? ""
+                            
+                            let subscriptionDict = [
+                                "expiry_date": strExpireDate,
+                                "transaction_id": subscriptionId,
+                                "plan_id": planId,
+                                "subscription_type": subscriptionType
+                            ]
+                            
+                            PreferenceManager.shared.currentSubscribedProduct = PurchasedSubscription(subscriptionDict)
+                        }else{
+                            let planId = subInfoDic["plan_id"] as? String ?? ""
+                            let subscriptionId = subInfoDic["subscription_id"] as? String ?? ""
+                            let strExpireDate = subInfoDic["expire_date"] as? String ?? ""
+                            
+                            let subscriptionDict = [
+                                "expiry_date": strExpireDate,
+                                "transaction_id": subscriptionId,
+                                "plan_id": planId,
+                                "subscription_type": subscriptionType
+                            ]
+                            
+                            PreferenceManager.shared.currentSubscribedProduct = PurchasedSubscription(subscriptionDict)
+                        }
                         
-                        let subscriptionDict = [
-                            "expiry_date": strExpireDate,
-                            "transaction_id": subscriptionId,
-                            "plan_id": planId,
-                            "subscription_type": subscriptionType
-                        ]
                         
-                        PreferenceManager.shared.currentSubscribedProduct = PurchasedSubscription(subscriptionDict)
                     }else{
                         PreferenceManager.shared.currentSubscribedProduct = nil
                     }

@@ -21,55 +21,39 @@ class GoogleLoginManager: NSObject {
     
     private override init() {
         super.init()
-        GIDSignIn.sharedInstance().delegate = self
-        
     }
     
     func login(from viewcontroller: UIViewController){
         
-        GIDSignIn.sharedInstance()?.presentingViewController = viewcontroller
+        let config = GIDConfiguration(clientID: Constants.googleClientId, serverClientID: Constants.googleServerId)
         
-        guard let signIn = GIDSignIn.sharedInstance() else { return }
-        if (signIn.hasPreviousSignIn()) {
-            signIn.restorePreviousSignIn()
-        }
-        else{
-            GIDSignIn.sharedInstance()?.signIn()
-        }
-        
-    }
-    
-    func logout(){
-        GIDSignIn.sharedInstance()?.signOut()
-    }
-    
-}
-extension GoogleLoginManager: GIDSignInDelegate{
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
-                print("The user has not signed in before or they have since signed out.")
-            } else {
-                print("\(error.localizedDescription)")
-            }
-            
-            GIDSignIn.sharedInstance()?.presentingViewController.dismiss(animated: true, completion: {
+        GIDSignIn.sharedInstance.signIn(with: config, presenting: viewcontroller) { (user, error) in
+            if let error = error{
                 if let del = self.delegate{
                     del.didFaildLogin(error: (error.localizedDescription))
                 }
-            })
-            
-            return
-        }
-        
-        GIDSignIn.sharedInstance()?.presentingViewController.dismiss(animated: true, completion: {
-            if let del = self.delegate{
-                del.didLogin(user: GoogleUserDTO(user))
+                return
             }
-        })
-        
+            
+            if user != nil{
+                if let del = self.delegate{
+                    DispatchQueue.main.async {
+                        del.didLogin(user: GoogleUserDTO(user!))
+                    }
+                }
+            }else{
+                if let del = self.delegate{
+                    del.didFaildLogin(error: "Internal server error. Please try again.")
+                }
+            }
+            
+        }
     }
+    
+    func logout(){
+        GIDSignIn.sharedInstance.signOut()
+    }
+    
 }
 
 struct GoogleUserDTO {
@@ -84,11 +68,11 @@ struct GoogleUserDTO {
     
     init(_ user: GIDGoogleUser) {
         self.userId = user.userID ?? ""
-        self.fullName = user.profile.name ?? ""
-        self.givenName = user.profile.givenName ?? ""
-        self.familyName = user.profile.familyName ?? ""
-        self.email = user.profile.email ?? ""
+        self.fullName = user.profile?.name ?? ""
+        self.givenName = user.profile?.givenName ?? ""
+        self.familyName = user.profile?.familyName ?? ""
+        self.email = user.profile?.email ?? ""
         self.accessToken = user.authentication.idToken ?? ""
-        self.profileImage = user.profile.imageURL(withDimension: 320)?.absoluteString ?? ""
+        self.profileImage = user.profile?.imageURL(withDimension: 320)?.absoluteString ?? ""
     }
 }

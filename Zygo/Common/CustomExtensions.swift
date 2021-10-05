@@ -104,7 +104,7 @@ extension Date{
     }
     
     func toSubscriptionDate() -> String{
-          return self.convertToFormat("yyyy-MM-dd HH:mm:ss")
+          return self.convertToFormat("yyyy-MM-dd HH:mm:ss", isUTC: true)
       }
     
     
@@ -131,7 +131,12 @@ extension String {
     }
     
     func toSubscriptionDate() -> Date{
-        return self.convertToFormat("yyyy-MM-dd HH:mm:ss")
+        var utcExpiryDate = self
+        if !self.contains(" +0000"){
+            utcExpiryDate = self + " +0000"
+        }
+        
+        return utcExpiryDate.convertToFormat("yyyy-MM-dd HH:mm:ss Z")
     }
     
     func convertToFormat(_ format: String) -> Date{
@@ -211,7 +216,10 @@ extension UIColor{
     static func appNewInfoColor() -> UIColor{
         return UIColor.init(named: "AppNewInfoColor")!
     }
-
+    
+    static func appNewBlackColor() -> UIColor{
+        return UIColor.init(named: "AppNewBlackColor")!
+    }
 }
 
 
@@ -564,4 +572,46 @@ extension Notification.Name{
     static let fetchWorkouts = Notification.Name.init("Notifications_Fetch_Workouts")
     static let UpdateCompletedWorkouts = Notification.Name.init("Notifications_Name")
     static let removeObservers = Notification.Name.init("Notifications_Remove_Observers")
+    
+    static let didSelectClassesTab = Notification.Name.init("Notifications_Did_Select_Classes_Tab")
+    static let didSelectSeriesTab = Notification.Name.init("Notifications_Did_Select_Series_Tab")
+    static let didSelectDownloadsTab = Notification.Name.init("Notifications_Did_Select_Downloads_Tab")
+    static let didSelectPacingTab = Notification.Name.init("Notifications_Did_Select_Pacing_Tab")
+    static let didSelectProfileTab = Notification.Name.init("Notifications_Did_Select_Profile_Tab")
+}
+
+extension UITableView {
+
+    public func reloadData(_ completion: @escaping ()->()) {
+        UIView.animate(withDuration: 0, animations: {
+            self.reloadData()
+        }, completion:{ _ in
+            completion()
+        })
+    }
+
+    func scroll(to: scrollsTo, animated: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
+            let numberOfSections = self.numberOfSections
+            let numberOfRows = self.numberOfRows(inSection: numberOfSections-1)
+            switch to{
+            case .top:
+                if numberOfRows > 0 {
+                     let indexPath = IndexPath(row: 0, section: 0)
+                     self.scrollToRow(at: indexPath, at: .top, animated: animated)
+                }
+                break
+            case .bottom:
+                if numberOfRows > 0 {
+                    let indexPath = IndexPath(row: numberOfRows-1, section: (numberOfSections-1))
+                    self.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+                }
+                break
+            }
+        }
+    }
+
+    enum scrollsTo {
+        case top,bottom
+    }
 }

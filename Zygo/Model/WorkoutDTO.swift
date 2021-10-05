@@ -49,6 +49,7 @@ struct WorkoutDTO {
     var workoutMusicTypes: [WorkoutMusicTypeDTO] = []
     var workoutEquipments: [WorkoutEquipmentDTO] = []
     var workoutPlanLines: [WorkoutPlanLine] = []
+    var playlist: [PlayListDTO] = []
     
     init(_ dict: [String: Any]) {
         

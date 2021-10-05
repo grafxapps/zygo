@@ -34,12 +34,12 @@ class WorkoutTypeTVC: UITableViewCell {
     func setupDetailInfo(_ item: WorkoutDTO){
         
         let totalCounts = Double(item.thumbsUpCount+item.thumbsDownCount)
-        
-        if item.difficultyRatingsCount <= 0{
+        //let difficultyCount = item.difficultyRatingsCount
+        /*if difficultyCount < 2{
             self.lblRating.isHidden = true
             self.lblDifficulty.isHidden = true
             self.lblRecentlyAdded.isHidden = false
-        }else if totalCounts < 5{
+        }else*/ if totalCounts < 2{
             self.lblRating.isHidden = true
             self.lblDifficulty.isHidden = true
             self.lblRecentlyAdded.isHidden = false
@@ -56,19 +56,31 @@ class WorkoutTypeTVC: UITableViewCell {
                 self.lblRating.text = "0.0%"
             }
             
-            
-            
             let rating = Double(item.difficultyRatingsTotal)/Double(item.difficultyRatingsCount)
-            let strRating = String(format: "%.1f", rating)
-            let attString = NSMutableAttributedString(string: "\(strRating)/10")
-            attString.addAttributes([
-                .font : UIFont.appMedium(with: 13),
-                .foregroundColor: UIColor.appTitleDarkColor()
-            ], range: .init(location: 0, length: attString.string.count))
-            attString.addAttributes([
-                .font : UIFont.appMedium(with: 27)
-            ], range: .init(location: 0, length: strRating.count))
-            self.lblDifficulty.attributedText = attString
+            if rating.isNaN{
+                let strRating = String(format: "%.1f", 0)
+                let attString = NSMutableAttributedString(string: "\(strRating)/10")
+                attString.addAttributes([
+                    .font : UIFont.appMedium(with: 13),
+                    .foregroundColor: UIColor.appTitleDarkColor()
+                ], range: .init(location: 0, length: attString.string.count))
+                attString.addAttributes([
+                    .font : UIFont.appMedium(with: 27)
+                ], range: .init(location: 0, length: strRating.count))
+                self.lblDifficulty.attributedText = attString
+            }else{
+                let strRating = String(format: "%.1f", rating)
+                let attString = NSMutableAttributedString(string: "\(strRating)/10")
+                attString.addAttributes([
+                    .font : UIFont.appMedium(with: 13),
+                    .foregroundColor: UIColor.appTitleDarkColor()
+                ], range: .init(location: 0, length: attString.string.count))
+                attString.addAttributes([
+                    .font : UIFont.appMedium(with: 27)
+                ], range: .init(location: 0, length: strRating.count))
+                self.lblDifficulty.attributedText = attString
+            }
+            
             
         }
     }

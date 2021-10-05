@@ -226,5 +226,6 @@ enum LoginType: String {
 
 enum SubscriptionType: String{
     case Stripe = "stripe"
+    case Google = "google"
     case Apple = "apple_pay"
 }

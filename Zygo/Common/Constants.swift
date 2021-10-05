@@ -15,8 +15,10 @@ class Constants: NSObject {
     
     //TODO: Check
     //Development v2
-    //static let baseUrl = "http://dev.zygohq.com"
-    //static let imageBaseUrl = "http://dev.zygohq.com"
+    //static let baseUrl = "https://dev.zygohq.com"
+    //static let imageBaseUrl = "https://dev.zygohq.com"
+    //static let baseUrl = "https://dev.mirror.zygohq.com"
+    //static let imageBaseUrl = "https://dev.mirror.zygohq.com"
     
     //Live mirror
     //static let baseUrl = "https://mirror.zygohq.com"
@@ -26,6 +28,10 @@ class Constants: NSObject {
     static let baseUrl = "https://zygohq.com"
     static let imageBaseUrl = "https://zygohq.com"
     
+    //Change this
+    static let branchKey = "key_live_gi2tjo1v3wnXldXjFkmrXgocxzhIHcj4"
+        //"key_test_ma2Ded1vYvnZed8aynxVbabaEtmLQkCk"
+    static let KLAVIYOPUBLICAPIKEY = "P2bQKn"
     
     static let deviceType = "ios"
         
@@ -78,11 +84,15 @@ enum APIEndPoint : String {
     
     case subscriptionPayment = "/api/apple-subscription-payment"
     case cancelSubscription = "/api/cancel-apple-subscription"
+    case cancelOtherSubscription = "/api/cancel-subscription"
     
     case updateToken = "/api/update-device-token"
     case notificationSetting = "/api/notification-setting"
     
     case forceUpgrade = "/api/force-upgrade"
+    
+    case getinstructor = "/api/get-instructor-by-id"
+    case getInstructorsList = "/api/get-instructor-list"
 }
 
 enum AppKeys : String {

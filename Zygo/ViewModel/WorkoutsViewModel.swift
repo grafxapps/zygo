@@ -30,8 +30,10 @@ final class WorkoutsViewModel: NSObject {
             DispatchQueue.main.async {
                 //Check subscription from apple
                 if !SubscriptionManager.shared.isValidSubscription(){//If not valid subscription
-                    
-                    if PreferenceManager.shared.currentSubscribedProduct?.type ?? "" == SubscriptionType.Stripe.rawValue{
+                    let type = PreferenceManager.shared.currentSubscribedProduct?.type ?? ""
+                    if type == SubscriptionType.Stripe.rawValue || type == SubscriptionType.Google.rawValue{
+                        // If user not subscribed then set Subscription as root
+                        Helper.shared.setSubscriptionRoot()
                         return
                     }
                     

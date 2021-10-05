@@ -8,6 +8,7 @@
 
 import UIKit
 import AuthenticationServices
+import WebKit
 
 class SignInViewController: UIViewController, GoogleLoginManagerDelegate, SignUpViewControllerDelegates {
     
@@ -120,15 +121,14 @@ class SignInViewController: UIViewController, GoogleLoginManagerDelegate, SignUp
         }
     }
     
+    var googleToken: String = ""
+    
     //MARK:- Google SignIn Delegates
     func didLogin(user: GoogleUserDTO) {
-        viewModel.googleSignInUser(accessToken: user.accessToken) { [weak self] (isLogin) in
+        PreferenceManager.shared.authToken = user.accessToken
+        viewModel.googleSignInUser(accessToken: user.accessToken) { (isLogin) in
             DispatchQueue.main.async {
                 Helper.shared.stopLoading()
-                if self == nil{
-                    return
-                }
-                
                 if isLogin{
                     AppDelegate.app.checkUserLoginStatus()
                 }else{
@@ -136,6 +136,10 @@ class SignInViewController: UIViewController, GoogleLoginManagerDelegate, SignUp
                 }
             }
         }
+    }
+    
+    @objc func googleServerLogin(){
+        
     }
     
     func didFaildLogin(error: String) {

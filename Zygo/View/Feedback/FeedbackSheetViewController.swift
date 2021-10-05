@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Branch
 
 protocol FeedbackSheetViewControllerDelegates {
     func feedbackDone()
@@ -132,7 +133,29 @@ class FeedbackSheetViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    @objc @IBAction func shareAction(_ sender: UIButton){
         
+        let branchUniversalObject: BranchUniversalObject = BranchUniversalObject(canonicalIdentifier: "Worout_\(workoutItem.workoutName)_\(workoutItem.workoutId)")
+        branchUniversalObject.title = "I just completed the \("\(String(format: "%.f", workoutItem.workoutDuration)) min") \(workoutItem.workoutName) workout"
+        branchUniversalObject.contentDescription = ""
+        branchUniversalObject.imageUrl = workoutItem.thumbnailURL.getImageURL()
+        
+        let linkProperties: BranchLinkProperties = BranchLinkProperties()
+        linkProperties.controlParams = ["workout_id" : workoutItem.workoutId] //workoutItem.toDict()
+        
+        Helper.shared.startLoading()
+        branchUniversalObject.getShortUrl(with: linkProperties) { (url, error) in
+            Helper.shared.stopLoading()
+            if error == nil {
+                if let workoutUrl = URL(string: url ?? ""){
+                    Helper.shared.shareWorkout(url: workoutUrl)
+                }
+            }else{
+                Helper.shared.alert(title: Constants.appName, message: error.debugDescription)
+            }
+        }
     }
     
     //MARK: -
@@ -158,6 +181,7 @@ extension FeedbackSheetViewController: UITableViewDataSource, UITableViewDelegat
                 let cell = tableView.dequeueReusableCell(withIdentifier: DefaultFeedbackTVC.identifier) as! DefaultFeedbackTVC
                 cell.setupThumb(status: self.thumbStatus)
                 cell.delegate = self
+                cell.btnShare.addTarget(self, action: #selector(self.shareAction(_:)), for: .touchUpInside)
                 cell.selectionStyle = .none
                 return cell
             }
@@ -166,6 +190,7 @@ extension FeedbackSheetViewController: UITableViewDataSource, UITableViewDelegat
             let cell = tableView.dequeueReusableCell(withIdentifier: DefaultFeedbackTVC.identifier) as! DefaultFeedbackTVC
             cell.setupThumb(status: self.thumbStatus)
             cell.delegate = self
+            cell.btnShare.addTarget(self, action: #selector(self.shareAction(_:)), for: .touchUpInside)
             cell.selectionStyle = .none
             return cell
         }

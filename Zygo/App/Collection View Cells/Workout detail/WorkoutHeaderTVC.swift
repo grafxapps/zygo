@@ -11,6 +11,7 @@ import UIKit
 class WorkoutHeaderTVC: UITableViewCell {
     
     static let identifier = "WorkoutHeaderTVC"
+    @IBOutlet weak var lblTitle: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

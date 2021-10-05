@@ -21,6 +21,7 @@ class HistoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addObservers()
         self.registerTVC()
     }
     
@@ -35,6 +36,10 @@ class HistoryViewController: UIViewController {
         }
     }
     
+    deinit {
+        self.removeObservers()
+    }
+    
     //MARK:- Setup
     func registerTVC()  {
         tblHistory.estimatedRowHeight = 100.0
@@ -43,6 +48,19 @@ class HistoryViewController: UIViewController {
         tblHistory.register(UINib.init(nibName: HistoryInfoTVC.identifier, bundle: nil), forCellReuseIdentifier: HistoryInfoTVC.identifier);
         tblHistory.register(UINib.init(nibName: AchievementsTVC.identifier, bundle: nil), forCellReuseIdentifier: AchievementsTVC.identifier);
         tblHistory.register(UINib.init(nibName: PastWorkoutsTVC.identifier, bundle: nil), forCellReuseIdentifier: PastWorkoutsTVC.identifier);
+    }
+    
+    func addObservers(){
+        self.removeObservers()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didSelectTab), name: .didSelectProfileTab, object: nil)
+    }
+    
+    @objc func didSelectTab(){
+        self.tblHistory.scroll(to: .top, animated: true)
+    }
+    
+    func removeObservers(){
+        NotificationCenter.default.removeObserver(self)
     }
     
 }

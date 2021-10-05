@@ -14,7 +14,9 @@ class WorkoutDetailViewController: UIViewController {
     var arrSection : [WorkoutDetailSections] = [.detail, .rating, .equipment, .startWorkout, .workoutPlan]
     var workoutItem: WorkoutDTO?
     var viewModel = WorkoutsViewModel()
-    
+    var isFromInstructor: Bool = false
+    var isFromBranch: Bool = false
+    private var isViewMore: Bool = false
     //MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,10 +58,16 @@ class WorkoutDetailViewController: UIViewController {
         if workoutItem?.workoutEquipments.count ?? 0 > 0{
             arrSection.append(.equipment)
         }
-        arrSection.append(.startWorkout)
+        
+        if workoutItem?.playlist.count ?? 0 > 0{
+            arrSection.append(.playlist)
+        }
+        
+        //arrSection.append(.startWorkout)
         if workoutItem?.workoutPlanLines.count ?? 0 > 0{
             arrSection.append(.workoutPlan)
         }
+        
         self.tblWorkout.reloadData()
         
         
@@ -69,6 +77,7 @@ class WorkoutDetailViewController: UIViewController {
     }
     
     func registerTVC()  {
+        tblWorkout.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
         tblWorkout.estimatedRowHeight = 100.0
         tblWorkout.register(UINib.init(nibName: WorkoutDetailInfoTVC.identifier, bundle: nil), forCellReuseIdentifier: WorkoutDetailInfoTVC.identifier);
         tblWorkout.register(UINib.init(nibName: WorkoutTypeTVC.identifier, bundle: nil), forCellReuseIdentifier: WorkoutTypeTVC.identifier);
@@ -76,16 +85,24 @@ class WorkoutDetailViewController: UIViewController {
         tblWorkout.register(UINib.init(nibName: StartWorkoutTVC.identifier, bundle: nil), forCellReuseIdentifier: StartWorkoutTVC.identifier);
         tblWorkout.register(UINib.init(nibName: WorkoutPlanTVC.identifier, bundle: nil), forCellReuseIdentifier: WorkoutPlanTVC.identifier);
         tblWorkout.register(UINib.init(nibName: WorkoutHeaderTVC.identifier, bundle: nil), forCellReuseIdentifier: WorkoutHeaderTVC.identifier);
+        tblWorkout.register(UINib.init(nibName: PlaylistTVC.identifier, bundle: nil), forCellReuseIdentifier: PlaylistTVC.identifier);
+        tblWorkout.register(UINib(nibName: PlaylistInfoTVC.identifier, bundle: nil), forCellReuseIdentifier: PlaylistInfoTVC.identifier)
+        tblWorkout.register(UINib(nibName: PlaylistViewMoreTVC.identifier, bundle: nil), forCellReuseIdentifier: PlaylistViewMoreTVC.identifier)
         
     }
     
     //MARK: - UIButton Actions
     @IBAction func backAction(_ sender: UIButton){
-        self.navigationController?.popViewController(animated: true)
+        if self.isFromBranch{
+            self.dismiss(animated: true, completion: nil)
+        }else{
+            self.navigationController?.popViewController(animated: true)
+        }
+        
     }
     
-    @objc func startWorkoutAction(_ sender: UIButton){
-
+    @objc @IBAction func startWorkoutAction(_ sender: UIButton){
+        
         let playerVC = self.storyboard?.instantiateViewController(withIdentifier: "WorkoutPlayerViewController") as! WorkoutPlayerViewController
         playerVC.workoutItem = workoutItem
         playerVC.localWorkout = self.viewModel.downloadedWorkout
@@ -127,6 +144,28 @@ class WorkoutDetailViewController: UIViewController {
         }
     }
     
+    @objc func instructorProfile(){
+        if isFromInstructor{
+            return
+        }
+        
+        let storyboard = UIStoryboard(name: "Instructor", bundle: nil)
+        let instVC = storyboard.instantiateViewController(withIdentifier: "InstructorViewController") as! InstructorViewController
+        instVC.viewModel.instructor = workoutItem!.instructor
+        self.navigationController?.pushViewController(instVC, animated: true)
+        
+    }
+    
+    @objc func viewMoreAction(){
+        if self.isViewMore{
+            self.isViewMore = false
+        }else{
+            self.isViewMore = true
+        }
+        
+        self.tblWorkout.reloadData()
+        
+    }
 }
 extension WorkoutDetailViewController : UITableViewDataSource, UITableViewDelegate{
     
@@ -139,7 +178,19 @@ extension WorkoutDetailViewController : UITableViewDataSource, UITableViewDelega
         
         if self.arrSection[section] == .workoutPlan{
             return self.workoutItem?.workoutPlanLines.count ?? 0
-        }else{
+        }else if self.arrSection[section] == .playlist{
+            let count = self.workoutItem?.playlist.count ?? 0
+            if count > 3{
+                if self.isViewMore{
+                    return count + 1
+                }else{
+                    return 3 + 1
+                }
+            }else{
+                return count
+            }
+            
+        } else{
             return 1
         }
     }
@@ -152,6 +203,7 @@ extension WorkoutDetailViewController : UITableViewDataSource, UITableViewDelega
         case .detail:
             let cell : WorkoutDetailInfoTVC = tableView.dequeueReusableCell(withIdentifier: WorkoutDetailInfoTVC.identifier) as! WorkoutDetailInfoTVC
             cell.selectionStyle = .none
+            cell.btnInstructor.addTarget(self, action: #selector(self.instructorProfile), for: .touchUpInside)
             if workoutItem != nil{
                 cell.setupDetailInfo(workoutItem!)
             }
@@ -188,20 +240,80 @@ extension WorkoutDetailViewController : UITableViewDataSource, UITableViewDelega
             }
             cell.selectionStyle = .none
             return cell;
+        case .playlist:
+            
+            let count = self.workoutItem?.playlist.count ?? 0
+            if count > 3{
+                if self.isViewMore{
+                    if indexPath.row >= count{//View More Cell
+                        let cell = tableView.dequeueReusableCell(withIdentifier: PlaylistViewMoreTVC.identifier) as! PlaylistViewMoreTVC
+                        cell.selectionStyle = .none
+                        tableView.separatorStyle = .none
+                        cell.btnViewMore.addTarget(self, action: #selector(self.viewMoreAction), for: .touchUpInside)
+                        if self.isViewMore{
+                            cell.iconImageView.image = UIImage(named: "icon_up_arrow_only")
+                            cell.btnViewMore.setTitle("View Less", for: .normal)
+                        }else{
+                            cell.btnViewMore.setTitle("View More", for: .normal)
+                            cell.iconImageView.image = UIImage(named: "icon_down_arrow_only")
+                        }
+                        return cell
+                    }
+                }else{
+                    if indexPath.row >= 3{//View More Cell
+                        let cell = tableView.dequeueReusableCell(withIdentifier: PlaylistViewMoreTVC.identifier) as! PlaylistViewMoreTVC
+                        cell.selectionStyle = .none
+                        tableView.separatorStyle = .none
+                        cell.btnViewMore.addTarget(self, action: #selector(self.viewMoreAction), for: .touchUpInside)
+                        if self.isViewMore{
+                            cell.btnViewMore.setTitle("View Less", for: .normal)
+                            cell.iconImageView.image = UIImage(named: "icon_up_arrow_only")
+                        }else{
+                            cell.btnViewMore.setTitle("View More", for: .normal)
+                            cell.iconImageView.image = UIImage(named: "icon_down_arrow_only")
+                        }
+                        return cell
+                    }
+                }
+            }
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: PlaylistInfoTVC.identifier) as! PlaylistInfoTVC
+            cell.selectionStyle = .none
+            tableView.separatorStyle = .none
+            let arrPlayList = self.workoutItem?.playlist ?? []
+            let item = arrPlayList[indexPath.row]
+            cell.setupPlaylistInfo(item: item)
+            return cell
+            
+        /*let cell : PlaylistTVC = tableView.dequeueReusableCell(withIdentifier: PlaylistTVC.identifier) as! PlaylistTVC
+         let arrPlayList = self.workoutItem?.playlist ?? []
+         cell.updateInforList(list: arrPlayList, isFull: false)
+         cell.selectionStyle = .none
+         return cell;*/
         }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if self.arrSection[section] == .workoutPlan{
+            let headerCell = tableView.dequeueReusableCell(withIdentifier: "WorkoutHeaderTVC") as! WorkoutHeaderTVC
+            headerCell.lblTitle.text = "Workout Plan"
+            return headerCell
+        }else if self.arrSection[section] == .playlist{
+            let headerCell = tableView.dequeueReusableCell(withIdentifier: "WorkoutHeaderTVC") as! WorkoutHeaderTVC
+            headerCell.lblTitle.text = "Playlist"
+            return headerCell
+        }else{
+            return nil
+        }
         
-        let headerView = UIView()
-        let headerCell = tableView.dequeueReusableCell(withIdentifier: "WorkoutHeaderTVC") as! WorkoutHeaderTVC
-        headerView.addSubview(headerCell)
-        return headerView
+        
         
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if self.arrSection[section] == .workoutPlan{
+            return 70.0
+        }else if self.arrSection[section] == .playlist{
             return 70.0
         }else{
             return 0.0
@@ -223,6 +335,8 @@ extension WorkoutDetailViewController : UITableViewDataSource, UITableViewDelega
             return 90.0
         case .workoutPlan:
             return 66.0;
+        case .playlist:
+            return UITableView.automaticDimension
         }
     }
 }
@@ -234,4 +348,5 @@ enum WorkoutDetailSections {
     case equipment
     case startWorkout
     case workoutPlan
+    case playlist
 }

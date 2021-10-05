@@ -16,14 +16,46 @@ import AVFoundation
 import SwiftyStoreKit
 import Firebase
 import FirebaseMessaging
+import Branch
+import KlaviyoSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     //Publis Sound Player for temo trainer
     var tempoPlayer: AVAudioPlayer?
+    let protector = ScreenRecordingProtoector()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        //TODO: uncomment for production
+        protector.startPreventing()
+        
+        Klaviyo.setupWithPublicAPIKey(apiKey: Constants.KLAVIYOPUBLICAPIKEY)
+        if PreferenceManager.shared.isUserLogin{
+            let user = PreferenceManager.shared.user
+            Klaviyo.sharedInstance.setUpUserEmail(userEmail: user.email)
+            Klaviyo.sharedInstance.setUpCustomerID(id: user.email)
+            Klaviyo.sharedInstance.trackEvent(eventName: "User_Type", properties: ["user_id": "\(user.uId)", "user_email": user.email, "type": "iOS"])            
+        }
+        
+        if let launch = launchOptions, let data = launch[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable: Any] {
+            Klaviyo.sharedInstance.handlePush(userInfo: data as NSDictionary)
+        }
+        
+        Branch.setBranchKey(Constants.branchKey)
+        // if you are using the TEST key
+        Branch.setUseTestBranchKey(true)
+        // listener for Branch Deep Link data
+        Branch.getInstance().initSession(launchOptions: launchOptions) { (params, error) in
+            // do stuff with deep link data (nav to page, display content, etc)
+            let workoutDict = params as? [String: AnyObject] ?? [:]
+            print("Workout Link: \(workoutDict)")
+            //PreferenceManager.shared.branchLinkWorkoutId = workoutDict["workout_id"] as? Int
+            if let wId = workoutDict["workout_id"] as? Int{
+                Helper.shared.pushToWorkout(wId: wId)
+            }
+        }
         
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
@@ -36,8 +68,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         UITextField.appearance().tintColor = UIColor.appBlueColor()
         
-        GIDSignIn.sharedInstance()?.clientID = Constants.googleClientId
-        GIDSignIn.sharedInstance()?.serverClientID = Constants.googleServerId
+        //GIDSignIn.sharedInstance()?.clientID = Constants.googleClientId
+        //GIDSignIn.sharedInstance()?.serverClientID = Constants.googleServerId
         
         if #available(iOS 13.4, *){
             
@@ -61,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application.registerUserNotificationSettings(settings)
         }
         UNUserNotificationCenter.current().delegate = self
-
+        
         application.registerForRemoteNotifications()
         
         //Clear Pending Notification banners
@@ -77,8 +109,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Clear all filters when app get launched
         PreferenceManager.shared.selectedFilters = []
+        PreferenceManager.shared.isTakenByMe = false
+        PreferenceManager.shared.isNotTakenByMe = false
         
         self.setupIAP()
+        
+        return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        Branch.getInstance().application(app, open: url, options: options)
         return true
     }
     
@@ -107,6 +147,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Helper.shared.forceUpgrade()
         
+    }
+    
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        guard let topVC = UIApplication.topViewController() else{
+            return .portrait
+        }
+        
+        if let lastVC = ((topVC as? SideMenuController)?.contentViewController as? NavigationController)?.viewControllers.last as? InstructorViewController{
+            if lastVC.viewModel.instructor.instructorVideo.isEmpty{
+                return .portrait
+            }else{
+                return .all
+            }
+        }
+        
+        
+        if let lastVC = ((topVC as? SideMenuController)?.contentViewController as? NavigationController)?.viewControllers.last as? WorkoutPlayerViewController{
+            if lastVC.isVideo{
+                return .all
+            }
+        }
+        
+        return .portrait
     }
     
     // MARK: - Core Data stack
@@ -161,11 +225,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if PreferenceManager.shared.isUserLogin{
             //TODO: CHECK USER SUBSCRIPTION STATUS AS WELL
             
+            let userItem = PreferenceManager.shared.user
+            Klaviyo.sharedInstance.setUpUserEmail(userEmail: userItem.email)
+            Klaviyo.sharedInstance.setUpCustomerID(id: userItem.email)
+            
             if !SubscriptionManager.shared.isValidSubscription(){//It means user is not subscribe yet
                 Helper.shared.setSubscriptionRoot()
             }else{
                 //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
-                let userItem = PreferenceManager.shared.user
+                //let userItem = PreferenceManager.shared.user
                 if userItem.gender.isEmpty || userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
                     Helper.shared.setCreateProfileRoot()
                     
@@ -231,50 +299,60 @@ extension AppDelegate{
 
 extension AppDelegate: MessagingDelegate{
     func updateFirestorePushTokenIfNeeded() {
-           if let token = Messaging.messaging().fcmToken {
-               print("My FCM Token \(token)")
+        if let token = Messaging.messaging().fcmToken {
+            print("My FCM Token \(token)")
             PreferenceManager.shared.deviceToken = token
-           }
-       }
-       
-       func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-           InstanceID.instanceID().instanceID { (result, error) in
-               if let error = error {
-                   print("Error fetching remote instange ID: \(error)")
-               } else if let result = result {
-                   print("Remote instance ID token: \(result.token)")
-             
-               }
-           }
-       }
-       
-       func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-           print(userInfo)
-           // when new message comes
-           if let dict:NSDictionary = userInfo as? NSDictionary  {
-               if let payloadString = dict["google.c.sender.id"] as? String{
-                   do{
-                       let data = payloadString.data(using: .utf8)!
-                       let jsonObect = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                       print(jsonObect)
-                       let messageDict = jsonObect  as! NSDictionary
-                   }catch{
-                   }
-               }
-               // store aps data in apsDict
-               let apsDict = dict.value(forKey: "aps") as! NSDictionary
-               let alertdict = apsDict.value(forKey: "alert") as! NSDictionary
-               
-           }
-       }
-       
-       
-       //MARK: - Messaging Delegate
+        }
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        Klaviyo.sharedInstance.addPushDeviceToken(deviceToken: deviceToken)
+        let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        print(token)
+        
+        InstanceID.instanceID().instanceID { (result, error) in
+            if let error = error {
+                print("Error fetching remote instange ID: \(error)")
+            } else if let result = result {
+                print("Remote instance ID token: \(result.token)")
+                
+            }
+        }
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        print(userInfo)
+        
+        if application.applicationState == UIApplication.State.inactive || application.applicationState ==  UIApplication.State.background {
+                Klaviyo.sharedInstance.handlePush(userInfo: userInfo as NSDictionary)
+            }
+        
+        // when new message comes
+        if let dict:NSDictionary = userInfo as? NSDictionary  {
+            if let payloadString = dict["google.c.sender.id"] as? String{
+                do{
+                    let data = payloadString.data(using: .utf8)!
+                    let jsonObect = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                    print(jsonObect)
+                    let messageDict = jsonObect  as! NSDictionary
+                }catch{
+                }
+            }
+            // store aps data in apsDict
+            let apsDict = dict.value(forKey: "aps") as! NSDictionary
+            let alertdict = apsDict.value(forKey: "alert") as! NSDictionary
+            
+        }
+    }
+    
+    
+    //MARK: - Messaging Delegate
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-           updateFirestorePushTokenIfNeeded()
-       }
-      
-       
+        updateFirestorePushTokenIfNeeded()
+    }
+    
+    
 }
 extension AppDelegate : UNUserNotificationCenterDelegate{
     
@@ -289,16 +367,29 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         }
         print(notificationInfo)
     }
-        
+    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        if application.applicationState == UIApplication.State.inactive || application.applicationState ==  UIApplication.State.background {
+                Klaviyo.sharedInstance.handlePush(userInfo: userInfo as NSDictionary)
+            }
+        
         print(userInfo)
+        // handler for Push Notifications
+        Branch.getInstance().handlePushNotification(userInfo)
         completionHandler(.newData)
+    }
+    
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        // handler for Universal Links
+        Branch.getInstance().continue(userActivity)
+        return true
     }
     
 }
 
 
-//TODO:
-func print(_ item: @autoclosure () -> Any, separator: String = " ", terminator: String = "\n") {
- 
- }
+//TODO: Uncomment for production
+//func print(_ item: @autoclosure () -> Any, separator: String = " ", terminator: String = "\n") {
+
+//}

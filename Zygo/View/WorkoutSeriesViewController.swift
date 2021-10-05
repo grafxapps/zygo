@@ -39,6 +39,14 @@ class WorkoutSeriesViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.removeObservers), name: .removeObservers, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateCompltedWorkouts), name: .UpdateCompletedWorkouts, object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didSelectTab), name: .didSelectSeriesTab, object: nil)
+        
+    }
+    
+    @objc func didSelectTab(){
+        if self.viewModel.arrSeriesWorkouts.count > 0{
+            self.tblWorkouts.scroll(to: .top, animated: true)
+        }
     }
     
     @objc func removeObservers(){

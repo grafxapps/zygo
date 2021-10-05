@@ -20,7 +20,14 @@ class SubscriptionViewModel: NSObject {
             
             let arrReceipts = items.sorted(by: { $0.subscriptionExpirationDate!.compare($1.subscriptionExpirationDate!) == .orderedDescending })
             if let receiptInfo = arrReceipts.first{
-                self.updateReceipt(expiryDate: expiryDate, transactionId: receiptInfo.transactionId, productId: receiptInfo.productId, completion: completion)
+                var prize : Float = 14.99
+                if receiptInfo.productId == SubscriptionManager.RegisteredPurchase.autoRenewableMonthly.rawValue{
+                    prize = 14.99
+                }else if receiptInfo.productId == SubscriptionManager.RegisteredPurchase.autoRenewableYearly.rawValue{
+                    prize = 149.99
+                }
+                
+                self.updateReceipt(expiryDate: expiryDate, transactionId: receiptInfo.transactionId, productId: receiptInfo.productId, amount: prize, completion: completion)
                 return
             }
             
@@ -39,10 +46,10 @@ class SubscriptionViewModel: NSObject {
     }
     
     
-    func updateReceipt(expiryDate: Date,transactionId: String, productId: String, completion: @escaping (String?,Bool) -> Void){
+    func updateReceipt(expiryDate: Date,transactionId: String, productId: String, amount: Float, completion: @escaping (String?,Bool) -> Void){
        
         let userId = PreferenceManager.shared.userId
-        paymentService.updateSubscription(userId: userId, expiryDate: expiryDate.toSubscriptionDate(), transactionId: transactionId, productId: productId, amount: "") { (error, userInfo) in
+        paymentService.updateSubscription(userId: userId, expiryDate: expiryDate.toSubscriptionDate(), transactionId: transactionId, productId: productId, amount: amount) { (error, userInfo) in
             
             DispatchQueue.main.async {
                 
@@ -67,4 +74,21 @@ class SubscriptionViewModel: NSObject {
         }
     }
     
+    
+    func cancelStripeSubscription(completion: @escaping (Bool) -> Void){
+        
+        Helper.shared.startLoading()
+        self.paymentService.cancelOtherSubscription { (error) in
+            DispatchQueue.main.async {
+                Helper.shared.stopLoading()
+                if error != nil{
+                    Helper.shared.alert(title: Constants.appName, message: error!)
+                    completion(false)
+                    return
+                }
+                
+                completion(true)
+            }
+        }
+    }
 }

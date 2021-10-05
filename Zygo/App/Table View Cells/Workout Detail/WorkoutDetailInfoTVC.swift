@@ -18,6 +18,7 @@ class WorkoutDetailInfoTVC: UITableViewCell {
     @IBOutlet weak var lblDesc: UITextView!
     @IBOutlet weak var lblLevel: UILabel!
     @IBOutlet weak var levelView: UIView!
+    @IBOutlet weak var btnInstructor: UIButton!
 
     @IBOutlet weak var descriptionHeightConstraint: NSLayoutConstraint!
     

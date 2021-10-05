@@ -13,6 +13,10 @@ class FilterViewController: UIViewController {
     @IBOutlet weak var tblFilter : UITableView!
     @IBOutlet weak var btnShowClasses : UIButton!
     
+    @IBOutlet weak var btnAll : UIButton!
+    @IBOutlet weak var btnNotTaken : UIButton!
+    @IBOutlet weak var btnTaken : UIButton!
+    
     private let viewModel = FilterViewModel()
     
     //MARK: -
@@ -20,13 +24,22 @@ class FilterViewController: UIViewController {
         super.viewDidLoad()
         self.registerTVC()
         
-        if self.viewModel.arrSelectedFiltes.count > 0{
+        if self.viewModel.arrSelectedFiltes.count > 0 || PreferenceManager.shared.isNotTakenByMe || PreferenceManager.shared.isTakenByMe{
             self.viewModel.getFilteredWorkouts { [weak self] in
                 self?.updateShowButton()
             }
         }else{
             self.updateShowButton()
         }
+        
+        if PreferenceManager.shared.isTakenByMe{
+            self.selectTaken()
+        }else if PreferenceManager.shared.isNotTakenByMe{
+            self.selectNotTaken()
+        }else{
+            self.selectAll()
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,6 +50,104 @@ class FilterViewController: UIViewController {
     }
     
     //MARK: - Setup
+    func selectAll(){
+        btnAll.layer.cornerRadius = 10.0
+        btnAll.layer.masksToBounds = true
+        btnAll.layer.borderWidth = 0
+        
+        btnAll.setTitleColor(.white, for: .normal)
+        btnAll.backgroundColor = UIColor.appBlueColor()
+        btnAll.titleLabel?.font = UIFont.appBold(with: 14.0)
+        
+        btnNotTaken.layer.cornerRadius = 10.0
+        btnNotTaken.layer.masksToBounds = true
+        btnNotTaken.layer.borderWidth = 1
+        btnNotTaken.layer.borderColor = UIColor.appTitleDarkColor().cgColor
+        
+        btnNotTaken.setTitleColor(UIColor.appTitleDarkColor(), for: .normal)
+        btnNotTaken.backgroundColor = UIColor.white
+        btnNotTaken.titleLabel?.font = UIFont.appRegular(with: 14.0)
+        
+        btnTaken.layer.cornerRadius = 10.0
+        btnTaken.layer.masksToBounds = true
+        btnTaken.layer.borderWidth = 1
+        btnTaken.layer.borderColor = UIColor.appTitleDarkColor().cgColor
+        
+        btnTaken.setTitleColor(UIColor.appTitleDarkColor(), for: .normal)
+        btnTaken.backgroundColor = UIColor.white
+        btnTaken.titleLabel?.font = UIFont.appRegular(with: 14.0)
+        
+        PreferenceManager.shared.isTakenByMe = false
+        PreferenceManager.shared.isNotTakenByMe = false
+    }
+    
+    func selectNotTaken(){
+        
+        btnNotTaken.layer.cornerRadius = 10.0
+        btnNotTaken.layer.masksToBounds = true
+        btnNotTaken.layer.borderWidth = 0
+        
+        btnNotTaken.setTitleColor(.white, for: .normal)
+        btnNotTaken.backgroundColor = UIColor.appBlueColor()
+        btnNotTaken.titleLabel?.font = UIFont.appBold(with: 14.0)
+        
+        btnAll.layer.cornerRadius = 10.0
+        btnAll.layer.masksToBounds = true
+        btnAll.layer.borderWidth = 1
+        btnAll.layer.borderColor = UIColor.appTitleDarkColor().cgColor
+        
+        btnAll.setTitleColor(UIColor.appTitleDarkColor(), for: .normal)
+        btnAll.backgroundColor = UIColor.white
+        btnAll.titleLabel?.font = UIFont.appRegular(with: 14.0)
+        
+        
+        btnTaken.layer.cornerRadius = 10.0
+        btnTaken.layer.masksToBounds = true
+        btnTaken.layer.borderWidth = 1
+        btnTaken.layer.borderColor = UIColor.appTitleDarkColor().cgColor
+        
+        btnTaken.setTitleColor(UIColor.appTitleDarkColor(), for: .normal)
+        btnTaken.backgroundColor = UIColor.white
+        btnTaken.titleLabel?.font = UIFont.appRegular(with: 14.0)
+        
+        PreferenceManager.shared.isTakenByMe = false
+        PreferenceManager.shared.isNotTakenByMe = true
+    }
+    
+    func selectTaken(){
+        
+        btnTaken.layer.cornerRadius = 10.0
+        btnTaken.layer.masksToBounds = true
+        btnTaken.layer.borderWidth = 0
+        
+        btnTaken.setTitleColor(.white, for: .normal)
+        btnTaken.backgroundColor = UIColor.appBlueColor()
+        btnTaken.titleLabel?.font = UIFont.appBold(with: 14.0)
+        
+        
+        btnAll.layer.cornerRadius = 10.0
+        btnAll.layer.masksToBounds = true
+        btnAll.layer.borderWidth = 1
+        btnAll.layer.borderColor = UIColor.appTitleDarkColor().cgColor
+        
+        btnAll.setTitleColor(UIColor.appTitleDarkColor(), for: .normal)
+        btnAll.backgroundColor = UIColor.white
+        btnAll.titleLabel?.font = UIFont.appRegular(with: 14.0)
+        
+        
+        btnNotTaken.layer.cornerRadius = 10.0
+        btnNotTaken.layer.masksToBounds = true
+        btnNotTaken.layer.borderWidth = 1
+        btnNotTaken.layer.borderColor = UIColor.appTitleDarkColor().cgColor
+        
+        btnNotTaken.setTitleColor(UIColor.appTitleDarkColor(), for: .normal)
+        btnNotTaken.backgroundColor = UIColor.white
+        btnNotTaken.titleLabel?.font = UIFont.appRegular(with: 14.0)
+        
+        PreferenceManager.shared.isTakenByMe = true
+        PreferenceManager.shared.isNotTakenByMe = false
+    }
+    
     func registerTVC()  {
         tblFilter.separatorStyle = .none
         tblFilter.register(UINib.init(nibName: FilterTVC.identifier, bundle: nil), forCellReuseIdentifier: FilterTVC.identifier);
@@ -45,7 +156,7 @@ class FilterViewController: UIViewController {
     
     func updateShowButton(){
         
-        if self.viewModel.arrSelectedFiltes.count > 0{
+        if self.viewModel.arrSelectedFiltes.count > 0 || PreferenceManager.shared.isNotTakenByMe || PreferenceManager.shared.isTakenByMe{
             let count = self.viewModel.arrWorkouts.count
             if count == 0{
                 self.btnShowClasses.setTitle("NO CLASSES FOUND", for: .normal)
@@ -79,6 +190,9 @@ class FilterViewController: UIViewController {
     
     @IBAction func clearAllAction(_ sender: UIButton){
         PreferenceManager.shared.selectedFilters = []
+        PreferenceManager.shared.isNotTakenByMe = false
+        PreferenceManager.shared.isTakenByMe = false
+        self.selectAll()
         self.viewModel.arrSelectedFiltes.removeAll()
         self.viewModel.arrWorkouts.removeAll()
         self.updateShowButton()
@@ -89,6 +203,27 @@ class FilterViewController: UIViewController {
         NotificationCenter.default.post(name: .fetchWorkouts, object: nil)
         //Helper.shared.moveToTab(index: 0)
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func allAction(_ sender: UIButton){
+        self.selectAll()
+        self.viewModel.getFilteredWorkouts { [weak self] in
+            self?.updateShowButton()
+        }
+    }
+    
+    @IBAction func notTakenAction(_ sender: UIButton){
+        self.selectNotTaken()
+        self.viewModel.getFilteredWorkouts { [weak self] in
+            self?.updateShowButton()
+        }
+    }
+    
+    @IBAction func takenAction(_ sender: UIButton){
+        self.selectTaken()
+        self.viewModel.getFilteredWorkouts { [weak self] in
+            self?.updateShowButton()
+        }
     }
 }
 
@@ -124,8 +259,17 @@ extension FilterViewController : UITableViewDataSource, UITableViewDelegate, Bot
         
         let sheetVC = BottomSheetVC(nibName: "BottomSheetVC", bundle: nil)
         let fItem = self.viewModel.arrFiltes[indexPath.row]
+        
+        var arrFilters = fItem.filters
+        if fItem.title.lowercased() == "equipment"{
+            var noEquipmentItem = FilterDTO([:])
+            noEquipmentItem.fId = 0
+            noEquipmentItem.fTitle = "No Equipment"
+            arrFilters.append(noEquipmentItem)
+        }
+        
         sheetVC.mTitle = fItem.title
-        sheetVC.list = fItem.filters
+        sheetVC.list = arrFilters
         sheetVC.icon = fItem.icon
         if let selectedItems = self.viewModel.arrSelectedFiltes.filter({ $0.title.lowercased() == fItem.title.lowercased() }).last{
             sheetVC.selectedList = selectedItems.filters

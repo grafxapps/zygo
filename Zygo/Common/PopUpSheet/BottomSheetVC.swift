@@ -114,7 +114,21 @@ class BottomSheetVC: UIViewController {
         let item = self.list[index]
         if let fIndex = self.selectedList.firstIndex(where: { $0.fId == item.fId }){
             selectedList.remove(at: fIndex)
+            
+            //Remove 0 id// No Equipment
+            if let fkIndex = self.selectedList.firstIndex(where: { $0.fId == 0 }){
+                selectedList.remove(at: fkIndex)
+            }
+            
         }else{
+            if item.fId == 0{
+                selectedList.removeAll()
+            }else{
+                //Remove 0 id// No Equipment
+                if let fIndex = self.selectedList.firstIndex(where: { $0.fId == 0 }){
+                    selectedList.remove(at: fIndex)
+                }
+            }
             selectedList.append(item)
         }
         self.tblList.reloadData()

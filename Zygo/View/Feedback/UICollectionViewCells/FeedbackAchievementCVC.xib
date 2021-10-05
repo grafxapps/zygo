@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -31,7 +31,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="266" height="190"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Achievement text goes here. You have completed all workouts using water-wings." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sR3-ft-uZK">
-                                <rect key="frame" x="10" y="85" width="246" height="56"/>
+                                <rect key="frame" x="25" y="85" width="216" height="56"/>
                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                 <color key="textColor" red="0.62352941176470589" green="0.63921568627450975" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -57,11 +57,11 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="sR3-ft-uZK" firstAttribute="leading" secondItem="yLs-7h-bb0" secondAttribute="leading" constant="10" id="65k-WF-ZVA"/>
+                            <constraint firstItem="sR3-ft-uZK" firstAttribute="leading" secondItem="yLs-7h-bb0" secondAttribute="leading" constant="25" id="65k-WF-ZVA"/>
                             <constraint firstItem="rFt-1n-ZFW" firstAttribute="top" secondItem="yLs-7h-bb0" secondAttribute="top" constant="10" id="CBW-qp-e5N"/>
                             <constraint firstItem="rFt-1n-ZFW" firstAttribute="leading" secondItem="yLs-7h-bb0" secondAttribute="leading" constant="10" id="DcF-Pa-OEB"/>
                             <constraint firstItem="sR3-ft-uZK" firstAttribute="top" secondItem="YdE-3X-8Ud" secondAttribute="bottom" constant="15" id="EZz-vj-gnD"/>
-                            <constraint firstAttribute="trailing" secondItem="sR3-ft-uZK" secondAttribute="trailing" constant="10" id="H2f-E5-Adm"/>
+                            <constraint firstAttribute="trailing" secondItem="sR3-ft-uZK" secondAttribute="trailing" constant="25" id="H2f-E5-Adm"/>
                             <constraint firstItem="rFt-1n-ZFW" firstAttribute="centerX" secondItem="yLs-7h-bb0" secondAttribute="centerX" id="OZl-Nb-pr4"/>
                             <constraint firstAttribute="trailing" secondItem="rFt-1n-ZFW" secondAttribute="trailing" constant="10" id="Oba-HR-hl5"/>
                             <constraint firstItem="YdE-3X-8Ud" firstAttribute="top" secondItem="rFt-1n-ZFW" secondAttribute="bottom" constant="15" id="W4K-tP-oUB"/>

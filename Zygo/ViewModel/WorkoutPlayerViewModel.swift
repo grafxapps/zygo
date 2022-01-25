@@ -13,13 +13,13 @@ final class WorkoutPlayerViewModel: NSObject {
     private let service = WorkoutsServices()
     var arrAchievements: [AchievementDTO] = []
     
-    func completeWorkout(_ workoutId: Int, _ timeInWater: Int, _ timeElapsed: Int, completion: @escaping (Bool) -> Void){//Seconds
+    func completeWorkout(_ workoutId: Int, _ timeInWater: Int, _ timeElapsed: Int, completion: @escaping (Bool, Int) -> Void){//Seconds
         Helper.shared.startLoading()
         LocationManager.shared.startLoction()
         LocationManager.shared.onUpdate = { [weak self] location in
             guard let mLocation = location else{
                 Helper.shared.stopLoading()
-                completion(false)
+                completion(false, -1)
                 return
             }
             self?.completeWorout(with: mLocation.latitude, mLocation.longitude , workoutId, timeInWater, timeElapsed, completion: completion)
@@ -27,28 +27,28 @@ final class WorkoutPlayerViewModel: NSObject {
         
     }
     
-    private func completeWorout(with lat: Double, _ lng: Double, _ workoutId: Int, _ timeInWater: Int, _ timeElapsed: Int, completion: @escaping (Bool) -> Void){
-        self.service.completeWorkout(wId: workoutId, timeInWater: timeInWater, timeElapsed: timeElapsed, lat: lat, lng: lng) { [weak self] (error, arrAchievements) in
+    private func completeWorout(with lat: Double, _ lng: Double, _ workoutId: Int, _ timeInWater: Int, _ timeElapsed: Int, completion: @escaping (Bool, Int) -> Void){
+        self.service.completeWorkout(wId: workoutId, timeInWater: timeInWater, timeElapsed: timeElapsed, lat: lat, lng: lng) { [weak self] (error, arrAchievements, workoutLogId) in
             DispatchQueue.main.async {
                 Helper.shared.stopLoading()
                 if error != nil{
                     Helper.shared.alert(title: Constants.appName, message: error!)
-                    completion(false)
+                    completion(false, -2)
                     return
                 }
                 
                 self?.arrAchievements.removeAll()
                 self?.arrAchievements.append(contentsOf: arrAchievements)
-                completion(true)
+                completion(true, workoutLogId)
             }
         }
     }
     
-    func workoutFeedback(_ workoutId: Int, _ thumbStatus: ThumbStatus, _ dificultyLevel: Int, completion: @escaping (Bool) -> Void){
+    func workoutFeedback(_ workoutId: Int, _ thumbStatus: ThumbStatus, _ dificultyLevel: Int, workoutLogId: Int, completion: @escaping (Bool) -> Void){
         
         Helper.shared.startLoading()
         print("Workout Feedback")
-        service.workoutFeedback(wId: workoutId, thumbStatus: thumbStatus, dificultyLevel: dificultyLevel) { (error) in
+        service.workoutFeedback(wId: workoutId, thumbStatus: thumbStatus, dificultyLevel: dificultyLevel, workoutLogId: workoutLogId) { (error) in
             DispatchQueue.main.async {
                 Helper.shared.stopLoading()
                 if error != nil{

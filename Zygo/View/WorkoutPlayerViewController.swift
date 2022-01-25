@@ -9,6 +9,7 @@
 import UIKit
 import AVKit
 import SimpleAnimation
+import SideMenuSwift
 
 //MARK: -
 class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewControllerDelegates {
@@ -69,6 +70,10 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
     //MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
+        if AppDelegate.app.tempoPlayer == nil{
+            Helper.shared.resetDemoModeTime()
+        }
+        
         self.setupUI()
         self.setupDetailInfo(workoutItem)
     }
@@ -277,6 +282,7 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
         if isVideo{
             self.btnVideoPlaySmall.isSelected = false
         }else{
+            Helper.shared.stopDemoTime()
             self.btnPlay.isSelected = false
         }
         
@@ -286,9 +292,11 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
     @objc func playPlayer(){
         
         //TODO: Enable for screen recording
-        if UIScreen.main.isCaptured {
-            Helper.shared.alert(title: Constants.appName, message: "Please stop screen recording to play this workout.")
-            return
+        if !Helper.shared.isTestUser{
+            if UIScreen.main.isCaptured {
+                Helper.shared.alert(title: Constants.appName, message: "Please stop screen recording to play this workout.")
+                return
+            }
         }
         
         self.player?.play()
@@ -296,6 +304,29 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
             self.btnVideoPlaySmall.isSelected = true
             self.btnVideoPlayBig.isHidden = true
         }else{
+            
+            if Helper.shared.isDemoLimitComplete(){
+                
+                Helper.shared.stopTempoTrainerOnController()
+                
+                let alert = CustomAlertWithCloseVC(nibName: "CustomAlertWithCloseVC", bundle: nil, title: Constants.appName, message: "Start your free trial to access all of our content.", buttonTitle: "Subscribe") { (isYes) in
+                    if isYes{
+                        //Push To Subscribe screen
+                        Helper.shared.pushToSubscriptionScreen(from: self)
+                    }else{
+                        Helper.shared.log(event: .WORKOUTCANCEL, params: [:])
+                        self.back()
+                    }
+                }
+                
+                alert.transitioningDelegate = self
+                alert.modalPresentationStyle = .custom
+                self.present(alert, animated: true, completion: nil)
+                
+                self.stopAndRemovePlayer()
+                return
+            }
+            Helper.shared.startDemoTime()
             self.btnPlay.isSelected = true
         }
         
@@ -356,11 +387,31 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
         
         self.pausePlayer()
         
-        self.viewModel.completeWorkout(workoutItem.workoutId, timeInWater, timeElapsed) { (isCompleted) in
+        
+        if Helper.shared.isDemoMode{
+            Helper.shared.stopTempoTrainerOnController()
+            let alert = CustomAlertWithCloseVC(nibName: "CustomAlertWithCloseVC", bundle: nil, title: Constants.appName, message: "Start your free trial to access all of our content.", buttonTitle: "Subscribe") { (isYes) in
+                if isYes{
+                    //Push To Subscribe screen
+                    Helper.shared.pushToSubscriptionScreen(from: self)
+                }else{
+                    Helper.shared.log(event: .WORKOUTCANCEL, params: [:])
+                    self.back()
+                }
+            }
+            
+            alert.transitioningDelegate = self
+            alert.modalPresentationStyle = .custom
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        self.viewModel.completeWorkout(workoutItem.workoutId, timeInWater, timeElapsed) { (isCompleted, workoutLogId) in
+            Helper.shared.log(event: .ENDWORKOUT, params: [:])
             if isCompleted{
                 print("Workout completed successfully!!")
                 
-                let feedbackVC = FeedbackSheetViewController(nibName: "FeedbackSheetViewController", bundle: nil, workoutItem: self.workoutItem, achievements: self.viewModel.arrAchievements)
+                let feedbackVC = FeedbackSheetViewController(nibName: "FeedbackSheetViewController", bundle: nil, workoutItem: self.workoutItem, achievements: self.viewModel.arrAchievements, workoutLogId: workoutLogId)
                 feedbackVC.delegate = self
                 feedbackVC.modalPresentationStyle = .overFullScreen
                 self.present(feedbackVC, animated: true, completion: nil)
@@ -472,6 +523,7 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
                 self.player?.volume = 1.0
             }else if object.status == .failed{
                 Helper.shared.alert(title: Constants.appName, message: "Faild to load media. Please try again."){
+                    Helper.shared.log(event: .WORKOUTCANCEL, params: [:])
                     self.back()
                 }
             }
@@ -580,6 +632,25 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
             //If pleayer reacg end then start again
             let playerTime = self?.player?.currentTime().seconds ?? 0
             self?.updateCurrentTime(time: playerTime)
+            if !(self?.isVideo ?? false){
+                if Helper.shared.isDemoLimitComplete(){
+                    self?.stopAndRemovePlayer()
+                    Helper.shared.stopTempoTrainerOnController()
+                    let alert = CustomAlertWithCloseVC(nibName: "CustomAlertWithCloseVC", bundle: nil, title: Constants.appName, message: "Start your free trial to access all of our content.", buttonTitle: "Subscribe") { (isYes) in
+                        if isYes{
+                            //Push To Subscribe screen
+                            Helper.shared.pushToSubscriptionScreen(from: self!)
+                        }else{
+                            self?.back()
+                        }
+                    }
+                    
+                    alert.transitioningDelegate = self
+                    alert.modalPresentationStyle = .custom
+                    self?.present(alert, animated: true, completion: nil)
+                    return
+                }
+            }
         }
     }
     
@@ -630,13 +701,16 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
                         self.removeObservers()
                         self.stopAndRemovePlayer()
                         self.navigationController?.popToRootViewController(animated: true)
+                        Helper.shared.log(event: .WORKOUTCANCEL, params: [:])
                         //self.completeWorkout()
                     }
                 }
             }else{
+                Helper.shared.log(event: .WORKOUTCANCEL, params: [:])
                 self.back()
             }
         }else{
+            Helper.shared.log(event: .WORKOUTCANCEL, params: [:])
             self.back()
         }
     }
@@ -694,8 +768,17 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
             self.updateCurrentTime(time: Double(videoSeekBar.value))
         }else{
             self.updateCurrentTime(time: Double(seekBar.value))
+            let timeScale = self.playerCurrentTime.timescale
+            let tempplayerCurrentTime = CMTime(seconds: Double(seekBar.value), preferredTimescale: timeScale)
+            
+            Helper.shared.demoTotalSeconds = Int(tempplayerCurrentTime.seconds)
+            Helper.shared.startDemoTime()
         }
+        
         self.player?.seek(to: self.playerCurrentTime)
+        
+        
+        
         self.playPlayer()
     }
     
@@ -709,6 +792,7 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
                 Helper.shared.alertYesNoActions(title: nil, message: "Are you sure you want to end this workout?", yesActionTitle: "Yes", noActionTitle: "No") { (isYes) in
                     if isYes{
                         //self.completeWorkout()
+                        Helper.shared.log(event: .WORKOUTCANCEL, params: [:])
                         self.back()
                     }
                 }
@@ -857,6 +941,20 @@ extension WorkoutPlayerViewController{
         }
     }
 }
+
+extension WorkoutPlayerViewController: UIViewControllerTransitioningDelegate{
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return PresentingAnimator()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissingAnimator()
+    }
+    
+}
+
+
 
 enum PlayerStatus {
     case running

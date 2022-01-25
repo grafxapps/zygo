@@ -43,85 +43,94 @@ final class UserServices: NSObject {
     
     func getUserProfile(completion: @escaping (String?) -> Void){
         
-            let header = NetworkManager.shared.getHeader()
-            NetworkManager.shared.request(withEndPoint: .getProfile, method: .get, headers: header, params: [:]) { (response) in
-                switch response{
-                case .success(let jsonresponse):
-                    print(jsonresponse)
-                    let jsonResponse = jsonresponse[AppKeys.data.rawValue] as? [String:Any] ?? [:]
+        let header = NetworkManager.shared.getHeader()
+        NetworkManager.shared.request(withEndPoint: .getProfile, method: .get, headers: header, params: [:]) { (response) in
+            switch response{
+            case .success(let jsonresponse):
+                print(jsonresponse)
+                let jsonResponse = jsonresponse[AppKeys.data.rawValue] as? [String:Any] ?? [:]
+                
+                let user = UserDTO(jsonResponse)
+                let workoutInfo = WorkoutInfoDTO(jsonResponse)
+                let notificationInfo = NotificationInfoDTO(jsonResponse)
+                let friendsInfo = FriendsInfoDTO(jsonResponse)
+                
+                PreferenceManager.shared.isTestUser = NSNumber(value: (Int(jsonResponse["test_user"] as? String ?? "0") ?? 0)).boolValue
+                
+                let strRatingDate = jsonResponse["rating_popup_date"] as? String ?? ""
+                if !strRatingDate.isEmpty{
+                    PreferenceManager.shared.lastRatingPopupDate = strRatingDate.convertToFormat("yyyy-MM-dd")
+                }
+                
+                
+                PreferenceManager.shared.completedWorkouts =  (jsonResponse["workouts_completed"] as? String ?? "").components(separatedBy: ",").map({ Int($0) ?? 0 })
+                
+                //completedWorkouts
+                
+                if let subInfoDic = jsonResponse["user_subscriptions"] as? [String: Any]{
                     
-                    let user = UserDTO(jsonResponse)
-                    let workoutInfo = WorkoutInfoDTO(jsonResponse)
-                    let notificationInfo = NotificationInfoDTO(jsonResponse)
-                    let friendsInfo = FriendsInfoDTO(jsonResponse)
-                    
-                    PreferenceManager.shared.completedWorkouts =  (jsonResponse["workouts_completed"] as? String ?? "").components(separatedBy: ",").map({ Int($0) ?? 0 })
-                    
-                    //completedWorkouts
-                    
-                    if let subInfoDic = jsonResponse["user_subscriptions"] as? [String: Any]{
+                    let subscriptionType = subInfoDic["subscription_type"] as? String ?? ""
+                    if subscriptionType == SubscriptionType.Apple.rawValue{
+                        let planId = subInfoDic["apple_plan_id"] as? String ?? ""
+                        let subscriptionId = subInfoDic["apple_subscription_id"] as? String ?? ""
+                        let strExpireDate = subInfoDic["expire_date"] as? String ?? ""
+                        let originalTransactionId = subInfoDic["apple_unique_id"] as? String ?? ""
                         
-                        let subscriptionType = subInfoDic["subscription_type"] as? String ?? ""
-                        if subscriptionType == SubscriptionType.Apple.rawValue{
-                            let planId = subInfoDic["apple_plan_id"] as? String ?? ""
-                            let subscriptionId = subInfoDic["apple_subscription_id"] as? String ?? ""
-                            let strExpireDate = subInfoDic["expire_date"] as? String ?? ""
-                            
-                            
-                            let subscriptionDict = [
-                                "expiry_date": strExpireDate,
-                                "transaction_id": subscriptionId,
-                                "plan_id": planId,
-                                "subscription_type": subscriptionType
-                            ]
-                            
-                            PreferenceManager.shared.currentSubscribedProduct = PurchasedSubscription(subscriptionDict)
-                        }else if subscriptionType == SubscriptionType.Stripe.rawValue{
-                            let planId = subInfoDic["stripe_plan_id"] as? String ?? ""
-                            let subscriptionId = subInfoDic["subscription_id"] as? String ?? ""
-                            let strExpireDate = subInfoDic["expire_date"] as? String ?? ""
-                            
-                            let subscriptionDict = [
-                                "expiry_date": strExpireDate,
-                                "transaction_id": subscriptionId,
-                                "plan_id": planId,
-                                "subscription_type": subscriptionType
-                            ]
-                            
-                            PreferenceManager.shared.currentSubscribedProduct = PurchasedSubscription(subscriptionDict)
-                        }else{
-                            let planId = subInfoDic["plan_id"] as? String ?? ""
-                            let subscriptionId = subInfoDic["subscription_id"] as? String ?? ""
-                            let strExpireDate = subInfoDic["expire_date"] as? String ?? ""
-                            
-                            let subscriptionDict = [
-                                "expiry_date": strExpireDate,
-                                "transaction_id": subscriptionId,
-                                "plan_id": planId,
-                                "subscription_type": subscriptionType
-                            ]
-                            
-                            PreferenceManager.shared.currentSubscribedProduct = PurchasedSubscription(subscriptionDict)
-                        }
+                        let subscriptionDict = [
+                            "expiry_date": strExpireDate,
+                            "transaction_id": subscriptionId,
+                            "plan_id": planId,
+                            "subscription_type": subscriptionType,
+                            "original_transaction_id": originalTransactionId
+                        ]
                         
+                        PreferenceManager.shared.currentSubscribedProduct = PurchasedSubscription(subscriptionDict)
+                    }else if subscriptionType == SubscriptionType.Stripe.rawValue{
+                        let planId = subInfoDic["stripe_plan_id"] as? String ?? ""
+                        let subscriptionId = subInfoDic["subscription_id"] as? String ?? ""
+                        let strExpireDate = subInfoDic["expire_date"] as? String ?? ""
                         
+                        let subscriptionDict = [
+                            "expiry_date": strExpireDate,
+                            "transaction_id": subscriptionId,
+                            "plan_id": planId,
+                            "subscription_type": subscriptionType
+                        ]
+                        
+                        PreferenceManager.shared.currentSubscribedProduct = PurchasedSubscription(subscriptionDict)
                     }else{
-                        PreferenceManager.shared.currentSubscribedProduct = nil
+                        let planId = subInfoDic["plan_id"] as? String ?? ""
+                        let subscriptionId = subInfoDic["subscription_id"] as? String ?? ""
+                        let strExpireDate = subInfoDic["expire_date"] as? String ?? ""
+                        
+                        let subscriptionDict = [
+                            "expiry_date": strExpireDate,
+                            "transaction_id": subscriptionId,
+                            "plan_id": planId,
+                            "subscription_type": subscriptionType
+                        ]
+                        
+                        PreferenceManager.shared.currentSubscribedProduct = PurchasedSubscription(subscriptionDict)
                     }
                     
-                    //Save user obj in preference
-                    PreferenceManager.shared.userId = user.uId
-                    PreferenceManager.shared.user = user
-                    PreferenceManager.shared.workoutInfo = workoutInfo
-                    PreferenceManager.shared.notificationInfo = notificationInfo
-                    PreferenceManager.shared.friendsInfo = friendsInfo
-                    completion(nil)
-                case .failure(_ , let message):
-                    completion(message)
-                case .notConnectedToInternet:
-                    completion(Constants.internetNotWorking)
+                    
+                }else{
+                    PreferenceManager.shared.currentSubscribedProduct = nil
                 }
+                
+                //Save user obj in preference
+                PreferenceManager.shared.userId = user.uId
+                PreferenceManager.shared.user = user
+                PreferenceManager.shared.workoutInfo = workoutInfo
+                PreferenceManager.shared.notificationInfo = notificationInfo
+                PreferenceManager.shared.friendsInfo = friendsInfo
+                completion(nil)
+            case .failure(_ , let message):
+                completion(message)
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking)
             }
+        }
     }
     
     func getUserHistory(completion: @escaping (String?, [WorkoutLogDTO], [AchievementDTO]) -> Void){
@@ -161,43 +170,85 @@ final class UserServices: NSObject {
     }
     
     func updateNotificationSettings(type: String, status: Int, completion: @escaping (String?) -> Void){
-           let param = [
-               "type": type,
-               "status": status
-           ] as [String : AnyObject]
-           let header = NetworkManager.shared.getHeader()
-           
-           NetworkManager.shared.request(withEndPoint: .notificationSetting, method: .post, headers: header, params: param) { (response) in
-
-               switch response{
-               case .success(_ ):
-                   completion(nil)
-               case .failure(_, let message):
-                   completion(message)
-               case .notConnectedToInternet:
-                   completion(Constants.internetNotWorking)
-               }
-           }
-       }
+        let param = [
+            "type": type,
+            "status": status
+        ] as [String : AnyObject]
+        let header = NetworkManager.shared.getHeader()
+        
+        NetworkManager.shared.request(withEndPoint: .notificationSetting, method: .post, headers: header, params: param) { (response) in
+            
+            switch response{
+            case .success(_ ):
+                completion(nil)
+            case .failure(_, let message):
+                completion(message)
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking)
+            }
+        }
+    }
     
     func forceUpgrade(completion: @escaping (String?) -> Void){
-          
-          // let header = NetworkManager.shared.getHeader()
+        
+        // let header = NetworkManager.shared.getHeader()
         NetworkManager.shared.request(withEndPoint: .forceUpgrade, method: .get, headers: [:], params: [:]) { (response) in
-
-               switch response{
-               case .success(let jsonResponse):
+            
+            switch response{
+            case .success(let jsonResponse):
                 guard let dataDict = jsonResponse["data"] as? [String: Any] else {
                     completion(nil)
                     return
                 }
                 PreferenceManager.shared.appCurrentVersion = dataDict["ios_app_version"] as? String ?? ""
-                   completion(nil)
-               case .failure(_, let message):
-                   completion(message)
-               case .notConnectedToInternet:
-                   completion(Constants.internetNotWorking)
-               }
-           }
-       }
+                completion(nil)
+            case .failure(_, let message):
+                completion(message)
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking)
+            }
+        }
+    }
+    
+    func updateRatingPopupDate(completion: @escaping (String?) -> Void){
+        
+        let param = [
+            "rating_popup_date": DateHelper.shared.currentUTCDateTime.convertToFormat("yyyy-MM-dd", isUTC: true)]
+        
+         let header = NetworkManager.shared.getHeader()
+        NetworkManager.shared.request(withEndPoint: .ratingPopupDate, method: .post, headers: header, params: param) { (response) in
+            
+            switch response{
+            case .success(let jsonResponse):
+                print(jsonResponse)
+                completion(nil)
+            case .failure(_, let message):
+                completion(message)
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking)
+            }
+        }
+    }
+    
+    func updateHomeCountry(completion: @escaping (String?) -> Void){
+        let code = NSLocale.current.regionCode ?? ""
+        print("Country: \(code)")
+        let param = [
+            "home_country": code
+        ]
+        
+        let header = NetworkManager.shared.getHeader()
+        NetworkManager.shared.request(withEndPoint: .homeCountry, method: .post, headers: header, params: param) { (response) in
+            
+            switch response{
+            case .success(let jsonResponse):
+                print(jsonResponse)
+                completion(nil)
+            case .failure(_, let message):
+                completion(message)
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking)
+            }
+        }
+    }
 }

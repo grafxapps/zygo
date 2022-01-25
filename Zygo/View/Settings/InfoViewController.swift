@@ -44,8 +44,6 @@ class InfoViewController: UIViewController {
     
     var superObj: ProfileViewController!
     
-    let ACCEPTABLE_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -391,7 +389,7 @@ extension InfoViewController: UITextFieldDelegate{
                 return false
             }
             
-            let cs = NSCharacterSet(charactersIn: ACCEPTABLE_CHARACTERS).inverted
+            let cs = NSCharacterSet(charactersIn: Constants.ACCEPTABLE_CHARACTERS).inverted
             let filtered = string.components(separatedBy: cs).joined(separator: "")
             
             let fullText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
@@ -402,7 +400,7 @@ extension InfoViewController: UITextFieldDelegate{
                 return false
             }
             
-            let cs = NSCharacterSet(charactersIn: ACCEPTABLE_CHARACTERS).inverted
+            let cs = NSCharacterSet(charactersIn: Constants.ACCEPTABLE_CHARACTERS).inverted
             let filtered = string.components(separatedBy: cs).joined(separator: "")
             
             let fullText = (textField.text! as NSString).replacingCharacters(in: range, with: string)

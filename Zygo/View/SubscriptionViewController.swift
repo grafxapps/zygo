@@ -23,9 +23,10 @@ class SubscriptionViewController: UIViewController {
     @IBOutlet weak var lblYearlyPrice : UILabel!
     
     @IBOutlet weak var btnRedeemCode : UIButton!
-    
+    @IBOutlet weak var lblDemoBack : UILabel!
     private let viewModel = SubscriptionViewModel()
     var isForChangeSubscription: Bool = false
+    var isFromDemoMode: Bool = false
     
     //MARK: - UIViewcontroller LifeCycle
     override func viewDidLoad() {
@@ -44,14 +45,24 @@ class SubscriptionViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         IQKeyboardManager.shared.enable = false
+        self.appBecomeActive()
+        self.addObservers()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         IQKeyboardManager.shared.enable = true
+        self.removeObservers()
     }
     
     func setupUI()  {
+        
+        if self.isFromDemoMode{
+            self.lblDemoBack.isHidden = false
+        }else{
+            self.lblDemoBack.isHidden = true
+        }
+        
         Helper.shared.setupViewLayer(sender: self.viewSubscription, isSsubScriptionView: true);
         
         Helper.shared.setupViewLayer(sender: self.viewYearlySubscription, isSsubScriptionView: true);
@@ -59,9 +70,74 @@ class SubscriptionViewController: UIViewController {
         Helper.shared.setupViewLayer(sender: self.saveView, isSsubScriptionView: true)
     }
     
+    func addObservers(){
+        //NotificationCenter.default.addObserver(self, selector: #selector(self.appBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    func removeObservers(){
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func appBecomeActive(){
+        Helper.shared.startLoading()
+        SubscriptionManager.shared.verifyAnyActiveSubscription { (error, purachsedSubc) in
+            Helper.shared.stopLoading()
+            
+            if error != nil{
+                //Helper.shared.alert(title: Constants.appName, message: error!)
+                return
+            }
+            Helper.shared.startLoading()
+            var prize : Float = 14.99
+            if purachsedSubc!.productId == SubscriptionManager.RegisteredPurchase.autoRenewableMonthly.rawValue{
+                prize = 14.99
+            }else if purachsedSubc!.productId == SubscriptionManager.RegisteredPurchase.autoRenewableYearly.rawValue{
+                prize = 149.99
+            }
+            
+            self.viewModel.updateReceipt(expiryDate: purachsedSubc!.expiryDate.toSubscriptionDate(), transactionId: purachsedSubc!.transactionId, productId: purachsedSubc!.productId, amount: prize, originalTransactionId: purachsedSubc!.originalTransactionId) { (retryError, isUploaded) in
+                
+                if isUploaded{
+                    //  PreferenceManager.shared.isSubscriptionPending = false
+                    
+                    if self.isForChangeSubscription{
+                        //Helper.shared.alert(title: "Success!", message: "Plan successfully changed.")
+                        //self.navigationController?.popViewController(animated: true)
+                    }else{
+                        Helper.shared.resetDemoMode()
+                        //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
+                        let userItem = PreferenceManager.shared.user
+                        if userItem.gender.isEmpty || userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
+                            Helper.shared.setCreateProfileRoot()
+                            
+                        }else{
+                            //MOVE TO DASHBOARD
+                            Helper.shared.setDashboardRoot()
+                        }
+                    }
+                    
+                    return
+                }
+                
+                if retryError != nil{
+                    if retryError! == "This Apple ID already has a Zygo subscription associated with another Zygo account. Please log in with that account to access your subscription. To subscribe with a new Zygo account, first cancel your subscription in the App Store, then subscribe with a new account."{
+                        Helper.shared.alert(title: Constants.appName, message: retryError!)
+                    }
+                    //Helper.shared.alert(title: Constants.appName, message: retryError!)
+                    return
+                }
+            }
+        }
+    }
+    
     //MARK: - UIButton Action
     @IBAction func backAction(){
-        Helper.shared.logout()
+        if self.isFromDemoMode{
+            self.navigationController?.popViewController(animated: true)
+        }else{
+            Helper.shared.logout()
+        }
+        
     }
     
     
@@ -100,7 +176,7 @@ class SubscriptionViewController: UIViewController {
                 prize = 149.99
             }
             
-            self.viewModel.updateReceipt(expiryDate: purachsedSubc!.expiryDate.toSubscriptionDate(), transactionId: purachsedSubc!.transactionId, productId: purachsedSubc!.productId, amount: prize) { (retryError, isUploaded) in
+            self.viewModel.updateReceipt(expiryDate: purachsedSubc!.expiryDate.toSubscriptionDate(), transactionId: purachsedSubc!.transactionId, productId: purachsedSubc!.productId, amount: prize, originalTransactionId: purachsedSubc!.originalTransactionId) { (retryError, isUploaded) in
                 
                 if isUploaded{
                     //  PreferenceManager.shared.isSubscriptionPending = false
@@ -154,6 +230,9 @@ class SubscriptionViewController: UIViewController {
                                 Helper.shared.alert(title: "Success!", message: "Plan successfully changed.")
                                 self.navigationController?.popViewController(animated: true)
                             }else{
+                                
+                                Helper.shared.resetDemoMode()
+                                
                                 //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
                                 let userItem = PreferenceManager.shared.user
                                 if userItem.gender.isEmpty || userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED

@@ -7,15 +7,136 @@
 //
 
 import UIKit
+import StoreKit
 import SideMenuSwift
+import FirebaseAnalytics
 
 final class Helper: NSObject {
     
     static let shared = Helper()
     
     private let userService = UserServices()
+    private let maxDemoLimit: Int = 180//Seconds
+    
+    var demoStartDate: Date?{
+        get{
+            return PreferenceManager.shared.demoModeStartDate
+        }set{
+            PreferenceManager.shared.demoModeStartDate = newValue
+        }
+    }
     
     private override init() {
+    }
+    
+    var isTestUser: Bool{
+        return PreferenceManager.shared.isTestUser
+    }
+    
+    var isDemoMode: Bool{
+        return PreferenceManager.shared.isDemoMode
+    }
+    
+    var demoTotalSeconds: Int{
+        get{
+            return PreferenceManager.shared.demoTotalSeconds
+        }set{
+            PreferenceManager.shared.demoTotalSeconds = newValue
+        }
+        
+    }
+    
+    func requestToRate() {
+        SKStoreReviewController.requestReview()
+        userService.updateRatingPopupDate { (error) in
+            DispatchQueue.main.async {
+                if error != nil{
+                    print(error!)
+                    return
+                }
+                
+                PreferenceManager.shared.lastRatingPopupDate = DateHelper.shared.currentUTCDateTime
+            }
+        }
+    }
+    
+    func isDemoLimitComplete() -> Bool{
+        
+        if !Helper.shared.isDemoMode{
+            return false
+        }
+
+        var finalSeconds: Int = self.demoTotalSeconds
+        if let startDate = demoStartDate{
+            
+            let seconds = DateHelper.shared.currentLocalDateTime.timeIntervalSince1970 - startDate.timeIntervalSince1970
+            
+            finalSeconds += Int(seconds)
+        }
+        
+        if finalSeconds >= self.maxDemoLimit{
+            let previousSeconds = self.demoTotalSeconds
+            self.demoTotalSeconds = previousSeconds + finalSeconds
+            return true
+        }
+        
+        return false
+    }
+    
+    func isDemoStarted() -> Bool{
+        return self.demoStartDate != nil
+    }
+    
+    func startDemoTime(){
+        self.demoStartDate = DateHelper.shared.currentLocalDateTime
+    }
+    
+    func stopDemoTime(){
+        if let startDate = demoStartDate{
+            
+            let seconds = DateHelper.shared.currentLocalDateTime.timeIntervalSince1970 - startDate.timeIntervalSince1970
+            let previousSeconds = self.demoTotalSeconds
+            self.demoTotalSeconds = previousSeconds + Int(seconds)
+        }
+        
+        self.demoStartDate = nil
+    }
+    
+    func resetDemoMode(){
+        PreferenceManager.shared.isDemoMode = false
+        PreferenceManager.shared.demoModeStartDate = nil
+        PreferenceManager.shared.demoTotalSeconds = 0
+    }
+    
+    func resetDemoModeTime(){
+        PreferenceManager.shared.demoModeStartDate = nil
+        PreferenceManager.shared.demoTotalSeconds = 0
+    }
+    
+    func stopTempoTrainerOnController(){
+        if AppDelegate.app.tempoPlayer == nil{
+            return
+        }
+        
+        if  let sideMenuController = (UIApplication.shared.windows.filter({ $0.isKeyWindow }).first?.rootViewController as? SideMenuController) {
+            if let nav = sideMenuController.contentViewController as? UINavigationController{
+                if let tabVC =  nav.viewControllers.first(where: { $0 is HomeTabBar }) as? UITabBarController{
+                    
+                    if let tempController = tabVC.viewControllers?[3] as? TempoTrainerViewController{
+                        tempController.stopTempTrainer()
+                    }
+                }
+            }
+        }
+    }
+    
+    func isTempoTrainerRunnig() -> Bool{
+        
+        if AppDelegate.app.tempoPlayer == nil{
+            return false
+        }
+        
+        return true
     }
     
     var appVersion: String{
@@ -132,6 +253,14 @@ final class Helper: NSObject {
         }
     }
     
+    func pushToSubscriptionScreen(from vc: UIViewController){
+        let storyBoard = UIStoryboard(name: "Registration", bundle: nil)
+        let navigationController = storyBoard.instantiateViewController(withIdentifier: "SubscriptionViewController") as! SubscriptionViewController
+        navigationController.isFromDemoMode = true
+        vc.navigationController?.pushViewController(navigationController, animated: true)
+        
+    }
+    
     func setLoginRoot(){
         let storyBoard = UIStoryboard(name: "Registration", bundle: nil)
         let navigationController = storyBoard.instantiateViewController(withIdentifier: "LoginNavigation") as! UINavigationController
@@ -163,6 +292,7 @@ final class Helper: NSObject {
                 UIApplication.shared.applicationIconBadgeNumber = 0
                 
                 self.setLoginRoot()
+                Helper.shared.resetUserIdentity()
             }
         }
         
@@ -317,6 +447,28 @@ final class Helper: NSObject {
         navController.modalPresentationStyle = .overFullScreen
         UIApplication.topViewController()?.present(navController, animated: true, completion: nil)
         
+    }
+    
+    func log(event name: EventName, params: [String: Any]){
+        Analytics.logEvent(name.rawValue, parameters: params)
+    }
+    
+    func logUserIdentity(){
+        let user = PreferenceManager.shared.user
+        Analytics.setUserID("\(user.uId)")
+        
+        let tempUB = user.birthday
+        if let dob = tempUB.fromServerBirthday(){
+            Analytics.setUserProperty(dob.toAge(), forName: "AGE")
+        }
+        Analytics.setUserProperty(user.gender.lowercased(), forName: "GENDER")
+
+    }
+    
+    func resetUserIdentity(){
+        Analytics.setUserID(nil)
+        Analytics.setUserProperty(nil, forName: "AGE")
+        Analytics.setUserProperty(nil, forName: "GENDER")
     }
     
 }

@@ -102,7 +102,7 @@ class WorkoutDetailViewController: UIViewController {
     }
     
     @objc @IBAction func startWorkoutAction(_ sender: UIButton){
-        
+        Helper.shared.log(event: .WORKOUTSTART, params: [:])
         let playerVC = self.storyboard?.instantiateViewController(withIdentifier: "WorkoutPlayerViewController") as! WorkoutPlayerViewController
         playerVC.workoutItem = workoutItem
         playerVC.localWorkout = self.viewModel.downloadedWorkout
@@ -111,6 +111,9 @@ class WorkoutDetailViewController: UIViewController {
     
     @objc func downloadAction(_ sender: UIButton){
         if self.viewModel.downloadedWorkout != nil{
+            
+            Helper.shared.log(event: .DOWNLOADWORKOUT, params: [:])
+            
             let status = WorkoutDownloadStatus(rawValue: self.viewModel.downloadedWorkout!.workoutDownloadStatus) ?? .downloaded
             if status == .downloading{
                 return
@@ -149,6 +152,7 @@ class WorkoutDetailViewController: UIViewController {
             return
         }
         
+        Helper.shared.log(event: .INSTRUCTORPROFILE, params: [:])
         let storyboard = UIStoryboard(name: "Instructor", bundle: nil)
         let instVC = storyboard.instantiateViewController(withIdentifier: "InstructorViewController") as! InstructorViewController
         instVC.viewModel.instructor = workoutItem!.instructor

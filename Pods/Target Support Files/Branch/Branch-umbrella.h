@@ -39,6 +39,7 @@
 #import "BNCNetworkService.h"
 #import "BNCNetworkServiceProtocol.h"
 #import "BNCPartnerParameters.h"
+#import "BNCPasteboard.h"
 #import "BNCPreferenceHelper.h"
 #import "BNCReachability.h"
 #import "BNCServerInterface.h"

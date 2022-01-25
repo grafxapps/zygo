@@ -9,13 +9,22 @@
 import UIKit
 
 class HomeTabBar: UITabBarController, UITabBarControllerDelegate {
-let service = RegistrationServices()
+    let service = RegistrationServices()
+    let userService = UserServices()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
+        
+        Helper.shared.logUserIdentity()
+        
         let token = PreferenceManager.shared.deviceToken
         service.updateDeviceToken(deviceToken: token) { (msg, isErr) in
             
+        }
+        
+        userService.updateHomeCountry { (msg) in
+            print("HOME COUNTRY RESPONSE: \(msg ?? "NULL")")
         }
     }
 }
@@ -38,6 +47,24 @@ extension HomeTabBar{
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        
+        //Stop navigate to profile screen in case of demo mode
+        if viewController is ProfileViewController{
+            if Helper.shared.isDemoMode{
+                let alert = CustomAlertWithCloseVC(nibName: "CustomAlertWithCloseVC", bundle: nil, title: Constants.appName, message: "Start your free trial to access all of our content.", buttonTitle: "Subscribe") { (isYes) in
+                    if isYes{
+                        //Push To Subscribe screen
+                        Helper.shared.pushToSubscriptionScreen(from: self)
+                    }
+                }
+                
+                alert.transitioningDelegate = self
+                alert.modalPresentationStyle = .custom
+                self.present(alert, animated: true, completion: nil)
+                return false
+            }
+        }
+        
         if tabBarController.selectedIndex == 4{
         
             
@@ -52,4 +79,16 @@ extension HomeTabBar{
         }
         return true
     }
+}
+
+extension HomeTabBar: UIViewControllerTransitioningDelegate{
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return PresentingAnimator()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissingAnimator()
+    }
+    
 }

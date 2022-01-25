@@ -18,6 +18,8 @@ class CreateProfileViewController: UIViewController {
     @IBOutlet weak var viewGender: UIView!
     @IBOutlet weak var viewBirthday: UIView!
     @IBOutlet weak var viewLocation: UIView!
+    @IBOutlet weak var viewHSerialNumber: UIView!
+    @IBOutlet weak var viewTSerialNumber: UIView!
     
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtFName: UITextField!
@@ -26,6 +28,8 @@ class CreateProfileViewController: UIViewController {
     @IBOutlet weak var txtGender: UITextField!
     @IBOutlet weak var txtBirthday: UITextField!
     @IBOutlet weak var txtLocation: UITextField!
+    @IBOutlet weak var txtHSerialNumber: UITextField!
+    @IBOutlet weak var txtTSerialNumber: UITextField!
     
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var imageView: UICircleImageView!
@@ -63,7 +67,13 @@ class CreateProfileViewController: UIViewController {
     func setupUI()  {
         
         txtUName.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
+        txtHSerialNumber.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
+        txtHSerialNumber.delegate = self
+        txtTSerialNumber.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
+        txtTSerialNumber.delegate = self
         
+        Helper.shared.setupViewLayer(sender: self.viewHSerialNumber, isSsubScriptionView: false);
+        Helper.shared.setupViewLayer(sender: self.viewTSerialNumber, isSsubScriptionView: false);
         Helper.shared.setupViewLayer(sender: self.viewEmail, isSsubScriptionView: false);
         Helper.shared.setupViewLayer(sender: self.viewFName, isSsubScriptionView: false);
         Helper.shared.setupViewLayer(sender: self.viewLName, isSsubScriptionView: false);
@@ -94,6 +104,41 @@ class CreateProfileViewController: UIViewController {
         if !user.email.isEmpty{//Disable email field if user already has email address
             self.txtEmail.isUserInteractionEnabled = false
             self.txtEmail.alpha = 0.5
+        }
+        
+        if !user.tSerialNumber.isEmpty{
+            if user.tSerialNumber.count >= 2{
+                let tPrefix = user.tSerialNumber.prefix(upTo: user.tSerialNumber.index(user.tSerialNumber.startIndex, offsetBy: 2))
+                if tPrefix == "RA"{
+                    let tStr = user.tSerialNumber.replacingOccurrences(of: "RA", with: "")
+                    if tStr.count > 7{
+                        self.txtTSerialNumber.text = String(tStr.dropFirst())
+                    }else{
+                        self.txtTSerialNumber.text = tStr
+                    }
+                }else{
+                    self.txtTSerialNumber.text = String(user.tSerialNumber.dropFirst())
+                }
+            }else{
+                self.txtTSerialNumber.text = String(user.tSerialNumber.dropFirst())
+            }
+        }
+        
+        
+        if !user.hSerialNumber.isEmpty{
+            if user.hSerialNumber.count >= 2{
+                let hPrefix = user.hSerialNumber.prefix(upTo: user.hSerialNumber.index(user.hSerialNumber.startIndex, offsetBy: 2))
+                if hPrefix == "RA"{
+                    let hStr = user.hSerialNumber.replacingOccurrences(of: "HA", with: "")
+                    if hStr.count > 7{
+                        self.txtHSerialNumber.text = String(hStr.dropFirst())
+                    }
+                }else{
+                    self.txtHSerialNumber.text = String(user.hSerialNumber.dropFirst())
+                }
+            }else{
+                self.txtHSerialNumber.text = String(user.hSerialNumber.dropFirst())
+            }
         }
     }
     
@@ -147,14 +192,26 @@ class CreateProfileViewController: UIViewController {
     
     //MARK: - UIButton Actions
     @IBAction func chooseImageAction(_ sender: UIButton){
+        Helper.shared.log(event: .CREATEPROFILE, params: [:])
         self.imageOptionsAlert()
     }
     
     @IBAction func logOutAction(_ sender: UIButton){
+        Helper.shared.log(event: .LOGOUT, params: [:])
         Helper.shared.logout()
     }
     
     @IBAction func doneAction(_ sender: UIButton){
+        
+        self.txtFName.resignFirstResponder()
+        self.txtLName.resignFirstResponder()
+        self.txtUName.resignFirstResponder()
+        self.txtGender.resignFirstResponder()
+        self.txtBirthday.resignFirstResponder()
+        self.txtLocation.resignFirstResponder()
+        self.txtHSerialNumber.resignFirstResponder()
+        self.txtTSerialNumber.resignFirstResponder()
+        
         self.viewModel.profileItem.email = txtEmail.text!.trim().lowercased()
         self.viewModel.profileItem.name = txtUName.text!.trim()
         self.viewModel.profileItem.fname = txtFName.text!.trim()
@@ -163,9 +220,21 @@ class CreateProfileViewController: UIViewController {
         self.viewModel.profileItem.birthday = datePicker.date.toServerBirthday().trim()
         self.viewModel.profileItem.location = txtLocation.text!.trim()
         
+        if !txtHSerialNumber.text!.trim().isEmpty{
+            self.viewModel.profileItem.hSerialNumber = "H" + txtHSerialNumber.text!.trim()
+        }else{
+            self.viewModel.profileItem.hSerialNumber = ""
+        }
+        
+        if !txtTSerialNumber.text!.trim().isEmpty{
+            self.viewModel.profileItem.tSerialNumber = "R" + txtTSerialNumber.text!.trim()
+        }else{
+            self.viewModel.profileItem.tSerialNumber = ""
+        }
+        
         if self.viewModel.isValidate(){
             self.viewModel.createProfile { [weak self] (isCreate, profileImage)  in
-                
+                Helper.shared.log(event: .CREATEPROFILE, params: [:])
                 if isCreate{
                     //Update User
                     self?.user.profilePic = profileImage
@@ -176,6 +245,8 @@ class CreateProfileViewController: UIViewController {
                     self?.user.gender = self?.viewModel.profileItem.gender ?? ""
                     self?.user.birthday = self?.viewModel.profileItem.birthday ?? ""
                     self?.user.location = self?.viewModel.profileItem.location ?? ""
+                    self?.user.tSerialNumber = self?.viewModel.profileItem.tSerialNumber ?? ""
+                    self?.user.hSerialNumber = self?.viewModel.profileItem.hSerialNumber ?? ""
                     if let nUser = self?.user{
                         PreferenceManager.shared.user = nUser
                     }
@@ -187,6 +258,29 @@ class CreateProfileViewController: UIViewController {
         }
     }
     
+    @IBAction func trasmitterInfo(){
+        
+        let alert = CustomAlertVC(nibName: "CustomAlertVC", bundle: nil, title: "Transmitter Serial Number", message: "Located on the back of the transmitter.") { (isComplete) in
+        }
+        
+        alert.transitioningDelegate = self
+        alert.modalPresentationStyle = .custom
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func headsetInfo(){
+        
+        let alert = CustomAlertVC(nibName: "CustomAlertVC", bundle: nil, title: "Headset Serial Number", message: "Located on the inner left side of the headset.") { (isComplete) in
+            
+    
+        }
+        
+        alert.transitioningDelegate = self
+        alert.modalPresentationStyle = .custom
+        self.present(alert, animated: true, completion: nil)
+        
+    }
 }
 
 extension CreateProfileViewController: UIPickerViewDelegate, UIPickerViewDataSource{
@@ -223,6 +317,18 @@ extension CreateProfileViewController: UITextFieldDelegate{
                 self.txtGender.text = gender.rawValue
             }
         }
+        
+        if textField == txtTSerialNumber{
+            if self.viewModel.profileItem.tSerialNumber.trim() == "R"{
+                txtTSerialNumber.text = ""
+                self.viewModel.profileItem.tSerialNumber = ""
+            }
+        }else if textField == txtHSerialNumber{
+            if self.viewModel.profileItem.hSerialNumber.trim() == "H"{
+                txtHSerialNumber.text = ""
+                self.viewModel.profileItem.hSerialNumber = ""
+            }
+        }
     }
     
     @objc func textDidChange(_ textField: UITextField){
@@ -246,6 +352,27 @@ extension CreateProfileViewController: UITextFieldDelegate{
             txtUName.text = fullText
             
             return !(inValidCharacterSet as NSCharacterSet).isCharInSet(char: Character(firstChar))
+        }else if textField == txtHSerialNumber{
+            if string == " "{
+                return false
+            }
+            
+            let cs = NSCharacterSet(charactersIn: Constants.ACCEPTABLE_CHARACTERS).inverted
+            let filtered = string.components(separatedBy: cs).joined(separator: "")
+            
+            let fullText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+            return fullText.count <= 8 && (string == filtered)
+        }else if textField == txtTSerialNumber{
+            
+            if string == " "{
+                return false
+            }
+            
+            let cs = NSCharacterSet(charactersIn: Constants.ACCEPTABLE_CHARACTERS).inverted
+            let filtered = string.components(separatedBy: cs).joined(separator: "")
+            
+            let fullText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+            return fullText.count <= 8 && (string == filtered)
         }
         
         return true
@@ -307,6 +434,18 @@ extension CreateProfileViewController: UIImagePickerControllerDelegate, UINaviga
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+extension CreateProfileViewController: UIViewControllerTransitioningDelegate{
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return PresentingAnimator()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissingAnimator()
     }
     
 }

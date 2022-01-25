@@ -63,7 +63,7 @@ class SubscriptionCancelVC: UIViewController {
                 prize = 149.99
             }
             
-            self.viewModel.updateReceipt(expiryDate: purachsedSubc!.expiryDate.toSubscriptionDate(), transactionId: purachsedSubc!.transactionId, productId: purachsedSubc!.productId, amount: prize) { (retryError, isUploaded) in
+            self.viewModel.updateReceipt(expiryDate: purachsedSubc!.expiryDate.toSubscriptionDate(), transactionId: purachsedSubc!.transactionId, productId: purachsedSubc!.productId, amount: prize, originalTransactionId: purachsedSubc!.originalTransactionId) { (retryError, isUploaded) in
                 
                 if isUploaded{
                     Helper.shared.alert(title: "Success!", message: "Plan successully updated.") {
@@ -127,7 +127,7 @@ class SubscriptionCancelVC: UIViewController {
         
         if PreferenceManager.shared.currentSubscribedProduct?.type ?? "" == SubscriptionType.Stripe.rawValue{
             //Hit API
-            
+            Helper.shared.log(event: .CANCELSTRIPESUBSCRIPTION, params: [:])
             self.viewModel.cancelStripeSubscription { (isCancelled) in
                 
                 if isCancelled{
@@ -143,6 +143,7 @@ class SubscriptionCancelVC: UIViewController {
             return
         }
         
+        Helper.shared.log(event: .CANCELSUBSCRIPTION, params: [:])
         Helper.shared.openUrl(url: URL(string: Constants.cancelSubscription))
     }
     

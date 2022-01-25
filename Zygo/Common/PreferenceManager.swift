@@ -80,11 +80,53 @@ final class PreferenceManager: NSObject {
         }
     }
     
+    var lastRatingPopupDate: Date? {
+        set{
+            defaults.set(newValue, forKey: PreferenceKey.lastRatingPopupDate.rawValue)
+            defaults.synchronize()
+        }get{
+            return defaults.value(forKey: PreferenceKey.lastRatingPopupDate.rawValue) as? Date
+        }
+    }
+    
+    
     var isUserLogin : Bool {
         set{
             defaults.set(newValue, forKey: PreferenceKey.IsUserLogin.rawValue)
         }get{
             return defaults.value(forKey: PreferenceKey.IsUserLogin.rawValue) as? Bool ?? false
+        }
+    }
+    
+    var isTestUser : Bool {
+        set{
+            defaults.set(newValue, forKey: PreferenceKey.IsTestUser.rawValue)
+        }get{
+            return defaults.value(forKey: PreferenceKey.IsTestUser.rawValue) as? Bool ?? false
+        }
+    }
+    
+    var isDemoMode : Bool {
+        set{
+            defaults.set(newValue, forKey: PreferenceKey.IsDemoMode.rawValue)
+        }get{
+            return defaults.value(forKey: PreferenceKey.IsDemoMode.rawValue) as? Bool ?? false
+        }
+    }
+    
+    var demoModeStartDate : Date? {
+        set{
+            defaults.set(newValue, forKey: PreferenceKey.DemoModeStartDate.rawValue)
+        }get{
+            return defaults.value(forKey: PreferenceKey.DemoModeStartDate.rawValue) as? Date
+        }
+    }
+    
+    var demoTotalSeconds : Int {
+        set{
+            defaults.set(newValue, forKey: PreferenceKey.DemoTotalSeconds.rawValue)
+        }get{
+            return defaults.value(forKey: PreferenceKey.DemoTotalSeconds.rawValue) as? Int ?? 0
         }
     }
     
@@ -208,8 +250,13 @@ enum PreferenceKey : String{
     case Subscription = "S_User_Subscription"
     
     case UserId = "S_User_Id"
+    case lastRatingPopupDate = "Z_Last_Rating_Popup_Date"
     
     case IsUserLogin = "S_User_Is_Login"
+    case IsTestUser = "S_User_Is_Test_User"
+    case IsDemoMode = "Z_User_Is_Demo_User"
+    case DemoModeStartDate = "Z_User_Demo_Mode_Start_Date"
+    case DemoTotalSeconds = "Z_User_Demo_Total_Seconds"
     
     case AuthToken = "S_User_Auth_Token"
     case DeviceToken = "S_User_Device_Token"

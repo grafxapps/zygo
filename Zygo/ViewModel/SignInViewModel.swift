@@ -62,6 +62,13 @@ class SignInViewModel: NSObject {
                 let notificationInfo = NotificationInfoDTO(jsonResponse)
                 let friendsInfo = FriendsInfoDTO(jsonResponse)
                 
+                PreferenceManager.shared.isTestUser = NSNumber(value: (Int(jsonResponse["test_user"] as? String ?? "0") ?? 0)).boolValue
+                
+                let strRatingDate = jsonResponse["rating_popup_date"] as? String ?? ""
+                if !strRatingDate.isEmpty{
+                    PreferenceManager.shared.lastRatingPopupDate = strRatingDate.convertToFormat("yyyy-MM-dd")
+                }
+                
                 PreferenceManager.shared.completedWorkouts =  (jsonResponse["workouts_completed"] as? String ?? "").components(separatedBy: ",").map({ Int($0) ?? 0 })
                 
                 PreferenceManager.shared.loginType = jsonResponse["login_type"] as? String ?? ""
@@ -72,13 +79,14 @@ class SignInViewModel: NSObject {
                         let planId = subInfoDic["apple_plan_id"] as? String ?? ""
                         let subscriptionId = subInfoDic["apple_subscription_id"] as? String ?? ""
                         let strExpireDate = subInfoDic["expire_date"] as? String ?? ""
-                        
+                        let originalTransactionId = subInfoDic["apple_unique_id"] as? String ?? ""
                         
                         let subscriptionDict = [
                             "expiry_date": strExpireDate,
                             "transaction_id": subscriptionId,
                             "plan_id": planId,
-                            "subscription_type": subscriptionType
+                            "subscription_type": subscriptionType,
+                            "original_transaction_id": originalTransactionId
                         ]
                         
                         PreferenceManager.shared.currentSubscribedProduct = PurchasedSubscription(subscriptionDict)
@@ -130,6 +138,7 @@ class SignInViewModel: NSObject {
             
             if isYes{
                 Helper.shared.startLoading()
+                Helper.shared.log(event: .RESENDRESETCODE, params: [:])
                 self.signupService.resendVerificationLink(for: email.lowercased()) { (error) in
                     
                     DispatchQueue.main.async {
@@ -171,6 +180,13 @@ class SignInViewModel: NSObject {
                 let notificationInfo = NotificationInfoDTO(jsonResponse)
                 let friendsInfo = FriendsInfoDTO(jsonResponse)
                
+                PreferenceManager.shared.isTestUser = NSNumber(value: (Int(jsonResponse["test_user"] as? String ?? "0") ?? 0)).boolValue
+                
+                let strRatingDate = jsonResponse["rating_popup_date"] as? String ?? ""
+                if !strRatingDate.isEmpty{
+                    PreferenceManager.shared.lastRatingPopupDate = strRatingDate.convertToFormat("yyyy-MM-dd")
+                }
+                
                 PreferenceManager.shared.completedWorkouts =  (jsonResponse["workouts_completed"] as? String ?? "").components(separatedBy: ",").map({ Int($0) ?? 0 })
                 
                 PreferenceManager.shared.loginType = jsonResponse["login_type"] as? String ?? ""
@@ -181,13 +197,14 @@ class SignInViewModel: NSObject {
                         let planId = subInfoDic["apple_plan_id"] as? String ?? ""
                         let subscriptionId = subInfoDic["apple_subscription_id"] as? String ?? ""
                         let strExpireDate = subInfoDic["expire_date"] as? String ?? ""
-                        
+                        let originalTransactionId = subInfoDic["apple_unique_id"] as? String ?? ""
                         
                         let subscriptionDict = [
                             "expiry_date": strExpireDate,
                             "transaction_id": subscriptionId,
                             "plan_id": planId,
-                            "subscription_type": subscriptionType
+                            "subscription_type": subscriptionType,
+                            "original_transaction_id": originalTransactionId
                         ]
                         
                         PreferenceManager.shared.currentSubscribedProduct = PurchasedSubscription(subscriptionDict)
@@ -264,6 +281,13 @@ class SignInViewModel: NSObject {
                 
                 PreferenceManager.shared.completedWorkouts =  (jsonResponse["workouts_completed"] as? String ?? "").components(separatedBy: ",").map({ Int($0) ?? 0 })
                 
+                PreferenceManager.shared.isTestUser = NSNumber(value: (Int(jsonResponse["test_user"] as? String ?? "0") ?? 0)).boolValue
+                
+                let strRatingDate = jsonResponse["rating_popup_date"] as? String ?? ""
+                if !strRatingDate.isEmpty{
+                    PreferenceManager.shared.lastRatingPopupDate = strRatingDate.convertToFormat("yyyy-MM-dd")
+                }
+                
                 PreferenceManager.shared.loginType = jsonResponse["login_type"] as? String ?? ""
                 
                 if let subInfoDic = jsonResponse["user_subscriptions"] as? [String: Any]{
@@ -272,13 +296,14 @@ class SignInViewModel: NSObject {
                         let planId = subInfoDic["apple_plan_id"] as? String ?? ""
                         let subscriptionId = subInfoDic["apple_subscription_id"] as? String ?? ""
                         let strExpireDate = subInfoDic["expire_date"] as? String ?? ""
-                        
+                        let originalTransactionId = subInfoDic["apple_unique_id"] as? String ?? ""
                         
                         let subscriptionDict = [
                             "expiry_date": strExpireDate,
                             "transaction_id": subscriptionId,
                             "plan_id": planId,
-                            "subscription_type": subscriptionType
+                            "subscription_type": subscriptionType,
+                            "original_transaction_id": originalTransactionId
                         ]
                         
                         PreferenceManager.shared.currentSubscribedProduct = PurchasedSubscription(subscriptionDict)
@@ -353,6 +378,13 @@ class SignInViewModel: NSObject {
                 let notificationInfo = NotificationInfoDTO(jsonResponse)
                 let friendsInfo = FriendsInfoDTO(jsonResponse)
                 
+                PreferenceManager.shared.isTestUser = NSNumber(value: (Int(jsonResponse["test_user"] as? String ?? "0") ?? 0)).boolValue
+                
+                let strRatingDate = jsonResponse["rating_popup_date"] as? String ?? ""
+                if !strRatingDate.isEmpty{
+                    PreferenceManager.shared.lastRatingPopupDate = strRatingDate.convertToFormat("yyyy-MM-dd")
+                }
+                
                 PreferenceManager.shared.completedWorkouts =  (jsonResponse["workouts_completed"] as? String ?? "").components(separatedBy: ",").map({ Int($0) ?? 0 })
                 
                 PreferenceManager.shared.loginType = jsonResponse["login_type"] as? String ?? ""
@@ -363,13 +395,14 @@ class SignInViewModel: NSObject {
                         let planId = subInfoDic["apple_plan_id"] as? String ?? ""
                         let subscriptionId = subInfoDic["apple_subscription_id"] as? String ?? ""
                         let strExpireDate = subInfoDic["expire_date"] as? String ?? ""
-                        
+                        let originalTransactionId = subInfoDic["apple_unique_id"] as? String ?? ""
                         
                         let subscriptionDict = [
                             "expiry_date": strExpireDate,
                             "transaction_id": subscriptionId,
                             "plan_id": planId,
-                            "subscription_type": subscriptionType
+                            "subscription_type": subscriptionType,
+                            "original_transaction_id": originalTransactionId
                         ]
                         
                         PreferenceManager.shared.currentSubscribedProduct = PurchasedSubscription(subscriptionDict)

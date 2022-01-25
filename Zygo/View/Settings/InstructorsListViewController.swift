@@ -69,6 +69,7 @@ extension InstructorsListViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        Helper.shared.log(event: .TABPROFILE, params: [:])
         let instVC = self.storyboard?.instantiateViewController(withIdentifier: "InstructorViewController") as! InstructorViewController
         let item = self.viewModel.arrInstructors[indexPath.row]
         instVC.viewModel.instructor = item

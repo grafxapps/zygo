@@ -35,33 +35,28 @@ struct TableKey {
         : value(null_value)
     {
     }
-    explicit TableKey(uint32_t val) noexcept
+    constexpr explicit TableKey(uint32_t val) noexcept
         : value(val)
     {
     }
-    TableKey& operator=(uint32_t val) noexcept
-    {
-        value = val;
-        return *this;
-    }
-    bool operator==(const TableKey& rhs) const noexcept
+    constexpr bool operator==(const TableKey& rhs) const noexcept
     {
         return value == rhs.value;
     }
-    bool operator!=(const TableKey& rhs) const noexcept
+    constexpr bool operator!=(const TableKey& rhs) const noexcept
     {
         return value != rhs.value;
     }
-    bool operator<(const TableKey& rhs) const noexcept
+    constexpr bool operator<(const TableKey& rhs) const noexcept
     {
         return value < rhs.value;
     }
-    bool operator>(const TableKey& rhs) const noexcept
+    constexpr bool operator>(const TableKey& rhs) const noexcept
     {
         return value > rhs.value;
     }
 
-    explicit operator bool() const noexcept
+    constexpr explicit operator bool() const noexcept
     {
         return value != null_value;
     }
@@ -81,13 +76,11 @@ inline std::string to_string(TableKey tk)
 {
     return to_string(tk.value);
 }
-}
+} // namespace util
 
 class TableVersions : public std::vector<std::pair<TableKey, uint64_t>> {
 public:
-    TableVersions()
-    {
-    }
+    TableVersions() {}
     TableVersions(TableKey key, uint64_t version)
     {
         emplace_back(key, version);
@@ -111,7 +104,7 @@ struct ColKey {
     {
     }
     constexpr ColKey(Idx index, ColumnType type, ColumnAttrMask attrs, uint64_t tag) noexcept
-        : ColKey((index.val & 0xFFFFUL) | ((type & 0x3FUL) << 16) | ((attrs.m_value & 0xFFUL) << 22) |
+        : ColKey((index.val & 0xFFFFUL) | ((int(type) & 0x3FUL) << 16) | ((attrs.m_value & 0xFFUL) << 22) |
                  ((tag & 0xFFFFFFFFUL) << 30))
     {
     }
@@ -131,14 +124,9 @@ struct ColKey {
     {
         return get_attrs().test(col_attr_Dictionary);
     }
-    bool is_collection()
+    bool is_collection() const
     {
         return get_attrs().test(col_attr_Collection);
-    }
-    ColKey& operator=(int64_t val) noexcept
-    {
-        value = val;
-        return *this;
     }
     bool operator==(const ColKey& rhs) const noexcept
     {
@@ -166,7 +154,7 @@ struct ColKey {
     }
     ColumnType get_type() const noexcept
     {
-        return ColumnType((static_cast<unsigned>(value) >> 16) & 0x3F);
+        return ColumnType(ColumnType::Type((static_cast<unsigned>(value) >> 16) & 0x3F));
     }
     ColumnAttrMask get_attrs() const noexcept
     {
@@ -203,11 +191,6 @@ struct ObjKey {
     ObjKey get_unresolved() const
     {
         return ObjKey(-2 - value);
-    }
-    ObjKey& operator=(int64_t val) noexcept
-    {
-        value = val;
-        return *this;
     }
     bool operator==(const ObjKey& rhs) const noexcept
     {
@@ -259,9 +242,7 @@ public:
             emplace_back(i);
         }
     }
-    ObjKeys()
-    {
-    }
+    ObjKeys() {}
 };
 
 struct ObjLink {
@@ -325,6 +306,9 @@ private:
     TableKey m_table_key;
 };
 
+using TableKeyType = decltype(TableKey::value);
+using ObjKeyType = decltype(ObjKey::value);
+
 inline std::ostream& operator<<(std::ostream& os, ObjLink link)
 {
     os << '{' << link.get_table_key() << ',' << link.get_obj_key() << '}';
@@ -351,6 +335,14 @@ struct hash<realm::ObjKey> {
     size_t operator()(realm::ObjKey key) const
     {
         return std::hash<uint64_t>{}(key.value);
+    }
+};
+
+template <>
+struct hash<realm::TableKey> {
+    size_t operator()(realm::TableKey key) const
+    {
+        return std::hash<uint32_t>{}(key.value);
     }
 };
 

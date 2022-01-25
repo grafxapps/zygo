@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -46,13 +46,13 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Breathe, Stretch, Shake (feat. P. Diddy)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gf1-y5-Ima">
-                                <rect key="frame" x="85" y="21" width="287" height="15.5"/>
+                                <rect key="frame" x="85" y="27" width="287" height="18.5"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                 <color key="textColor" name="AppTitleDarkColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Mase, P. Diddy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IYx-64-dyY">
-                                <rect key="frame" x="85" y="33.5" width="292" height="15.5"/>
+                                <rect key="frame" x="85" y="42.5" width="292" height="18.5"/>
                                 <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="13"/>
                                 <color key="textColor" name="AppBlueColor"/>
                                 <nil key="highlightedColor"/>
@@ -65,7 +65,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album Name Goes Here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oc7-AG-S91">
-                                <rect key="frame" x="85" y="49" width="292" height="33.5"/>
+                                <rect key="frame" x="85" y="61" width="292" height="26.5"/>
                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="9"/>
                                 <color key="textColor" name="AppTitleDarkColor"/>
                                 <nil key="highlightedColor"/>
@@ -83,11 +83,11 @@
                             <constraint firstItem="oc7-AG-S91" firstAttribute="top" secondItem="IYx-64-dyY" secondAttribute="bottom" id="aov-0V-OEG"/>
                             <constraint firstAttribute="trailing" secondItem="gf1-y5-Ima" secondAttribute="trailing" constant="10" id="dO4-tT-l4G"/>
                             <constraint firstItem="gf1-y5-Ima" firstAttribute="leading" secondItem="ZbW-SY-r8a" secondAttribute="trailing" constant="15" id="gNu-f2-xv8"/>
-                            <constraint firstItem="gf1-y5-Ima" firstAttribute="top" secondItem="ZbW-SY-r8a" secondAttribute="top" constant="-4" id="htW-VT-YGt"/>
+                            <constraint firstItem="gf1-y5-Ima" firstAttribute="top" secondItem="ZbW-SY-r8a" secondAttribute="top" constant="2" id="htW-VT-YGt"/>
                             <constraint firstItem="IYx-64-dyY" firstAttribute="leading" secondItem="ZbW-SY-r8a" secondAttribute="trailing" constant="15" id="k24-Uv-fuh"/>
                             <constraint firstItem="ZbW-SY-r8a" firstAttribute="leading" secondItem="jnD-cd-jAC" secondAttribute="leading" constant="25" id="k4z-dL-BTn"/>
                             <constraint firstAttribute="trailing" secondItem="IYx-64-dyY" secondAttribute="trailing" constant="5" id="oEB-9e-Nzz"/>
-                            <constraint firstAttribute="bottom" secondItem="oc7-AG-S91" secondAttribute="bottom" constant="13" id="vLf-3T-o8I"/>
+                            <constraint firstAttribute="bottom" secondItem="oc7-AG-S91" secondAttribute="bottom" constant="8" id="vLf-3T-o8I"/>
                         </constraints>
                     </view>
                 </subviews>

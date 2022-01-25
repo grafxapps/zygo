@@ -17,7 +17,7 @@ final class WorkoutsViewModel: NSObject {
     private let workoutService = WorkoutsServices()
     private let userService = UserServices()
     
-    func getUserProfile(){
+    func getUserProfile(completion: @escaping () -> Void){
         userService.getUserProfile { [weak self] (error) in
             if self == nil{
                 return
@@ -28,22 +28,59 @@ final class WorkoutsViewModel: NSObject {
             }
             
             DispatchQueue.main.async {
-                //Check subscription from apple
-                if !SubscriptionManager.shared.isValidSubscription(){//If not valid subscription
-                    let type = PreferenceManager.shared.currentSubscribedProduct?.type ?? ""
-                    if type == SubscriptionType.Stripe.rawValue || type == SubscriptionType.Google.rawValue{
-                        // If user not subscribed then set Subscription as root
-                        Helper.shared.setSubscriptionRoot()
-                        return
+                
+                //Check for rating poup
+                if PreferenceManager.shared.lastRatingPopupDate == nil{
+                    if PreferenceManager.shared.completedWorkouts.count >= 3{
+                        Helper.shared.requestToRate()
                     }
-                    
-                    SubscriptionManager.shared.isValidSubscriptionFromApple { (isSubscribed) in
-                        if !isSubscribed{// If user not subscribed then set Subscription as root
-                            Helper.shared.setSubscriptionRoot()
+                }else{
+                    //Show popup after every 4 month
+                    if let ratingDate = PreferenceManager.shared.lastRatingPopupDate{
+                        
+                        let calendar = Calendar.current
+                        if let nextPopupDate = calendar.date(byAdding: .month, value: 4, to: ratingDate){
+                            if nextPopupDate.compare(DateHelper.shared.currentUTCDateTime) == .orderedAscending || nextPopupDate.compare(DateHelper.shared.currentUTCDateTime) == .orderedSame{
+                                Helper.shared.requestToRate()
+                            }
                         }
                     }
-                    
                 }
+                
+                AppDelegate.app.protector.startPreventing()
+                
+                //If Demo mode or Test user enable then no need to check subscription status, let user to explore app and play workouts for 3 minutes
+                if Helper.shared.isTestUser{
+                    PreferenceManager.shared.isDemoMode = false
+                    completion()
+                    return
+                }
+                
+                    //Check subscription from apple
+                    if !SubscriptionManager.shared.isValidSubscription(){//If not valid subscription
+                        let type = PreferenceManager.shared.currentSubscribedProduct?.type ?? ""
+                        if type == SubscriptionType.Stripe.rawValue || type == SubscriptionType.Google.rawValue{
+                            PreferenceManager.shared.isDemoMode = true
+                            // If user not subscribed then set Subscription as root
+                            //Helper.shared.setSubscriptionRoot()
+                            completion()
+                            return
+                        }
+                        
+                        SubscriptionManager.shared.isValidSubscriptionFromApple { (isSubscribed) in
+                            if !isSubscribed{// If user not subscribed then set Subscription as root
+                                PreferenceManager.shared.isDemoMode = true
+                                //Helper.shared.setSubscriptionRoot()
+                            }else{
+                                PreferenceManager.shared.isDemoMode = false
+                            }
+                            completion()
+                        }
+                        
+                    }else{
+                        PreferenceManager.shared.isDemoMode = false
+                        completion()
+                    }
             }
         }
     }

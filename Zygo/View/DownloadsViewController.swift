@@ -20,6 +20,8 @@ class DownloadsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerTVC()
+        
+        Helper.shared.log(event: .TABDOWNLOADS, params: [:])
     }
     
     override func viewWillAppear(_ animated: Bool) {

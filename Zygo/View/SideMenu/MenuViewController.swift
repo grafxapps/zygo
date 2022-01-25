@@ -40,6 +40,21 @@ class MenuViewController: UIViewController {
         sideMenuController?.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if Helper.shared.isDemoMode{
+            self.viewModel.arrMenu.removeAll()
+            self.viewModel.arrMenu = [.settings, .instructors, .shopZygo, .aboutZygo, .help ,.privacyPolicy, .termsService, .demoSubscribe]
+            
+        }else{
+            self.viewModel.arrMenu.removeAll()
+            self.viewModel.arrMenu = [.settings, .instructors, .shopZygo, .aboutZygo, .help ,.privacyPolicy, .termsService]
+        }
+        
+        self.tableView.reloadData()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -51,6 +66,8 @@ class MenuViewController: UIViewController {
     
     private func configureView() {
         self.tableView.register(UINib(nibName: SideMenuTVC.identifier, bundle: nil), forCellReuseIdentifier: SideMenuTVC.identifier)
+        self.tableView.register(UINib(nibName: SideMenuDemoTVC.identifier, bundle: nil), forCellReuseIdentifier: SideMenuDemoTVC.identifier)
+        
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -78,20 +95,30 @@ class MenuViewController: UIViewController {
             self.getCurrentNavigationController()?.pushViewController(settingsVC, animated: true)
             
         case .shopZygo:
+            Helper.shared.log(event: .SHOPZYGO, params: [:])
             let url = URL(string: Constants.shop)
             Helper.shared.openUrl(url: url)
         case .aboutZygo:
+            Helper.shared.log(event: .ABOUTUS, params: [:])
             let url = URL(string: Constants.about)
             Helper.shared.openUrl(url: url)
+        case .help:
+            let helpVC = self.storyboard?.instantiateViewController(withIdentifier: "HelpVC") as! HelpVC
+            self.getCurrentNavigationController()?.pushViewController(helpVC, animated: true)
         case .privacyPolicy:
+            Helper.shared.log(event: .PRIVACYPOLICY, params: [:])
             let url = URL(string: Constants.privacyPolicy)
             Helper.shared.openUrl(url: url)
         case .termsService:
+            Helper.shared.log(event: .TERMOFSERVICE, params: [:])
             let url = URL(string: Constants.termsOfService)
             Helper.shared.openUrl(url: url)
         case .instructors:
+            Helper.shared.log(event: .INSTRUCTOR, params: [:])
             let instructorsVC = UIStoryboard(name: "Instructor", bundle: nil).instantiateViewController(withIdentifier: "InstructorsListViewController") as! InstructorsListViewController
             self.getCurrentNavigationController()?.pushViewController(instructorsVC, animated: true)
+        case .demoSubscribe:
+            print("Demo")
         }
         
         self.perform(#selector(self.hide), with: nil, afterDelay: 0.2)
@@ -112,6 +139,17 @@ class MenuViewController: UIViewController {
         }
         
         return tabBarVC.selectedViewController?.navigationController
+    }
+    
+    @objc func subscribeAction(){
+        if let vc = self.getCurrentNavigationController(){
+            let storyBoard = UIStoryboard(name: "Registration", bundle: nil)
+            let navigationController = storyBoard.instantiateViewController(withIdentifier: "SubscriptionViewController") as! SubscriptionViewController
+            navigationController.isFromDemoMode = true
+            vc.pushViewController(navigationController, animated: true)
+        }
+        
+        self.perform(#selector(self.hide), with: nil, afterDelay: 0.2)
     }
 }
 
@@ -155,18 +193,29 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     
     // swiftlint:disable force_cast
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SideMenuTVC.identifier, for: indexPath) as! SideMenuTVC
-        let row = indexPath.row
-        let item = self.viewModel.arrMenu[row]
-        cell.lblTitle.text = item.rawValue
-        cell.btnSelect.tag = indexPath.row
-        cell.btnSelect.addTarget(self, action: #selector(self.selectAction(_:)), for: .touchUpInside)
-        return cell
+        
+        if self.viewModel.arrMenu[indexPath.row] == .demoSubscribe{
+            let cell = tableView.dequeueReusableCell(withIdentifier: SideMenuDemoTVC.identifier) as! SideMenuDemoTVC
+            cell.btnSubscribe.addTarget(self, action: #selector(self.subscribeAction), for: .touchUpInside)
+            cell.selectionStyle = .none
+            return cell
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: SideMenuTVC.identifier, for: indexPath) as! SideMenuTVC
+            let row = indexPath.row
+            let item = self.viewModel.arrMenu[row]
+            cell.lblTitle.text = item.rawValue
+            cell.btnSelect.tag = indexPath.row
+            cell.btnSelect.addTarget(self, action: #selector(self.selectAction(_:)), for: .touchUpInside)
+            return cell
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //let row = indexPath.row
-        
+        if self.viewModel.arrMenu[indexPath.row] == .demoSubscribe{
+            return
+        }
         //sideMenuController?.setContentViewController(with: "\(row)", animated: Preferences.shared.enableTransitionAnimation)
         //sideMenuController?.hideMenu()
         
@@ -180,6 +229,9 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.viewModel.arrMenu[indexPath.row] == .demoSubscribe{
+            return UITableView.automaticDimension
+        }
         /*let headerHeight: CGFloat = 60.0
         let screenHeight: CGFloat = ScreenSize.SCREEN_HEIGHT
         //let statusBar = view.safeAreaLayoutGuide.layoutFrame.minY

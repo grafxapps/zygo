@@ -10,17 +10,19 @@ import UIKit
 
 class SubscriptionServices: NSObject {
     
-    func updateSubscription(userId: Int, expiryDate: String, transactionId: String, productId: String,amount : Float,  completion: @escaping (String?,  [String: Any]?) -> Void){
+    func updateSubscription(userId: Int, expiryDate: String, transactionId: String, productId: String,amount : Float, originalTransactionId: String,  completion: @escaping (String?,  [String: Any]?) -> Void){
         let header = NetworkManager.shared.getHeader()
+        print(header)
         let param = [
             "plan_id": productId,
             "subscription_id": transactionId,
             "expire_date": expiryDate,
             "amount": amount,
             "subscription_status": "active",
-            "trail_days": "14"
+            "trail_days": "14",
+            "apple_unique_id": originalTransactionId
             ] as [String : Any]
-        
+        print(param)
         NetworkManager.shared.request(withEndPoint: .subscriptionPayment, method: .post, headers: header, params: param) { (response) in
             
             switch response{

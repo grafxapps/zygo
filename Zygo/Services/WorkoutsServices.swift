@@ -165,7 +165,7 @@ final class WorkoutsServices: NSObject {
         }
     }
     
-    func completeWorkout(wId: Int, timeInWater: Int, timeElapsed: Int, lat: Double, lng: Double, completion: @escaping (String?, [AchievementDTO]) -> Void){
+    func completeWorkout(wId: Int, timeInWater: Int, timeElapsed: Int, lat: Double, lng: Double, completion: @escaping (String?, [AchievementDTO], Int) -> Void){
         let header = NetworkManager.shared.getHeader()
         
         //TODO: Remove Workout_Location
@@ -189,7 +189,7 @@ final class WorkoutsServices: NSObject {
                 print(jsonresponse)
                 
                 guard let arrTempAchievements = jsonresponse["completed_achievements"] as? [[String: Any]] else{
-                    completion(nil, [])
+                    completion(nil, [], -1)
                     return
                 }
                 var arrAchievements: [AchievementDTO] = []
@@ -197,21 +197,24 @@ final class WorkoutsServices: NSObject {
                     arrAchievements.append(AchievementDTO(achievementDict))
                 }
                 
-                completion(nil, arrAchievements)
+                let workoutLogId = jsonresponse["workoutlog_id"] as? Int ?? -1
+                
+                completion(nil, arrAchievements, workoutLogId)
             case .failure(_ , let message):
-                completion(message, [])
+                completion(message, [], -1)
             case .notConnectedToInternet:
-                completion(Constants.internetNotWorking, [])
+                completion(Constants.internetNotWorking, [], -1)
             }
         }
     }
     
     
-    func workoutFeedback(wId: Int, thumbStatus: ThumbStatus, dificultyLevel: Int, completion: @escaping (String?) -> Void){
+    func workoutFeedback(wId: Int, thumbStatus: ThumbStatus, dificultyLevel: Int, workoutLogId: Int, completion: @escaping (String?) -> Void){
         let header = NetworkManager.shared.getHeader()
         
         var param: [String: Any] = [
             "workout_id": wId,
+            "workoutlog_id": workoutLogId
         ]
         
         if thumbStatus != .none{

@@ -24,7 +24,9 @@ struct GroupedFilterDTO {
         }
         
         if filters.count > 0{
-            if Int(filters.first!.fTitle) != nil{
+            if self.title == "Pool Length"{
+                
+            }else if Int(filters.first!.fTitle) != nil{
                 filters.sort(by: { Int($0.fTitle) ?? 0 < Int($1.fTitle) ?? 0 })
             }else if self.title == "Difficulty Level"{
                 filters.sort(by: { $0.fId < $1.fId })
@@ -48,7 +50,9 @@ struct GroupedFilterDTO {
             self.filters = tempFilters
             
             if filters.count > 0{
-                if Int(filters.first!.fTitle) != nil{
+                if self.title == "Pool Length"{
+                    
+                }else if Int(filters.first!.fTitle) != nil{
                     filters.sort(by: { Int($0.fTitle) ?? 0 < Int($1.fTitle) ?? 0 })
                 }else if self.title == "Difficulty Level"{
                     filters.sort(by: { $0.fId < $1.fId })
@@ -67,7 +71,9 @@ struct GroupedFilterDTO {
             self.filters = fItems
             
             if filters.count > 0{
-                if Int(filters.first!.fTitle) != nil{
+                if self.title == "Pool Length"{
+                    
+                }else if Int(filters.first!.fTitle) != nil{
                     filters.sort(by: { Int($0.fTitle) ?? 0 < Int($1.fTitle) ?? 0 })
                 }else if self.title == "Difficulty Level"{
                     filters.sort(by: { $0.fId < $1.fId })

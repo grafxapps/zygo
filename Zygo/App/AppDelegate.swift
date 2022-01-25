@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        //TODO: uncomment for production
         protector.startPreventing()
         
         Klaviyo.setupWithPublicAPIKey(apiKey: Constants.KLAVIYOPUBLICAPIKEY)
@@ -230,7 +229,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Klaviyo.sharedInstance.setUpCustomerID(id: userItem.email)
             
             if !SubscriptionManager.shared.isValidSubscription(){//It means user is not subscribe yet
-                Helper.shared.setSubscriptionRoot()
+                
+                //Enable demo mode for user
+                //if !Helper.shared.isDemoLimitComplete(){
+                    Helper.shared.resetDemoModeTime()
+                    PreferenceManager.shared.isDemoMode = true
+                    
+                    //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
+                    //let userItem = PreferenceManager.shared.user
+                    if userItem.gender.isEmpty || userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
+                        Helper.shared.setCreateProfileRoot()
+                        
+                    }else{
+                        //MOVE TO DASHBOARD
+                        Helper.shared.setDashboardRoot()
+                    }
+                    
+                    return
+                //}
+                
+                //Helper.shared.setSubscriptionRoot()
             }else{
                 //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
                 //let userItem = PreferenceManager.shared.user
@@ -311,11 +329,11 @@ extension AppDelegate: MessagingDelegate{
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         print(token)
         
-        InstanceID.instanceID().instanceID { (result, error) in
+        Messaging.messaging().token { (result, error) in
             if let error = error {
                 print("Error fetching remote instange ID: \(error)")
             } else if let result = result {
-                print("Remote instance ID token: \(result.token)")
+                print("Remote instance ID token: \(result ?? "NIL TOKEN")")
                 
             }
         }
@@ -362,8 +380,20 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let notificationInfo = response.notification.request.content.userInfo
-        guard let type = notificationInfo["Type"] as? String else{
+        guard let type = notificationInfo["notification_type"] as? String else{
             return
+        }
+        
+        let nType = NotificationTypes(rawValue: type) ?? .none
+        switch nType {
+        case .workout:
+            if let wId = notificationInfo["workout_id"] as? String{
+                if let iWId = Int(wId){
+                    Helper.shared.pushToWorkout(wId: iWId)
+                }
+            }
+        case .none:
+            print("")
         }
         print(notificationInfo)
     }
@@ -390,6 +420,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
 
 
 //TODO: Uncomment for production
-//func print(_ item: @autoclosure () -> Any, separator: String = " ", terminator: String = "\n") {
+func print(_ item: @autoclosure () -> Any, separator: String = " ", terminator: String = "\n") {
 
-//}
+}

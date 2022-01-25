@@ -48,7 +48,7 @@ class Constants: NSObject {
     
     static let internetNotWorking = "Please check your internet connection."
     static let internalServerError = "Internal server error. Please try again."
-    
+    static let ACCEPTABLE_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 }
 
 struct ScreenSize {
@@ -76,13 +76,13 @@ enum APIEndPoint : String {
     case getWorkoutById = "/api/get-workout-by-id"
     case getWorkoutFilters = "/api/get-workout-filter"
     case completeWorkout = "/api/workout-complete"
-    case workoutFeedback = "/api/workout-feedback"
+    case workoutFeedback = "/api/workout-feedback-v2"
     
     case userHistory = "/api/user-history"
     
     case getWorkoutsSeries = "/api/get-series"
     
-    case subscriptionPayment = "/api/apple-subscription-payment"
+    case subscriptionPayment = "/api/apple-subscription-payment-v2"
     case cancelSubscription = "/api/cancel-apple-subscription"
     case cancelOtherSubscription = "/api/cancel-subscription"
     
@@ -93,6 +93,10 @@ enum APIEndPoint : String {
     
     case getinstructor = "/api/get-instructor-by-id"
     case getInstructorsList = "/api/get-instructor-list"
+    
+    case ratingPopupDate = "/api/ratepopup-date"
+    
+    case homeCountry = "/api/update-user-home-contry"
 }
 
 enum AppKeys : String {
@@ -118,6 +122,48 @@ enum HTTPStatusCode : Int {
     case Cancelled = -999
 }
 
+
+enum EventName: String{
+    
+    case FBLOGIN = "Fb_login"
+    case APPLELOGIN = "Apple_login"
+    case SIGNIN = "Signin"
+    case GOOGLELOGIN = "Google_login"
+    case FBSIGNUP = "Fb_signup"
+    case GOOGLESIGNUP = "Google__signup"
+    case SIGNUP = "Signup"
+    case FORGOTPASSWORD = "Forgot_password"
+    case CREATEPROFILE = "Create_profile"
+    case CHOOSEIMAGE = "Choose_image"
+    case RESENDRESETCODE = "Resend_reset_code"
+    case TABWORKOUTS = "Tab_workouts"
+    case TABSERIES = "Tab_series"
+    case TABDOWNLOADS = "Tab_downloads"
+    case TABPACING = "Tab_Pacing"
+    case TABPROFILE = "Tab_profile"
+    case DOWNLOADWORKOUT = "Download_workout"
+    case WORKOUTSTART = "Workout_start"
+    case WORKOUTCANCEL = "Workout_cancel"
+    case INSTRUCTORPROFILE = "Instructor_profile"
+    case ENDWORKOUT = "End_workout"
+    case WORKOUTFEEDBACK = "Workout_feedback"
+    case TEMPOTRAINERSTART = "Tempo_trainer_Start"
+    case TEMPOTRAINERSTOP = "Tempo_trainer_Stop"
+    case SAVEPROFILE = "Save_profile"
+    case ABOUTUS = "About_us"
+    case TERMOFSERVICE = "Term_of_service"
+    case PRIVACYPOLICY = "PRIVACY_POLICY"
+    case SHOPZYGO = "Shop_zygo"
+    case INSTRUCTOR = "Instructors"
+    case MANAGESUBSCRIPTION = "Manage_subscription"
+    case SUBSCRIPTION = "subscription"
+    case LOGOUT = "logout"
+    case RESETPASSWORD = "Reset_password"
+    case UPDATENOTIFICATIONSETTINGS = "Update_notifcation_setting"
+    case CANCELSTRIPESUBSCRIPTION = "Cancel_stripe_subscription"
+    case CANCELSUBSCRIPTION = "Cancel_subscription"
+    case SHAREWORKOUT = "Share_workout"
+}
 
 extension Bundle {
 

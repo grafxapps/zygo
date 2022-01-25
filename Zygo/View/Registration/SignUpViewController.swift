@@ -47,11 +47,13 @@ class SignUpViewController: UIViewController, GoogleLoginManagerDelegate {
     }
     
     @IBAction func termsOfUsePressed(_ sender: UIButton){
+        Helper.shared.log(event: .TERMOFSERVICE, params: [:])
         let url = URL(string: Constants.termsOfService)
         Helper.shared.openUrl(url: url)
     }
     
     @IBAction func privacyPolicyPressed(_ sender: UIButton){
+        Helper.shared.log(event: .PRIVACYPOLICY, params: [:])
         let url = URL(string: Constants.privacyPolicy)
         Helper.shared.openUrl(url: url)
     }
@@ -67,6 +69,8 @@ class SignUpViewController: UIViewController, GoogleLoginManagerDelegate {
                 Helper.shared.alert(title: Constants.appName, message: error!)
                 return
             }
+            
+            Helper.shared.log(event: .FBSIGNUP, params: [:])
             
             if !token.isEmpty{
                 self.sviewModel.facebookSignInUser(accessToken: token) { [weak self] (isLogin) in
@@ -106,6 +110,8 @@ class SignUpViewController: UIViewController, GoogleLoginManagerDelegate {
         
         if self.viewModel.isValidate(){
             
+            Helper.shared.log(event: .SIGNUP, params: [:])
+            
             self.viewModel.signUpUser() { [weak self] (isSignUp) in
                 DispatchQueue.main.async {
                     if self == nil{
@@ -122,6 +128,9 @@ class SignUpViewController: UIViewController, GoogleLoginManagerDelegate {
     
     //MARK:- Google SignIn Delegates
     func didLogin(user: GoogleUserDTO) {
+        
+        Helper.shared.log(event: .GOOGLESIGNUP, params: [:])
+        
         sviewModel.googleSignInUser(accessToken: user.accessToken) { [weak self] (isLogin) in
             DispatchQueue.main.async {
                 Helper.shared.stopLoading()
@@ -163,6 +172,8 @@ extension SignUpViewController: ASAuthorizationControllerDelegate {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             
             DispatchQueue.main.async {
+                
+                Helper.shared.log(event: .APPLELOGIN, params: [:])
                 
                 let appleId = "\(appleIDCredential.user)"
                 let appleUserFirstName = "\(appleIDCredential.fullName?.givenName ?? "")"

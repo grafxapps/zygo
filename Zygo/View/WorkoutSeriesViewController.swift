@@ -22,11 +22,15 @@ class WorkoutSeriesViewController: UIViewController {
         self.registerTVC()
         self.fetchWorkouts()
         self.addObservers()
+        
+        Helper.shared.log(event: .TABSERIES, params: [:])
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.viewModel.getUserProfile()
+        //self.viewModel.getUserProfile{
+            
+        //}
     }
     
     deinit {

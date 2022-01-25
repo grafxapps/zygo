@@ -27,7 +27,7 @@ class SubscriptionViewModel: NSObject {
                     prize = 149.99
                 }
                 
-                self.updateReceipt(expiryDate: expiryDate, transactionId: receiptInfo.transactionId, productId: receiptInfo.productId, amount: prize, completion: completion)
+                self.updateReceipt(expiryDate: expiryDate, transactionId: receiptInfo.transactionId, productId: receiptInfo.productId, amount: prize, originalTransactionId: receiptInfo.originalTransactionId, completion: completion)
                 return
             }
             
@@ -46,10 +46,10 @@ class SubscriptionViewModel: NSObject {
     }
     
     
-    func updateReceipt(expiryDate: Date,transactionId: String, productId: String, amount: Float, completion: @escaping (String?,Bool) -> Void){
+    func updateReceipt(expiryDate: Date,transactionId: String, productId: String, amount: Float, originalTransactionId: String, completion: @escaping (String?,Bool) -> Void){
        
         let userId = PreferenceManager.shared.userId
-        paymentService.updateSubscription(userId: userId, expiryDate: expiryDate.toSubscriptionDate(), transactionId: transactionId, productId: productId, amount: amount) { (error, userInfo) in
+        paymentService.updateSubscription(userId: userId, expiryDate: expiryDate.toSubscriptionDate(), transactionId: transactionId, productId: productId, amount: amount, originalTransactionId: originalTransactionId) { (error, userInfo) in
             
             DispatchQueue.main.async {
                 
@@ -64,7 +64,8 @@ class SubscriptionViewModel: NSObject {
                     "expiry_date": expiryDate.toSubscriptionDate(),
                     "transaction_id": transactionId,
                     "plan_id": productId,
-                    "subscription_type": "apple_pay"
+                    "subscription_type": "apple_pay",
+                    "original_transaction_id": originalTransactionId
                 ]
                 
                 PreferenceManager.shared.currentSubscribedProduct = PurchasedSubscription(subscriptionDict)

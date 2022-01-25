@@ -24,9 +24,17 @@ class SettingsViewController: UIViewController {
         arrNotificationTitles = ["Nudges", "Events near me", "Zygo Community"]
         
         if Helper.shared.isSocialLogin(){
-            arrAccountTitles = ["Manage Subscription", "Logout"]
+            if Helper.shared.isDemoMode{
+                arrAccountTitles = ["Subscribe", "Logout"]
+            }else{
+                arrAccountTitles = ["Manage Subscription", "Logout"]
+            }
         }else{
-            arrAccountTitles = ["Manage Subscription", "Reset password", "Logout"]
+            if Helper.shared.isDemoMode{
+                arrAccountTitles = ["Subscribe", "Reset password", "Logout"]
+            }else{
+                arrAccountTitles = ["Manage Subscription", "Reset password", "Logout"]
+            }
         }
         
         //arrDevicesTitles = ["Pairing"]
@@ -77,6 +85,7 @@ class SettingsViewController: UIViewController {
         }
         
         Helper.shared.startLoading()
+        Helper.shared.log(event: .UPDATENOTIFICATIONSETTINGS, params: [:])
         UserServices().updateNotificationSettings(type: title, status: status) { [weak self] (error) in
             DispatchQueue.main.async {
                 
@@ -168,32 +177,48 @@ extension SettingsViewController : UITableViewDataSource, UITableViewDelegate{
             if Helper.shared.isSocialLogin(){
                 if indexPath.row == 0{
                     //if SubscriptionManager.shared.isValidSubscription(){
+                    if Helper.shared.isDemoMode{
+                        Helper.shared.log(event: .SUBSCRIPTION, params: [:])
+                        Helper.shared.pushToSubscriptionScreen(from: self)
+                    }else{
+                        Helper.shared.log(event: .MANAGESUBSCRIPTION, params: [:])
                         let storyB = UIStoryboard(name: "Registration", bundle: nil)
                         let subVC = storyB.instantiateViewController(withIdentifier: "SubscriptionCancelVC") as! SubscriptionCancelVC
                         self.navigationController?.pushViewController(subVC, animated: true)
+                    }
                     /*}else{
                         let storyB = UIStoryboard(name: "Registration", bundle: nil)
                         let subVC = storyB.instantiateViewController(withIdentifier: "SubscriptionViewController") as! SubscriptionViewController
                         self.navigationController?.pushViewController(subVC, animated: true)
                     }*/
                 }else{
+                    Helper.shared.log(event: .LOGOUT, params: [:])
                     Helper.shared.logout()
                 }
             }else{
                 if indexPath.row == 0{
-                    //if SubscriptionManager.shared.isValidSubscription(){
+                    if Helper.shared.isDemoMode{
+                        Helper.shared.log(event: .SUBSCRIPTION, params: [:])
+                        Helper.shared.pushToSubscriptionScreen(from: self)
+                    }else{
+                        Helper.shared.log(event: .MANAGESUBSCRIPTION, params: [:])
                         let storyB = UIStoryboard(name: "Registration", bundle: nil)
                         let subVC = storyB.instantiateViewController(withIdentifier: "SubscriptionCancelVC") as! SubscriptionCancelVC
                         self.navigationController?.pushViewController(subVC, animated: true)
+                    }
+                    //if SubscriptionManager.shared.isValidSubscription(){
+                        
                     /*}else{
                         let storyB = UIStoryboard(name: "Registration", bundle: nil)
                         let subVC = storyB.instantiateViewController(withIdentifier: "SubscriptionViewController") as! SubscriptionViewController
                         self.navigationController?.pushViewController(subVC, animated: true)
                     }*/
                 }else if indexPath.row == 1{
+                    Helper.shared.log(event: .RESETPASSWORD, params: [:])
                     let changePVC = self.storyboard?.instantiateViewController(withIdentifier: "ChangePasswordVC") as! ChangePasswordVC
                     self.navigationController?.pushViewController(changePVC, animated: true)
                 }else{
+                    Helper.shared.log(event: .LOGOUT, params: [:])
                     Helper.shared.logout()
                 }
             }

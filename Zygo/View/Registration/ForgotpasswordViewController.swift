@@ -43,6 +43,9 @@ class ForgotpasswordViewController: UIViewController {
         self.txtCPassword.resignFirstResponder()
         
         viewModel.forgotPassword(code: code, pass: pass, cPass: confirmPass) { [weak self] (isUpdated) in
+            
+            Helper.shared.log(event: .FORGOTPASSWORD, params: [:])
+            
             if isUpdated{
                 self?.navigationController?.popToRootViewController(animated: true)
             }

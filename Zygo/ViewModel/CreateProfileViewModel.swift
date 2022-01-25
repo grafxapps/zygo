@@ -45,6 +45,12 @@ final class CreateProfileViewModel: NSObject {
         }else if profileItem.location.isEmpty{
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter your address.", comment: ""))
             return false
+        }else if !profileItem.tSerialNumber.dropFirst().isEmpty && profileItem.tSerialNumber.dropFirst().count < 8{
+            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid serial number.", comment: ""))
+            return false
+        }else if !profileItem.hSerialNumber.dropFirst().isEmpty && profileItem.hSerialNumber.dropFirst().count < 8{
+            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid serial number.", comment: ""))
+            return false
         }
         
         return true

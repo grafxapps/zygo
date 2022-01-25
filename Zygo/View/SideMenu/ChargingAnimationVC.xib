@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Bold.ttf">
+            <string>Poppins-Bold</string>
+        </array>
+        <array key="Poppins-Medium.ttf">
+            <string>Poppins-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChargingAnimationVC" customModule="Zygo" customModuleProvider="target">
+            <connections>
+                <outlet property="imageView" destination="Goz-1T-PSB" id="7fN-Te-gZb"/>
+                <outlet property="lbl1" destination="Cqw-cC-bsi" id="Bpn-KH-tdp"/>
+                <outlet property="lbl2" destination="CIz-4S-5ej" id="zM5-Vo-vg1"/>
+                <outlet property="lbl3" destination="InH-3X-Guz" id="EaL-2R-fc9"/>
+                <outlet property="lbl4" destination="No3-5F-Rgv" id="v92-1r-BCh"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="yelloIndicatorView" destination="zcp-qF-HP5" id="02m-6M-2VR"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="45W-6E-P2g">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_charging" translatesAutoresizingMaskIntoConstraints="NO" id="Goz-1T-PSB">
+                            <rect key="frame" x="76.5" y="50" width="261" height="282"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="Goz-1T-PSB" secondAttribute="height" multiplier="87:94" id="iUg-HZ-cDG"/>
+                            </constraints>
+                        </imageView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_charging_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="zcp-qF-HP5">
+                            <rect key="frame" x="76.5" y="50" width="261" height="282"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Charge using the micro USB cable provided." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cqw-cC-bsi">
+                            <rect key="frame" x="30" y="382" width="354" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                            <color key="textColor" name="AppTitleDarkColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A solid orange light on both units indicates  that they're charging." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CIz-4S-5ej">
+                            <rect key="frame" x="30" y="428.5" width="354" height="37.5"/>
+                            <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                            <color key="textColor" name="AppTitleDarkColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The orange light goes off when they reach a full charge." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="InH-3X-Guz">
+                            <rect key="frame" x="30" y="496" width="354" height="37.5"/>
+                            <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                            <color key="textColor" name="AppTitleDarkColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IF THE HEADSET'S LIGHT DOES NOT COME ON, REPOSITION IT SLIGHTLY TO ENSURE PROPER CONTACT WITH THE PINS." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="No3-5F-Rgv">
+                            <rect key="frame" x="30" y="563.5" width="354" height="56"/>
+                            <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="16"/>
+                            <color key="textColor" name="AppTitleDarkColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8mH-Tu-Q5A">
+                            <rect key="frame" x="0.0" y="0.0" width="60" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="IoM-CE-fNW"/>
+                                <constraint firstAttribute="width" constant="60" id="LVg-nw-5tY"/>
+                            </constraints>
+                            <state key="normal" image="ic_back"/>
+                            <connections>
+                                <action selector="backAction:" destination="-1" eventType="touchUpInside" id="fuJ-NE-RzE"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="8mH-Tu-Q5A" firstAttribute="leading" secondItem="45W-6E-P2g" secondAttribute="leading" id="47v-Ig-m4T"/>
+                        <constraint firstItem="InH-3X-Guz" firstAttribute="leading" secondItem="45W-6E-P2g" secondAttribute="leading" constant="30" id="6EZ-c6-ltV"/>
+                        <constraint firstItem="No3-5F-Rgv" firstAttribute="top" secondItem="InH-3X-Guz" secondAttribute="bottom" constant="30" id="6Fy-Sg-DDU"/>
+                        <constraint firstItem="Goz-1T-PSB" firstAttribute="top" secondItem="45W-6E-P2g" secondAttribute="top" constant="50" id="CzT-gD-pv2"/>
+                        <constraint firstItem="Goz-1T-PSB" firstAttribute="centerX" secondItem="45W-6E-P2g" secondAttribute="centerX" id="Dln-jU-8bi"/>
+                        <constraint firstItem="8mH-Tu-Q5A" firstAttribute="top" secondItem="45W-6E-P2g" secondAttribute="top" id="F06-X2-7PS"/>
+                        <constraint firstItem="CIz-4S-5ej" firstAttribute="leading" secondItem="45W-6E-P2g" secondAttribute="leading" constant="30" id="KCu-Ih-pNa"/>
+                        <constraint firstItem="zcp-qF-HP5" firstAttribute="leading" secondItem="Goz-1T-PSB" secondAttribute="leading" id="Lvq-Vb-s80"/>
+                        <constraint firstAttribute="trailing" secondItem="CIz-4S-5ej" secondAttribute="trailing" constant="30" id="Pg7-OQ-NXu"/>
+                        <constraint firstItem="Cqw-cC-bsi" firstAttribute="top" secondItem="Goz-1T-PSB" secondAttribute="bottom" constant="50" id="PsP-gT-ccJ"/>
+                        <constraint firstItem="CIz-4S-5ej" firstAttribute="top" secondItem="Cqw-cC-bsi" secondAttribute="bottom" constant="30" id="TEw-g3-3Qf"/>
+                        <constraint firstAttribute="trailing" secondItem="InH-3X-Guz" secondAttribute="trailing" constant="30" id="WGP-UC-xAH"/>
+                        <constraint firstItem="zcp-qF-HP5" firstAttribute="trailing" secondItem="Goz-1T-PSB" secondAttribute="trailing" id="XeH-As-08L"/>
+                        <constraint firstAttribute="trailing" secondItem="No3-5F-Rgv" secondAttribute="trailing" constant="30" id="ZRG-g8-rE6"/>
+                        <constraint firstItem="zcp-qF-HP5" firstAttribute="top" secondItem="Goz-1T-PSB" secondAttribute="top" id="bhX-Yp-lW1"/>
+                        <constraint firstItem="zcp-qF-HP5" firstAttribute="bottom" secondItem="Goz-1T-PSB" secondAttribute="bottom" id="gRZ-JH-XGM"/>
+                        <constraint firstItem="Cqw-cC-bsi" firstAttribute="leading" secondItem="45W-6E-P2g" secondAttribute="leading" constant="30" id="hyr-2b-3Ah"/>
+                        <constraint firstItem="InH-3X-Guz" firstAttribute="top" secondItem="CIz-4S-5ej" secondAttribute="bottom" constant="30" id="uiR-mQ-CPz"/>
+                        <constraint firstItem="No3-5F-Rgv" firstAttribute="leading" secondItem="45W-6E-P2g" secondAttribute="leading" constant="30" id="vP2-Oe-3gC"/>
+                        <constraint firstAttribute="trailing" secondItem="Cqw-cC-bsi" secondAttribute="trailing" constant="30" id="vWg-aw-ewa"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Goz-1T-PSB" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.314732" id="Ecv-2P-zkB"/>
+                <constraint firstItem="45W-6E-P2g" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="URS-37-gwt"/>
+                <constraint firstItem="45W-6E-P2g" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="dFf-2m-vGf"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="45W-6E-P2g" secondAttribute="trailing" id="fjn-oE-3MH"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="45W-6E-P2g" secondAttribute="bottom" id="vHs-AR-CJU"/>
+            </constraints>
+            <point key="canvasLocation" x="140.57971014492756" y="95.758928571428569"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_back" width="13" height="23"/>
+        <image name="icon_charging" width="261" height="282"/>
+        <image name="icon_charging_yellow" width="261" height="282"/>
+        <namedColor name="AppTitleDarkColor">
+            <color red="0.23499999940395355" green="0.2669999897480011" blue="0.27500000596046448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -19,7 +19,10 @@ class SubscriptionManager: NSObject {
     
     func isValidSubscription() -> Bool{
         //TODO: Disbale for production
-        //return true
+        if Helper.shared.isTestUser{
+            return true
+        }
+        
         let cSubscription = PreferenceManager.shared.currentSubscribedProduct
         if cSubscription == nil{
             return false
@@ -56,11 +59,15 @@ class SubscriptionManager: NSObject {
                 prize = 149.99
             }
             
-            self.paymentService.updateSubscription(userId: userId, expiryDate: purachsedSubc!.expiryDate, transactionId: purachsedSubc!.transactionId, productId: purachsedSubc!.productId, amount: prize ) { (error, userInfo) in
+            self.paymentService.updateSubscription(userId: userId, expiryDate: purachsedSubc!.expiryDate, transactionId: purachsedSubc!.transactionId, productId: purachsedSubc!.productId, amount: prize, originalTransactionId: purachsedSubc!.originalTransactionId) { (error, userInfo) in
                 
                 DispatchQueue.main.async {
                     
                     if error != nil{
+                        if error == "This Apple ID already has a Zygo subscription associated with another Zygo account. Please log in with that account to access your subscription. To subscribe with a new Zygo account, first cancel your subscription in the App Store, then subscribe with a new account."{
+                            completion(false)
+                            return
+                        }
                         Helper.shared.alert(title: Constants.appName, message: error!)
                         completion(false)
                         return
@@ -70,7 +77,8 @@ class SubscriptionManager: NSObject {
                         "expiry_date": purachsedSubc!.expiryDate,
                         "transaction_id": purachsedSubc!.transactionId,
                         "plan_id": purachsedSubc!.productId,
-                        "subscription_type": "apple_pay"
+                        "subscription_type": "apple_pay",
+                        "original_transaction_id": purachsedSubc!.originalTransactionId
                     ]
                     
                     PreferenceManager.shared.currentSubscribedProduct = PurchasedSubscription(subscriptionDict)
@@ -136,7 +144,8 @@ class SubscriptionManager: NSObject {
                             "expiry_date": expiryDate.toSubscriptionDate(),
                             "transaction_id": receiptInfo.transactionId,
                             "plan_id": receiptInfo.productId,
-                            "subscription_type": "apple_pay"
+                            "subscription_type": "apple_pay",
+                            "original_transaction_id": receiptInfo.originalTransactionId
                         ]
                         
                         completion(nil, PurchasedSubscription(subscriptionDict))
@@ -313,12 +322,14 @@ struct PurchasedSubscription {
     var transactionId: String = ""
     var expiryDate: String = ""
     var type: String = "apple_pay"
+    var originalTransactionId: String = ""
     
     init(_ dict: [String: Any]) {
         self.expiryDate = dict["expiry_date"] as? String ?? ""
         self.transactionId = dict["transaction_id"] as? String ?? ""
         self.productId = dict["plan_id"] as? String ?? ""
         self.type = dict["subscription_type"] as? String ?? ""
+        self.originalTransactionId = dict["original_transaction_id"] as? String ?? ""
     }
     
     func toDict() -> [String: Any]{
@@ -326,7 +337,8 @@ struct PurchasedSubscription {
             "expiry_date": self.expiryDate,
             "transaction_id": self.transactionId,
             "plan_id": self.productId,
-            "subscription_type": self.type
+            "subscription_type": self.type,
+            "original_transaction_id": self.originalTransactionId
         ]
     }
 }

@@ -59,6 +59,8 @@ class TempoTrainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Helper.shared.log(event: .TABPACING, params: [:])
+        
         self.setupPicker()
         
         self.viewStrokes.setupShadowViewAnimation(shadowRadius: 4.0, shadowOpacity: 0.5, shadowOffset: CGSize(width: 0, height: 4.0))
@@ -449,12 +451,39 @@ class TempoTrainerViewController: UIViewController {
         
     }
     
+    func stopTempTrainer(){
+        //Stop Trainer
+        TempoTrainerManager.shared.stopTrainer()
+        self.btnStart.isSelected = false
+        Helper.shared.stopDemoTime()
+        Helper.shared.log(event: .TEMPOTRAINERSTOP, params: [:])
+    }
+    
     @IBAction func startAction(_ sender: UIButton){
         if self.btnStart.isSelected{
             //Stop Trainer
-            TempoTrainerManager.shared.stopTrainer()
-            self.btnStart.isSelected = false
+            self.stopTempTrainer()
         }else{
+            Helper.shared.resetDemoModeTime()
+            if Helper.shared.isDemoMode{
+                if Helper.shared.isDemoLimitComplete(){
+                    let alert = CustomAlertWithCloseVC(nibName: "CustomAlertWithCloseVC", bundle: nil, title: Constants.appName, message: "Start your free trial to access all of our content.", buttonTitle: "Subscribe") { (isYes) in
+                        if isYes{
+                            //Push To Subscribe screen
+                            Helper.shared.pushToSubscriptionScreen(from: self)
+                        }
+                    }
+                    
+                    alert.transitioningDelegate = self
+                    alert.modalPresentationStyle = .custom
+                    self.present(alert, animated: true, completion: nil)
+                    return
+                }
+            }
+            
+            Helper.shared.log(event: .TEMPOTRAINERSTART, params: [:])
+            Helper.shared.stopDemoTime()
+            Helper.shared.startDemoTime()
             self.startTempoTrainer()
         }
     }
@@ -471,6 +500,26 @@ class TempoTrainerViewController: UIViewController {
                 
                 self.trainer.strokesPerMinute = strokesPerMinute
                 TempoTrainerManager.shared.startPlaySound(for: self.trainer)
+                if Helper.shared.isDemoMode{
+                    TempoTrainerManager.shared.demoCompletion = {
+                        TempoTrainerManager.shared.stopTrainer()
+                        self.btnStart.isSelected = false
+                        Helper.shared.stopDemoTime()
+                        
+                        let alert = CustomAlertWithCloseVC(nibName: "CustomAlertWithCloseVC", bundle: nil, title: Constants.appName, message: "Start your free trial to access all of our content.", buttonTitle: "Subscribe") { (isYes) in
+                            if isYes{
+                                //Push To Subscribe screen
+                                Helper.shared.pushToSubscriptionScreen(from: self)
+                            }
+                        }
+                        
+                        alert.transitioningDelegate = self
+                        alert.modalPresentationStyle = .custom
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    }
+                }
+                
                 self.btnStart.isSelected = true
             }
             
@@ -479,6 +528,25 @@ class TempoTrainerViewController: UIViewController {
             if secondsPerLap > 0{
                 self.trainer.secondsPerLap = secondsPerLap
                 TempoTrainerManager.shared.startPlaySound(for: self.trainer)
+                if Helper.shared.isDemoMode{
+                    TempoTrainerManager.shared.demoCompletion = {
+                        TempoTrainerManager.shared.stopTrainer()
+                        self.btnStart.isSelected = false
+                        Helper.shared.stopDemoTime()
+                        
+                        let alert = CustomAlertWithCloseVC(nibName: "CustomAlertWithCloseVC", bundle: nil, title: Constants.appName, message: "Start your free trial to access all of our content.", buttonTitle: "Subscribe") { (isYes) in
+                            if isYes{
+                                //Push To Subscribe screen
+                                Helper.shared.pushToSubscriptionScreen(from: self)
+                            }
+                        }
+                        
+                        alert.transitioningDelegate = self
+                        alert.modalPresentationStyle = .custom
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    }
+                }
                 self.btnStart.isSelected = true
             }
         }
@@ -584,4 +652,16 @@ extension TempoTrainerViewController: UIPickerViewDataSource, UIPickerViewDelega
             self.txtStroke.text = "\(row+1)"
         }
     }
+}
+
+extension TempoTrainerViewController: UIViewControllerTransitioningDelegate{
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return PresentingAnimator()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissingAnimator()
+    }
+    
 }

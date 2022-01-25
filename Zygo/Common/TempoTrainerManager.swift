@@ -15,6 +15,8 @@ final class TempoTrainerManager: NSObject {
     
     static let shared = TempoTrainerManager()
     var strokeTimer: DispatchSourceTimer?
+    var demoTimer: DispatchSourceTimer?
+    var demoCompletion: (() -> Void)?
 
     private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
     
@@ -89,6 +91,23 @@ final class TempoTrainerManager: NSObject {
         
         strokeTimer?.resume()
         
+        if Helper.shared.isDemoMode{
+            let demoQueue = DispatchQueue(label: "com.zygo.ios.timer.demo", attributes: .concurrent)
+            demoTimer = DispatchSource.makeTimerSource(queue: demoQueue)
+            demoTimer?.schedule(deadline: .now(), repeating: 1, leeway: .milliseconds(100))
+            
+            demoTimer?.setEventHandler { // `[weak self]` only needed if you reference `self` in this closure and you want to prevent strong reference cycle
+                DispatchQueue.main.async {
+                    if Helper.shared.isDemoLimitComplete(){
+                        self.demoCompletion?()
+                        return
+                    }
+                }
+            }
+            
+            demoTimer?.resume()
+        }
+        
         /*strokeTimer = Timer(timeInterval: interval, repeats: true, block: { (timerObj) in
             AppDelegate.app.tempoPlayer?.pause()
             AppDelegate.app.tempoPlayer?.currentTime = 0
@@ -103,6 +122,7 @@ final class TempoTrainerManager: NSObject {
     private func stopStrokeTimer(){
         //strokeTimer?.invalidate()
         strokeTimer = nil
+        demoTimer = nil
         
         if backgroundTask != .invalid {
           endBackgroundTask()

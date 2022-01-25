@@ -45,11 +45,13 @@ class SignInViewController: UIViewController, GoogleLoginManagerDelegate, SignUp
     }
     
     @IBAction func termsOfUsePressed(_ sender: UIButton){
+        Helper.shared.log(event: .TERMOFSERVICE, params: [:])
         let url = URL(string: Constants.termsOfService)
         Helper.shared.openUrl(url: url)
     }
     
     @IBAction func privacyPolicyPressed(_ sender: UIButton){
+        Helper.shared.log(event: .PRIVACYPOLICY, params: [:])
         let url = URL(string: Constants.privacyPolicy)
         Helper.shared.openUrl(url: url)
     }
@@ -65,6 +67,8 @@ class SignInViewController: UIViewController, GoogleLoginManagerDelegate, SignUp
                 Helper.shared.alert(title: Constants.appName, message: error!)
                 return
             }
+            
+            Helper.shared.log(event: .FBLOGIN, params: [:])
             
             if !token.isEmpty{
                 self.viewModel.facebookSignInUser(accessToken: token) { [weak self] (isLogin) in
@@ -89,6 +93,7 @@ class SignInViewController: UIViewController, GoogleLoginManagerDelegate, SignUp
     }
     
     @IBAction func forgotButtonPressed(_ sender: UIButton){
+        Helper.shared.log(event: .FORGOTPASSWORD, params: [:])
         let forgotPassVC = self.storyboard?.instantiateViewController(withIdentifier: "VerifyForgotPasswordViewController") as! VerifyForgotPasswordViewController
         self.navigationController?.pushViewController(forgotPassVC, animated: true);
     }
@@ -102,6 +107,8 @@ class SignInViewController: UIViewController, GoogleLoginManagerDelegate, SignUp
         self.txtPassword.resignFirstResponder()
         
         if self.viewModel.isValidate(){
+            
+            Helper.shared.log(event: .SIGNIN, params: [:])
             
             self.viewModel.signInUser() { [weak self] (isLogin) in
                 DispatchQueue.main.async {
@@ -125,6 +132,9 @@ class SignInViewController: UIViewController, GoogleLoginManagerDelegate, SignUp
     
     //MARK:- Google SignIn Delegates
     func didLogin(user: GoogleUserDTO) {
+        
+        Helper.shared.log(event: .GOOGLELOGIN, params: [:])
+        
         PreferenceManager.shared.authToken = user.accessToken
         viewModel.googleSignInUser(accessToken: user.accessToken) { (isLogin) in
             DispatchQueue.main.async {
@@ -167,6 +177,8 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             
             DispatchQueue.main.async {
+                
+                Helper.shared.log(event: .APPLELOGIN, params: [:])
                 
                 let appleId = "\(appleIDCredential.user)"
                 let appleUserFirstName = "\(appleIDCredential.fullName?.givenName ?? "")"

@@ -15,6 +15,9 @@ final class RegistrationServices: NSObject {
             "user_display_name": user.name,
             "email": user.email,
             "password": user.password,
+            "device_id": Helper.shared.deviceId,
+            "device_type": Constants.deviceType,
+            "device_token": PreferenceManager.shared.deviceToken
         ] as [String : Any]
         
         NetworkManager.shared.request(withEndPoint: .signUp, method: .post, headers: nil, params: param) { (response) in

@@ -21,18 +21,45 @@ class WorkoutsViewController: UIViewController {
     private let viewModel = WorkoutsViewModel()
     private var refreshControl = UIRefreshControl()
     private var isFromDidLoad: Bool = true
+    private var isProfileFetched: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addObservers()
         self.registerTVC()
         //self.fetchWorkouts()
+        Helper.shared.log(event: .TABWORKOUTS, params: [:])
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.fetchWorkouts(isLoading: isFromDidLoad, isFromDidLoad)
-        self.viewModel.getUserProfile()   
+        
+        if isProfileFetched{
+            return
+        }
+        
+        self.isProfileFetched = true
+        self.viewModel.getUserProfile {
+            self.isProfileFetched = false
+            if Helper.shared.isDemoMode{
+                /*if Helper.shared.isDemoLimitComplete(){
+                    
+                    let alert = CustomAlertWithCloseVC(nibName: "CustomAlertWithCloseVC", bundle: nil, title: Constants.appName, message: "Subscribe to play full workouts, use the tempo trainer, and start racking up achievements.", buttonTitle: "Subscribe") { (isYes) in
+                        if isYes{
+                            //Push To Subscribe screen
+                            Helper.shared.pushToSubscriptionScreen(from: self)
+                        }
+                    }
+                    
+                    alert.transitioningDelegate = self
+                    alert.modalPresentationStyle = .custom
+                    self.present(alert, animated: true, completion: nil)
+                    
+                }*/
+            }
+            
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -239,4 +266,16 @@ extension WorkoutsViewController : UITableViewDataSource, UITableViewDelegate{
         tableView.deselectRow(at: indexPath, animated: true)
         
     }
+}
+
+extension WorkoutsViewController: UIViewControllerTransitioningDelegate{
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return PresentingAnimator()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissingAnimator()
+    }
+    
 }

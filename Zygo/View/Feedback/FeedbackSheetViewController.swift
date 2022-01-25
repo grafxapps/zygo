@@ -29,17 +29,19 @@ class FeedbackSheetViewController: UIViewController {
     
     var achievements: [AchievementDTO] = []
     var workoutItem: WorkoutDTO!
+    var workoutLogId: Int = -1
     var delegate: FeedbackSheetViewControllerDelegates?
     
     private var maxHeight: CGFloat = 90
     private let viewModel = WorkoutPlayerViewModel()
     
     //MARK: -
-    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, workoutItem: WorkoutDTO,  achievements: [AchievementDTO]) {
+    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, workoutItem: WorkoutDTO,  achievements: [AchievementDTO], workoutLogId: Int) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
         self.workoutItem = workoutItem
         self.achievements = achievements
+        self.workoutLogId = workoutLogId
         
     }
     
@@ -125,7 +127,9 @@ class FeedbackSheetViewController: UIViewController {
     }
     
     @IBAction func doneAction(_ sender: UIButton){
-        viewModel.workoutFeedback(workoutItem.workoutId, self.thumbStatus, self.dificultyLevel) { (isDone) in
+        viewModel.workoutFeedback(workoutItem.workoutId, self.thumbStatus, self.dificultyLevel, workoutLogId: self.workoutLogId) { (isDone) in
+            
+            Helper.shared.log(event: .WORKOUTFEEDBACK, params: [:])
             if isDone{
                 self.hideBGImage()
                 self.dismiss(animated: true) {
@@ -136,6 +140,8 @@ class FeedbackSheetViewController: UIViewController {
     }
     
     @objc @IBAction func shareAction(_ sender: UIButton){
+        
+        Helper.shared.log(event: .SHAREWORKOUT, params: ["workout_id": workoutItem.workoutId, "workout_name": workoutItem.workoutName])
         
         let branchUniversalObject: BranchUniversalObject = BranchUniversalObject(canonicalIdentifier: "Worout_\(workoutItem.workoutName)_\(workoutItem.workoutId)")
         branchUniversalObject.title = "I just completed the \("\(String(format: "%.f", workoutItem.workoutDuration)) min") \(workoutItem.workoutName) workout"

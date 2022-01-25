@@ -34,7 +34,12 @@ class PlaylistInfoTVC: UITableViewCell {
     func setupPlaylistInfo(item: PlayListDTO){
         self.lblSongName.text = item.songTitle
         self.lblArtistName.text = item.artistName
-        self.lblAlbumName.text = item.albumName
+        if item.albumName.isEmpty{
+            self.lblAlbumName.text = " "
+        }else{
+            self.lblAlbumName.text = item.albumName
+        }
+        
         
         self.playlistImageView.image = nil
         if !item.image.isEmpty{

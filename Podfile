@@ -23,6 +23,7 @@ target 'Zygo' do
   pod "SimpleAnimation"
   pod 'Branch'
   pod "KlaviyoSwift"
+  pod "Firebase/AnalyticsWithoutAdIdSupport"
 
   
 end

@@ -38,6 +38,7 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
         self.setupTabBars()
         super.viewDidLoad()
         self.setupUserInfo()
+        Helper.shared.log(event: .TABPROFILE, params: [:])
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -160,7 +161,7 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
     //MARK: - UIButton Actions
     func didPressSave() {
         self.viewModel.updateProfile { [weak self] (isUpdated, profileImage) in
-            
+            Helper.shared.log(event: .SAVEPROFILE, params: [:])
             if isUpdated{
                 //Update User
                 self?.user.profilePic = profileImage

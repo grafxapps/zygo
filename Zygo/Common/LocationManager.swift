@@ -20,6 +20,8 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
     var isLocationManagerStarted = false
     var isOnceLocationGet = false
     
+    var isAccessDeniedPopup = false
+    
     private var backgroundUpdateTask: UIBackgroundTaskIdentifier!
     
     private override init() {
@@ -58,12 +60,22 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
                     self.locationMgr?.startUpdatingLocation()
                 case  .denied:
                     print("Location Denied")
-                    self.stopLocation()
-                    self.onUpdate?(nil)
                     
+                    if self.isAccessDeniedPopup{
+                        return
+                    }
+                    
+                    self.isAccessDeniedPopup = true
+                    self.stopLocation()
                     Helper.shared.alertYesNoActions(title: "Settings", message: "Allow location from settings", yesActionTitle: "Settings", noActionTitle: "Cancel") { (isYes) in
+                        
+                        self.isAccessDeniedPopup = false
                         if isYes{
+                            
+                            self.onUpdate?(nil)
                             Helper.shared.openUrl(url: URL(string: UIApplication.openSettingsURLString))
+                        }else{
+                            self.onUpdate?(nil)
                         }
                     }
                 default:
@@ -172,16 +184,32 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
         
         print("error::: \(error)")
         self.stopLocation()
-        self.onUpdate?(nil)
         
         if let cErr = error as? CLError{
             if cErr.code == CLError.denied{
+            
+                if self.isAccessDeniedPopup{
+                    return
+                }
+                
+                self.isAccessDeniedPopup = true
+                
                 Helper.shared.alertYesNoActions(title: "Settings", message: "Allow location from settings", yesActionTitle: "Settings", noActionTitle: "Cancel") { (isYes) in
+                    
+                    self.isAccessDeniedPopup = false
+                    
                     if isYes{
+                        self.onUpdate?(nil)
                         Helper.shared.openUrl(url: URL(string: UIApplication.openSettingsURLString))
+                    }else{
+                        self.onUpdate?(nil)
                     }
                 }
+            }else{
+                self.onUpdate?(nil)
             }
+        }else{
+            self.onUpdate?(nil)
         }
     }
     
@@ -193,12 +221,23 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
             }
         }else if status == .denied{
             print("Location Denied")
+            
+            if self.isAccessDeniedPopup{
+                return
+            }
+            
+            self.isAccessDeniedPopup = true
             self.stopLocation()
-            self.onUpdate?(nil)
             
             Helper.shared.alertYesNoActions(title: "Settings", message: "Allow location from settings", yesActionTitle: "Settings", noActionTitle: "Cancel") { (isYes) in
+                
+                self.isAccessDeniedPopup = false
+                
                 if isYes{
+                    self.onUpdate?(nil)
                     Helper.shared.openUrl(url: URL(string: UIApplication.openSettingsURLString))
+                }else{
+                    self.onUpdate?(nil)
                 }
             }
         }

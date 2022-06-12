@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "icon_check_green.png",
+      "filename" : "icon_workout_complete.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icon_check_green@2x.png",
+      "filename" : "icon_workout_complete@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "icon_check_green@3x.png",
+      "filename" : "icon_workout_complete@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

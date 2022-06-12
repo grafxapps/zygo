@@ -61,6 +61,26 @@ final class PreferenceManager: NSObject {
         }
     }
     
+    var trackingInfo : TrackingInfoDTO {
+        set{
+            defaults.set(newValue.toDict(), forKey: PreferenceKey.TrackingInfo.rawValue)
+            defaults.synchronize()
+        }get{
+            let userDict = defaults.value(forKey: PreferenceKey.TrackingInfo.rawValue) as? [String : Any] ?? [:]
+            return TrackingInfoDTO(userDict)
+        }
+    }
+    
+    var poolUnitInfo : PoolUnitInfoDTO {
+        set{
+            defaults.set(newValue.toDict(), forKey: PreferenceKey.PoolUnitInfo.rawValue)
+            defaults.synchronize()
+        }get{
+            let userDict = defaults.value(forKey: PreferenceKey.PoolUnitInfo.rawValue) as? [String : Any] ?? [:]
+            return PoolUnitInfoDTO(userDict)
+        }
+    }
+    
     var friendsInfo : FriendsInfoDTO {
         set{
             defaults.set(newValue.toDict(), forKey: PreferenceKey.Friends.rawValue)
@@ -272,5 +292,8 @@ enum PreferenceKey : String{
     
     case IsTakenByMe = "Z_Is_Taken_By_Me"
     case IsNotTakenByMe = "Z_Is_Not_Take_me"
+    
+    case TrackingInfo = "Z_Tracking_Info"
+    case PoolUnitInfo = "Z_Pool_Units_Info"
     
 }

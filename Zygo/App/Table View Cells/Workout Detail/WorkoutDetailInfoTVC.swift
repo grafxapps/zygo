@@ -59,7 +59,10 @@ class WorkoutDetailInfoTVC: UITableViewCell {
         if item.workoutDescription.isDescriptionEmpty(){
             self.descriptionHeightConstraint.priority = .defaultHigh
             self.descriptionHeightConstraint.constant = 0.0
+        }else{
+            self.descriptionHeightConstraint.priority = .defaultLow
         }
+        
         self.lblDesc.layoutIfNeeded()
         self.contentView.layoutIfNeeded()
         self.layoutIfNeeded()

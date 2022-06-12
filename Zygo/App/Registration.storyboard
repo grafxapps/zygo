@@ -127,7 +127,7 @@
                                                                     <constraint firstAttribute="width" constant="17" id="geb-CJ-hyg"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gZy-Vo-Xfn">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gZy-Vo-Xfn">
                                                                 <rect key="frame" x="47" y="0.0" width="277" height="55"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="name"/>
@@ -1033,16 +1033,16 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JfD-De-a8Z">
-                                                <rect key="frame" x="164" y="596.66666666666663" width="86" height="31.666666666666629"/>
+                                                <rect key="frame" x="139.66666666666666" y="596.66666666666663" width="134.99999999999997" height="31.666666666666629"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="31.5" id="fZ2-8w-3Fc"/>
                                                 </constraints>
                                                 <state key="normal">
                                                     <attributedString key="attributedTitle">
-                                                        <fragment content="Already paid?">
+                                                        <fragment content="Restore Subscription">
                                                             <attributes>
-                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="14" name="Poppins-Regular"/>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" metaFont="system" size="14"/>
                                                                 <integer key="NSUnderline" value="1"/>
                                                             </attributes>
                                                         </fragment>
@@ -1053,7 +1053,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iyy-AA-Arh">
-                                                <rect key="frame" x="141.66666666666666" y="565.33333333333337" width="130.99999999999997" height="31.333333333333371"/>
+                                                <rect key="frame" x="140.66666666666666" y="565.33333333333337" width="132.99999999999997" height="31.333333333333371"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="31.5" id="PRy-jG-4wb"/>
                                                 </constraints>
@@ -1062,7 +1062,7 @@
                                                         <fragment content="Apple's Promo Code">
                                                             <attributes>
                                                                 <color key="NSColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="14" name="Poppins-Regular"/>
+                                                                <font key="NSFont" metaFont="system" size="14"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                 <integer key="NSUnderline" value="1"/>
                                                             </attributes>
@@ -1370,20 +1370,34 @@ successfully cancelled.</string>
                                                         <rect key="frame" x="40" y="95" width="331" height="55"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RF1-o4-nzZ">
-                                                                <rect key="frame" x="15" y="0.0" width="308" height="55"/>
+                                                                <rect key="frame" x="15" y="0.0" width="266" height="55"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="new-password"/>
                                                                 <connections>
                                                                     <outlet property="delegate" destination="DSn-u6-dHa" id="Zj1-5o-EnS"/>
                                                                 </connections>
                                                             </textField>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lr3-v1-5H5">
+                                                                <rect key="frame" x="281" y="0.0" width="50" height="55"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="50" id="1Bp-2B-oIh"/>
+                                                                </constraints>
+                                                                <state key="normal" image="visibility"/>
+                                                                <state key="selected" image="invisible"/>
+                                                                <connections>
+                                                                    <action selector="showPassword:" destination="DSn-u6-dHa" eventType="touchUpInside" id="aB7-sR-HYe"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstItem="RF1-o4-nzZ" firstAttribute="leading" secondItem="34W-07-5GX" secondAttribute="leading" constant="15" id="2j5-yV-kdW"/>
+                                                            <constraint firstAttribute="trailing" secondItem="lr3-v1-5H5" secondAttribute="trailing" id="Ru1-al-ClS"/>
                                                             <constraint firstItem="RF1-o4-nzZ" firstAttribute="top" secondItem="34W-07-5GX" secondAttribute="top" id="XnT-LV-51V"/>
+                                                            <constraint firstItem="lr3-v1-5H5" firstAttribute="leading" secondItem="RF1-o4-nzZ" secondAttribute="trailing" id="f71-lF-6zF"/>
+                                                            <constraint firstItem="lr3-v1-5H5" firstAttribute="top" secondItem="34W-07-5GX" secondAttribute="top" id="lOf-pw-M9A"/>
+                                                            <constraint firstAttribute="bottom" secondItem="lr3-v1-5H5" secondAttribute="bottom" id="log-yV-BJy"/>
                                                             <constraint firstAttribute="bottom" secondItem="RF1-o4-nzZ" secondAttribute="bottom" id="yn4-Rr-6i0"/>
-                                                            <constraint firstAttribute="trailing" secondItem="RF1-o4-nzZ" secondAttribute="trailing" constant="8" id="z6Z-y4-aNS"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1395,18 +1409,32 @@ successfully cancelled.</string>
                                                         <rect key="frame" x="40" y="170" width="331" height="55"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iOd-lk-dtE">
-                                                                <rect key="frame" x="15" y="0.0" width="308" height="55"/>
+                                                                <rect key="frame" x="15" y="0.0" width="266" height="55"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                                 <connections>
                                                                     <outlet property="delegate" destination="DSn-u6-dHa" id="7Gb-jp-XEc"/>
                                                                 </connections>
                                                             </textField>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ig-Eg-Ykk">
+                                                                <rect key="frame" x="281" y="0.0" width="50" height="55"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="50" id="djG-x9-FC4"/>
+                                                                </constraints>
+                                                                <state key="normal" image="visibility"/>
+                                                                <state key="selected" image="invisible"/>
+                                                                <connections>
+                                                                    <action selector="showCPassword:" destination="DSn-u6-dHa" eventType="touchUpInside" id="eD7-7X-Xfi"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstItem="iOd-lk-dtE" firstAttribute="leading" secondItem="76A-sF-062" secondAttribute="leading" constant="15" id="0Gy-pQ-aPb"/>
-                                                            <constraint firstAttribute="trailing" secondItem="iOd-lk-dtE" secondAttribute="trailing" constant="8" id="iUo-KZ-qXv"/>
+                                                            <constraint firstAttribute="trailing" secondItem="6ig-Eg-Ykk" secondAttribute="trailing" id="1fn-dQ-bNi"/>
+                                                            <constraint firstItem="6ig-Eg-Ykk" firstAttribute="top" secondItem="76A-sF-062" secondAttribute="top" id="B9z-4Q-cGF"/>
+                                                            <constraint firstItem="6ig-Eg-Ykk" firstAttribute="leading" secondItem="iOd-lk-dtE" secondAttribute="trailing" id="j3P-xw-ZUK"/>
+                                                            <constraint firstAttribute="bottom" secondItem="6ig-Eg-Ykk" secondAttribute="bottom" id="kad-Rv-Obh"/>
                                                             <constraint firstItem="iOd-lk-dtE" firstAttribute="top" secondItem="76A-sF-062" secondAttribute="top" id="kaz-lh-0Vl"/>
                                                             <constraint firstAttribute="height" constant="55" id="opk-2l-GwU"/>
                                                             <constraint firstAttribute="bottom" secondItem="iOd-lk-dtE" secondAttribute="bottom" id="zxn-51-uSk"/>
@@ -1574,6 +1602,8 @@ successfully cancelled.</string>
                     </view>
                     <navigationItem key="navigationItem" id="sdS-ml-eyy"/>
                     <connections>
+                        <outlet property="btnShowCPassword" destination="6ig-Eg-Ykk" id="G21-Su-z9X"/>
+                        <outlet property="btnShowPassword" destination="lr3-v1-5H5" id="eS9-gN-yBN"/>
                         <outlet property="txtCPassword" destination="iOd-lk-dtE" id="DJJ-Qf-OyE"/>
                         <outlet property="txtCode" destination="K27-Mw-ePG" id="dsb-L3-BTW"/>
                         <outlet property="txtPassword" destination="RF1-o4-nzZ" id="aJo-qu-ySM"/>
@@ -2830,6 +2860,8 @@ successfully cancelled.</string>
         <image name="icon_down_arrow" width="12" height="8.6666669845581055"/>
         <image name="icon_info" width="19" height="17"/>
         <image name="icon_logout" width="20.333333969116211" height="19.333333969116211"/>
+        <image name="invisible" width="18" height="15.666666984558105"/>
+        <image name="visibility" width="18" height="12"/>
         <namedColor name="AppBlueColor">
             <color red="0.14900000393390656" green="0.73299998044967651" blue="0.92900002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

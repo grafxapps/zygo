@@ -259,6 +259,15 @@ extension WorkoutsViewController : UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        /*let workoutItem = self.viewModel.arrWorkouts[indexPath.row]
+        let feedbackVC = FeedbackSheetViewController(nibName: "FeedbackSheetViewController", bundle: nil, workoutItem: workoutItem, achievements: [], workoutLogId: 0)
+        //feedbackVC.delegate = self
+        feedbackVC.modalPresentationStyle = .overFullScreen
+        self.present(feedbackVC, animated: true, completion: nil)
+        
+        
+        return*/
         let playerVC = self.storyboard?.instantiateViewController(withIdentifier: "WorkoutDetailViewController") as! WorkoutDetailViewController
         playerVC.workoutItem = self.viewModel.arrWorkouts[indexPath.row]
         playerVC.hidesBottomBarWhenPushed = true

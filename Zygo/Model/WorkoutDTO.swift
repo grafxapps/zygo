@@ -10,7 +10,7 @@ import UIKit
 
 struct WorkoutDTO {
     
-    var workoutId: Int = -1
+    var workoutId: Int = 0
     var workoutName: String = ""
     var isWorkoutAchived: Bool = false
     var byInstructor: String = ""
@@ -53,7 +53,7 @@ struct WorkoutDTO {
     
     init(_ dict: [String: Any]) {
         
-        self.workoutId = dict["id"] as? Int ?? -1
+        self.workoutId = dict["id"] as? Int ?? 0
         self.workoutName = dict["workout_name"] as? String ?? ""
         self.isWorkoutAchived = NSNumber(value: dict["workout_archived"] as? Int ?? 0).boolValue
         self.byInstructor =  dict["by_instructor"] as? String ?? ""

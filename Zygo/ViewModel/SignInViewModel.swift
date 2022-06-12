@@ -60,6 +60,8 @@ class SignInViewModel: NSObject {
                 let user = UserDTO(jsonResponse)
                 let workoutInfo = WorkoutInfoDTO(jsonResponse)
                 let notificationInfo = NotificationInfoDTO(jsonResponse)
+                let trackingInfo = TrackingInfoDTO(jsonResponse)
+                let poolUnitInfo = PoolUnitInfoDTO(jsonResponse)
                 let friendsInfo = FriendsInfoDTO(jsonResponse)
                 
                 PreferenceManager.shared.isTestUser = NSNumber(value: (Int(jsonResponse["test_user"] as? String ?? "0") ?? 0)).boolValue
@@ -126,6 +128,8 @@ class SignInViewModel: NSObject {
                 PreferenceManager.shared.user = user
                 PreferenceManager.shared.workoutInfo = workoutInfo
                 PreferenceManager.shared.notificationInfo = notificationInfo
+                PreferenceManager.shared.trackingInfo = trackingInfo
+                PreferenceManager.shared.poolUnitInfo = poolUnitInfo
                 PreferenceManager.shared.friendsInfo = friendsInfo
                 PreferenceManager.shared.isUserLogin = true
                 completion(true)
@@ -178,6 +182,8 @@ class SignInViewModel: NSObject {
                 let user = UserDTO(jsonResponse)
                 let workoutInfo = WorkoutInfoDTO(jsonResponse)
                 let notificationInfo = NotificationInfoDTO(jsonResponse)
+                let trackingInfo = TrackingInfoDTO(jsonResponse)
+                let poolUnitInfo = PoolUnitInfoDTO(jsonResponse)
                 let friendsInfo = FriendsInfoDTO(jsonResponse)
                
                 PreferenceManager.shared.isTestUser = NSNumber(value: (Int(jsonResponse["test_user"] as? String ?? "0") ?? 0)).boolValue
@@ -244,6 +250,8 @@ class SignInViewModel: NSObject {
                 PreferenceManager.shared.user = user
                 PreferenceManager.shared.workoutInfo = workoutInfo
                 PreferenceManager.shared.notificationInfo = notificationInfo
+                PreferenceManager.shared.trackingInfo = trackingInfo
+                PreferenceManager.shared.poolUnitInfo = poolUnitInfo
                 PreferenceManager.shared.friendsInfo = friendsInfo
                 PreferenceManager.shared.isUserLogin = true
                 completion(true)
@@ -277,6 +285,8 @@ class SignInViewModel: NSObject {
                 let user = UserDTO(jsonResponse)
                 let workoutInfo = WorkoutInfoDTO(jsonResponse)
                 let notificationInfo = NotificationInfoDTO(jsonResponse)
+                let trackingInfo = TrackingInfoDTO(jsonResponse)
+                let poolUnitInfo = PoolUnitInfoDTO(jsonResponse)
                 let friendsInfo = FriendsInfoDTO(jsonResponse)
                 
                 PreferenceManager.shared.completedWorkouts =  (jsonResponse["workouts_completed"] as? String ?? "").components(separatedBy: ",").map({ Int($0) ?? 0 })
@@ -343,6 +353,8 @@ class SignInViewModel: NSObject {
                 PreferenceManager.shared.user = user
                 PreferenceManager.shared.workoutInfo = workoutInfo
                 PreferenceManager.shared.notificationInfo = notificationInfo
+                PreferenceManager.shared.trackingInfo = trackingInfo
+                PreferenceManager.shared.poolUnitInfo = poolUnitInfo
                 PreferenceManager.shared.friendsInfo = friendsInfo
                 PreferenceManager.shared.isUserLogin = true
                 completion(true)
@@ -376,6 +388,8 @@ class SignInViewModel: NSObject {
                 let user = UserDTO(jsonResponse)
                 let workoutInfo = WorkoutInfoDTO(jsonResponse)
                 let notificationInfo = NotificationInfoDTO(jsonResponse)
+                let trackingInfo = TrackingInfoDTO(jsonResponse)
+                let poolUnitInfo = PoolUnitInfoDTO(jsonResponse)
                 let friendsInfo = FriendsInfoDTO(jsonResponse)
                 
                 PreferenceManager.shared.isTestUser = NSNumber(value: (Int(jsonResponse["test_user"] as? String ?? "0") ?? 0)).boolValue
@@ -442,6 +456,8 @@ class SignInViewModel: NSObject {
                 PreferenceManager.shared.user = user
                 PreferenceManager.shared.workoutInfo = workoutInfo
                 PreferenceManager.shared.notificationInfo = notificationInfo
+                PreferenceManager.shared.trackingInfo = trackingInfo
+                PreferenceManager.shared.poolUnitInfo = poolUnitInfo
                 PreferenceManager.shared.friendsInfo = friendsInfo
                 PreferenceManager.shared.isUserLogin = true
                 completion(true)

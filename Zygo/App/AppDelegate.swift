@@ -420,6 +420,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
 
 
 //TODO: Uncomment for production
-func print(_ item: @autoclosure () -> Any, separator: String = " ", terminator: String = "\n") {
+//func print(_ item: @autoclosure () -> Any, separator: String = " ", terminator: String = "\n") {
 
-}
+//}

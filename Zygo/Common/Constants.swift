@@ -37,6 +37,7 @@ class Constants: NSObject {
         
     static let privacyPolicy =  "https://zygohq.com/privacy-app-view"
     static let termsOfService = "https://zygohq.com/terms-app-view"
+    static let faq = "https://shopzygo.com/pages/faq"
     static let about = "https://shopzygo.com/pages/technology"//"https://zygohq.com/about-app-view"
     static let shop = "https://shopzygo.com/collections/shop"
     static let cancelSubscription = "https://apps.apple.com/account/subscriptions"
@@ -76,7 +77,7 @@ enum APIEndPoint : String {
     case getWorkoutById = "/api/get-workout-by-id"
     case getWorkoutFilters = "/api/get-workout-filter"
     case completeWorkout = "/api/workout-complete"
-    case workoutFeedback = "/api/workout-feedback-v2"
+    case workoutFeedback = "/api/workout-feedback-v4"//"/api/workout-feedback-v2"
     
     case userHistory = "/api/user-history"
     
@@ -97,6 +98,10 @@ enum APIEndPoint : String {
     case ratingPopupDate = "/api/ratepopup-date"
     
     case homeCountry = "/api/update-user-home-contry"
+    
+    case trackingSettings = "/api/settings"
+    case graph = "/api/workout-graph"
+    case graphYearly = "/api/workout-graph-yearly"
 }
 
 enum AppKeys : String {
@@ -152,14 +157,18 @@ enum EventName: String{
     case SAVEPROFILE = "Save_profile"
     case ABOUTUS = "About_us"
     case TERMOFSERVICE = "Term_of_service"
+    case FAQ = "faq"
+    case CONTACTUS = "Contact_Us"
     case PRIVACYPOLICY = "PRIVACY_POLICY"
     case SHOPZYGO = "Shop_zygo"
     case INSTRUCTOR = "Instructors"
+    case CUSTOMERSUPPORT = "Customer_Support"
     case MANAGESUBSCRIPTION = "Manage_subscription"
     case SUBSCRIPTION = "subscription"
     case LOGOUT = "logout"
     case RESETPASSWORD = "Reset_password"
     case UPDATENOTIFICATIONSETTINGS = "Update_notifcation_setting"
+    case UPDATETRACKINGSETTINGS = "Update_tracking_setting"
     case CANCELSTRIPESUBSCRIPTION = "Cancel_stripe_subscription"
     case CANCELSUBSCRIPTION = "Cancel_subscription"
     case SHAREWORKOUT = "Share_workout"

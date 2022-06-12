@@ -14,6 +14,9 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.9.1)
   - Branch (1.39.4)
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
   - Facebook-iOS-SDK (4.38.0):
     - Bolts (~> 1.9)
     - Facebook-iOS-SDK/CoreKit (= 4.38.0)
@@ -143,6 +146,7 @@ DEPENDENCIES:
   - Alamofire
   - AlamofireImage (~> 4.1)
   - Branch
+  - Charts
   - Facebook-iOS-SDK (~> 4.38)
   - FBSDKCoreKit/Swift
   - FBSDKLoginKit/Swift
@@ -166,6 +170,7 @@ SPEC REPOS:
     - AppAuth
     - Bolts
     - Branch
+    - Charts
     - Facebook-iOS-SDK
     - FBSDKCoreKit
     - FBSDKLoginKit
@@ -201,6 +206,7 @@ SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
   Branch: d21c40c47b5c15c6ab709cdf7d965a50059e0546
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   Facebook-iOS-SDK: 9077b67c4178ea46c62997bcf2b6314ca6555440
   FBSDKCoreKit: ada5c8a05188daefc9addb985c52b8a1b26da519
   FBSDKLoginKit: caa165495afa29a12324cb2307fe6e5b33783142
@@ -230,6 +236,6 @@ SPEC CHECKSUMS:
   TrueTime: b49551ffafb28a9dee04e51b226f42a416010842
   XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
 
-PODFILE CHECKSUM: ef169d1b3afbf213b5d4b8073a840a900c527007
+PODFILE CHECKSUM: 7409143f13299290209045ef19611c102f2b2961
 
 COCOAPODS: 1.10.2

@@ -16,6 +16,10 @@ class ForgotpasswordViewController: UIViewController {
     @IBOutlet weak var txtCode: UITextField!
     @IBOutlet weak var txtCPassword: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
+    
+    @IBOutlet weak var btnShowPassword: UIButton!
+    @IBOutlet weak var btnShowCPassword: UIButton!
+    
     var viewModel: ForgotPasswordViewModel!
     
     //MARK:-Lifecycle
@@ -32,6 +36,27 @@ class ForgotpasswordViewController: UIViewController {
     }
     
     //MARK:- UIButton Actions
+   
+    @IBAction func showPassword(_ sender: UIButton){
+        if(btnShowPassword.isSelected){
+            btnShowPassword.isSelected = false
+            txtPassword.isSecureTextEntry = true
+        }else{
+            btnShowPassword.isSelected = true
+            txtPassword.isSecureTextEntry = false
+        }
+    }
+   
+    @IBAction func showCPassword(_ sender: UIButton){
+        if(btnShowCPassword.isSelected){
+            btnShowCPassword.isSelected = false
+            txtCPassword.isSecureTextEntry = true
+        }else{
+            btnShowCPassword.isSelected = true
+            txtCPassword.isSecureTextEntry = false
+        }
+    }
+    
     @IBAction func updateBtnAction(sender : UIButton){
         
         let code = self.txtCode.text!.trimm()

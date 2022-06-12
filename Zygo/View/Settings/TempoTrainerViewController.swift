@@ -55,6 +55,8 @@ class TempoTrainerViewController: UIViewController {
     private var strokeRatePicker: UIPickerView!
     private var lapIntervalPicker: UIPickerView!
     
+    private let viewModel = WorkoutPlayerViewModel()
+    
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -297,6 +299,46 @@ class TempoTrainerViewController: UIViewController {
         }
     }
     
+    func calculateTempoDuration(){
+        
+        guard let startDate = TempoTrainerManager.shared.startTime else{
+            return
+        }
+        
+        var strokeValue = TempoTrainerManager.shared.currentTrainer?.strokesPerMinute ?? 0
+        if strokeValue <= 0{
+            strokeValue = 50
+        }
+        
+        //check if user end this tempo trainer after 5 minutes then get it as a workout
+        let startSeconds = startDate.timeIntervalSince1970
+        let endSeconds = DateHelper.shared.currentLocalDateTime.timeIntervalSince1970
+        let durationSeconds = endSeconds - startSeconds
+        let maxSeconds = 1.0 * 60.0
+        if durationSeconds > maxSeconds{
+            //Hit API to record workout
+            self.viewModel.completeWorkout(0, Int(durationSeconds), Int(durationSeconds)) { (isCompleted, workoutLogId) in
+                TempoTrainerManager.shared.startTime = nil
+                Helper.shared.log(event: .ENDWORKOUT, params: [:])
+                if isCompleted{
+                    print("Workout completed successfully!!")
+                    let info = PreferenceManager.shared.trackingInfo
+                    if info.isDistanceTracking || info.isTempoTracking || self.viewModel.arrAchievements.count > 0{
+                        let feedbackVC = FeedbackSheetViewController(nibName: "FeedbackSheetViewController", bundle: nil, workoutItem: WorkoutDTO([:]), achievements: self.viewModel.arrAchievements, workoutLogId: workoutLogId)
+                        feedbackVC.isNoWorkout = true
+                        feedbackVC.noWorkoutStrokeValue = strokeValue
+                        feedbackVC.delegate = self
+                        feedbackVC.modalPresentationStyle = .overFullScreen
+                        self.present(feedbackVC, animated: true, completion: nil)
+                    }
+                    
+                    
+                    
+                }
+            }
+        }
+    }
+    
     //MARK:- UIButton Actions
     @IBAction func backAction(_ sender: UIButton){
         self.navigationController?.popViewController(animated: true)
@@ -406,6 +448,7 @@ class TempoTrainerViewController: UIViewController {
         
         if self.trainer.type == .lapInterval{
             //Stop Trainer
+            self.calculateTempoDuration()
             TempoTrainerManager.shared.stopTrainer()
             self.btnStart.isSelected = false
         }
@@ -431,6 +474,7 @@ class TempoTrainerViewController: UIViewController {
         
         if self.trainer.type == .strokeRate{
             //Stop Trainer
+            self.calculateTempoDuration()
             TempoTrainerManager.shared.stopTrainer()
             self.btnStart.isSelected = false
         }
@@ -453,6 +497,7 @@ class TempoTrainerViewController: UIViewController {
     
     func stopTempTrainer(){
         //Stop Trainer
+        self.calculateTempoDuration()
         TempoTrainerManager.shared.stopTrainer()
         self.btnStart.isSelected = false
         Helper.shared.stopDemoTime()
@@ -500,6 +545,8 @@ class TempoTrainerViewController: UIViewController {
                 
                 self.trainer.strokesPerMinute = strokesPerMinute
                 TempoTrainerManager.shared.startPlaySound(for: self.trainer)
+                TempoTrainerManager.shared.startTime = DateHelper.shared.currentLocalDateTime
+                
                 if Helper.shared.isDemoMode{
                     TempoTrainerManager.shared.demoCompletion = {
                         TempoTrainerManager.shared.stopTrainer()
@@ -528,6 +575,7 @@ class TempoTrainerViewController: UIViewController {
             if secondsPerLap > 0{
                 self.trainer.secondsPerLap = secondsPerLap
                 TempoTrainerManager.shared.startPlaySound(for: self.trainer)
+                TempoTrainerManager.shared.startTime = DateHelper.shared.currentLocalDateTime
                 if Helper.shared.isDemoMode{
                     TempoTrainerManager.shared.demoCompletion = {
                         TempoTrainerManager.shared.stopTrainer()
@@ -664,4 +712,11 @@ extension TempoTrainerViewController: UIViewControllerTransitioningDelegate{
         return DismissingAnimator()
     }
     
+}
+
+extension TempoTrainerViewController: FeedbackSheetViewControllerDelegates{
+    
+    func feedbackDone() {
+        
+    }
 }

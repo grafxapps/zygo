@@ -45,11 +45,11 @@ class MenuViewController: UIViewController {
         
         if Helper.shared.isDemoMode{
             self.viewModel.arrMenu.removeAll()
-            self.viewModel.arrMenu = [.settings, .instructors, .shopZygo, .aboutZygo, .help ,.privacyPolicy, .termsService, .demoSubscribe]
+            self.viewModel.arrMenu = [.settings, .instructors, .help , .customerSupport , .demoSubscribe]
             
         }else{
             self.viewModel.arrMenu.removeAll()
-            self.viewModel.arrMenu = [.settings, .instructors, .shopZygo, .aboutZygo, .help ,.privacyPolicy, .termsService]
+            self.viewModel.arrMenu = [.settings, .instructors, .help, .customerSupport]
         }
         
         self.tableView.reloadData()
@@ -119,9 +119,15 @@ class MenuViewController: UIViewController {
             self.getCurrentNavigationController()?.pushViewController(instructorsVC, animated: true)
         case .demoSubscribe:
             print("Demo")
+        case .customerSupport:
+            print("Support")
+            Helper.shared.log(event: .CUSTOMERSUPPORT, params: [:])
+            let helpVC = self.storyboard?.instantiateViewController(withIdentifier: "CustomerSupportVC") as! CustomerSupportVC
+            self.getCurrentNavigationController()?.pushViewController(helpVC, animated: true)
+            
         }
         
-        self.perform(#selector(self.hide), with: nil, afterDelay: 0.2)
+        //self.perform(#selector(self.hide), with: nil, afterDelay: 0.2)
     }
     
     @objc func hide(){
@@ -130,7 +136,10 @@ class MenuViewController: UIViewController {
     
     func getCurrentNavigationController() -> UINavigationController?{
         
-        guard let contentNav = sideMenuController?.contentViewController as? UINavigationController else{
+        
+        return self.navigationController
+        
+        /*guard let contentNav = sideMenuController?.contentViewController as? UINavigationController else{
             return nil
         }
         
@@ -138,7 +147,7 @@ class MenuViewController: UIViewController {
             return nil
         }
         
-        return tabBarVC.selectedViewController?.navigationController
+        return tabBarVC.selectedViewController?.navigationController*/
     }
     
     @objc func subscribeAction(){

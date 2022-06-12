@@ -12,8 +12,10 @@ final class CreateProfileViewModel: NSObject {
     
     var arrGender: [Gender] = [.female, .male, .nonBinary, .transgender, .intersex, .type, .notToSay]
     var arrHistory: [History] = [.classCount, .Achievements, .WorkoutLogs]
-    
+    var arrUnits: [Units] = [.standard, .metric]
+    var arrPoolType: [PoolType] = [.fiftyMeter, .twentyFiveYards, .openWater, .endlessPool, .custom]
     var profileItem = CreateProfileDTO()
+    var profileItemPoolUnitInfo = PoolUnitInfoDTO([:])
     var arrWorkoutLogs: [WorkoutLogDTO] = []
     var arrAchievements: [AchievementDTO] = []
     
@@ -83,10 +85,10 @@ final class CreateProfileViewModel: NSObject {
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter your address.", comment: ""))
             return false
         }else if !profileItem.tSerialNumber.dropFirst().isEmpty && profileItem.tSerialNumber.dropFirst().count < 8{
-            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid serial number.", comment: ""))
+            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid transmitter serial number.", comment: ""))
             return false
         }else if !profileItem.hSerialNumber.dropFirst().isEmpty && profileItem.hSerialNumber.dropFirst().count < 8{
-            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid serial number.", comment: ""))
+            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid headset serial number.", comment: ""))
             return false
         }
         
@@ -95,7 +97,7 @@ final class CreateProfileViewModel: NSObject {
     
     func createProfile(completion: @escaping (Bool, String) -> Void){
         Helper.shared.startLoading()
-        userService.createProfile(user: self.profileItem) { [weak self] (error, profileImage) in
+        userService.createProfile(user: self.profileItem, poolInfo: self.profileItemPoolUnitInfo) { [weak self] (error, profileImage) in
             if self == nil{
                 return
             }
@@ -115,7 +117,7 @@ final class CreateProfileViewModel: NSObject {
     
     func updateProfile(completion: @escaping (Bool, String) -> Void){
         Helper.shared.startLoading()
-        userService.createProfile(user: self.profileItem) { [weak self] (error, profileImage) in
+        userService.createProfile(user: self.profileItem, poolInfo: self.profileItemPoolUnitInfo) { [weak self] (error, profileImage) in
             if self == nil{
                 return
             }

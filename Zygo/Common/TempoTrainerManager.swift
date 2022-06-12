@@ -17,6 +17,7 @@ final class TempoTrainerManager: NSObject {
     var strokeTimer: DispatchSourceTimer?
     var demoTimer: DispatchSourceTimer?
     var demoCompletion: (() -> Void)?
+    var startTime: Date?
 
     private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
     

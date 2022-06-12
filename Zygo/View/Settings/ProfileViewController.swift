@@ -14,19 +14,24 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
     
     var infoVC: InfoViewController!
     var historyVC: HistoryViewController!
+    var metricsVC: MetricsViewController!
+    
+    /*@IBOutlet weak var headerView: UIView!
     
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var imageView: UICircleImageView!
     
     @IBOutlet weak var btnChooseImage: UIButton!
-    @IBOutlet weak var btnSmallChooseImage: UIButton!
+    @IBOutlet weak var btnSmallChooseImage: UIButton!*/
     
     private lazy var user = PreferenceManager.shared.user
+    private lazy var poolUnitInfo = PreferenceManager.shared.poolUnitInfo
     private lazy var imagePickerController = UIImagePickerController()
     private lazy var viewModel = CreateProfileViewModel()
     
     //MARK: -
     override func viewDidLoad() {
+        
         infoVC = self.storyboard?.instantiateViewController(withIdentifier: "InfoViewController") as? InfoViewController
         infoVC.viewModel = self.viewModel
         infoVC.superObj = self
@@ -35,8 +40,13 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
         historyVC = self.storyboard?.instantiateViewController(withIdentifier: "HistoryViewController") as? HistoryViewController
         historyVC.superObj = self
         
+        metricsVC = self.storyboard?.instantiateViewController(withIdentifier: "MetricsViewController") as? MetricsViewController
+        metricsVC.superObj = self
+        
         self.setupTabBars()
         super.viewDidLoad()
+        
+        self.containerView.isScrollEnabled = false
         self.setupUserInfo()
         Helper.shared.log(event: .TABPROFILE, params: [:])
     }
@@ -53,11 +63,11 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
     //MARK: - Setups
     func setupUserInfo(){
         self.viewModel.profileItem.image = nil
-        self.lblUserName.text = user.name
+        /*self.lblUserName.text = user.name
         self.imageView.image = UIImage(named: "icon_default")
         if !user.profilePic.isEmpty{
             self.imageView.sd_setImage(with: URL(string: user.profilePic.getImageURL()), placeholderImage: UIImage(named: "icon_default"), options: .refreshCached, completed: nil)
-        }
+        }*/
         
         user = PreferenceManager.shared.user
 
@@ -74,6 +84,12 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
         self.viewModel.profileItem.location = user.location
         self.viewModel.profileItem.tSerialNumber = user.tSerialNumber
         self.viewModel.profileItem.hSerialNumber = user.hSerialNumber
+        
+        let poolUnitInfo = PreferenceManager.shared.poolUnitInfo
+        self.viewModel.profileItemPoolUnitInfo.customPoolDistance = poolUnitInfo.customPoolDistance
+        self.viewModel.profileItemPoolUnitInfo.customPoolLengthUnits = poolUnitInfo.customPoolLengthUnits
+        self.viewModel.profileItemPoolUnitInfo.defaultPoolLength = poolUnitInfo.defaultPoolLength
+        self.viewModel.profileItemPoolUnitInfo.unitPref = poolUnitInfo.unitPref
     }
     
     func setupTabBars(){
@@ -99,6 +115,8 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
     
     func isProfileChanged() -> Bool{
         let user = PreferenceManager.shared.user
+        let poolUnitInfo = PreferenceManager.shared.poolUnitInfo
+        
         if self.viewModel.profileItem.name != user.name{
             return true
         }
@@ -135,6 +153,22 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
             return true
         }
         
+        if self.viewModel.profileItemPoolUnitInfo.unitPref != poolUnitInfo.unitPref{
+            return true
+        }
+        
+        if self.viewModel.profileItemPoolUnitInfo.defaultPoolLength != poolUnitInfo.defaultPoolLength{
+            return true
+        }
+        
+        if self.viewModel.profileItemPoolUnitInfo.customPoolDistance != poolUnitInfo.customPoolDistance{
+            return true
+        }
+        
+        if self.viewModel.profileItemPoolUnitInfo.customPoolLengthUnits != poolUnitInfo.customPoolLengthUnits{
+            return true
+        }
+        
         return false
     }
     
@@ -148,7 +182,7 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
         }
     }
     
-    func hideChooseImage(){
+    /*func hideChooseImage(){
         self.btnChooseImage.isHidden = true
         self.btnSmallChooseImage.isHidden = true
     }
@@ -156,7 +190,7 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
     func showChooseImage(){
         self.btnChooseImage.isHidden = false
         self.btnSmallChooseImage.isHidden = false
-    }
+    }*/
     
     //MARK: - UIButton Actions
     func didPressSave() {
@@ -174,8 +208,17 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
                 self?.user.tSerialNumber = self?.viewModel.profileItem.tSerialNumber ?? ""
                 self?.user.hSerialNumber = self?.viewModel.profileItem.hSerialNumber ?? ""
                 
+                self?.poolUnitInfo.customPoolDistance = self?.viewModel.profileItemPoolUnitInfo.customPoolDistance ?? 0.0
+                self?.poolUnitInfo.customPoolLengthUnits = self?.viewModel.profileItemPoolUnitInfo.customPoolLengthUnits ?? .yards
+                self?.poolUnitInfo.defaultPoolLength = self?.viewModel.profileItemPoolUnitInfo.defaultPoolLength ?? .twentyFiveYards
+                self?.poolUnitInfo.unitPref = self?.viewModel.profileItemPoolUnitInfo.unitPref ?? .standard
+                
                 if let nUser = self?.user{
                     PreferenceManager.shared.user = nUser
+                }
+                
+                if let poolUnitInfo = self?.poolUnitInfo{
+                    PreferenceManager.shared.poolUnitInfo = poolUnitInfo
                 }
                 
                 self?.setupUserInfo()
@@ -192,19 +235,19 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
         sideMenuController?.revealMenu()
     }
     
-    @IBAction func chooseImageAction(_ sender: UIButton){
+    /*@IBAction func chooseImageAction(_ sender: UIButton){
         self.imageOptionsAlert()
-    }
+    }*/
     
     // MARK: - PagerTabStripDataSource
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        return [historyVC, infoVC]
+        return [historyVC, metricsVC, infoVC]
     }
 }
 
 
 //MARK: - Image Picker
-extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+/*extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     func imageOptionsAlert(){
         let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -258,4 +301,4 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         picker.dismiss(animated: true, completion: nil)
     }
     
-}
+}*/

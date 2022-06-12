@@ -24,6 +24,8 @@ target 'Zygo' do
   pod 'Branch'
   pod "KlaviyoSwift"
   pod "Firebase/AnalyticsWithoutAdIdSupport"
+  
+  pod 'Charts'
 
   
 end

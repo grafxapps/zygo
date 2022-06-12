@@ -132,13 +132,14 @@ class OnOffHeadsetVC: UIViewController {
         
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = UIImage(named: "icon_power_button")
-        imageAttachment.bounds = CGRect(x: 0, y: -8, width: 21.25, height: 25)
+        imageAttachment.bounds = CGRect(x: 0, y: -3, width: 14.25, height: 18)
         
         let imageString = NSAttributedString(attachment: imageAttachment)
         
         fullString.append(imageString)
         fullString.append(NSAttributedString(string: " for 3 seconds."))
         
+        //fullString.addAttribute(.font, value: UIFont.appMedium(with: 18.0), range: NSRange(location: 0, length: fullString.length))
         self.lblTurnOnTransmitter.attributedText = fullString
         
     }

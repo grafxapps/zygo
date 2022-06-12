@@ -204,6 +204,29 @@ extension Double{
         }
         
     }
+    func toHMIfPossible() -> String{
+        
+        let seconds = Int(self.truncatingRemainder(dividingBy: 60))
+        let minutes = Int(self/60.0) % 60
+        let hours = Int(self/3600)
+        
+        let stMinutes = minutes > 9 ? "\(minutes)" : "0\(minutes)"
+        //let stSeconds = seconds > 9 ? "\(seconds)" : "0\(seconds)"
+        let stHours = hours > 9 ? "\(hours)" : "\(hours)"
+        
+        if hours > 0{
+            return "\(stHours):\(stMinutes)"
+        }else if minutes > 0{
+            if minutes > 9{
+                return "\(minutes).\(seconds)"
+            }else{
+                return "0\(minutes).\(seconds)"
+            }
+        } else{
+            return "00.\(seconds)"
+        }
+        
+    }
 }
 
 extension UIColor{

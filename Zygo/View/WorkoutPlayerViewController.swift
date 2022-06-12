@@ -411,6 +411,12 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
             if isCompleted{
                 print("Workout completed successfully!!")
                 
+                let currentTempo = TempoTrainerManager.shared.currentTrainer
+                if currentTempo != nil{
+                    //Reset Tempo Trainer
+                    TempoTrainerManager.shared.startTime = DateHelper.shared.currentLocalDateTime
+                }
+                
                 let feedbackVC = FeedbackSheetViewController(nibName: "FeedbackSheetViewController", bundle: nil, workoutItem: self.workoutItem, achievements: self.viewModel.arrAchievements, workoutLogId: workoutLogId)
                 feedbackVC.delegate = self
                 feedbackVC.modalPresentationStyle = .overFullScreen

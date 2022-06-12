@@ -24,6 +24,7 @@ struct UserDTO {
     var lastLocation: String = ""
     var isActive: Int = -1
     var timeInWater: Double = 0
+    var totalDistance: Double = 0 //In Yards
     var workoutCount: Int = 0
     
     var hSerialNumber: String = ""
@@ -49,6 +50,7 @@ struct UserDTO {
         self.lastLocation = dict["last_location"] as? String ?? ""
         
         self.timeInWater = dict["time_in_water"] as? Double ?? 0
+        self.totalDistance = dict["total_distance"] as? Double ?? Double(dict["total_distance"] as? String ?? "0") ?? 0
         self.workoutCount =  dict["workout_count"] as? Int ?? 0
         
         self.hSerialNumber = dict["handset_serial_number"] as? String ?? ""
@@ -72,6 +74,7 @@ struct UserDTO {
             "user_last_name": self.lName,
             "workout_count": self.workoutCount,
             "time_in_water": self.timeInWater,
+            "total_distance": self.totalDistance,
             "transmitter_serial_number": self.tSerialNumber,
             "handset_serial_number": self.hSerialNumber
         ]

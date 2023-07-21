@@ -319,4 +319,38 @@ final class UserServices: NSObject {
             }
         }
     }
+    
+    func getContactUsDetail(completion: @escaping (String?, [String: Any]) -> Void){
+        
+        let header = NetworkManager.shared.getHeader()
+        NetworkManager.shared.request(withEndPoint: .contactUsDetail, method: .get, headers: header, params: [:]) { (response) in
+            
+            switch response{
+            case .success(let jsonResponse):
+                print(jsonResponse)
+                let dataDict = jsonResponse["data"] as? [String: Any] ?? [:]
+                completion(nil, dataDict)
+            case .failure(_, let message):
+                completion(message, [:])
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking, [:])
+            }
+        }
+    }
+    
+    func deleteAccount(completion: @escaping (String?) -> Void){
+        let header = NetworkManager.shared.getHeader()
+        NetworkManager.shared.request(withEndPoint: .deleteAccount, method: .delete, headers: header, params: [:]) { (response) in
+            
+            switch response{
+            case .success(let jsonResponse):
+                print(jsonResponse)
+                completion(nil)
+            case .failure(_, let message):
+                completion(message)
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking)
+            }
+        }
+    }
 }

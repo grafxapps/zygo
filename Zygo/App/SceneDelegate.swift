@@ -43,7 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 
                 //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
                 let userItem = PreferenceManager.shared.user
-                if userItem.gender.isEmpty || userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
+                if userItem.birthday.isEmpty ||/*userItem.gender.isEmpty ||*/ userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
                     if !SubscriptionManager.shared.isValidSubscription(){//It means user is not subscribe yet
                         let storyBoard = UIStoryboard(name: "Registration", bundle: nil)
                         let navigationController = storyBoard.instantiateViewController(withIdentifier: "SubscriptionViewController")
@@ -98,7 +98,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UIApplication.shared.applicationIconBadgeNumber = 0
         
         do{
-            try AVAudioSession.sharedInstance().setCategory(.playback, options: .defaultToSpeaker)
+            try AVAudioSession.sharedInstance().setCategory(.playback, options: .mixWithOthers)
             try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
         }catch{
             print("Faild to set Audio Session")

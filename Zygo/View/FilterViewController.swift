@@ -200,9 +200,17 @@ class FilterViewController: UIViewController {
     }
     
     @IBAction func showClassesAction(_ sender: UIButton){
-        NotificationCenter.default.post(name: .fetchWorkouts, object: nil)
+        let count = self.viewModel.arrWorkouts.count
+        if count > 0{
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "WorkoutsViewController") as! WorkoutsViewController
+            vc.isFromFilter = true
+            Helper.shared.topNavigationController()?.pushViewController(vc, animated: true)
+        }
+        //NotificationCenter.default.post(name: .fetchWorkouts, object: nil)
         //Helper.shared.moveToTab(index: 0)
-        self.navigationController?.popViewController(animated: true)
+        //self.navigationController?.popViewController(animated: true)
+        
+        
     }
     
     @IBAction func allAction(_ sender: UIButton){
@@ -277,7 +285,7 @@ extension FilterViewController : UITableViewDataSource, UITableViewDelegate, Bot
         
         sheetVC.delegate = self
         sheetVC.modalPresentationStyle = .overCurrentContext
-        self.present(sheetVC, animated: true, completion: nil)
+        UIApplication.topViewController()?.present(sheetVC, animated: true, completion: nil)
         
     }
     

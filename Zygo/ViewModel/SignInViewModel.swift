@@ -362,9 +362,10 @@ class SignInViewModel: NSObject {
         }
     }
     
-    func appleSignInUser(appleID : String,uName: String, uEmail: String, completion: @escaping (Bool) -> Void){
+    func appleSignInUser(appleID : String, fName: String, lName: String, uEmail: String, completion: @escaping (Bool) -> Void){
         
         Helper.shared.startLoading()
+        let uName = fName + lName
         self.signupService.appleSignIn(appleID: appleID, uName: uName, uEmail: uEmail) { [weak self] (error, isVerified, jsonResponse) in
             if self == nil{
                 return
@@ -385,7 +386,7 @@ class SignInViewModel: NSObject {
                     return
                 }
                 
-                let user = UserDTO(jsonResponse)
+                var user = UserDTO(jsonResponse)
                 let workoutInfo = WorkoutInfoDTO(jsonResponse)
                 let notificationInfo = NotificationInfoDTO(jsonResponse)
                 let trackingInfo = TrackingInfoDTO(jsonResponse)
@@ -453,6 +454,9 @@ class SignInViewModel: NSObject {
                 
                 //Save user obj in preference
                 PreferenceManager.shared.userId = user.uId
+                user.fName = fName
+                user.lName = lName
+                user.name = fName + lName
                 PreferenceManager.shared.user = user
                 PreferenceManager.shared.workoutInfo = workoutInfo
                 PreferenceManager.shared.notificationInfo = notificationInfo

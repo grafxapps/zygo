@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "icon_tempotrainer_tabbar.png",
+      "filename" : "TT G.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icon_tempotrainer_tabbar@2x.png",
+      "filename" : "TT G@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "icon_tempotrainer_tabbar@3x.png",
+      "filename" : "TT G@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

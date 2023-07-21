@@ -92,7 +92,7 @@ final class TempoTrainerManager: NSObject {
         
         strokeTimer?.resume()
         
-        if Helper.shared.isDemoMode{
+        /*if Helper.shared.isDemoMode{
             let demoQueue = DispatchQueue(label: "com.zygo.ios.timer.demo", attributes: .concurrent)
             demoTimer = DispatchSource.makeTimerSource(queue: demoQueue)
             demoTimer?.schedule(deadline: .now(), repeating: 1, leeway: .milliseconds(100))
@@ -107,7 +107,7 @@ final class TempoTrainerManager: NSObject {
             }
             
             demoTimer?.resume()
-        }
+        }*/
         
         /*strokeTimer = Timer(timeInterval: interval, repeats: true, block: { (timerObj) in
             AppDelegate.app.tempoPlayer?.pause()

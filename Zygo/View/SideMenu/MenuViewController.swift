@@ -124,6 +124,8 @@ class MenuViewController: UIViewController {
             Helper.shared.log(event: .CUSTOMERSUPPORT, params: [:])
             let helpVC = self.storyboard?.instantiateViewController(withIdentifier: "CustomerSupportVC") as! CustomerSupportVC
             self.getCurrentNavigationController()?.pushViewController(helpVC, animated: true)
+        case .referFriend:
+            print("Refer A Friend")
             
         }
         
@@ -158,7 +160,7 @@ class MenuViewController: UIViewController {
             vc.pushViewController(navigationController, animated: true)
         }
         
-        self.perform(#selector(self.hide), with: nil, afterDelay: 0.2)
+        //self.perform(#selector(self.hide), with: nil, afterDelay: 0.2)
     }
 }
 
@@ -183,6 +185,7 @@ extension MenuViewController: SideMenuControllerDelegate {
     
     func sideMenuControllerDidHideMenu(_ sideMenuController: SideMenuController) {
         print("Menu did hide.")
+        NotificationCenter.default.post(name: .didHideMenu, object: nil)
     }
     
     func sideMenuControllerWillRevealMenu(_ sideMenuController: SideMenuController) {

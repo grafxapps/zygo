@@ -59,7 +59,8 @@ class SignUpViewController: UIViewController, GoogleLoginManagerDelegate {
     }
     
     @IBAction func appleButtonPressed(_ sender: UIButton){
-        self.handleAppleIdRequest()
+        AppleLoginManager.shared.delegate = self
+        AppleLoginManager.shared.login(from: self)
     }
     
     @IBAction func facebookButtonPressed(_ sender: UIButton){
@@ -179,7 +180,7 @@ extension SignUpViewController: ASAuthorizationControllerDelegate {
                 let appleUserFirstName = "\(appleIDCredential.fullName?.givenName ?? "")"
                 let appleUserLastName = "\(appleIDCredential.fullName?.familyName ?? "")"
                 let appleUserEmail = "\(appleIDCredential.email ?? "")"
-                self.sviewModel.appleSignInUser(appleID: appleId, uName: appleUserFirstName+appleUserLastName, uEmail: appleUserEmail) { (isError) in
+                self.sviewModel.appleSignInUser(appleID: appleId, fName: appleUserFirstName, lName: appleUserLastName, uEmail: appleUserEmail) { (isError) in
                     AppDelegate.app.checkUserLoginStatus()
                 }
             }
@@ -194,4 +195,22 @@ extension SignUpViewController: ASAuthorizationControllerPresentationContextProv
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
     }
+}
+
+extension SignUpViewController: AppleLoginManagerDelegate{
+    func didLogin(user: ASAuthorizationAppleIDCredential) {
+        DispatchQueue.main.async {
+            
+            Helper.shared.log(event: .APPLELOGIN, params: [:])
+            
+            let appleId = "\(user.user)"
+            let appleUserFirstName = "\(user.fullName?.givenName ?? "")"
+            let appleUserLastName = "\(user.fullName?.familyName ?? "")"
+            let appleUserEmail = "\(user.email ?? "")"
+            self.sviewModel.appleSignInUser(appleID: appleId, fName: appleUserFirstName, lName: appleUserLastName, uEmail: appleUserEmail) { (isError) in
+                AppDelegate.app.checkUserLoginStatus()
+            }
+        }
+    }
+    
 }

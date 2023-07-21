@@ -44,7 +44,7 @@ class BluetoothViewController: UIViewController, ZBluetoothManagerDelegates {
         self.stopTimer()
         self.scheduleScanning()
         self.myDevices.removeAll()
-        self.myDevices.append(contentsOf: ZBluetoothManager.shared.discoveredPeripherals)
+        //self.myDevices.append(contentsOf: ZBluetoothManager.shared.discoveredPeripherals)
         
         self.scanningTimer = Timer(timeInterval: 15, repeats: true, block: { [weak self] (timerObj) in
             print("Timer Scanning")
@@ -61,7 +61,17 @@ class BluetoothViewController: UIViewController, ZBluetoothManagerDelegates {
     
     func scheduleScanning(){
         DispatchQueue.main.async {
-            ZBluetoothManager.shared.startScanning()
+            
+            if !BluetoothManager.shared.isBluetoothPermissionGranted{
+                self.stopTimer()
+                return
+            }
+            
+            BluetoothManager.shared.startScanning { [weak self] nearByDevices in
+                self?.myDevices = nearByDevices.sorted(by: { ($0.device.name ?? "" ).localizedCaseInsensitiveCompare($1.device.name ?? "") == .orderedAscending })
+                self?.tblBluetooth.reloadData()
+            }
+            //ZBluetoothManager.shared.startScanning()
         }
     }
     
@@ -124,10 +134,23 @@ extension BluetoothViewController : UITableViewDataSource, UITableViewDelegate, 
     }
     
     func didPair(_ device: BTDevice) {
-        ZBluetoothManager.shared.connect(device: device.device)
+        BluetoothManager.shared.connect(device, onConnect: { [weak self] connectedDevice in
+            self?.tblBluetooth.reloadData()
+            BluetoothManager.shared.fetchAllServices(connectedDevice) { [weak self] servicesDevice in
+                self?.tblBluetooth.reloadData()
+                BluetoothManager.shared.fetchAllCharacteristics(servicesDevice) { charDevice in
+                    self?.tblBluetooth.reloadData()
+                }
+            }
+            
+        }) { [weak self] failedToConnectDevice in
+            self?.tblBluetooth.reloadData()
+        }
     }
     
     func didUnPair(_ device: BTDevice) {
-        ZBluetoothManager.shared.disconnect(device: device.device)
+        BluetoothManager.shared.disconnect(device) { [weak self] disconnectedDevice in
+            self?.tblBluetooth.reloadData()
+        }
     }
 }

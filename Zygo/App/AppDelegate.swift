@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //Publis Sound Player for temo trainer
     var tempoPlayer: AVAudioPlayer?
     let protector = ScreenRecordingProtoector()
+    var isProfileTabOpened: Bool = false
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -232,12 +233,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 //Enable demo mode for user
                 //if !Helper.shared.isDemoLimitComplete(){
-                    Helper.shared.resetDemoModeTime()
-                    PreferenceManager.shared.isDemoMode = true
-                    
-                    //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
-                    //let userItem = PreferenceManager.shared.user
-                    if userItem.gender.isEmpty || userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
+                Helper.shared.resetDemoModeTime()
+                PreferenceManager.shared.isDemoMode = true
+                
+                //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
+                //let userItem = PreferenceManager.shared.user
+                if userItem.birthday.isEmpty || /*userItem.gender.isEmpty ||*/ userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
                         Helper.shared.setCreateProfileRoot()
                         
                     }else{
@@ -252,7 +253,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }else{
                 //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
                 //let userItem = PreferenceManager.shared.user
-                if userItem.gender.isEmpty || userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
+                if userItem.birthday.isEmpty || /*userItem.gender.isEmpty ||*/ userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
                     Helper.shared.setCreateProfileRoot()
                     
                 }else{
@@ -420,6 +421,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
 
 
 //TODO: Uncomment for production
-//func print(_ item: @autoclosure () -> Any, separator: String = " ", terminator: String = "\n") {
+func print(_ item: @autoclosure () -> Any, separator: String = " ", terminator: String = "\n") {
 
-//}
+ }

@@ -34,7 +34,6 @@ struct GroupedFilterDTO {
                 filters.sort(by: { $0.fTitle.localizedCaseInsensitiveCompare($1.fTitle) == .orderedAscending })
             }
         }
-        
     }
     
     init(_ fItems: [Filter], title: String, icon: String) {

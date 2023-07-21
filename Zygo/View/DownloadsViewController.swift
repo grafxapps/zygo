@@ -27,7 +27,7 @@ class DownloadsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setupWorkoutsData()
-        ZygoWorkoutDownloadManager.shared.downloadComplete = { [weak self] in
+        ZygoWorkoutDownloadManager.shared.downloadComplete = { [weak self] isDownloaded in
             self?.setupWorkoutsData()
         }
     }

@@ -14,11 +14,6 @@ protocol ZBluetoothManagerDelegates {
     func didConnectDevice(devices: BTDevice)
 }
 
-struct BTDevice {
-    var device: CBPeripheral!
-    var rssi: NSNumber!
-}
-
 final class ZBluetoothManager: NSObject {
     
     static let shared = ZBluetoothManager()
@@ -41,7 +36,8 @@ final class ZBluetoothManager: NSObject {
             centralManager = CBCentralManager(delegate: self, queue: centralQueue)
         }else{
             if centralManager?.state == .poweredOn{
-                centralManager?.scanForPeripherals(withServices: nil, options: nil)
+                centralManager?.scanForPeripherals(withServices: [CBUUID(string: "68999001-8008-968F-E311-6150405558B3"), CBUUID(string: "EEF1D96D-594C-4C53-B1C6-244A1DFDE6D8")])//, options: [CBCentralManagerScanOptionSolicitedServiceUUIDsKey : true])
+                //centralManager?.scanForPeripherals(withServices: nil, options: nil)
             }
         }
         
@@ -89,7 +85,7 @@ extension ZBluetoothManager : CBCentralManagerDelegate, CBPeripheralDelegate{
         case .poweredOn:
             print("Bluetooth status is POWERED ON")
             self.discoveredPeripherals.removeAll()
-            centralManager?.scanForPeripherals(withServices: nil, options: nil)//[CBCentralManagerScanOptionAllowDuplicatesKey : true]
+            centralManager?.scanForPeripherals(withServices: [CBUUID(string: "68999001-8008-968F-E311-6150405558B3"), CBUUID(string: "EEF1D96D-594C-4C53-B1C6-244A1DFDE6D8")])//, options: [CBCentralManagerScanOptionSolicitedServiceUUIDsKey : true])
         
         @unknown default:
             print("New State")
@@ -103,9 +99,9 @@ extension ZBluetoothManager : CBCentralManagerDelegate, CBPeripheralDelegate{
         
         if let index = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier == peripheral.identifier }){
             self.discoveredPeripherals.remove(at: index)
-            self.discoveredPeripherals.insert(BTDevice(device: peripheral, rssi: RSSI), at: index)
+            self.discoveredPeripherals.insert(BTDevice(device: peripheral, rssi: RSSI, services: [:]), at: index)
         }else{
-            self.discoveredPeripherals.append(BTDevice(device: peripheral, rssi: RSSI))
+            self.discoveredPeripherals.append(BTDevice(device: peripheral, rssi: RSSI, services: [:]))
         }
         
         DispatchQueue.main.async {

@@ -46,7 +46,7 @@ class WorkoutDetailViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
-        ZygoWorkoutDownloadManager.shared.downloadComplete = { [weak self] in
+        ZygoWorkoutDownloadManager.shared.downloadComplete = { [weak self] isDownloaded in
             self?.viewModel.getDownloadedWorkout(wId: self?.workoutItem?.workoutId ?? 0)
             self?.tblWorkout.reloadData()
         }
@@ -94,8 +94,8 @@ class WorkoutDetailViewController: UIViewController {
         tblWorkout.register(UINib.init(nibName: WorkoutPlanTVC.identifier, bundle: nil), forCellReuseIdentifier: WorkoutPlanTVC.identifier);
         tblWorkout.register(UINib.init(nibName: WorkoutHeaderTVC.identifier, bundle: nil), forCellReuseIdentifier: WorkoutHeaderTVC.identifier);
         tblWorkout.register(UINib.init(nibName: PlaylistTVC.identifier, bundle: nil), forCellReuseIdentifier: PlaylistTVC.identifier);
-        tblWorkout.register(UINib(nibName: PlaylistInfoTVC.identifier, bundle: nil), forCellReuseIdentifier: PlaylistInfoTVC.identifier)
-        tblWorkout.register(UINib(nibName: PlaylistViewMoreTVC.identifier, bundle: nil), forCellReuseIdentifier: PlaylistViewMoreTVC.identifier)
+        tblWorkout.register(UINib.init(nibName: PlaylistInfoTVC.identifier, bundle: nil), forCellReuseIdentifier: PlaylistInfoTVC.identifier)
+        tblWorkout.register(UINib.init(nibName: PlaylistViewMoreTVC.identifier, bundle: nil), forCellReuseIdentifier: PlaylistViewMoreTVC.identifier)
         
     }
     

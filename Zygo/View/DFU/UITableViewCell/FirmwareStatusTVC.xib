@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FirmwareStatusTVC" id="KGk-i7-Jjw" customClass="FirmwareStatusTVC" customModule="Zygo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Staus" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grm-FC-SYu">
+                        <rect key="frame" x="15" y="5" width="250" height="34"/>
+                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
+                        <color key="textColor" name="AppTitleDarkColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wax-Op-6p8">
+                        <rect key="frame" x="270" y="0.0" width="50" height="44"/>
+                        <subviews>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_check_appColor" translatesAutoresizingMaskIntoConstraints="NO" id="fRz-bk-Spz">
+                                <rect key="frame" x="15" y="12" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="P1J-BJ-yyc"/>
+                                    <constraint firstAttribute="width" constant="20" id="mgi-K8-ihQ"/>
+                                </constraints>
+                            </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="8DJ-sL-Lp7">
+                                <rect key="frame" x="15" y="12" width="20" height="20"/>
+                                <color key="color" name="AppBlueColor"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fRz-bk-Spz" firstAttribute="centerY" secondItem="Wax-Op-6p8" secondAttribute="centerY" id="16o-kJ-Bsj"/>
+                            <constraint firstItem="8DJ-sL-Lp7" firstAttribute="centerY" secondItem="Wax-Op-6p8" secondAttribute="centerY" id="J8o-jQ-Og7"/>
+                            <constraint firstItem="8DJ-sL-Lp7" firstAttribute="centerX" secondItem="Wax-Op-6p8" secondAttribute="centerX" id="PX1-uE-DH3"/>
+                            <constraint firstItem="fRz-bk-Spz" firstAttribute="centerX" secondItem="Wax-Op-6p8" secondAttribute="centerX" id="UyA-Wg-SNK"/>
+                            <constraint firstAttribute="width" constant="50" id="mOZ-Ui-u3n"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Wax-Op-6p8" secondAttribute="bottom" id="0kP-xW-HJ6"/>
+                    <constraint firstAttribute="trailing" secondItem="Wax-Op-6p8" secondAttribute="trailing" id="JCa-Lu-6N6"/>
+                    <constraint firstItem="Wax-Op-6p8" firstAttribute="leading" secondItem="grm-FC-SYu" secondAttribute="trailing" constant="5" id="Ofm-E1-ype"/>
+                    <constraint firstItem="grm-FC-SYu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="RAn-UM-hbc"/>
+                    <constraint firstAttribute="bottom" secondItem="grm-FC-SYu" secondAttribute="bottom" constant="5" id="imD-t2-O8u"/>
+                    <constraint firstItem="grm-FC-SYu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="nfv-oZ-1Va"/>
+                    <constraint firstItem="Wax-Op-6p8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="njY-iv-g8a"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lblTitle" destination="grm-FC-SYu" id="Z55-wd-cQq"/>
+                <outlet property="progress" destination="8DJ-sL-Lp7" id="alx-cZ-xtw"/>
+                <outlet property="stausImageView" destination="fRz-bk-Spz" id="jQi-vs-hZy"/>
+            </connections>
+            <point key="canvasLocation" x="20" y="42"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_check_appColor" width="65" height="65"/>
+        <namedColor name="AppBlueColor">
+            <color red="0.14900000393390656" green="0.73299998044967651" blue="0.92900002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppTitleDarkColor">
+            <color red="0.23499999940395355" green="0.2669999897480011" blue="0.27500000596046448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

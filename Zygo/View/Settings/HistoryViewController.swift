@@ -49,7 +49,8 @@ class HistoryViewController: UIViewController {
     func registerTVC()  {
         tblHistory.estimatedRowHeight = 100.0
         tblHistory.separatorStyle = .none
-        tblHistory.contentInset = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
+        tblHistory.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+        tblHistory.register(UINib.init(nibName: MetricsTVC.identifier, bundle: nil), forCellReuseIdentifier: MetricsTVC.identifier);
         tblHistory.register(UINib.init(nibName: HistoryInfoTVC.identifier, bundle: nil), forCellReuseIdentifier: HistoryInfoTVC.identifier);
         tblHistory.register(UINib.init(nibName: AchievementsTVC.identifier, bundle: nil), forCellReuseIdentifier: AchievementsTVC.identifier);
         tblHistory.register(UINib.init(nibName: PastWorkoutsTVC.identifier, bundle: nil), forCellReuseIdentifier: PastWorkoutsTVC.identifier);
@@ -72,79 +73,26 @@ class HistoryViewController: UIViewController {
 
 extension HistoryViewController : UITableViewDataSource, UITableViewDelegate{
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.arrHistory.count
+        return 2
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let item = self.viewModel.arrHistory[section]
-        switch item {
-        case .classCount:
+        if section == 0{
             return 1
-        case .Achievements:
-            return 1
-        case .WorkoutLogs:
+        }else{
             return self.viewModel.arrWorkoutLogs.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let item = self.viewModel.arrHistory[indexPath.section]
-        switch item {
-        case .classCount:
-            let cell : HistoryInfoTVC = tableView.dequeueReusableCell(withIdentifier: HistoryInfoTVC.identifier) as! HistoryInfoTVC
-            if self.isUpdated{
-                cell.contentView.alpha = 1.0
-            }else{
-                cell.contentView.alpha = 0.3
-            }
+        if indexPath.section == 0{
             
-            cell.lblHoursInWater.text = self.user.timeInWater.toHM()
-            cell.lblClassCount.text = "\(self.user.workoutCount)"
+            let cell : MetricsTVC = tableView.dequeueReusableCell(withIdentifier: MetricsTVC.identifier) as! MetricsTVC
             
-            let poolInfo = PreferenceManager.shared.poolUnitInfo
-            let totalDistance = self.user.totalDistance
-
-            var strUnit: String = ""
-            var fullString: String = ""
-            if poolInfo.unitPref == .metric{
-                if totalDistance < 1094{
-                    //Meter
-                    let totaewNewDistance = Helper.shared.distanceConvert(to: .meters ,from: .yards, distance: totalDistance)
-                    fullString = String(format: "%.0fmeters", totaewNewDistance)
-                    strUnit = "meters"
-                }else{
-                    //Kilometer
-                    let totaewNewDistance = Helper.shared.distanceConvert(to: .kilometers ,from: .yards, distance: totalDistance)
-                    fullString = String(format: "%.1fkm", totaewNewDistance)
-                    strUnit = "km"
-                }
-                
-            }else{
-                if totalDistance < 1760{
-                    //yards
-                    fullString = String(format: "%.0fyards", totalDistance)
-                    strUnit = "yards"
-                }else{
-                    //Miles
-                    let totaewNewDistance = Helper.shared.distanceConvert(to: .miles ,from: .yards, distance: totalDistance)
-                    fullString = String(format: "%.1fmiles", totaewNewDistance)
-                    strUnit = "miles"
-                }
-            }
+            cell.updateSwitchBG()
             
-            
-            let attString = NSMutableAttributedString(string: fullString)
-            attString.addAttributes([NSAttributedString.Key.font : UIFont.appBold(with: 12.0)], range: (fullString as NSString).range(of: strUnit))
-            cell.lblDistance.attributedText = attString
-            cell.selectionStyle = .none
-            return cell;
-        case .Achievements:
-            let cell : AchievementsTVC = tableView.dequeueReusableCell(withIdentifier: AchievementsTVC.identifier) as! AchievementsTVC
-            cell.delegate = self
-            cell.setupAchievements(self.viewModel.arrAchievements)
-            cell.selectionStyle = .none
-            return cell;
-        case .WorkoutLogs:
+            return cell
+        }else{
             let cell : PastWorkoutsTVC = tableView.dequeueReusableCell(withIdentifier: PastWorkoutsTVC.identifier) as! PastWorkoutsTVC
             
             if indexPath.row == 0{
@@ -163,16 +111,11 @@ extension HistoryViewController : UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        let item = self.viewModel.arrHistory[indexPath.section]
-        switch item {
-        case .classCount:
-            return 70.0
-        case .Achievements:
-            return UITableView.automaticDimension
-        case .WorkoutLogs:
-            
+        if indexPath.section == 0{
+            return ScreenSize.SCREEN_HEIGHT * 0.5543
+        }else{
             if indexPath.row == 0{
-                return 100.0
+                return 90.0
             }
             
             return 57.0
@@ -182,8 +125,7 @@ extension HistoryViewController : UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        let itemH = self.viewModel.arrHistory[indexPath.section]
-        if itemH != .WorkoutLogs{
+        if indexPath.section == 0{
             return
         }
         
@@ -200,7 +142,7 @@ extension HistoryViewController : UITableViewDataSource, UITableViewDelegate{
         playerVC.workoutItem = wItem
         playerVC.workoutLog = item
         playerVC.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(playerVC, animated: true)
+        Helper.shared.topNavigationController()?.pushViewController(playerVC, animated: true)
         
         
     }

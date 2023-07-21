@@ -45,7 +45,7 @@ final class AudioPlayerManager: NSObject {
         self.isSeekBar = false
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, options: [])
+            try AVAudioSession.sharedInstance().setCategory(.playback, options: .mixWithOthers)
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             print(error)

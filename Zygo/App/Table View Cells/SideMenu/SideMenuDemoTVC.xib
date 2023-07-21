@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,8 +26,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="335" height="309"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To play full workouts, use the tempo trainer, and start racking up achievements…." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGk-cb-2f0">
-                        <rect key="frame" x="30" y="20" width="275" height="199"/>
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To play full workouts, and start racking up achievements…." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGk-cb-2f0">
+                        <rect key="frame" x="20" y="20" width="295" height="199"/>
                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
                         <color key="textColor" name="AppTitleDarkColor"/>
                         <nil key="highlightedColor"/>
@@ -52,9 +52,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="wly-Ym-hmH" firstAttribute="top" secondItem="LGk-cb-2f0" secondAttribute="bottom" constant="20" id="7ol-iU-HRb"/>
-                    <constraint firstAttribute="trailing" secondItem="LGk-cb-2f0" secondAttribute="trailing" constant="30" id="DY4-4d-D2T"/>
+                    <constraint firstAttribute="trailing" secondItem="LGk-cb-2f0" secondAttribute="trailing" constant="20" id="DY4-4d-D2T"/>
                     <constraint firstItem="LGk-cb-2f0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="MSA-Ze-wGD"/>
-                    <constraint firstItem="LGk-cb-2f0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="SXw-po-7BV"/>
+                    <constraint firstItem="LGk-cb-2f0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="SXw-po-7BV"/>
                     <constraint firstAttribute="bottom" secondItem="wly-Ym-hmH" secondAttribute="bottom" constant="20" id="VaG-DE-Zud"/>
                     <constraint firstItem="wly-Ym-hmH" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="bS5-43-Ubo"/>
                 </constraints>

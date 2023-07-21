@@ -775,7 +775,7 @@ class FeedbackSheetViewController: UIViewController {
         let branchUniversalObject: BranchUniversalObject = BranchUniversalObject(canonicalIdentifier: "Worout_\(workoutItem.workoutName)_\(workoutItem.workoutId)")
         branchUniversalObject.title = "I just completed the \("\(String(format: "%.f", workoutItem.workoutDuration)) min") \(workoutItem.workoutName) workout"
         branchUniversalObject.contentDescription = ""
-        branchUniversalObject.imageUrl = workoutItem.thumbnailURL.getImageURL()
+        branchUniversalObject.imageUrl = "https://i.postimg.cc/XvkJDpYG/1624553525866.png"//workoutItem.thumbnailURL.getImageURL()
         
         let linkProperties: BranchLinkProperties = BranchLinkProperties()
         linkProperties.controlParams = ["workout_id" : workoutItem.workoutId] //workoutItem.toDict()

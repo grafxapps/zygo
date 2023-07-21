@@ -16,6 +16,8 @@ class SubscriptionCancelVC: UIViewController {
     @IBOutlet weak var lblMonthlyPrice : UILabel!
     private let viewModel = SubscriptionViewModel()
     
+    var isNeedToCheckCountry: Bool = false
+    
     //MARK: - UIViewcontroller LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +27,22 @@ class SubscriptionCancelVC: UIViewController {
     
     func setupUI()  {
         Helper.shared.setupViewLayer(sender: self.viewSubscription, isSsubScriptionView: true);
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let storeFront = SKPaymentQueue.default().storefront {
+            if storeFront.countryCode != "USA"{
+                Helper.shared.alert(title: Constants.appName, message: "Sorry! Due to music licensing rights, subscriptions are currently only available in the United States.") {
+                    self.backAction()
+                }
+            }
+            print("Storefront", storeFront.countryCode)
+        } else {
+            self.isNeedToCheckCountry = true
+            print("Storefront nil")
+        }
     }
     
     //MARK: - UIButton Action
@@ -174,6 +192,25 @@ class SubscriptionCancelVC: UIViewController {
     @IBAction func reseemCodeAction (sender : UIButton){
         
     }
+    
+    @IBAction func deleteAccountAction(_ sender: UIButton){
+        
+        let deleteDesVC = DeleteAccountDescriptionVC(nibName: "DeleteAccountDescriptionVC", bundle: nil)
+        deleteDesVC.modalPresentationStyle = .overCurrentContext
+        deleteDesVC.onContinue = {
+            let deleteVC = DeleteAccountVC(nibName: "DeleteAccountVC", bundle: nil)
+            deleteVC.transitioningDelegate = self
+            deleteVC.modalPresentationStyle = .custom
+            deleteVC.onDeleteAccount = {
+                //Silent logout and go to login screen
+                Helper.shared.silentLogout()
+            }
+            
+            self.present(deleteVC, animated: true, completion: nil)
+        }
+        self.present(deleteDesVC, animated: true, completion: nil)
+        
+    }
 }
 
 
@@ -227,6 +264,19 @@ extension SubscriptionCancelVC{
         
         //  lblMonthlyDurationTitle.text = SubscriptionManager.shared.getDurationTitle(product: product, defaultTitle: "Month")
         
+        if isNeedToCheckCountry{
+            let priceIdentifier = product.priceLocale.identifier
+            let arrSubStrings = priceIdentifier.components(separatedBy: "@")
+            if arrSubStrings.count > 0{
+                let countryCode = arrSubStrings[0]
+                if countryCode != "en_US"{
+                    Helper.shared.alert(title: Constants.appName, message: "Sorry! Due to music licensing rights, subscriptions are currently only available in the United States.") {
+                        self.backAction()
+                    }
+                }
+            }
+        }
+        
         let price = product.localizedPrice ?? "$14.99"
         let attributeString = NSMutableAttributedString(string: "\(price)/month")
         attributeString.addAttributes([.font: UIFont.appBold(with: 26.0)], range: NSRange(location: 0, length: price.count))
@@ -240,7 +290,18 @@ extension SubscriptionCancelVC{
     
     func updateYearlyProductInfo(product: SKProduct){
         
-        //  lblMonthlyDurationTitle.text = SubscriptionManager.shared.getDurationTitle(product: product, defaultTitle: "Month")
+        if isNeedToCheckCountry{
+            let priceIdentifier = product.priceLocale.identifier
+            let arrSubStrings = priceIdentifier.components(separatedBy: "@")
+            if arrSubStrings.count > 0{
+                let countryCode = arrSubStrings[0]
+                if countryCode != "en_US"{
+                    Helper.shared.alert(title: Constants.appName, message: "Sorry! Due to music licensing rights, subscriptions are currently only available in the United States.") {
+                        self.backAction()
+                    }
+                }
+            }
+        }
         
         let price = product.localizedPrice ?? "$149.99"
         let attributeString = NSMutableAttributedString(string: "\(price)/year")
@@ -251,4 +312,17 @@ extension SubscriptionCancelVC{
         lblMonthlyPrice.attributedText = attributeString
         
     }
+}
+
+
+extension SubscriptionCancelVC: UIViewControllerTransitioningDelegate{
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return PresentingAnimator()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissingAnimator()
+    }
+    
 }

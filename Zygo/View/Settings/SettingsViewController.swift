@@ -39,8 +39,8 @@ class SettingsViewController: UIViewController {
             }
         }
         
-        //arrDevicesTitles = ["Pairing"]
-        arrSections = ["Notifications", "Tracking", "Your Account"]//, "Devices"]
+        arrDevicesTitles = ["Pairing"]
+        arrSections = ["Notifications", "Tracking", "Your Account", "Devices"]
         
     }
     

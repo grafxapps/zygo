@@ -259,6 +259,32 @@ final class PreferenceManager: NSObject {
             return defaults.value(forKey: PreferenceKey.IsTakenByMe.rawValue) as? Bool ?? false
         }
     }
+    
+    var deviceInfo: BLEDeviceInfoDTO{
+        set{
+            defaults.set(newValue.toDict(), forKey: PreferenceKey.BLEDeviceInfo.rawValue)
+        }get{
+            let infoDict = defaults.value(forKey: PreferenceKey.BLEDeviceInfo.rawValue) as? [String:Any] ?? [:]
+            return BLEDeviceInfoDTO(infoDict)
+        }
+    }
+    
+    var lapInfo: BLELapInfoDTO{
+        set{
+            defaults.set(newValue.toDict(), forKey: PreferenceKey.BLELapInfo.rawValue)
+        }get{
+            let infoDict = defaults.value(forKey: PreferenceKey.BLELapInfo.rawValue) as? [String:Any] ?? [:]
+            return BLELapInfoDTO(infoDict)
+        }
+    }
+    
+    var firmwareLaterDate: Date?{
+        set{
+            defaults.set(newValue, forKey: PreferenceKey.BLEFirmwareUpdateLater.rawValue)
+        }get{
+            return defaults.value(forKey: PreferenceKey.BLEFirmwareUpdateLater.rawValue) as? Date
+        }
+    }
 }
 
 
@@ -295,5 +321,9 @@ enum PreferenceKey : String{
     
     case TrackingInfo = "Z_Tracking_Info"
     case PoolUnitInfo = "Z_Pool_Units_Info"
+    
+    case BLEDeviceInfo = "Z_BLE_Device_Info"
+    case BLELapInfo = "Z_BLE_Lap_Info"
+    case BLEFirmwareUpdateLater = "Z_BLE_Firmware_Update_Later"
     
 }

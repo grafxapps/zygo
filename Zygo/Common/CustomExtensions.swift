@@ -22,6 +22,10 @@ extension UIFont{
         return UIFont(name: "Poppins-Medium", size: size)!
     }
     
+    static func appMediumItalic(with size: CGFloat) -> UIFont{
+        return UIFont(name: "Poppins-MediumItalic", size: size)!
+    }
+    
     static func appBold(with size: CGFloat) -> UIFont{
         return UIFont(name: "Poppins-Bold", size: size)!
     }
@@ -116,10 +120,88 @@ extension Date{
     
     func toSubscriptionDate() -> String{
           return self.convertToFormat("yyyy-MM-dd HH:mm:ss", isUTC: true)
-      }
+    }
     
-    
+    func dateDiff(to toDate: Date) -> String{
+        let NowDate = toDate
+        
+        let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+        let myComponents = myCalendar.components([.year, .month, .weekOfMonth,  .day, .hour, .minute, .second],from: self, to: NowDate, options: [])
+        
+        let year = Int(myComponents.year!)
+        let month = Int(myComponents.month!)
+        let weeks = Int(myComponents.weekOfMonth!)
+        let days = Int(myComponents.day!)
+        let hours = Int(myComponents.hour!)
+        let min = Int(myComponents.minute!)
+        let sec = Int(myComponents.second!)
+        
+        var timeAgo = ""
+        
+        if (sec > 0){
+            if (sec > 1) {
+                timeAgo = "\(sec) seconds ago"
+            } else {
+                timeAgo = "\(sec) second ago"
+            }
+        }
+        
+        if (min > 0){
+            if (min > 1) {
+                timeAgo = "\(min) minutes ago"
+            } else {
+                timeAgo = "\(min) minute ago"
+            }
+        }
+        
+        if(hours > 0){
+            if (hours > 1) {
+                timeAgo = "\(hours) hours ago"
+            } else {
+                timeAgo = "\(hours) hour ago"
+            }
+        }
+        
+        if (days > 0) {
+            if (days > 1) {
+                timeAgo = "\(days) days ago"
+            } else {
+                timeAgo = "\(days) day ago"
+            }
+        }
+        
+        if(weeks > 0){
+            if (weeks > 1) {
+                timeAgo = "\(weeks) weeks ago"
+            } else {
+                timeAgo = "\(weeks) week ago"
+            }
+        }
+        
+        if(month > 0){
+            if (month > 1) {
+                timeAgo = "\(month) months ago"
+            } else {
+                timeAgo = "\(month) month ago"
+            }
+        }
+        
+        if(year > 0){
+            if (year > 1) {
+                timeAgo = "\(year) years ago"
+            } else {
+                timeAgo = "\(year) year ago"
+            }
+        }
+     
+        if timeAgo.isEmpty{
+            timeAgo = "just now"
+        }
+        
+        return timeAgo
+    }
 }
+
 extension String {
     func trimm() -> String{
         return self.trimmingCharacters(in: .whitespaces)
@@ -612,6 +694,7 @@ extension Notification.Name{
     static let didSelectDownloadsTab = Notification.Name.init("Notifications_Did_Select_Downloads_Tab")
     static let didSelectPacingTab = Notification.Name.init("Notifications_Did_Select_Pacing_Tab")
     static let didSelectProfileTab = Notification.Name.init("Notifications_Did_Select_Profile_Tab")
+    static let didHideMenu = Notification.Name.init("Notifications_Did_Hide_Side_Menu")
 }
 
 extension UITableView {
@@ -687,5 +770,184 @@ extension UIImageView{
         rotation.isCumulative = false
         rotation.repeatCount = 1
         self.layer.add(rotation, forKey: "rotationAnimation")
+    }
+}
+
+extension UIView {
+    func addShadow(location: VerticalLocation, color: UIColor = .black, opacity: Float = 0.2, radius: CGFloat = 3.0) {
+        switch location {
+        case .bottom:
+            addShadow(offset: CGSize(width: 0, height: 2), color: color, opacity: opacity, radius: radius)
+        case .top:
+            addShadow(offset: CGSize(width: 0, height: -2), color: color, opacity: opacity, radius: radius)
+        case .center:
+            addShadow(offset: CGSize(width: 0, height: 0), color: color, opacity: opacity, radius: radius)
+        }
+    }
+    
+    
+    func addShadow(offset: CGSize, color: UIColor = .black, opacity: Float = 0.3, radius: CGFloat = 5.0) {
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = color.cgColor
+        self.layer.shadowOffset = offset
+        self.layer.shadowOpacity = opacity
+        self.layer.shadowRadius = radius
+    }
+    
+    func addTopShadow(shadowColor : UIColor, shadowOpacity : Float,shadowRadius : Float,offset:CGSize){
+        self.layer.shadowColor = shadowColor.cgColor
+        self.layer.shadowOffset = offset
+        self.layer.shadowOpacity = shadowOpacity
+        self.layer.shadowRadius = CGFloat(shadowRadius)
+        self.clipsToBounds = false
+    }
+    
+    /* Usage Example
+     * bgView.addBottomRoundedEdge(desiredCurve: 1.5)
+     */
+    func addBottomRoundedEdge(desiredCurve: CGFloat?) {
+        let offset: CGFloat = self.frame.width / desiredCurve!
+        let bounds: CGRect = self.bounds
+        
+        let rectBounds: CGRect = CGRect(x: bounds.origin.x, y: bounds.origin.y, width: bounds.size.width, height: bounds.size.height / 2)
+        let rectPath: UIBezierPath = UIBezierPath(rect: rectBounds)
+        let ovalBounds: CGRect = CGRect(x: bounds.origin.x - offset / 2, y: bounds.origin.y, width: bounds.size.width + offset, height: bounds.size.height)
+        let ovalPath: UIBezierPath = UIBezierPath(ovalIn: ovalBounds)
+        rectPath.append(ovalPath)
+        
+        // Create the shape layer and set its path
+        let maskLayer: CAShapeLayer = CAShapeLayer()
+        maskLayer.frame = bounds
+        maskLayer.path = rectPath.cgPath
+        
+        // Set the newly created shape layer as the mask for the view's layer
+        self.layer.mask = maskLayer
+    }
+}
+
+enum VerticalLocation: String {
+    case bottom
+    case top
+    case center
+}
+
+extension UInt32 {
+    var data: Data {
+        var int = self
+        return Data(bytes: &int, count: MemoryLayout<UInt32>.size)
+    }
+}
+
+extension UInt64 {
+    var data: Data {
+        var int = self
+        return Data(bytes: &int, count: MemoryLayout<UInt64>.size)
+    }
+}
+
+extension UInt8 {
+    var data: Data {
+        var int = self
+        return Data(bytes: &int, count: MemoryLayout<UInt8>.size)
+    }
+}
+
+extension UInt16 {
+    var data: Data {
+        var int = self
+        return Data(bytes: &int, count: MemoryLayout<UInt16>.size)
+    }
+}
+
+extension UInt {
+    var data: Data {
+        var int = self
+        return Data(bytes: &int, count: MemoryLayout<UInt>.size)
+    }
+}
+
+extension Data {
+   
+    var hexString: String {
+        var array: [UInt8] = []
+        
+        #if swift(>=5.0)
+        withUnsafeBytes { array.append(contentsOf: $0) }
+        #else
+        withUnsafeBytes { array.append(contentsOf: getByteArray($0)) }
+        #endif
+        
+        return array.reduce("") { (result, byte) -> String in
+            result + String(format: "%02x", byte)
+        }
+    }
+
+    private func getByteArray(_ pointer: UnsafePointer<UInt8>) -> [UInt8] {
+        let buffer = UnsafeBufferPointer<UInt8>(start: pointer, count: count)
+        return [UInt8](buffer)
+    }
+    
+}
+
+extension String {
+    
+    /// Create `Data` from hexadecimal string representation
+    ///
+    /// This creates a `Data` object from hex string. Note, if the string has any spaces or non-hex characters (e.g. starts with '<' and with a '>'), those are ignored and only hex characters are processed.
+    ///
+    /// - returns: Data represented by this hexadecimal string.
+    
+    var hexadecimal: Data? {
+        var data = Data(capacity: count / 2)
+        
+        let regex = try! NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
+        regex.enumerateMatches(in: self, range: NSRange(startIndex..., in: self)) { match, _, _ in
+            let byteString = (self as NSString).substring(with: match!.range)
+            let num = UInt8(byteString, radix: 16)!
+            data.append(num)
+        }
+        
+        guard data.count > 0 else { return nil }
+        
+        return data
+    }
+    
+}
+
+extension Data {
+
+    init<T>(fromArray values: [T]) {
+        self = values.withUnsafeBytes { Data($0) }
+    }
+
+    func toArray<T>(type: T.Type) -> [T] where T: ExpressibleByIntegerLiteral {
+        var array = Array<T>(repeating: 0, count: self.count/MemoryLayout<T>.stride)
+        _ = array.withUnsafeMutableBytes { copyBytes(to: $0) }
+        return array
+    }
+}
+
+extension Data {
+
+    init<T>(from value: T) {
+        self = Swift.withUnsafeBytes(of: value) { Data($0) }
+    }
+
+    func to<T>(type: T.Type) -> T? where T: ExpressibleByIntegerLiteral {
+        var value: T = 0
+        guard count >= MemoryLayout.size(ofValue: value) else { return nil }
+        _ = Swift.withUnsafeMutableBytes(of: &value, { copyBytes(to: $0)} )
+        return value
+    }
+    
+    func swapUInt32Data() -> Data {
+        var mdata = self // make a mutable copy
+        let count = self.count / MemoryLayout<UInt32>.size
+        mdata.withUnsafeMutableBytes { (i16ptr: UnsafeMutablePointer<UInt32>) in
+            for i in 0..<count {
+                i16ptr[i] = UInt32(bigEndian: i16ptr[i].byteSwapped)
+            }
+        }
+        return mdata
     }
 }

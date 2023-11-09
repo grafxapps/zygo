@@ -14,8 +14,11 @@ class WorkoutsViewController: UIViewController {
     @IBOutlet weak var tblWorkouts : UITableView!
     @IBOutlet weak var lblNoData : UILabel!
     @IBOutlet weak var internetConnectionView : UIView!
-    @IBOutlet weak var filterClassesView : UIView!
-    @IBOutlet weak var lblFilterClasses : UILabel!
+    
+    @IBOutlet weak var headerHeightConstraint : NSLayoutConstraint!
+    
+    //@IBOutlet weak var filterClassesView : UIView!
+    //@IBOutlet weak var lblFilterClasses : UILabel!
     
     private let workoutIdentifier = "WorkoutInfoTVC"
     private let viewModel = WorkoutsViewModel()
@@ -23,12 +26,26 @@ class WorkoutsViewController: UIViewController {
     private var isFromDidLoad: Bool = true
     private var isProfileFetched: Bool = false
     
+    var isFromFilter: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addObservers()
         self.registerTVC()
         //self.fetchWorkouts()
         Helper.shared.log(event: .TABWORKOUTS, params: [:])
+        
+        if isFromFilter{
+            self.headerHeightConstraint.constant = 60.0
+            self.view.layoutIfNeeded()
+        }else{
+            self.headerHeightConstraint.constant = 0.0
+            self.view.layoutIfNeeded()
+        }
+        
+        HealthKitManager.sharedInstance.authorizeHealthKit { (isAuthorized, error) in
+            
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,37 +108,8 @@ class WorkoutsViewController: UIViewController {
             isFromDidLoad = false
         }
         
-        let selectedFilters = PreferenceManager.shared.selectedFilters
-        if selectedFilters.count > 0 || PreferenceManager.shared.isNotTakenByMe || PreferenceManager.shared.isTakenByMe{
-            self.viewModel.getFilteredWorkouts(isLoading:isLoading, isLoadingStop: false, selectedFilters: selectedFilters) { [weak self] (isError) in
-                if isError{
-                    self?.lblNoData.isHidden = true
-                    self?.internetConnectionView.isHidden = false
-                    self?.filterClassesView.isHidden = false
-                    self?.lblFilterClasses.text = "\(self?.viewModel.arrWorkouts.count ?? 0)"
-                    self?.refreshControl.endRefreshing()
-                    self?.tblWorkouts.reloadData()
-                    Helper.shared.stopLoading()
-                }else{
-                    self?.internetConnectionView.isHidden = true
-                    
-                    if self?.viewModel.arrWorkouts.count ?? 0 > 0{
-                        self?.lblNoData.isHidden = true
-                        //self?.perform(#selector(self?.stopFilteredWorkoutsLoading), with: nil, afterDelay: 3.0)
-                        self?.stopFilteredWorkoutsLoading()
-                    }else{
-                        self?.lblNoData.isHidden = false
-                        self?.filterClassesView.isHidden = false
-                        self?.lblFilterClasses.text = "\(self?.viewModel.arrWorkouts.count ?? 0)"
-                        self?.refreshControl.endRefreshing()
-                        self?.tblWorkouts.reloadData()
-                        Helper.shared.stopLoading()
-                    }
-                }
-            }
-        }else{
-            self.filterClassesView.isHidden = true
-            self.lblFilterClasses.text = "0"
+        if !isFromFilter{
+            
             self.viewModel.getWorkoutList(isLoading: isLoading, isLoadingStop: false) { [weak self]  (isError) in
                 if isError{
                     Helper.shared.stopLoading()
@@ -148,8 +136,67 @@ class WorkoutsViewController: UIViewController {
                     }
                 }
             }
+            
+        }else{
+            let selectedFilters = PreferenceManager.shared.selectedFilters
+            if selectedFilters.count > 0 || PreferenceManager.shared.isNotTakenByMe || PreferenceManager.shared.isTakenByMe{
+                self.viewModel.getFilteredWorkouts(isLoading:isLoading, isLoadingStop: false, selectedFilters: selectedFilters) { [weak self] (isError) in
+                    if isError{
+                        self?.lblNoData.isHidden = true
+                        self?.internetConnectionView.isHidden = false
+                        //self?.filterClassesView.isHidden = false
+                        //self?.lblFilterClasses.text = "\(self?.viewModel.arrWorkouts.count ?? 0)"
+                        self?.refreshControl.endRefreshing()
+                        self?.tblWorkouts.reloadData()
+                        Helper.shared.stopLoading()
+                    }else{
+                        self?.internetConnectionView.isHidden = true
+                        
+                        if self?.viewModel.arrWorkouts.count ?? 0 > 0{
+                            self?.lblNoData.isHidden = true
+                            //self?.perform(#selector(self?.stopFilteredWorkoutsLoading), with: nil, afterDelay: 3.0)
+                            self?.stopFilteredWorkoutsLoading()
+                        }else{
+                            self?.lblNoData.isHidden = false
+                            //self?.filterClassesView.isHidden = false
+                            //self?.lblFilterClasses.text = "\(self?.viewModel.arrWorkouts.count ?? 0)"
+                            self?.refreshControl.endRefreshing()
+                            self?.tblWorkouts.reloadData()
+                            Helper.shared.stopLoading()
+                        }
+                    }
+                }
+            }else{
+                //self.filterClassesView.isHidden = true
+                //self.lblFilterClasses.text = "0"
+                self.viewModel.getWorkoutList(isLoading: isLoading, isLoadingStop: false) { [weak self]  (isError) in
+                    if isError{
+                        Helper.shared.stopLoading()
+                        self?.lblNoData.isHidden = true
+                        self?.internetConnectionView.isHidden = false
+                        self?.refreshControl.endRefreshing()
+                        self?.tblWorkouts.reloadData()
+                    }else{
+                        self?.internetConnectionView.isHidden = true
+                        if self?.viewModel.arrWorkouts.count ?? 0 > 0{
+                            self?.lblNoData.isHidden = true
+                            self?.imagesDownloader()
+                            if isWait{
+                                self?.perform(#selector(self?.stopWorkoutsLoading), with: nil, afterDelay: 3.0)
+                            }else{
+                                self?.stopWorkoutsLoading()
+                            }
+                            
+                        }else{
+                            Helper.shared.stopLoading()
+                            self?.lblNoData.isHidden = false
+                            self?.refreshControl.endRefreshing()
+                            self?.tblWorkouts.reloadData()
+                        }
+                    }
+                }
+            }
         }
-        
     }
     
     @objc func stopWorkoutsLoading(){
@@ -160,8 +207,8 @@ class WorkoutsViewController: UIViewController {
     
     @objc func stopFilteredWorkoutsLoading(){
         Helper.shared.stopLoading()
-        self.filterClassesView.isHidden = false
-        self.lblFilterClasses.text = "\(self.viewModel.arrWorkouts.count)"
+        //self.filterClassesView.isHidden = false
+        //self.lblFilterClasses.text = "\(self.viewModel.arrWorkouts.count)"
         self.refreshControl.endRefreshing()
         self.tblWorkouts.reloadData()
     }
@@ -215,6 +262,10 @@ class WorkoutsViewController: UIViewController {
         let filterVC = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController") as! FilterViewController
         filterVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(filterVC, animated: true)
+    }
+    
+    @IBAction func backAction(_ sender: UIButton){
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

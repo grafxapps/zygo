@@ -35,19 +35,8 @@ class CustomerSupportVC: UIViewController {
     @IBAction func contactusAction(_ sender: UIButton){
         Helper.shared.log(event: .CONTACTUS, params: [:])
         
-        if MFMailComposeViewController.canSendMail() {
-                let mail = MFMailComposeViewController()
-                mail.mailComposeDelegate = self
-                mail.setToRecipients(["help@zygoco.com"])
-                mail.setSubject("")
-                mail.setMessageBody("", isHTML: false)
-                
-                self.present(mail, animated: true)
-                
-            //}
-        } else {
-            Helper.shared.alert(title: Constants.appName, message: "Please configure email account on your device first.")
-        }
+        let vc = UIStoryboard(name: "SideMenu", bundle: nil).instantiateViewController(identifier: "ContactUsViewController") as! ContactUsViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func termsOfUsePressed(_ sender: UIButton){

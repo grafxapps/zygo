@@ -38,14 +38,13 @@ class ScreenRecordingProtoector: NSObject {
                     
                     if let lastVC = ((topVC as? SideMenuController)?.contentViewController as? NavigationController)?.viewControllers.last as? WorkoutPlayerViewController{
                         lastVC.pausePlayer()
-                    }
-                    
-                    Helper.shared.alert(title: Constants.appName, message: "Screen recording has been disabled in Zygo to protect our music licensing rights.") {
-                        if UIScreen.main.isCaptured {
-                            self.window?.isHidden = true
+                        
+                        Helper.shared.alert(title: Constants.appName, message: "Screen recording has been disabled in Zygo to protect our music licensing rights.", isAutoDismiss: true) {
+                            if UIScreen.main.isCaptured {
+                                self.window?.isHidden = true
+                            }
                         }
                     }
-                    
                 } else {
                     window?.isHidden = false
                 }

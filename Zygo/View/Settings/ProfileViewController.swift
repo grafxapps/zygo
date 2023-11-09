@@ -15,6 +15,7 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
     var infoVC: InfoViewController!
     var historyVC: HistoryViewController!
     var metricsVC: MetricsViewController!
+    var badgesVC: BadgesVC!
     
     /*@IBOutlet weak var headerView: UIView!
     
@@ -43,17 +44,23 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
         metricsVC = self.storyboard?.instantiateViewController(withIdentifier: "MetricsViewController") as? MetricsViewController
         metricsVC.superObj = self
         
+        badgesVC = self.storyboard?.instantiateViewController(withIdentifier: "BadgesVC") as? BadgesVC
+        badgesVC.superObj = self
+        
         self.setupTabBars()
         super.viewDidLoad()
-        
+        self.view.layoutIfNeeded()
+            
         self.containerView.isScrollEnabled = false
         self.setupUserInfo()
         Helper.shared.log(event: .TABPROFILE, params: [:])
+        
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        //self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -94,6 +101,9 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
     
     func setupTabBars(){
         
+        self.buttonBarView.setNeedsLayout()
+        self.buttonBarView.layoutIfNeeded()
+        
         settings.style.buttonBarBackgroundColor = .white
         settings.style.buttonBarItemBackgroundColor = .white
         settings.style.selectedBarBackgroundColor = UIColor.appBlueColor()
@@ -109,6 +119,9 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
             guard changeCurrentIndex == true else { return }
             oldCell?.label.textColor = UIColor.appTitleDarkColor()
             newCell?.label.textColor = UIColor.appBlueColor()
+            
+            self.buttonBarView.setNeedsLayout()
+            self.buttonBarView.layoutIfNeeded()
         }
         //moveToViewController(at: 1)
     }
@@ -222,7 +235,7 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
                 }
                 
                 self?.setupUserInfo()
-                self?.navigationController?.popViewController(animated: true)
+                //self?.navigationController?.popViewController(animated: true)
             }
         }
     }
@@ -241,7 +254,7 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
     
     // MARK: - PagerTabStripDataSource
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        return [historyVC, metricsVC, infoVC]
+        return [badgesVC, historyVC, infoVC]
     }
 }
 

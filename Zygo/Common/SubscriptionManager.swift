@@ -18,7 +18,7 @@ class SubscriptionManager: NSObject {
     }
     
     func isValidSubscription() -> Bool{
-        //TODO: Disbale for production
+        
         if Helper.shared.isTestUser{
             return true
         }

@@ -20,9 +20,9 @@ class Constants: NSObject {
     //static let baseUrl = "https://dev.mirror.zygohq.com"
     //static let imageBaseUrl = "https://dev.mirror.zygohq.com"
     
-    //Live mirror
-    //static let baseUrl = "https://mirror.zygohq.com"
-    //static let imageBaseUrl = "https://mirror.zygohq.com"
+    //Live mirror 
+   //static let baseUrl = "https://mirror.zygohq.com"
+   //static let imageBaseUrl = "https://mirror.zygohq.com"
     
     //Live
     static let baseUrl = "https://zygohq.com"
@@ -59,51 +59,6 @@ struct ScreenSize {
     static let SCREEN_MIN_LENGTH    = min(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
 }
 
-enum APIEndPoint : String {
-    
-    case signUp = "/api/auth/user-register"
-    case signIn = "/api/auth/user-login"
-    case googleSignIn = "/api/auth/google-login"
-    case facebookSignIn = "/api/auth/facebook-login"
-    case resendVerificationEmail = "/api/auth/resend-verification-email"
-    case verifyEmail = "/api/auth/password/create"
-    case forgotpassword = "/api/auth/password/reset"
-    case changePassword = "/api/change-password"
-    case appleSignIn = "/api/auth/apple-login"
-    case getProfile = "/api/get-profile"
-    
-    case updateProfile = "/api/update-profile"
-    case getWorkouts = "/api/get-workouts"
-    case getWorkoutById = "/api/get-workout-by-id"
-    case getWorkoutFilters = "/api/get-workout-filter"
-    case completeWorkout = "/api/workout-complete"
-    case workoutFeedback = "/api/workout-feedback-v4"//"/api/workout-feedback-v2"
-    
-    case userHistory = "/api/user-history"
-    
-    case getWorkoutsSeries = "/api/get-series"
-    
-    case subscriptionPayment = "/api/apple-subscription-payment-v2"
-    case cancelSubscription = "/api/cancel-apple-subscription"
-    case cancelOtherSubscription = "/api/cancel-subscription"
-    
-    case updateToken = "/api/update-device-token"
-    case notificationSetting = "/api/notification-setting"
-    
-    case forceUpgrade = "/api/force-upgrade"
-    
-    case getinstructor = "/api/get-instructor-by-id"
-    case getInstructorsList = "/api/get-instructor-list"
-    
-    case ratingPopupDate = "/api/ratepopup-date"
-    
-    case homeCountry = "/api/update-user-home-contry"
-    
-    case trackingSettings = "/api/settings"
-    case graph = "/api/workout-graph"
-    case graphYearly = "/api/workout-graph-yearly"
-}
-
 enum AppKeys : String {
     case data = "data"
     case details = "details"
@@ -112,21 +67,6 @@ enum AppKeys : String {
     case isEmailVerified = "is_email_verified"
     case status = "status"
 }
-
-enum HTTPStatusCode : Int {
-    case Ok = 200
-    case Created = 201
-    case BadRequest = 400
-    case Unauthorized = 401
-    case Forbidden = 403
-    case NotFound = 404
-    case RequestTimeOut = 408
-    case InternalServerError = 500
-    case BadGateway = 502
-    case ServiceUnavailable = 503
-    case Cancelled = -999
-}
-
 
 enum EventName: String{
     

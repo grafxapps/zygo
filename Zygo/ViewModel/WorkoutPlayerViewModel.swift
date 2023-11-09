@@ -49,6 +49,11 @@ final class WorkoutPlayerViewModel: NSObject {
         
         Helper.shared.startLoading()
         print("Workout Feedback")
+        
+        HealthKitManager.sharedInstance.writeSwimmingDistance(distance: distance) {
+            print("Swimming distance added ")
+        }
+        
         service.workoutFeedback(wId: workoutId, thumbStatus: thumbStatus, dificultyLevel: dificultyLevel, workoutLogId: workoutLogId, poolLength: poolLength, poolLengthUnits: poolLengthUnits, poolType: poolType, laps: laps, distance: distance, strokeValue: strokeVlue, city: city) { (error) in
             DispatchQueue.main.async {
                 Helper.shared.stopLoading()

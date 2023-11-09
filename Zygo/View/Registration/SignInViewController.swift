@@ -184,7 +184,7 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
                 let appleUserFirstName = "\(appleIDCredential.fullName?.givenName ?? "")"
                 let appleUserLastName = "\(appleIDCredential.fullName?.familyName ?? "")"
                 let appleUserEmail = "\(appleIDCredential.email ?? "")"
-                self.viewModel.appleSignInUser(appleID: appleId, uName: appleUserFirstName+appleUserLastName, uEmail: appleUserEmail) { (isError) in
+                self.viewModel.appleSignInUser(appleID: appleId, fName: appleUserFirstName, lName: appleUserLastName, uEmail: appleUserEmail) { (isError) in
                     AppDelegate.app.checkUserLoginStatus()
                 }
             }

@@ -47,6 +47,10 @@ final class Helper: NSObject {
         
     }
     
+    func topNavigationController() -> UINavigationController?{
+        return (UIApplication.topViewController() as? SideMenuController)?.contentViewController as? UINavigationController
+    }
+    
     func getDistanceTextWithUserPreference(distance: Double) -> String{
        
         let poolInfo = PreferenceManager.shared.poolUnitInfo
@@ -230,7 +234,7 @@ final class Helper: NSObject {
         }
     }
     
-    func alert(title: String, message: String, completion: @escaping () -> Void){
+    func alert(title: String, message: String,  isAutoDismiss: Bool = false, completion: @escaping () -> Void){
         DispatchQueue.main.async {
             self.alertOneAction(title: title, message: message, actionTitle: "Close") {
                 completion()
@@ -258,7 +262,8 @@ final class Helper: NSObject {
         topVC.present(alert, animated: true, completion: nil)
         
     }
-    func alertOneAction(title: String?, message: String?, actionTitle: String, completion: @escaping () -> Void){
+    
+    func alertOneAction(title: String?, message: String?, actionTitle: String, isAutoDismiss: Bool = false, completion: @escaping () -> Void){
         
         guard let topVC = UIApplication.topViewController() else {
             return
@@ -272,6 +277,21 @@ final class Helper: NSObject {
         alert.addAction(okAction)
         topVC.present(alert, animated: true, completion: nil)
         
+        if isAutoDismiss{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5){
+                self.dismiAfterFiveSeconds(completion: completion)
+            }
+        }
+        
+    }
+    
+    func dismiAfterFiveSeconds(completion: @escaping () -> Void){
+        guard let topVC = UIApplication.topViewController() else {
+            return
+        }
+        if topVC is UIAlertController{
+            topVC.dismiss(animated: true)
+        }
     }
     
     func setDashboardRoot(){
@@ -338,18 +358,7 @@ final class Helper: NSObject {
         
         let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
             
-            PreferenceManager.shared.clear {
-                NotificationCenter.default.post(name: .removeObservers, object: nil)
-                TempoTrainerManager.shared.stopTrainer()
-                GoogleLoginManager.shared.logout()
-                FacebookManager.shared.logout()
-                //Clear Pending Notification banners
-                UIApplication.shared.applicationIconBadgeNumber = 1
-                UIApplication.shared.applicationIconBadgeNumber = 0
-                
-                self.setLoginRoot()
-                Helper.shared.resetUserIdentity()
-            }
+            self.silentLogout()
         }
         
         alert.addAction(cancelAction)
@@ -360,6 +369,21 @@ final class Helper: NSObject {
         }
         topVC.present(alert, animated: true, completion: nil)
         
+    }
+    
+    func silentLogout(){
+        PreferenceManager.shared.clear {
+            NotificationCenter.default.post(name: .removeObservers, object: nil)
+            TempoTrainerManager.shared.stopTrainer()
+            GoogleLoginManager.shared.logout()
+            FacebookManager.shared.logout()
+            //Clear Pending Notification banners
+            UIApplication.shared.applicationIconBadgeNumber = 1
+            UIApplication.shared.applicationIconBadgeNumber = 0
+            
+            self.setLoginRoot()
+            Helper.shared.resetUserIdentity()
+        }
     }
     
     func getWorkoutCellHeight() -> CGFloat{
@@ -554,6 +578,34 @@ final class Helper: NSObject {
         Analytics.setUserID(nil)
         Analytics.setUserProperty(nil, forName: "AGE")
         Analytics.setUserProperty(nil, forName: "GENDER")
+    }
+    
+    func sizeForLocalFilePath(filePath: URL) -> UInt32 {
+        do {
+            
+            //let resourceValues = try filePath.resourceValues(forKeys: [.fileSizeKey])
+               //let fileSize = resourceValues.fileSize!
+            let fileAttributes = try filePath.resourceValues(forKeys: [.fileSizeKey])//try FileManager.default.attributesOfItem(atPath: filePath)
+            if let fileSize = fileAttributes.fileSize{//fileAttributes[FileAttributeKey.size]  {
+                return (fileSize as NSNumber).uint32Value
+            } else {
+                print("Failed to get a size attribute from path: \(filePath)")
+            }
+        } catch {
+            print("Failed to get file attributes for local path: \(filePath) with error: \(error)")
+        }
+        return 0
+    }
+    
+    func covertToFileString(with size: UInt32) -> String {
+        var convertedValue: Double = Double(size)
+        var multiplyFactor = 0
+        let tokens = ["bytes", "KB", "MB", "GB", "TB", "PB",  "EB",  "ZB", "YB"]
+        while convertedValue > 1024 {
+            convertedValue /= 1024
+            multiplyFactor += 1
+        }
+        return String(format: "%4.2f %@", convertedValue, tokens[multiplyFactor])
     }
     
 }

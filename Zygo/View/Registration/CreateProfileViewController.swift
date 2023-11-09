@@ -106,7 +106,10 @@ class CreateProfileViewController: UIViewController {
             self.txtEmail.alpha = 0.5
         }
         
-        if !user.tSerialNumber.isEmpty{
+        self.txtTSerialNumber.text = user.tSerialNumber
+        self.txtHSerialNumber.text = user.hSerialNumber
+        
+        /*if !user.tSerialNumber.isEmpty{
             if user.tSerialNumber.count >= 2{
                 let tPrefix = user.tSerialNumber.prefix(upTo: user.tSerialNumber.index(user.tSerialNumber.startIndex, offsetBy: 2))
                 if tPrefix == "RA"{
@@ -139,7 +142,7 @@ class CreateProfileViewController: UIViewController {
             }else{
                 self.txtHSerialNumber.text = String(user.hSerialNumber.dropFirst())
             }
-        }
+        }*/
     }
     
     func setupPicker(){
@@ -221,13 +224,13 @@ class CreateProfileViewController: UIViewController {
         self.viewModel.profileItem.location = txtLocation.text!.trim()
         
         if !txtHSerialNumber.text!.trim().isEmpty{
-            self.viewModel.profileItem.hSerialNumber = "H" + txtHSerialNumber.text!.trim()
+            self.viewModel.profileItem.hSerialNumber = txtHSerialNumber.text!.trim()
         }else{
             self.viewModel.profileItem.hSerialNumber = ""
         }
         
         if !txtTSerialNumber.text!.trim().isEmpty{
-            self.viewModel.profileItem.tSerialNumber = "R" + txtTSerialNumber.text!.trim()
+            self.viewModel.profileItem.tSerialNumber = txtTSerialNumber.text!.trim()
         }else{
             self.viewModel.profileItem.tSerialNumber = ""
         }
@@ -361,7 +364,7 @@ extension CreateProfileViewController: UITextFieldDelegate{
             let filtered = string.components(separatedBy: cs).joined(separator: "")
             
             let fullText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-            return fullText.count <= 8 && (string == filtered)
+            return fullText.count <= 9 && (string == filtered)
         }else if textField == txtTSerialNumber{
             
             if string == " "{
@@ -372,7 +375,7 @@ extension CreateProfileViewController: UITextFieldDelegate{
             let filtered = string.components(separatedBy: cs).joined(separator: "")
             
             let fullText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-            return fullText.count <= 8 && (string == filtered)
+            return fullText.count <= 9 && (string == filtered)
         }
         
         return true

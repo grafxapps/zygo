@@ -10,7 +10,7 @@ import UIKit
 
 final class UserServices: NSObject {
     
-    func createProfile(user: CreateProfileDTO, completion: @escaping (String?, String) -> Void){
+    func createProfile(user: CreateProfileDTO, poolInfo: PoolUnitInfoDTO, completion: @escaping (String?, String) -> Void){
         let param = [
             "email": user.email,
             "user_first_name": user.fname,
@@ -20,7 +20,11 @@ final class UserServices: NSObject {
             "user_birthday": user.birthday,
             "profile_location": user.location,
             "transmitter_serial_number": user.tSerialNumber,
-            "handset_serial_number": user.hSerialNumber
+            "handset_serial_number": user.hSerialNumber,
+            "custom_pool_length_units": poolInfo.customPoolLengthUnits.rawValue,
+            "unit_preference": poolInfo.unitPref.rawValue,
+            "custom_pool_length_dist": "\(poolInfo.customPoolDistance)",
+            "default_pool_length": poolInfo.defaultPoolLength.rawValue
         ] as [String : String]
         print(param)
         let imageData = user.image?.jpegData(compressionQuality: 0.2)
@@ -53,6 +57,8 @@ final class UserServices: NSObject {
                 let user = UserDTO(jsonResponse)
                 let workoutInfo = WorkoutInfoDTO(jsonResponse)
                 let notificationInfo = NotificationInfoDTO(jsonResponse)
+                let trackingInfo = TrackingInfoDTO(jsonResponse)
+                let poolUnitInfo = PoolUnitInfoDTO(jsonResponse)
                 let friendsInfo = FriendsInfoDTO(jsonResponse)
                 
                 PreferenceManager.shared.isTestUser = NSNumber(value: (Int(jsonResponse["test_user"] as? String ?? "0") ?? 0)).boolValue
@@ -123,6 +129,8 @@ final class UserServices: NSObject {
                 PreferenceManager.shared.user = user
                 PreferenceManager.shared.workoutInfo = workoutInfo
                 PreferenceManager.shared.notificationInfo = notificationInfo
+                PreferenceManager.shared.trackingInfo = trackingInfo
+                PreferenceManager.shared.poolUnitInfo = poolUnitInfo
                 PreferenceManager.shared.friendsInfo = friendsInfo
                 completion(nil)
             case .failure(_ , let message):
@@ -189,6 +197,66 @@ final class UserServices: NSObject {
         }
     }
     
+    func updateTrackingSettings(type: String, status: Int, completion: @escaping (String?) -> Void){
+        let param = [
+            "type": type,
+            "status": status
+        ] as [String : AnyObject]
+        let header = NetworkManager.shared.getHeader()
+        
+        NetworkManager.shared.request(withEndPoint: .trackingSettings, method: .post, headers: header, params: param) { (response) in
+            
+            switch response{
+            case .success(_ ):
+                completion(nil)
+            case .failure(_, let message):
+                completion(message)
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking)
+            }
+        }
+    }
+    
+    func getGraphData(for month: Int , year: Int, days: Int ,completion: @escaping (String?, [String:Any]) -> Void){
+        let param = [
+            "month": month,
+            "year": year
+        ] as [String : AnyObject]
+        let header = NetworkManager.shared.getHeader()
+        
+        NetworkManager.shared.request(withEndPoint: .graph, method: .get, headers: header, params: param) { (response) in
+            
+            switch response{
+            case .success(let jsonResponse):
+                print(jsonResponse)
+                let dataDict = jsonResponse["data"] as? [String: Any] ?? [:]
+                completion(nil, dataDict)
+            case .failure(_, let message):
+                completion(message, [:])
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking, [:])
+            }
+        }
+    }
+    
+    func getYearlyGraphData(completion: @escaping (String?, [String:Any]) -> Void){
+        let header = NetworkManager.shared.getHeader()
+        
+        NetworkManager.shared.request(withEndPoint: .graphYearly, method: .get, headers: header, params: [:]) { (response) in
+            
+            switch response{
+            case .success(let jsonResponse):
+                print(jsonResponse)
+                let dataDict = jsonResponse["data"] as? [String: Any] ?? [:]
+                completion(nil, dataDict)
+            case .failure(_, let message):
+                completion(message, [:])
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking, [:])
+            }
+        }
+    }
+    
     func forceUpgrade(completion: @escaping (String?) -> Void){
         
         // let header = NetworkManager.shared.getHeader()
@@ -239,6 +307,40 @@ final class UserServices: NSObject {
         
         let header = NetworkManager.shared.getHeader()
         NetworkManager.shared.request(withEndPoint: .homeCountry, method: .post, headers: header, params: param) { (response) in
+            
+            switch response{
+            case .success(let jsonResponse):
+                print(jsonResponse)
+                completion(nil)
+            case .failure(_, let message):
+                completion(message)
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking)
+            }
+        }
+    }
+    
+    func getContactUsDetail(completion: @escaping (String?, [String: Any]) -> Void){
+        
+        let header = NetworkManager.shared.getHeader()
+        NetworkManager.shared.request(withEndPoint: .contactUsDetail, method: .get, headers: header, params: [:]) { (response) in
+            
+            switch response{
+            case .success(let jsonResponse):
+                print(jsonResponse)
+                let dataDict = jsonResponse["data"] as? [String: Any] ?? [:]
+                completion(nil, dataDict)
+            case .failure(_, let message):
+                completion(message, [:])
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking, [:])
+            }
+        }
+    }
+    
+    func deleteAccount(completion: @escaping (String?) -> Void){
+        let header = NetworkManager.shared.getHeader()
+        NetworkManager.shared.request(withEndPoint: .deleteAccount, method: .delete, headers: header, params: [:]) { (response) in
             
             switch response{
             case .success(let jsonResponse):

@@ -182,7 +182,7 @@ final class WorkoutsServices: NSObject {
         if timeInWater > 0{
             param["time_in_water"] = timeInWater
         }
-        
+        print("Complete Workout Params: \(param)")
         NetworkManager.shared.request(withEndPoint: .completeWorkout, method: .post, headers: header, params: param) { (response) in
             switch response{
             case .success(let jsonresponse):
@@ -209,7 +209,7 @@ final class WorkoutsServices: NSObject {
     }
     
     
-    func workoutFeedback(wId: Int, thumbStatus: ThumbStatus, dificultyLevel: Int, workoutLogId: Int, completion: @escaping (String?) -> Void){
+    func workoutFeedback(wId: Int, thumbStatus: ThumbStatus, dificultyLevel: Int, workoutLogId: Int, poolLength: Int, poolLengthUnits: String, poolType: String, laps: Int, distance: Double, strokeValue: Int, city: String, completion: @escaping (String?) -> Void){
         let header = NetworkManager.shared.getHeader()
         
         var param: [String: Any] = [
@@ -225,6 +225,32 @@ final class WorkoutsServices: NSObject {
             param["rating"] = "\(dificultyLevel)"
         }
         
+        if poolLength > 0{
+            param["pool_length"] = poolLength
+        }
+        
+        if !poolLengthUnits.isEmpty{
+            param["pool_length_units"] = poolLengthUnits
+        }
+        
+        if !poolType.isEmpty{
+            param["pool_type"] = poolType
+        }
+        
+        if laps > 0{
+            param["laps"] = laps
+        }
+        
+        if distance > 0{
+            param["distance"] = distance
+        }
+        
+        if strokeValue > 0{
+            param["stroke_value"] = strokeValue
+        }
+        
+        param["location_city"] = city
+        print("feedback params: \(param)")
         NetworkManager.shared.request(withEndPoint: .workoutFeedback, method: .post, headers: header, params: param) { (response) in
             switch response{
             case .success( _):

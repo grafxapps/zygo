@@ -18,8 +18,9 @@ final class WorkoutPlayerViewModel: NSObject {
         LocationManager.shared.startLoction()
         LocationManager.shared.onUpdate = { [weak self] location in
             guard let mLocation = location else{
-                Helper.shared.stopLoading()
-                completion(false, -1)
+                //Helper.shared.stopLoading()
+                //completion(false, -1)
+                self?.completeWorout(with: 0.0, 0.0, workoutId, timeInWater, timeElapsed, completion: completion)
                 return
             }
             self?.completeWorout(with: mLocation.latitude, mLocation.longitude , workoutId, timeInWater, timeElapsed, completion: completion)
@@ -44,11 +45,16 @@ final class WorkoutPlayerViewModel: NSObject {
         }
     }
     
-    func workoutFeedback(_ workoutId: Int, _ thumbStatus: ThumbStatus, _ dificultyLevel: Int, workoutLogId: Int, completion: @escaping (Bool) -> Void){
+    func workoutFeedback(_ workoutId: Int, _ thumbStatus: ThumbStatus, _ dificultyLevel: Int, workoutLogId: Int, poolLength: Int, poolLengthUnits: String, poolType: String, laps: Int, distance: Double, strokeVlue: Int, city: String, completion: @escaping (Bool) -> Void){
         
         Helper.shared.startLoading()
         print("Workout Feedback")
-        service.workoutFeedback(wId: workoutId, thumbStatus: thumbStatus, dificultyLevel: dificultyLevel, workoutLogId: workoutLogId) { (error) in
+        
+        HealthKitManager.sharedInstance.writeSwimmingDistance(distance: distance) {
+            print("Swimming distance added ")
+        }
+        
+        service.workoutFeedback(wId: workoutId, thumbStatus: thumbStatus, dificultyLevel: dificultyLevel, workoutLogId: workoutLogId, poolLength: poolLength, poolLengthUnits: poolLengthUnits, poolType: poolType, laps: laps, distance: distance, strokeValue: strokeVlue, city: city) { (error) in
             DispatchQueue.main.async {
                 Helper.shared.stopLoading()
                 if error != nil{

@@ -19,6 +19,8 @@ class HistoryViewController: UIViewController {
     var superObj: ProfileViewController!
     var user = PreferenceManager.shared.user
     
+    var isUpdated: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addObservers()
@@ -27,9 +29,12 @@ class HistoryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.superObj.hideChooseImage()
+        //self.superObj.hideChooseImage()
+        self.isUpdated = false
+        self.tblHistory.reloadData()
         self.viewModel.getUserHistory { [weak self] (isUpdated) in
             if isUpdated{
+                self?.isUpdated = true
                 self?.user = PreferenceManager.shared.user
                 self?.tblHistory.reloadData()
             }
@@ -44,7 +49,8 @@ class HistoryViewController: UIViewController {
     func registerTVC()  {
         tblHistory.estimatedRowHeight = 100.0
         tblHistory.separatorStyle = .none
-        tblHistory.contentInset = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
+        tblHistory.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+        tblHistory.register(UINib.init(nibName: MetricsTVC.identifier, bundle: nil), forCellReuseIdentifier: MetricsTVC.identifier);
         tblHistory.register(UINib.init(nibName: HistoryInfoTVC.identifier, bundle: nil), forCellReuseIdentifier: HistoryInfoTVC.identifier);
         tblHistory.register(UINib.init(nibName: AchievementsTVC.identifier, bundle: nil), forCellReuseIdentifier: AchievementsTVC.identifier);
         tblHistory.register(UINib.init(nibName: PastWorkoutsTVC.identifier, bundle: nil), forCellReuseIdentifier: PastWorkoutsTVC.identifier);
@@ -67,41 +73,34 @@ class HistoryViewController: UIViewController {
 
 extension HistoryViewController : UITableViewDataSource, UITableViewDelegate{
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.arrHistory.count
+        return 2
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let item = self.viewModel.arrHistory[section]
-        switch item {
-        case .classCount:
+        if section == 0{
             return 1
-        case .Achievements:
-            return 1
-        case .WorkoutLogs:
+        }else{
             return self.viewModel.arrWorkoutLogs.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let item = self.viewModel.arrHistory[indexPath.section]
-        switch item {
-        case .classCount:
-            let cell : HistoryInfoTVC = tableView.dequeueReusableCell(withIdentifier: HistoryInfoTVC.identifier) as! HistoryInfoTVC
-            cell.lblHoursInWater.text = self.user.timeInWater.toHM()
-            cell.lblClassCount.text = "\(self.user.workoutCount)"
-            cell.selectionStyle = .none
-            return cell;
-        case .Achievements:
-            let cell : AchievementsTVC = tableView.dequeueReusableCell(withIdentifier: AchievementsTVC.identifier) as! AchievementsTVC
-            cell.delegate = self
-            cell.setupAchievements(self.viewModel.arrAchievements)
-            cell.selectionStyle = .none
-            return cell;
-        case .WorkoutLogs:
+        if indexPath.section == 0{
+            
+            let cell : MetricsTVC = tableView.dequeueReusableCell(withIdentifier: MetricsTVC.identifier) as! MetricsTVC
+            
+            cell.updateSwitchBG()
+            
+            return cell
+        }else{
             let cell : PastWorkoutsTVC = tableView.dequeueReusableCell(withIdentifier: PastWorkoutsTVC.identifier) as! PastWorkoutsTVC
-            cell.constentTopConstraint.constant = 5.0
+            
             if indexPath.row == 0{
-                cell.constentTopConstraint.constant = 45.0
+                cell.contentViewCenterConstraint.priority = UILayoutPriority(250.0)
+                cell.constentTopConstraint.priority = UILayoutPriority(999.0)
+            }else{
+                cell.constentTopConstraint.priority = UILayoutPriority(250.0)
+                cell.contentViewCenterConstraint.priority = UILayoutPriority(999.0)
             }
             cell.setupPastWorkouInfo(item: self.viewModel.arrWorkoutLogs[indexPath.row])
             cell.selectionStyle = .none
@@ -112,39 +111,38 @@ extension HistoryViewController : UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        let item = self.viewModel.arrHistory[indexPath.section]
-        switch item {
-        case .classCount:
-            return 100.0
-        case .Achievements:
-            return UITableView.automaticDimension
-        case .WorkoutLogs:
-            
+        if indexPath.section == 0{
+            return ScreenSize.SCREEN_HEIGHT * 0.5543
+        }else{
             if indexPath.row == 0{
-                return 92.0
+                return 90.0
             }
             
-            return 52.0
+            return 57.0
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        let itemH = self.viewModel.arrHistory[indexPath.section]
-        if itemH != .WorkoutLogs{
+        if indexPath.section == 0{
             return
         }
         
+        let item = self.viewModel.arrWorkoutLogs[indexPath.row]
+        
+        if item.WId == 0{ //Tempo Workout has no workout detail
+            return
+        }
         
         let playerVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WorkoutDetailViewController") as! WorkoutDetailViewController
-        let item = self.viewModel.arrWorkoutLogs[indexPath.row]
         var wItem = WorkoutDTO([:])
         wItem.workoutName = item.workoutName
         wItem.workoutId = item.WId
         playerVC.workoutItem = wItem
+        playerVC.workoutLog = item
         playerVC.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(playerVC, animated: true)
+        Helper.shared.topNavigationController()?.pushViewController(playerVC, animated: true)
         
         
     }

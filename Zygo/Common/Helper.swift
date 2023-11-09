@@ -10,6 +10,7 @@ import UIKit
 import StoreKit
 import SideMenuSwift
 import FirebaseAnalytics
+import CoreLocation
 
 final class Helper: NSObject {
     
@@ -43,6 +44,65 @@ final class Helper: NSObject {
         }set{
             PreferenceManager.shared.demoTotalSeconds = newValue
         }
+        
+    }
+    
+    func topNavigationController() -> UINavigationController?{
+        return (UIApplication.topViewController() as? SideMenuController)?.contentViewController as? UINavigationController
+    }
+    
+    func getDistanceTextWithUserPreference(distance: Double) -> String{
+       
+        let poolInfo = PreferenceManager.shared.poolUnitInfo
+        if poolInfo.unitPref == .metric{
+            //Kilometer
+            return String(format: "%.1f km", distance)
+            
+        }else{
+            //Miles
+            return String(format: "%.1f miles", distance)
+        }
+    }
+    
+    func convertYardToUserPreference(distance: Double) -> Double{
+       
+        let poolInfo = PreferenceManager.shared.poolUnitInfo
+
+        var toUnit: UnitLength = .miles
+        if poolInfo.unitPref == .metric{
+            //Kilometer
+            toUnit = .kilometers
+            
+        }else{
+            //Miles
+            toUnit = .miles
+                
+        }
+        
+        let totalDistance = Helper.shared.distanceConvert(to: toUnit ,from: .yards, distance: distance)
+        
+        return totalDistance
+    }
+    
+    func distanceConvert(to tUnit: UnitLength, from cUnit: PoolLengthUnit, distance: Double) -> Double{
+        
+        var distanceInYards: Double = 0.0
+        switch cUnit {
+        case .feet:
+            var measure = Measurement(value: distance, unit: UnitLength.feet)
+            measure.convert(to: tUnit)
+            distanceInYards = measure.value
+        case .meters:
+            var measure = Measurement(value: distance, unit: UnitLength.meters)
+            measure.convert(to: tUnit)
+            distanceInYards = measure.value
+        case .yards:
+            var measure = Measurement(value: distance, unit: UnitLength.yards)
+            measure.convert(to: tUnit)
+            distanceInYards = measure.value
+        }
+        
+        return distanceInYards
         
     }
     
@@ -174,7 +234,7 @@ final class Helper: NSObject {
         }
     }
     
-    func alert(title: String, message: String, completion: @escaping () -> Void){
+    func alert(title: String, message: String,  isAutoDismiss: Bool = false, completion: @escaping () -> Void){
         DispatchQueue.main.async {
             self.alertOneAction(title: title, message: message, actionTitle: "Close") {
                 completion()
@@ -202,7 +262,8 @@ final class Helper: NSObject {
         topVC.present(alert, animated: true, completion: nil)
         
     }
-    func alertOneAction(title: String?, message: String?, actionTitle: String, completion: @escaping () -> Void){
+    
+    func alertOneAction(title: String?, message: String?, actionTitle: String, isAutoDismiss: Bool = false, completion: @escaping () -> Void){
         
         guard let topVC = UIApplication.topViewController() else {
             return
@@ -216,6 +277,21 @@ final class Helper: NSObject {
         alert.addAction(okAction)
         topVC.present(alert, animated: true, completion: nil)
         
+        if isAutoDismiss{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5){
+                self.dismiAfterFiveSeconds(completion: completion)
+            }
+        }
+        
+    }
+    
+    func dismiAfterFiveSeconds(completion: @escaping () -> Void){
+        guard let topVC = UIApplication.topViewController() else {
+            return
+        }
+        if topVC is UIAlertController{
+            topVC.dismiss(animated: true)
+        }
     }
     
     func setDashboardRoot(){
@@ -282,18 +358,7 @@ final class Helper: NSObject {
         
         let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
             
-            PreferenceManager.shared.clear {
-                NotificationCenter.default.post(name: .removeObservers, object: nil)
-                TempoTrainerManager.shared.stopTrainer()
-                GoogleLoginManager.shared.logout()
-                FacebookManager.shared.logout()
-                //Clear Pending Notification banners
-                UIApplication.shared.applicationIconBadgeNumber = 1
-                UIApplication.shared.applicationIconBadgeNumber = 0
-                
-                self.setLoginRoot()
-                Helper.shared.resetUserIdentity()
-            }
+            self.silentLogout()
         }
         
         alert.addAction(cancelAction)
@@ -304,6 +369,21 @@ final class Helper: NSObject {
         }
         topVC.present(alert, animated: true, completion: nil)
         
+    }
+    
+    func silentLogout(){
+        PreferenceManager.shared.clear {
+            NotificationCenter.default.post(name: .removeObservers, object: nil)
+            TempoTrainerManager.shared.stopTrainer()
+            GoogleLoginManager.shared.logout()
+            FacebookManager.shared.logout()
+            //Clear Pending Notification banners
+            UIApplication.shared.applicationIconBadgeNumber = 1
+            UIApplication.shared.applicationIconBadgeNumber = 0
+            
+            self.setLoginRoot()
+            Helper.shared.resetUserIdentity()
+        }
     }
     
     func getWorkoutCellHeight() -> CGFloat{
@@ -342,6 +422,31 @@ final class Helper: NSObject {
             return true
         }else{
             return false
+        }
+    }
+    
+    func getNumberOfDays(from month: Int, and year: Int) -> Int{
+        let dateComponents = DateComponents(year: year, month: month)
+        let calendar = Calendar.current
+        let date = calendar.date(from: dateComponents)!
+
+        let range = calendar.range(of: .day, in: .month, for: date)!
+        let numDays = range.count
+        return numDays
+    }
+    
+    func getAddressFromGeocodeCoordinate(coordinate: CLLocation, completion: @escaping (String) -> Void) {
+        let geocoder = CLGeocoder()
+        
+        geocoder.reverseGeocodeLocation(coordinate) { response , error in
+            //Add this line
+            if let address = response!.first {
+                let city = address.locality ?? ""
+                print(city)
+                completion(city)
+            }else{
+                completion("")
+            }
         }
     }
     
@@ -423,12 +528,16 @@ final class Helper: NSObject {
         }
     }
     
-    func shareWorkout(url: URL){
+    func shareWorkout(url: URL, completion: @escaping () -> Void){
         let objectsToShare:URL = url
         let sharedObjects:[AnyObject] = [objectsToShare as AnyObject]
         let activityViewController = UIActivityViewController(activityItems : sharedObjects, applicationActivities: nil)
         //activityViewController.popoverPresentationController?.sourceView = self.view
         activityViewController.excludedActivityTypes = []
+        activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            
+            completion()
+        }
         
         UIApplication.topViewController()?.present(activityViewController, animated: true, completion: nil)
     }
@@ -469,6 +578,34 @@ final class Helper: NSObject {
         Analytics.setUserID(nil)
         Analytics.setUserProperty(nil, forName: "AGE")
         Analytics.setUserProperty(nil, forName: "GENDER")
+    }
+    
+    func sizeForLocalFilePath(filePath: URL) -> UInt32 {
+        do {
+            
+            //let resourceValues = try filePath.resourceValues(forKeys: [.fileSizeKey])
+               //let fileSize = resourceValues.fileSize!
+            let fileAttributes = try filePath.resourceValues(forKeys: [.fileSizeKey])//try FileManager.default.attributesOfItem(atPath: filePath)
+            if let fileSize = fileAttributes.fileSize{//fileAttributes[FileAttributeKey.size]  {
+                return (fileSize as NSNumber).uint32Value
+            } else {
+                print("Failed to get a size attribute from path: \(filePath)")
+            }
+        } catch {
+            print("Failed to get file attributes for local path: \(filePath) with error: \(error)")
+        }
+        return 0
+    }
+    
+    func covertToFileString(with size: UInt32) -> String {
+        var convertedValue: Double = Double(size)
+        var multiplyFactor = 0
+        let tokens = ["bytes", "KB", "MB", "GB", "TB", "PB",  "EB",  "ZB", "YB"]
+        while convertedValue > 1024 {
+            convertedValue /= 1024
+            multiplyFactor += 1
+        }
+        return String(format: "%4.2f %@", convertedValue, tokens[multiplyFactor])
     }
     
 }
@@ -545,4 +682,28 @@ class Keychain {
             print(items)
         }
     }
+}
+
+enum PoolType: String{
+    case twentyFiveYards = "25 yd"
+    case fiftyMeter = "50 m"
+    case openWater = "open water"
+    case endlessPool = "endless pool"
+    case custom = "custom"
+}
+
+enum PoolLengthUnit: String{
+    case meters = "meters"
+    case feet = "feet"
+    case yards = "yards"
+}
+
+enum Units: String{
+    case standard = "Standard"
+    case metric = "Metric"
+}
+
+extension StringProtocol {
+    var firstUppercased: String { prefix(1).uppercased() + dropFirst() }
+    var firstCapitalized: String { prefix(1).capitalized + dropFirst() }
 }

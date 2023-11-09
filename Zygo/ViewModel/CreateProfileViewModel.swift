@@ -11,9 +11,12 @@ import UIKit
 final class CreateProfileViewModel: NSObject {
     
     var arrGender: [Gender] = [.female, .male, .nonBinary, .transgender, .intersex, .type, .notToSay]
-    var arrHistory: [History] = [.classCount, .Achievements, .WorkoutLogs]
-    
+    var arrHistory: [History] = [.WorkoutLogs]
+    var arrBadges: [History] = [.classCount, .Achievements]
+    var arrUnits: [Units] = [.standard, .metric]
+    var arrPoolType: [PoolType] = [.fiftyMeter, .twentyFiveYards, .openWater, .endlessPool, .custom]
     var profileItem = CreateProfileDTO()
+    var profileItemPoolUnitInfo = PoolUnitInfoDTO([:])
     var arrWorkoutLogs: [WorkoutLogDTO] = []
     var arrAchievements: [AchievementDTO] = []
     
@@ -33,19 +36,19 @@ final class CreateProfileViewModel: NSObject {
         }else if profileItem.fname.isEmpty{
             Helper.shared.alert(title: Constants.appName, message: "Please enter your first name.")
             return false
-        }else if profileItem.lname.isEmpty{
+        }/*else if profileItem.lname.isEmpty{
             Helper.shared.alert(title: Constants.appName, message: "Please enter your last name.")
             return false
         }else if profileItem.gender.isEmpty{
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please select your gender.", comment: ""))
             return false
-        }else if profileItem.birthday.isEmpty{
+        }*/else if profileItem.birthday.isEmpty{
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please select your birth date.", comment: ""))
             return false
-        }else if profileItem.location.isEmpty{
+        }/*else if profileItem.location.isEmpty{
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter your address.", comment: ""))
             return false
-        }else if !profileItem.tSerialNumber.dropFirst().isEmpty && profileItem.tSerialNumber.dropFirst().count < 8{
+        }*/else if !profileItem.tSerialNumber.dropFirst().isEmpty && profileItem.tSerialNumber.dropFirst().count < 8{
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid serial number.", comment: ""))
             return false
         }else if !profileItem.hSerialNumber.dropFirst().isEmpty && profileItem.hSerialNumber.dropFirst().count < 8{
@@ -70,32 +73,38 @@ final class CreateProfileViewModel: NSObject {
         }else if profileItem.fname.isEmpty{
             Helper.shared.alert(title: Constants.appName, message: "Please enter your first name.")
             return false
-        }else if profileItem.lname.isEmpty{
+        }/*else if profileItem.lname.isEmpty{
             Helper.shared.alert(title: Constants.appName, message: "Please enter your last name.")
             return false
         }else if profileItem.gender.isEmpty{
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please select your gender.", comment: ""))
             return false
-        }else if profileItem.birthday.isEmpty{
+        }*/else if profileItem.birthday.isEmpty{
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please select your birth date.", comment: ""))
             return false
-        }else if profileItem.location.isEmpty{
+        }/*else if profileItem.location.isEmpty{
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter your address.", comment: ""))
             return false
-        }else if !profileItem.tSerialNumber.dropFirst().isEmpty && profileItem.tSerialNumber.dropFirst().count < 8{
-            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid serial number.", comment: ""))
+        }*/else if !profileItem.tSerialNumber.isEmpty && profileItem.tSerialNumber.count < 9{
+            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid transmitter serial number.", comment: ""))
+            return false
+        }else if !profileItem.hSerialNumber.isEmpty && profileItem.hSerialNumber.count < 9{
+            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid headset serial number.", comment: ""))
+            return false
+        }/*else if !profileItem.tSerialNumber.dropFirst().isEmpty && profileItem.tSerialNumber.dropFirst().count < 8{
+            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid transmitter serial number.", comment: ""))
             return false
         }else if !profileItem.hSerialNumber.dropFirst().isEmpty && profileItem.hSerialNumber.dropFirst().count < 8{
-            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid serial number.", comment: ""))
+            Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid headset serial number.", comment: ""))
             return false
-        }
+        }*/
         
         return true
     }
     
     func createProfile(completion: @escaping (Bool, String) -> Void){
         Helper.shared.startLoading()
-        userService.createProfile(user: self.profileItem) { [weak self] (error, profileImage) in
+        userService.createProfile(user: self.profileItem, poolInfo: self.profileItemPoolUnitInfo) { [weak self] (error, profileImage) in
             if self == nil{
                 return
             }
@@ -115,7 +124,7 @@ final class CreateProfileViewModel: NSObject {
     
     func updateProfile(completion: @escaping (Bool, String) -> Void){
         Helper.shared.startLoading()
-        userService.createProfile(user: self.profileItem) { [weak self] (error, profileImage) in
+        userService.createProfile(user: self.profileItem, poolInfo: self.profileItemPoolUnitInfo) { [weak self] (error, profileImage) in
             if self == nil{
                 return
             }
@@ -155,9 +164,9 @@ final class CreateProfileViewModel: NSObject {
                 self?.arrAchievements.append(contentsOf: arrAchievements)
                 self?.arrWorkoutLogs.append(contentsOf: arrWorkoutLogs)
                 self?.arrHistory.removeAll()
-                self?.arrHistory.append(.classCount)
+                //self?.arrHistory.append(.classCount)
                 if arrAchievements.count > 0{
-                    self?.arrHistory.append(.Achievements)
+                    //self?.arrHistory.append(.Achievements)
                 }
                 
                 if arrWorkoutLogs.count > 0{

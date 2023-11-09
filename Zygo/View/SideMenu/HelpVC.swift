@@ -27,5 +27,10 @@ class HelpVC: UIViewController {
         let vc = ChargingAnimationVC(nibName: "ChargingAnimationVC", bundle: nil)
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @IBAction func updateFirmwareAction(){
+        let preVC = self.storyboard?.instantiateViewController(withIdentifier: "PreFirmwareUpdateVC") as! PreFirmwareUpdateVC
+        self.navigationController?.pushViewController(preVC, animated: true)
+    }
 
 }

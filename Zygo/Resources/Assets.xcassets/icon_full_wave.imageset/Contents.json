@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "icon_full_wave.png",
+      "filename" : "Workout Home Top 430.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icon_full_wave@2x.png",
+      "filename" : "Workout Home Top 430@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "icon_full_wave@3x.png",
+      "filename" : "Workout Home Top 430@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

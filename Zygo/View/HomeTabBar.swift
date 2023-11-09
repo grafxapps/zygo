@@ -32,16 +32,16 @@ class HomeTabBar: UITabBarController, UITabBarControllerDelegate {
 extension HomeTabBar{
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        let index = item.tag
+        let index = self.selectedIndex//item.tag
         if index == 0{//Classes
             NotificationCenter.default.post(name: .didSelectClassesTab, object: nil)
         }else if index == 1{//Series
             NotificationCenter.default.post(name: .didSelectSeriesTab, object: nil)
-        }else if index == 2{//Downloads
+        }else if index == 3{//Downloads
             NotificationCenter.default.post(name: .didSelectDownloadsTab, object: nil)
-        }else if index == 3{//Pacing
+        }else if index == 4{//Pacing
             NotificationCenter.default.post(name: .didSelectPacingTab, object: nil)
-        }else if index == 4{//Profile
+        }else if index == 7{//Profile
             NotificationCenter.default.post(name: .didSelectProfileTab, object: nil)
         }
     }
@@ -65,10 +65,10 @@ extension HomeTabBar{
             }
         }
         
-        if tabBarController.selectedIndex == 4{
+        if tabBarController.selectedIndex == 7{
         
             
-            let profileVC = self.viewControllers![4] as! ProfileViewController
+            let profileVC = self.viewControllers![7] as! ProfileViewController
             
             if profileVC.isProfileChanged(){
                 profileVC.showProfileChangePopUp()

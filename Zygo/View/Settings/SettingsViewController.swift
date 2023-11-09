@@ -16,12 +16,14 @@ class SettingsViewController: UIViewController {
     var arrAccountTitles : [String] = [];
     var arrDevicesTitles : [String] = [];
     var arrSections: [String] = []
+    var arrTrackingTitles: [String] = []
     
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         registerTVC()
         arrNotificationTitles = ["Nudges", "Events near me", "Zygo Community"]
+        arrTrackingTitles = ["Distance Tracking", "Tempo Tracking"]
         
         if Helper.shared.isSocialLogin(){
             if Helper.shared.isDemoMode{
@@ -37,8 +39,8 @@ class SettingsViewController: UIViewController {
             }
         }
         
-        //arrDevicesTitles = ["Pairing"]
-        arrSections = ["Notifications", "Your Account"]//, "Devices"]
+        arrDevicesTitles = ["Pairing"]
+        arrSections = ["Notifications", "Tracking", "Your Account", "Devices"]
         
     }
     
@@ -102,6 +104,44 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    @objc func trackingSwitchChanged(sender : UISwitch){
+        print(sender.tag)
+        var title : String = ""
+        var status : Int = 0
+        if sender.isOn{
+            status = 1
+        }else{
+            status = 0
+        }
+        
+        var notiInfo = PreferenceManager.shared.trackingInfo
+        
+        if sender.tag == 0{
+            notiInfo.isDistanceTracking = NSNumber(value: status).boolValue
+            title = "distance_tracking_on"
+        }else if sender.tag == 1{
+            notiInfo.isTempoTracking = NSNumber(value: status).boolValue
+            title = "tempo_tracking_on"
+        }
+        
+        Helper.shared.startLoading()
+        Helper.shared.log(event: .UPDATETRACKINGSETTINGS, params: [:])
+        UserServices().updateTrackingSettings(type: title, status: status) { [weak self] (error) in
+            DispatchQueue.main.async {
+                
+                Helper.shared.stopLoading()
+                
+                if error != nil{
+                    Helper.shared.alert(title: Constants.appName, message: error!)
+                    return
+                }
+                
+                PreferenceManager.shared.trackingInfo = notiInfo
+                self?.tblSettings.reloadData()
+            }
+        }
+    }
+    
 }
 
 extension SettingsViewController : UITableViewDataSource, UITableViewDelegate{
@@ -114,6 +154,8 @@ extension SettingsViewController : UITableViewDataSource, UITableViewDelegate{
         if section == 0{
             return arrNotificationTitles.count
         }else if section == 1{
+            return arrTrackingTitles.count
+        }else if section == 2{
             return arrAccountTitles.count
         }else{
             return arrDevicesTitles.count
@@ -154,10 +196,28 @@ extension SettingsViewController : UITableViewDataSource, UITableViewDelegate{
             
             cell.selectionStyle = .none
             return cell;
+        }else if indexPath.section == 1{
+            let cell : NotificationSettingsTVC = tableView.dequeueReusableCell(withIdentifier: NotificationSettingsTVC.identifier) as! NotificationSettingsTVC
+            cell.lblTitle.text = arrTrackingTitles[indexPath.row];
+            
+            let notiInfo = PreferenceManager.shared.trackingInfo
+            if indexPath.row == 0{//Distance Tracking
+                cell.switchNoti.isOn = notiInfo.isDistanceTracking
+            }else{//tempo
+                cell.switchNoti.isOn = notiInfo.isTempoTracking
+            }
+            
+            cell.switchNoti.tag = indexPath.row
+            cell.switchNoti.addTarget(self, action: #selector(trackingSwitchChanged), for: .valueChanged)
+            
+            cell.selectionStyle = .none
+            return cell;
         }else{
             let cell : OtherSettingsTVC = tableView.dequeueReusableCell(withIdentifier: OtherSettingsTVC.identifier) as! OtherSettingsTVC
             cell.selectionStyle = .none
             if indexPath.section == 1{
+                cell.lblTitle.text = arrTrackingTitles[indexPath.row]
+            }else if indexPath.section == 2{
                 cell.lblTitle.text = arrAccountTitles[indexPath.row];
             }else{
                 cell.lblTitle.text = arrDevicesTitles[indexPath.row];
@@ -173,7 +233,7 @@ extension SettingsViewController : UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.section == 1{
+        if indexPath.section == 2{
             if Helper.shared.isSocialLogin(){
                 if indexPath.row == 0{
                     //if SubscriptionManager.shared.isValidSubscription(){
@@ -223,7 +283,7 @@ extension SettingsViewController : UITableViewDataSource, UITableViewDelegate{
                 }
             }
             
-        }else if indexPath.section == 2{
+        }else if indexPath.section == 3{
             if indexPath.row == 0{
                 /*guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else{
                     return

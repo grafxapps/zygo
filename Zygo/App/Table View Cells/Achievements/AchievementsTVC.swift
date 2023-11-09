@@ -21,14 +21,14 @@ class AchievementsTVC: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        let cellSize = CGSize(width: 130, height: 170);
+        let cellSize = CGSize(width: (ScreenSize.SCREEN_WIDTH - 20)/3, height: 170);
         self.achievementsClcView.register(UINib.init(nibName: AchievementsCVC.identifier, bundle: nil), forCellWithReuseIdentifier: AchievementsCVC.identifier)
         
         let layout = UICollectionViewFlowLayout();
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        layout.scrollDirection = .horizontal; //.horizontal
+        layout.scrollDirection = .vertical; //.horizontal
         layout.itemSize = cellSize;
         self.achievementsClcView.setCollectionViewLayout(layout, animated: true);
         self.achievementsClcView.dataSource = self;

@@ -19,6 +19,12 @@ class InfoViewController: UIViewController {
     
     var delegate: InfoViewControllerDelegates?
     
+    @IBOutlet weak var lblUserName: UILabel!
+    @IBOutlet weak var imageView: UICircleImageView!
+    
+    @IBOutlet weak var btnChooseImage: UIButton!
+    @IBOutlet weak var btnSmallChooseImage: UIButton!
+    
     @IBOutlet weak var viewFName: UIView!
     @IBOutlet weak var viewLName: UIView!
     @IBOutlet weak var viewUName: UIView!
@@ -27,6 +33,8 @@ class InfoViewController: UIViewController {
     @IBOutlet weak var viewGender: UIView!
     @IBOutlet weak var viewBirthday: UIView!
     @IBOutlet weak var viewLocation: UIView!
+    @IBOutlet weak var viewPoolLength: UIView!
+    @IBOutlet weak var viewUnitPreference: UIView!
     
     @IBOutlet weak var txtFName: UITextField!
     @IBOutlet weak var txtLName: UITextField!
@@ -36,10 +44,16 @@ class InfoViewController: UIViewController {
     @IBOutlet weak var txtGender: UITextField!
     @IBOutlet weak var txtBirthday: UITextField!
     @IBOutlet weak var txtLocation: UITextField!
+    @IBOutlet weak var txtUnit: UITextField!
+    @IBOutlet weak var txtPoolLength: UITextField!
     
     private lazy var datePicker = UIDatePicker()
     private lazy var genderPicker = UIPickerView()
+    private lazy var unitPicker = UIPickerView()
+    private lazy var poolLengthPicker = UIPickerView()
     private lazy var user = PreferenceManager.shared.user
+    private lazy var imagePickerController = UIImagePickerController()
+    
     var viewModel: CreateProfileViewModel!
     
     var superObj: ProfileViewController!
@@ -48,13 +62,13 @@ class InfoViewController: UIViewController {
         super.viewDidLoad()
         
         self.setupUI()
-        self.setupUserInfo()
         self.setupPicker()
+        self.setupUserInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.superObj.showChooseImage()
+        //self.superObj.showChooseImage()
     }
     
     //MARK: - Setups
@@ -78,17 +92,29 @@ class InfoViewController: UIViewController {
         Helper.shared.setupViewLayer(sender: self.viewGender, isSsubScriptionView: false);
         Helper.shared.setupViewLayer(sender: self.viewBirthday, isSsubScriptionView: false);
         Helper.shared.setupViewLayer(sender: self.viewLocation, isSsubScriptionView: false);
+        Helper.shared.setupViewLayer(sender: self.viewUnitPreference, isSsubScriptionView: false);
+        Helper.shared.setupViewLayer(sender: self.viewPoolLength, isSsubScriptionView: false);
     }
     
     func setupUserInfo(){
         user = PreferenceManager.shared.user
+        
+        self.lblUserName.text = user.name
+        self.imageView.image = UIImage(named: "icon_default")
+        if !user.profilePic.isEmpty{
+            self.imageView.sd_setImage(with: URL(string: user.profilePic.getImageURL()), placeholderImage: UIImage(named: "icon_default"), options: .refreshCached, completed: nil)
+        }
+        
         self.txtFName.text = user.fName
         self.txtLName.text = user.lName
         self.txtUName.text = user.name
         self.txtGender.text = user.gender
         self.txtLocation.text = user.location
         
-        if !user.tSerialNumber.isEmpty{
+        self.txtTSerialNumber.text = user.tSerialNumber
+        self.txtHSerialNumber.text = user.hSerialNumber
+        
+        /*if !user.tSerialNumber.isEmpty{
             if user.tSerialNumber.count >= 2{
                 let tPrefix = user.tSerialNumber.prefix(upTo: user.tSerialNumber.index(user.tSerialNumber.startIndex, offsetBy: 2))
                 if tPrefix == "RA"{
@@ -121,7 +147,7 @@ class InfoViewController: UIViewController {
             }else{
                 self.txtHSerialNumber.text = String(user.hSerialNumber.dropFirst())
             }
-        }
+        }*/
         
         
         let tempUB = user.birthday
@@ -129,6 +155,30 @@ class InfoViewController: UIViewController {
             self.datePicker.date = dob
             self.txtBirthday.text = dob.toDisplayBirthday()
         }
+        
+        let poolUnitInfo = PreferenceManager.shared.poolUnitInfo
+        self.txtUnit.text = poolUnitInfo.unitPref.rawValue
+        if poolUnitInfo.defaultPoolLength == .custom{
+            if poolUnitInfo.customPoolDistance.remainder(dividingBy: 1) > 0{
+                self.txtPoolLength.text = "\(poolUnitInfo.customPoolDistance) \(poolUnitInfo.customPoolLengthUnits.rawValue.lowercased())"
+            }else{
+                self.txtPoolLength.text = "\(Int(poolUnitInfo.customPoolDistance)) \(poolUnitInfo.customPoolLengthUnits.rawValue.lowercased())"
+            }
+            
+        }else{
+            self.txtPoolLength.text = poolUnitInfo.defaultPoolLength.rawValue.firstUppercased
+        }
+        
+        
+        
+        if let selectedIndex = self.viewModel.arrPoolType.firstIndex(where: { $0 == poolUnitInfo.defaultPoolLength }){
+            self.poolLengthPicker.selectRow(selectedIndex, inComponent: 0, animated: false)
+        }
+        
+        self.viewModel.profileItemPoolUnitInfo.customPoolDistance = poolUnitInfo.customPoolDistance
+        self.viewModel.profileItemPoolUnitInfo.customPoolLengthUnits = poolUnitInfo.customPoolLengthUnits
+        self.viewModel.profileItemPoolUnitInfo.defaultPoolLength = poolUnitInfo.defaultPoolLength
+        self.viewModel.profileItemPoolUnitInfo.unitPref = poolUnitInfo.unitPref
         
         self.viewModel.profileItem.email = user.email
         self.viewModel.profileItem.name = user.name
@@ -155,6 +205,16 @@ class InfoViewController: UIViewController {
         genderPicker.dataSource = self
         txtGender.inputView = genderPicker
         txtGender.delegate = self
+        
+        unitPicker.dataSource = self
+        unitPicker.delegate = self
+        txtUnit.inputView = unitPicker
+        txtUnit.delegate = self
+        
+        poolLengthPicker.dataSource = self
+        poolLengthPicker.delegate = self
+        txtPoolLength.inputView = poolLengthPicker
+        txtPoolLength.delegate = self
     }
     
     func alertForCustomGender(){
@@ -216,13 +276,13 @@ class InfoViewController: UIViewController {
         self.viewModel.profileItem.location = txtLocation.text!.trim()
         
         if !txtHSerialNumber.text!.trim().isEmpty{
-            self.viewModel.profileItem.hSerialNumber = "H" + txtHSerialNumber.text!.trim()
+            self.viewModel.profileItem.hSerialNumber = txtHSerialNumber.text!.trim()
         }else{
             self.viewModel.profileItem.hSerialNumber = ""
         }
         
         if !txtTSerialNumber.text!.trim().isEmpty{
-            self.viewModel.profileItem.tSerialNumber = "R" + txtTSerialNumber.text!.trim()
+            self.viewModel.profileItem.tSerialNumber = txtTSerialNumber.text!.trim()
         }else{
             self.viewModel.profileItem.tSerialNumber = ""
         }
@@ -256,6 +316,10 @@ class InfoViewController: UIViewController {
         
     }
     
+    
+    @IBAction func chooseImageAction(_ sender: UIButton){
+        self.imageOptionsAlert()
+    }
 }
 
 extension InfoViewController: UIViewControllerTransitioningDelegate{
@@ -276,14 +340,40 @@ extension InfoViewController: UIPickerViewDelegate, UIPickerViewDataSource{
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == unitPicker{
+            return self.viewModel.arrUnits.count
+        }
+        
+        if pickerView == poolLengthPicker{
+            return self.viewModel.arrPoolType.count
+        }
+        
         return self.viewModel.arrGender.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == unitPicker{
+            return self.viewModel.arrUnits[row].rawValue
+        }
+        
+        if pickerView == poolLengthPicker{
+            return self.viewModel.arrPoolType[row].rawValue.firstUppercased
+        }
+        
         return self.viewModel.arrGender[row].rawValue
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == unitPicker{
+            self.txtUnit.text = self.viewModel.arrUnits[row].rawValue
+            return
+        }
+        
+        if pickerView == poolLengthPicker{
+            //self.txtPoolLength.text = self.viewModel.arrPoolType[row].rawValue
+            return
+        }
+        
         self.txtGender.text = self.viewModel.arrGender[row].rawValue
         self.viewModel.profileItem.gender = txtGender.text!.trim()
     }
@@ -318,6 +408,39 @@ extension InfoViewController: UITextFieldDelegate{
             }else{
                 self.txtGender.text = gender.rawValue
                 self.viewModel.profileItem.gender = txtGender.text!.trim()
+            }
+        }
+        
+        if textField == txtUnit{
+            let unit = self.viewModel.arrUnits[unitPicker.selectedRow(inComponent: 0)]
+            self.viewModel.profileItemPoolUnitInfo.unitPref = unit
+            self.txtUnit.text = unit.rawValue
+        }
+        
+        if textField == txtPoolLength{
+            let type = self.viewModel.arrPoolType[poolLengthPicker.selectedRow(inComponent: 0)]
+            if type == .custom{
+                //Show Custom pool length popup
+                
+                let customPoolLength = CustomPoolLengthPopup(nibName: "CustomPoolLengthPopup", bundle: nil)
+                customPoolLength.transitioningDelegate = self
+                customPoolLength.modalPresentationStyle = .custom
+                customPoolLength.onSave = { distance, poolUnit in
+                    self.viewModel.profileItemPoolUnitInfo.defaultPoolLength = type
+                    self.viewModel.profileItemPoolUnitInfo.customPoolDistance = distance
+                    self.viewModel.profileItemPoolUnitInfo.customPoolLengthUnits = poolUnit
+                    if distance.remainder(dividingBy: 1) > 0{
+                        self.txtPoolLength.text = "\(distance) \(poolUnit.rawValue.lowercased())"
+                    }else{
+                        self.txtPoolLength.text = "\(Int(distance)) \(poolUnit.rawValue.lowercased())"
+                    }
+                    
+                }
+                
+                self.present(customPoolLength, animated: true, completion: nil)
+            }else{
+                self.viewModel.profileItemPoolUnitInfo.defaultPoolLength = type
+                self.txtPoolLength.text = type.rawValue.firstUppercased
             }
         }
         
@@ -393,7 +516,7 @@ extension InfoViewController: UITextFieldDelegate{
             let filtered = string.components(separatedBy: cs).joined(separator: "")
             
             let fullText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-            return fullText.count <= 8 && (string == filtered)
+            return fullText.count <= 9 && (string == filtered)
         }else if textField == txtTSerialNumber{
             
             if string == " "{
@@ -404,7 +527,7 @@ extension InfoViewController: UITextFieldDelegate{
             let filtered = string.components(separatedBy: cs).joined(separator: "")
             
             let fullText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-            return fullText.count <= 8 && (string == filtered)
+            return fullText.count <= 9 && (string == filtered)
         }
         
         return true
@@ -417,4 +540,61 @@ extension InfoViewController : IndicatorInfoProvider{
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return itemInfo
     }
+}
+
+//MARK: - Image Picker
+extension InfoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imageOptionsAlert(){
+        let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        //Take Photo Action
+        let takePhotoAction = UIAlertAction.init(title: NSLocalizedString("Take Photo", comment: ""), style: .default) { (action) in
+            //Show ImagePicker Controller with camera
+            self.imagePickerController.delegate = self
+            self.imagePickerController.allowsEditing = true
+            self.imagePickerController.sourceType = .camera
+            self.imagePickerController.cameraDevice = .front
+            self.present(self.imagePickerController, animated: true, completion: nil)
+        }
+        
+        //Choose Photo Action
+        let choosePhotoAction = UIAlertAction.init(title: NSLocalizedString("Choose Photo", comment: ""), style: .default) { (action) in
+            //Show ImagePicker Controller with photo gallary
+            self.imagePickerController.delegate = self
+            self.imagePickerController.allowsEditing = true
+            self.imagePickerController.sourceType = .photoLibrary
+            self.present(self.imagePickerController, animated: true, completion: nil)
+        }
+        
+        //Cancel Action
+        let cancelAction = UIAlertAction.init(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { (action) in
+        }
+        
+        //Add all actions in alert controller
+        //If camera availabel in device then show option of take photo
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            alert.addAction(takePhotoAction)
+        }
+        alert.addAction(choosePhotoAction)
+        alert.addAction(cancelAction)
+        
+        //Present aler controller on current controller
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[.editedImage] as? UIImage else {
+            return
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
+        self.imageView.image = image
+        self.viewModel.profileItem.image = image
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
 }

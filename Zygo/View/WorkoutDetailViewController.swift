@@ -16,6 +16,7 @@ class WorkoutDetailViewController: UIViewController {
     var viewModel = WorkoutsViewModel()
     var isFromInstructor: Bool = false
     var isFromBranch: Bool = false
+    var workoutLog: WorkoutLogDTO?
     private var isViewMore: Bool = false
     //MARK: -
     override func viewDidLoad() {
@@ -45,7 +46,7 @@ class WorkoutDetailViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
-        ZygoWorkoutDownloadManager.shared.downloadComplete = { [weak self] in
+        ZygoWorkoutDownloadManager.shared.downloadComplete = { [weak self] isDownloaded in
             self?.viewModel.getDownloadedWorkout(wId: self?.workoutItem?.workoutId ?? 0)
             self?.tblWorkout.reloadData()
         }
@@ -54,7 +55,12 @@ class WorkoutDetailViewController: UIViewController {
     
     //MARK:- Setup
     func updateData(){
-        arrSection = [.detail, .rating]//.equipment, .startWorkout, .workoutPlan]
+        if workoutLog != nil{
+            arrSection = [.feedback]//.equipment, .startWorkout, .workoutPlan]
+        }else{
+            arrSection = [.detail, .rating]//.equipment, .startWorkout, .workoutPlan]
+        }
+        
         if workoutItem?.workoutEquipments.count ?? 0 > 0{
             arrSection.append(.equipment)
         }
@@ -79,6 +85,8 @@ class WorkoutDetailViewController: UIViewController {
     func registerTVC()  {
         tblWorkout.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
         tblWorkout.estimatedRowHeight = 100.0
+        
+        tblWorkout.register(UINib.init(nibName: WokoutFeedbackInfoTVC.identifier, bundle: nil), forCellReuseIdentifier: WokoutFeedbackInfoTVC.identifier);
         tblWorkout.register(UINib.init(nibName: WorkoutDetailInfoTVC.identifier, bundle: nil), forCellReuseIdentifier: WorkoutDetailInfoTVC.identifier);
         tblWorkout.register(UINib.init(nibName: WorkoutTypeTVC.identifier, bundle: nil), forCellReuseIdentifier: WorkoutTypeTVC.identifier);
         tblWorkout.register(UINib.init(nibName: EquipmentTVC.identifier, bundle: nil), forCellReuseIdentifier: EquipmentTVC.identifier);
@@ -86,12 +94,18 @@ class WorkoutDetailViewController: UIViewController {
         tblWorkout.register(UINib.init(nibName: WorkoutPlanTVC.identifier, bundle: nil), forCellReuseIdentifier: WorkoutPlanTVC.identifier);
         tblWorkout.register(UINib.init(nibName: WorkoutHeaderTVC.identifier, bundle: nil), forCellReuseIdentifier: WorkoutHeaderTVC.identifier);
         tblWorkout.register(UINib.init(nibName: PlaylistTVC.identifier, bundle: nil), forCellReuseIdentifier: PlaylistTVC.identifier);
-        tblWorkout.register(UINib(nibName: PlaylistInfoTVC.identifier, bundle: nil), forCellReuseIdentifier: PlaylistInfoTVC.identifier)
-        tblWorkout.register(UINib(nibName: PlaylistViewMoreTVC.identifier, bundle: nil), forCellReuseIdentifier: PlaylistViewMoreTVC.identifier)
+        tblWorkout.register(UINib.init(nibName: PlaylistInfoTVC.identifier, bundle: nil), forCellReuseIdentifier: PlaylistInfoTVC.identifier)
+        tblWorkout.register(UINib.init(nibName: PlaylistViewMoreTVC.identifier, bundle: nil), forCellReuseIdentifier: PlaylistViewMoreTVC.identifier)
         
     }
     
     //MARK: - UIButton Actions
+    @IBAction func syncAction(){
+        let vc = RequestDataVC(nibName: "RequestDataVC", bundle: nil)
+        vc.workoutItem = self.workoutItem
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @IBAction func backAction(_ sender: UIButton){
         if self.isFromBranch{
             self.dismiss(animated: true, completion: nil)
@@ -204,6 +218,13 @@ extension WorkoutDetailViewController : UITableViewDataSource, UITableViewDelega
         let sItem = self.arrSection[section]
         
         switch sItem {
+        case .feedback:
+            let cell : WokoutFeedbackInfoTVC = tableView.dequeueReusableCell(withIdentifier: WokoutFeedbackInfoTVC.identifier) as! WokoutFeedbackInfoTVC
+            cell.selectionStyle = .none
+            if workoutItem != nil{
+                cell.setupWorkoutInfo(item: workoutItem!, logItem: self.workoutLog!)
+            }
+            return cell;
         case .detail:
             let cell : WorkoutDetailInfoTVC = tableView.dequeueReusableCell(withIdentifier: WorkoutDetailInfoTVC.identifier) as! WorkoutDetailInfoTVC
             cell.selectionStyle = .none
@@ -329,6 +350,8 @@ extension WorkoutDetailViewController : UITableViewDataSource, UITableViewDelega
         let section = indexPath.section
         let sItem = self.arrSection[section]
         switch sItem {
+        case .feedback:
+            return UITableView.automaticDimension
         case .detail:
             return UITableView.automaticDimension
         case .rating:
@@ -347,6 +370,7 @@ extension WorkoutDetailViewController : UITableViewDataSource, UITableViewDelega
 
 
 enum WorkoutDetailSections {
+    case feedback
     case detail
     case rating
     case equipment

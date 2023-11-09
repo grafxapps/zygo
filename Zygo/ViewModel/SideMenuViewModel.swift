@@ -21,8 +21,10 @@ enum SideMenu: String {
     case instructors = "Instructors"
     case shopZygo = "Shop Zygo"
     case aboutZygo = "About Zygo"
-    case help = "Help"
+    case help = "Headset"
     case privacyPolicy = "Privacy Policy"
     case termsService = "Terms of Service"
     case demoSubscribe = "Demo Subscribe"
+    case customerSupport = "Customer Support"
+    case referFriend = "Refer A Friend"
 }

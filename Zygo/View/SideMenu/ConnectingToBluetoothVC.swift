@@ -67,14 +67,14 @@ class ConnectingToBluetoothVC: UIViewController {
         self.animateGreenIndicator()
         
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        self.perform(#selector(self.lbl1SlideIn), with: nil, afterDelay: 3)
+        self.perform(#selector(self.lbl1SlideIn), with: nil, afterDelay: 0.4)
     }
     
     @objc func lbl1SlideIn(){
         self.lbl1.alpha = 1
         self.lbl1.slideIn(from: .bottom, duration: 1.5) { (complete) in
             NSObject.cancelPreviousPerformRequests(withTarget: self)
-            self.perform(#selector(self.lbl2SlideIn), with: nil, afterDelay: 3)
+            self.perform(#selector(self.lbl2SlideIn), with: nil, afterDelay: 1)
             
         }
     }
@@ -124,11 +124,13 @@ extension ConnectingToBluetoothVC: UIScrollViewDelegate{
         let index = mainScroller.contentOffset.x/mainScroller.frame.size.width
         self.pageControl.currentPage = Int(index)
         if index == 1{
-            self.animateSecondPage()
+            if self.lbl1.alpha != 1{
+                self.animateSecondPage()
+            }
         }else{
-            self.lbl1.alpha = 0
-            self.lbl2.alpha = 0
-            self.isBack = true
+            //self.lbl1.alpha = 0
+            //self.lbl2.alpha = 0
+            //self.isBack = true
         }
         
     }

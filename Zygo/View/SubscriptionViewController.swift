@@ -27,6 +27,7 @@ class SubscriptionViewController: UIViewController {
     private let viewModel = SubscriptionViewModel()
     var isForChangeSubscription: Bool = false
     var isFromDemoMode: Bool = false
+    private var isNeedToCheckCountry: Bool = false
     
     //MARK: - UIViewcontroller LifeCycle
     override func viewDidLoad() {
@@ -53,6 +54,22 @@ class SubscriptionViewController: UIViewController {
         super.viewWillDisappear(animated)
         IQKeyboardManager.shared.enable = true
         self.removeObservers()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let storeFront = SKPaymentQueue.default().storefront {
+            if storeFront.countryCode != "USA"{
+                Helper.shared.alert(title: Constants.appName, message: "Sorry! Due to music licensing rights, subscriptions are currently only available in the United States.") {
+                    self.backAction()
+                }
+            }
+            print("Storefront", storeFront.countryCode)
+        } else {
+            self.isNeedToCheckCountry = true
+            print("Storefront nil")
+        }
     }
     
     func setupUI()  {
@@ -107,7 +124,7 @@ class SubscriptionViewController: UIViewController {
                         Helper.shared.resetDemoMode()
                         //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
                         let userItem = PreferenceManager.shared.user
-                        if userItem.gender.isEmpty || userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
+                        if userItem.birthday.isEmpty ||/*userItem.gender.isEmpty ||*/ userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
                             Helper.shared.setCreateProfileRoot()
                             
                         }else{
@@ -187,7 +204,7 @@ class SubscriptionViewController: UIViewController {
                     }else{
                         //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
                         let userItem = PreferenceManager.shared.user
-                        if userItem.gender.isEmpty || userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
+                        if userItem.birthday.isEmpty ||/*userItem.gender.isEmpty ||*/ userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
                             Helper.shared.setCreateProfileRoot()
                             
                         }else{
@@ -235,7 +252,7 @@ class SubscriptionViewController: UIViewController {
                                 
                                 //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
                                 let userItem = PreferenceManager.shared.user
-                                if userItem.gender.isEmpty || userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
+                                if userItem.birthday.isEmpty ||/*userItem.gender.isEmpty ||*/ userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
                                     Helper.shared.setCreateProfileRoot()
                                     
                                 }else{
@@ -349,6 +366,18 @@ extension SubscriptionViewController{
     func updateYearlyProductInfo(product: SKProduct){
         
         //  lblMonthlyDurationTitle.text = SubscriptionManager.shared.getDurationTitle(product: product, defaultTitle: "Month")
+        if isNeedToCheckCountry{
+            let priceIdentifier = product.priceLocale.identifier
+            let arrSubStrings = priceIdentifier.components(separatedBy: "@")
+            if arrSubStrings.count > 0{
+                let countryCode = arrSubStrings[0]
+                if countryCode != "en_US"{
+                    Helper.shared.alert(title: Constants.appName, message: "Sorry! Due to music licensing rights, subscriptions are currently only available in the United States.") {
+                        self.backAction()
+                    }
+                }
+            }
+        }
         
         let price = product.localizedPrice ?? "$149.99"
         let attributeString = NSMutableAttributedString(string: "\(price)/year")

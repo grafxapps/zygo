@@ -61,6 +61,26 @@ final class PreferenceManager: NSObject {
         }
     }
     
+    var trackingInfo : TrackingInfoDTO {
+        set{
+            defaults.set(newValue.toDict(), forKey: PreferenceKey.TrackingInfo.rawValue)
+            defaults.synchronize()
+        }get{
+            let userDict = defaults.value(forKey: PreferenceKey.TrackingInfo.rawValue) as? [String : Any] ?? [:]
+            return TrackingInfoDTO(userDict)
+        }
+    }
+    
+    var poolUnitInfo : PoolUnitInfoDTO {
+        set{
+            defaults.set(newValue.toDict(), forKey: PreferenceKey.PoolUnitInfo.rawValue)
+            defaults.synchronize()
+        }get{
+            let userDict = defaults.value(forKey: PreferenceKey.PoolUnitInfo.rawValue) as? [String : Any] ?? [:]
+            return PoolUnitInfoDTO(userDict)
+        }
+    }
+    
     var friendsInfo : FriendsInfoDTO {
         set{
             defaults.set(newValue.toDict(), forKey: PreferenceKey.Friends.rawValue)
@@ -239,6 +259,32 @@ final class PreferenceManager: NSObject {
             return defaults.value(forKey: PreferenceKey.IsTakenByMe.rawValue) as? Bool ?? false
         }
     }
+    
+    var deviceInfo: BLEDeviceInfoDTO{
+        set{
+            defaults.set(newValue.toDict(), forKey: PreferenceKey.BLEDeviceInfo.rawValue)
+        }get{
+            let infoDict = defaults.value(forKey: PreferenceKey.BLEDeviceInfo.rawValue) as? [String:Any] ?? [:]
+            return BLEDeviceInfoDTO(infoDict)
+        }
+    }
+    
+    var lapInfo: BLELapInfoDTO{
+        set{
+            defaults.set(newValue.toDict(), forKey: PreferenceKey.BLELapInfo.rawValue)
+        }get{
+            let infoDict = defaults.value(forKey: PreferenceKey.BLELapInfo.rawValue) as? [String:Any] ?? [:]
+            return BLELapInfoDTO(infoDict)
+        }
+    }
+    
+    var firmwareLaterDate: Date?{
+        set{
+            defaults.set(newValue, forKey: PreferenceKey.BLEFirmwareUpdateLater.rawValue)
+        }get{
+            return defaults.value(forKey: PreferenceKey.BLEFirmwareUpdateLater.rawValue) as? Date
+        }
+    }
 }
 
 
@@ -272,5 +318,12 @@ enum PreferenceKey : String{
     
     case IsTakenByMe = "Z_Is_Taken_By_Me"
     case IsNotTakenByMe = "Z_Is_Not_Take_me"
+    
+    case TrackingInfo = "Z_Tracking_Info"
+    case PoolUnitInfo = "Z_Pool_Units_Info"
+    
+    case BLEDeviceInfo = "Z_BLE_Device_Info"
+    case BLELapInfo = "Z_BLE_Lap_Info"
+    case BLEFirmwareUpdateLater = "Z_BLE_Firmware_Update_Later"
     
 }

@@ -12,6 +12,7 @@
 #import "BNCReachability.h"
 #import "BNCSKAdNetwork.h"
 #import "BNCPartnerParameters.h"
+#import "BNCPreferenceHelper.h"
 
 #pragma mark BranchStandardEvents
 
@@ -36,6 +37,8 @@ BranchStandardEvent BranchStandardEventViewItem           = @"VIEW_ITEM";
 BranchStandardEvent BranchStandardEventViewItems          = @"VIEW_ITEMS";
 BranchStandardEvent BranchStandardEventRate               = @"RATE";
 BranchStandardEvent BranchStandardEventShare              = @"SHARE";
+BranchStandardEvent BranchStandardEventInitiateStream     = @"INITIATE_STREAM";
+BranchStandardEvent BranchStandardEventCompleteStream     = @"COMPLETE_STREAM";
 
 // User Lifecycle Events
 
@@ -79,8 +82,36 @@ BranchStandardEvent BranchStandardEventOptOut                 = @"OPT_OUT";
     
     if (dictionary && [dictionary[BRANCH_RESPONSE_KEY_UPDATE_CONVERSION_VALUE] isKindOfClass:NSNumber.class]) {
         NSNumber *conversionValue = (NSNumber *)dictionary[BRANCH_RESPONSE_KEY_UPDATE_CONVERSION_VALUE];
-        if (conversionValue) {
-            [[BNCSKAdNetwork sharedInstance] updateConversionValue:conversionValue.integerValue];
+        // Regardless of SKAN opted-in in dashboard, we always get conversionValue, so adding check to find out if install/open response had "invoke_register_app" true
+        if (conversionValue && [BNCPreferenceHelper sharedInstance].invokeRegisterApp) {
+            if (@available(iOS 16.1, *)){
+                NSString * coarseConversionValue = [[BNCSKAdNetwork sharedInstance] getCoarseConversionValueFromDataResponse:dictionary] ;
+                BOOL lockWin = [[BNCSKAdNetwork sharedInstance] getLockedStatusFromDataResponse:dictionary];
+                BOOL shouldCallUpdatePostback = [[BNCSKAdNetwork sharedInstance] shouldCallPostbackForDataResponse:dictionary];
+            
+                BNCLogDebug([NSString stringWithFormat:@"SKAN 4.0 params - conversionValue:%@ coarseValue:%@, locked:%d, shouldCallPostback:%d, currentWindow:%d, firstAppLaunchTime: %@", conversionValue, coarseConversionValue, lockWin, shouldCallUpdatePostback, (int)[BNCPreferenceHelper sharedInstance].skanCurrentWindow, [BNCPreferenceHelper sharedInstance].firstAppLaunchTime]);
+                
+                if(shouldCallUpdatePostback){
+                    [[BNCSKAdNetwork sharedInstance] updatePostbackConversionValue: conversionValue.longValue coarseValue:coarseConversionValue lockWindow:lockWin completionHandler:^(NSError * _Nullable error) {
+                        if (error) {
+                            BNCLogError([NSString stringWithFormat:@"Update conversion value failed with error - %@", [error description]]);
+                        } else {
+                            BNCLogDebug([NSString stringWithFormat:@"Update conversion value was successful. Conversion Value - %@", conversionValue]);
+                        }
+                    }];
+                }
+                
+            } else if (@available(iOS 15.4, *)) {
+                [[BNCSKAdNetwork sharedInstance] updatePostbackConversionValue:conversionValue.intValue completionHandler: ^(NSError *error){
+                    if (error) {
+                        BNCLogError([NSString stringWithFormat:@"Update conversion value failed with error - %@", [error description]]);
+                    } else {
+                        BNCLogDebug([NSString stringWithFormat:@"Update conversion value was successful. Conversion Value - %@", conversionValue]);
+                    }
+                }];
+            } else {
+                [[BNCSKAdNetwork sharedInstance] updateConversionValue:conversionValue.integerValue];
+            }
         }
     }
     
@@ -106,7 +137,7 @@ BranchStandardEvent BranchStandardEventOptOut                 = @"OPT_OUT";
     [coder encodeObject:self.eventDictionary forKey:@"eventDictionary"];
 }
 
-+ (BOOL) supportsSecureCoding {
++ (BOOL)supportsSecureCoding {
     return YES;
 }
 
@@ -115,7 +146,7 @@ BranchStandardEvent BranchStandardEventOptOut                 = @"OPT_OUT";
 #pragma mark - BranchEvent
 
 @interface BranchEvent ()
-@property (nonatomic, strong) NSString*  eventName;
+@property (nonatomic, copy) NSString*  eventName;
 @end
 
 @implementation BranchEvent : NSObject
@@ -230,6 +261,8 @@ BranchStandardEvent BranchStandardEventOptOut                 = @"OPT_OUT";
         BranchStandardEventViewAd,
         BranchStandardEventOptOut,
         BranchStandardEventOptIn,
+        BranchStandardEventInitiateStream,
+        BranchStandardEventCompleteStream
     ];
 }
 
@@ -264,13 +297,13 @@ BranchStandardEvent BranchStandardEventOptOut                 = @"OPT_OUT";
 }
 
 - (BranchEventRequest *)buildRequestWithEventDictionary:(NSDictionary *)eventDictionary {
-    BNCPreferenceHelper *preferenceHelper = [BNCPreferenceHelper preferenceHelper];
+    BNCPreferenceHelper *preferenceHelper = [BNCPreferenceHelper sharedInstance];
     
     NSString *serverURL =
     ([self.class.standardEvents containsObject:self.eventName])
     ? [NSString stringWithFormat:@"%@/%@", preferenceHelper.branchAPIURL, @"v2/event/standard"]
     : [NSString stringWithFormat:@"%@/%@", preferenceHelper.branchAPIURL, @"v2/event/custom"];
-    
+
     BranchEventRequest *request =
     [[BranchEventRequest alloc]
      initWithServerURL:[NSURL URLWithString:serverURL]

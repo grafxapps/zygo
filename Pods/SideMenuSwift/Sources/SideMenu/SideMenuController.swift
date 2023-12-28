@@ -13,9 +13,12 @@ import UIKit
 /// A container view controller owns a menu view controller and a content view controller.
 ///
 /// The overall architecture of SideMenuController is:
-/// SideMenuController
-/// ├── Menu View Controller
-/// └── Content View Controller
+/// 
+/// SideMenuController  
+/// 
+/// ├── Menu View Controller  
+/// 
+/// └── Content View Controller  
 open class SideMenuController: UIViewController {
 
     /// Configure this property to change the behavior of SideMenuController;
@@ -47,16 +50,15 @@ open class SideMenuController: UIViewController {
     /// The side menu controller's delegate object.
     public weak var delegate: SideMenuControllerDelegate?
 
-    /// Tell whether `setContentViewController` setter should call the delegate.
-    /// Work as a workaround when switching content view controller from other animation approach which also change the
-    /// `contentViewController`.
     // swiftlint:disable:next weak_delegate
+    /// Tell whether ``contentViewController`` setter should call the delegate.
+    /// Work as a workaround when switching content view controller from other animation approach which also change the
     private var shouldCallSwitchingDelegate = true
 
+    // swiftlint:disable:next implicitly_unwrapped_optional
     /// The content view controller. Changes its value will change the display immediately.
     /// If the new value is already one of the side menu controller's child controllers, nothing will happen beside value change.
-    /// If you want a caching approach, use `setContentViewController(with)`. Its value should not be nil.
-    // swiftlint:disable:next implicitly_unwrapped_optional
+    /// If you want a caching approach, use ``setContentViewController(with:animated:completion:)``. Its value should not be nil.
     open var contentViewController: UIViewController! {
         didSet {
             guard contentViewController !== oldValue &&
@@ -81,8 +83,8 @@ open class SideMenuController: UIViewController {
         }
     }
 
-    /// The menu view controller. Its value should not be nil.
     // swiftlint:disable:next implicitly_unwrapped_optional
+    /// The menu view controller. Its value should not be nil.
     open var menuViewController: UIViewController! {
         didSet {
             guard menuViewController !== oldValue && isViewLoaded else {
@@ -120,6 +122,7 @@ open class SideMenuController: UIViewController {
     private weak var panGestureRecognizer: UIPanGestureRecognizer?
 
     var shouldReverseDirection: Bool {
+        if preferences.basic.forceRightToLeft { return true }
         guard preferences.basic.shouldRespectLanguageDirection else {
             return false
         }
@@ -130,7 +133,7 @@ open class SideMenuController: UIViewController {
 
     // MARK: Initialization
 
-    /// Creates a SideMenuController instance with the content view controller and menu view controller.
+    /// Creates a ``SideMenuController`` instance with the content view controller and menu view controller.
     ///
     /// - Parameters:
     ///   - contentViewController: the content view controller
@@ -149,9 +152,9 @@ open class SideMenuController: UIViewController {
 
     // MARK: Life Cycle
 
-    // `SideMenu` may be initialized from Storyboard, thus we shouldn't load the view in `loadView()`.
-    // As mentioned by Apple, "If you use Interface Builder to create your views and initialize the view controller,
-    // you must not override this method."
+    /// ``SideMenuController`` may be initialized from Storyboard, thus we shouldn't load the view in `loadView()`.
+    /// As mentioned by Apple, "If you use Interface Builder to create your views and initialize the view controller,
+    /// you must not override this method."
     open override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -345,7 +348,13 @@ open class SideMenuController: UIViewController {
             return
         }
 
-        let overlay = UIView(frame: contentContainerView.bounds)
+        var overlay:UIView
+        if SideMenuController.preferences.animation.shouldAddBlurWhenRevealing {
+            let blurEffect = UIBlurEffect(style: .light)
+            overlay = UIVisualEffectView(effect: blurEffect)
+        } else {
+            overlay = UIView(frame: contentContainerView.bounds)
+        }
         overlay.autoresizingMask = [.flexibleHeight, .flexibleWidth]
 
         if !shouldShowShadowOnContent {
@@ -742,6 +751,12 @@ extension SideMenuController: UIGestureRecognizerDelegate {
             return false
         }
 
+        if let shouldReveal = self.delegate?.sideMenuControllerShouldRevealMenu(self) {
+            guard shouldReveal else {
+                return false
+            }
+        }
+
         if isViewControllerInsideNavigationStack(for: touch.view) {
             return false
         }
@@ -777,7 +792,18 @@ extension SideMenuController: UIGestureRecognizerDelegate {
             if let index = navigationController.viewControllers.firstIndex(of: viewController) {
                 return index > 0
             }
+        } else {
+            // Check if the ViewController is embedded
+            var parent = viewController.parent
+            while parent != nil {
+                guard let navigationController = parent as? UINavigationController else {
+                    parent = parent?.parent
+                    continue
+                }
+                return navigationController.viewControllers.count > 0
+            }
         }
+
         return false
     }
 

@@ -8,15 +8,14 @@
 
 import UIKit
 
-/// Custom Segue that is required for SideMenuController to be used in Storyboard.
+/// Custom Segue that is required for ``SideMenuController`` to be used in Storyboard.
 open class SideMenuSegue: UIStoryboardSegue {
 
     /// The type of segue
-    ///
-    /// - content: represent the content scene of side menu
-    /// - menu: represent the menu scene of side menu
     public enum ContentType: String {
+        /// represent the content scene of side menu
         case content = "SideMenu.Content"
+        /// represent the menu scene of side menu
         case menu = "SideMenu.Menu"
     }
 

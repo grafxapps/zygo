@@ -283,7 +283,7 @@ final class UserServices: NSObject {
         let param = [
             "rating_popup_date": DateHelper.shared.currentUTCDateTime.convertToFormat("yyyy-MM-dd", isUTC: true)]
         
-         let header = NetworkManager.shared.getHeader()
+        let header = NetworkManager.shared.getHeader()
         NetworkManager.shared.request(withEndPoint: .ratingPopupDate, method: .post, headers: header, params: param) { (response) in
             
             switch response{
@@ -353,4 +353,30 @@ final class UserServices: NSObject {
             }
         }
     }
+    
+    func getHallOfFame(type: String, time: String, completion: @escaping (String?, [HallOfFameModel]) -> Void){
+        
+        let header = NetworkManager.shared.getHeader()
+        let param = ["type": type, "time": time]
+        
+        NetworkManager.shared.request(withEndPoint: .getHallOfFame, method: .get, headers: header, params: param) { (response) in
+            
+            switch response{
+            case .success(let jsonResponse):
+                print(jsonResponse)
+                let arrData = jsonResponse["data"] as? [[String: Any]] ?? []
+                var arrFames: [HallOfFameModel] = []
+                for fameDict in arrData{
+                    let item = HallOfFameModel(fameDict)
+                    arrFames.append(item)
+                }
+                completion(nil, arrFames)
+            case .failure(_, let message):
+                completion(message, [])
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking, [])
+            }
+        }
+    }
+    
 }

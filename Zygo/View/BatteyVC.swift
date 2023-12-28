@@ -258,7 +258,7 @@ class BatteyVC: UIViewController {
                 
                 
                 //TODO: Comment this return if want to show firmware update popup
-                return
+                /*return
                 if let laterDate = PreferenceManager.shared.firmwareLaterDate{
                     let popupDay = Calendar.current.dateComponents([.day], from: laterDate, to: Date().toStartOfTheDayUTC().toSGlobalTime()).day ?? 0
                     if popupDay < 1{
@@ -287,7 +287,7 @@ class BatteyVC: UIViewController {
                         navController.isNavigationBarHidden = true
                         self?.present(navController, animated: true, completion: nil)
                     }
-                }
+                }*/
             }
         }
         

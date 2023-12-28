@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreBluetooth
+import AVFAudio
 
 struct BTDevice {
     var device: CBPeripheral!
@@ -198,6 +199,16 @@ final class BluetoothManager: NSObject {
         }
         
         return true
+    }
+    
+    func isBluetoothAudioConnected() -> Bool{
+      let outputs = AVAudioSession.sharedInstance().currentRoute.outputs
+      for output in outputs{
+          if output.portType == .bluetoothA2DP || output.portType == .bluetoothHFP || output.portType == .bluetoothLE {
+          return true
+        }
+      }
+      return false
     }
     
     //MARK: - Services and Characteristics

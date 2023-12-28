@@ -27,7 +27,8 @@ class GoogleLoginManager: NSObject {
         
         let config = GIDConfiguration(clientID: Constants.googleClientId, serverClientID: Constants.googleServerId)
         
-        GIDSignIn.sharedInstance.signIn(with: config, presenting: viewcontroller) { (user, error) in
+        GIDSignIn.sharedInstance.configuration = config
+        GIDSignIn.sharedInstance.signIn(withPresenting: viewcontroller) { user, error in
             if let error = error{
                 if let del = self.delegate{
                     del.didFaildLogin(error: (error.localizedDescription))
@@ -38,7 +39,7 @@ class GoogleLoginManager: NSObject {
             if user != nil{
                 if let del = self.delegate{
                     DispatchQueue.main.async {
-                        del.didLogin(user: GoogleUserDTO(user!))
+                        del.didLogin(user: GoogleUserDTO(user!.user))
                     }
                 }
             }else{
@@ -46,7 +47,6 @@ class GoogleLoginManager: NSObject {
                     del.didFaildLogin(error: "Internal server error. Please try again.")
                 }
             }
-            
         }
     }
     
@@ -72,7 +72,7 @@ struct GoogleUserDTO {
         self.givenName = user.profile?.givenName ?? ""
         self.familyName = user.profile?.familyName ?? ""
         self.email = user.profile?.email ?? ""
-        self.accessToken = user.authentication.idToken ?? ""
+        self.accessToken = user.idToken?.tokenString ?? ""
         self.profileImage = user.profile?.imageURL(withDimension: 320)?.absoluteString ?? ""
     }
 }

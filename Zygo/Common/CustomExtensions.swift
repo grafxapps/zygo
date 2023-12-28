@@ -313,6 +313,11 @@ extension Double{
 
 extension UIColor{
     
+    static func appDisableGrayColor() -> UIColor{
+        return UIColor.init(named: "AppDisableGrayColor")!
+    }
+    
+    
     static func appBlueColor() -> UIColor{
         return UIColor.init(named: "AppBlueColor")!
     }

@@ -61,6 +61,7 @@ class SubscriptionViewController: UIViewController {
         
         if let storeFront = SKPaymentQueue.default().storefront {
             if storeFront.countryCode != "USA"{
+                Helper.shared.stopLoading()
                 Helper.shared.alert(title: Constants.appName, message: "Sorry! Due to music licensing rights, subscriptions are currently only available in the United States.") {
                     self.backAction()
                 }

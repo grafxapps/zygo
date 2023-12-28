@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 
 // Delegate Methods
-public protocol SideMenuControllerDelegate: class {
+public protocol SideMenuControllerDelegate: AnyObject {
 
     // MARK: Animation
 
     /// Called to allow the delegate to return a non-interactive animator object for use during view controller transitions.
-    /// Same with UIKit's `navigationController:animationControllerForOperation:fromViewController:toViewController:`.
+    /// Same with UIKit's ``navigationController(_:animationControllerFor:from:to:)``.
     ///
     /// - Parameters:
     ///   - sideMenuController: The side menu controller
@@ -46,6 +46,13 @@ public protocol SideMenuControllerDelegate: class {
     func sideMenuController(_ sideMenuController: SideMenuController, didShow viewController: UIViewController, animated: Bool)
 
     // MARK: Revealing
+
+    /// Asks the delegate whether the side menu should be shown.
+    ///
+    /// Triggered by the pan gesture.
+    /// - Parameter sideMenuController: The side menu
+    /// - Returns: Whether the menu should be revealed.
+    func sideMenuControllerShouldRevealMenu(_ sideMenuController: SideMenuController) -> Bool
 
     /// Side menu is going to reveal.
     ///
@@ -82,6 +89,7 @@ public extension SideMenuControllerDelegate {
     func sideMenuController(_ sideMenuController: SideMenuController,
                             didShow viewController: UIViewController,
                             animated: Bool) {}
+    func sideMenuControllerShouldRevealMenu(_ sideMenuController: SideMenuController) -> Bool { return true }
     func sideMenuControllerWillRevealMenu(_ sideMenuController: SideMenuController) {}
     func sideMenuControllerDidRevealMenu(_ sideMenuController: SideMenuController) {}
     func sideMenuControllerWillHideMenu(_ sideMenuController: SideMenuController) {}

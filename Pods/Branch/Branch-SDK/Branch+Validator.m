@@ -39,7 +39,7 @@ static inline void BNCAfterSecondsPerformBlockOnMainThread(NSTimeInterval second
 }
 
 - (void) startValidation {
-    BNCPreferenceHelper *preferenceHelper = [BNCPreferenceHelper preferenceHelper];
+    BNCPreferenceHelper *preferenceHelper = [BNCPreferenceHelper sharedInstance];
     NSString *endpoint =
         [BRANCH_REQUEST_ENDPOINT_APP_LINK_SETTINGS stringByAppendingPathComponent:preferenceHelper.lastRunBranchKey];
     [[[BNCServerInterface alloc] init]
@@ -190,12 +190,12 @@ static inline void BNCAfterSecondsPerformBlockOnMainThread(NSTimeInterval second
          "https://<yourapp>.app.link/NdJ6nFzRbK\n\n"
          "click on:\n"
          "https://<yourapp>.app.link/NdJ6nFzRbK?bnc_validate=true";
-    NSLog(
-        @"\n----------------------------------------------------------------------------"
-         "\nBranch Integration Next Steps\n"
-         "\n"
-         "%@"
-         "\n----------------------------------------------------------------------------", message);
+    
+    NSLog(@"----------------------------------------------------------------------------");
+    NSLog(@"Branch Integration Next Steps:");
+    NSLog(@"%@", message);
+    NSLog(@"----------------------------------------------------------------------------");
+
     [self showAlertWithTitle:@"Next Step" message:message];
 }
 

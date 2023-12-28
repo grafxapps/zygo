@@ -45,11 +45,11 @@ class MenuViewController: UIViewController {
         
         if Helper.shared.isDemoMode{
             self.viewModel.arrMenu.removeAll()
-            self.viewModel.arrMenu = [.settings, .instructors, .help , .customerSupport , .demoSubscribe]
+            self.viewModel.arrMenu = [.settings, .instructors, .help, .customerSupport, .walkieTalkie, .hallOfFame, .demoSubscribe]
             
         }else{
             self.viewModel.arrMenu.removeAll()
-            self.viewModel.arrMenu = [.settings, .instructors, .help, .customerSupport]
+            self.viewModel.arrMenu = [.settings, .instructors, .help, .customerSupport, .walkieTalkie, .hallOfFame]
         }
         
         self.tableView.reloadData()
@@ -127,6 +127,12 @@ class MenuViewController: UIViewController {
         case .referFriend:
             print("Refer A Friend")
             
+        case .walkieTalkie:
+            let walkieVC = self.storyboard?.instantiateViewController(withIdentifier: "WalkieTalkieVC") as! WalkieTalkieVC
+            self.getCurrentNavigationController()?.pushViewController(walkieVC, animated: true)
+        case .hallOfFame:
+            let fameVC = self.storyboard?.instantiateViewController(withIdentifier: "HallOfFameVC") as! HallOfFameVC
+            self.getCurrentNavigationController()?.pushViewController(fameVC, animated: true)
         }
         
         //self.perform(#selector(self.hide), with: nil, afterDelay: 0.2)

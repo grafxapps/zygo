@@ -379,6 +379,7 @@ enum APIEndPoint : String {
     case contactUsDetail = "/api/contact-details"
     
     case getFirmwareFiles = "/api/get-firmware-detail"
+    case getHallOfFame = "/api/hall-of-fame"
 }
 
 

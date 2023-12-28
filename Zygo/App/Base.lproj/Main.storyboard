@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8QR-PA-7t9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8QR-PA-7t9">
     <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -36,7 +36,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YlH-xe-eCK">
-                                <rect key="frame" x="0.0" y="0.0" width="430" height="670"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="636"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="jIZ-NX-UYj" id="BW4-j5-1dC"/>
@@ -121,7 +121,7 @@ Check your network connection and </string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AEj-pd-1C8">
-                                <rect key="frame" x="0.0" y="0.0" width="430" height="670"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="636"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Kzd-7d-3zf" id="dhl-ba-cuH"/>
@@ -170,14 +170,14 @@ To play offline, select a workout and tap the download icon.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cvb-J6-IYS">
-                                <rect key="frame" x="30" y="89" width="354" height="341"/>
+                                <rect key="frame" x="30" y="89" width="354" height="307"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000298023199" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wQo-o4-Dnm">
-                                        <rect key="frame" x="0.0" y="0.0" width="354" height="341"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="354" height="307"/>
                                         <color key="backgroundColor" name="AppBlueColor"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COMING SOON" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uxz-hA-ILm">
-                                        <rect key="frame" x="10" y="146.66666666666666" width="334" height="48"/>
+                                        <rect key="frame" x="10" y="129.66666666666666" width="334" height="47.666666666666657"/>
                                         <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="34"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -297,7 +297,7 @@ To play offline, select a workout and tap the download icon.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9Q-0t-b6b">
-                                <rect key="frame" x="30" y="460" width="354" height="55"/>
+                                <rect key="frame" x="30" y="426" width="354" height="55"/>
                                 <color key="backgroundColor" name="AppBlueColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="7eO-fy-bHA"/>
@@ -313,10 +313,10 @@ To play offline, select a workout and tap the download icon.</string>
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QmR-jd-TlT">
-                                <rect key="frame" x="0.0" y="293" width="414" height="167"/>
+                                <rect key="frame" x="0.0" y="293" width="414" height="133"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5kd-hu-xmf">
-                                        <rect key="frame" x="0.0" y="23" width="414" height="121"/>
+                                        <rect key="frame" x="0.0" y="6.3333333333333215" width="414" height="120.66666666666669"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOU SWAM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sJT-gj-hBS">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="31"/>
@@ -325,7 +325,7 @@ To play offline, select a workout and tap the download icon.</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In 65 Minutes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L9a-xv-ctE">
-                                                <rect key="frame" x="0.0" y="101" width="414" height="20"/>
+                                                <rect key="frame" x="0.0" y="101" width="414" height="19.666666666666671"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                                                 <color key="textColor" name="AppBlueColor"/>
                                                 <nil key="highlightedColor"/>
@@ -363,7 +363,7 @@ To play offline, select a workout and tap the download icon.</string>
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="owp-ZJ-APd">
-                                <rect key="frame" x="0.0" y="430.66666666666669" width="414" height="104.33333333333331"/>
+                                <rect key="frame" x="0.0" y="396.66666666666669" width="414" height="104.33333333333331"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZxG-Gz-S0I">
                                         <rect key="frame" x="25" y="0.0" width="364" height="94.333333333333329"/>
@@ -640,7 +640,7 @@ To play offline, select a workout and tap the download icon.</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="625-b3-ox9">
-                                <rect key="frame" x="94.666666666666671" y="383" width="37.666666666666671" height="21"/>
+                                <rect key="frame" x="95" y="383" width="37.333333333333343" height="21"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="15"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -794,13 +794,13 @@ To play offline, select a workout and tap the download icon.</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IeR-NX-KBo">
-                                <rect key="frame" x="281.66666666666669" y="383" width="37.666666666666686" height="21"/>
+                                <rect key="frame" x="282" y="383" width="37.333333333333314" height="21"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="15"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UeT-og-xWb">
-                                <rect key="frame" x="0.0" y="484.66666666666669" width="414" height="104.33333333333331"/>
+                                <rect key="frame" x="0.0" y="450.66666666666669" width="414" height="104.33333333333331"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1m-se-3oj">
                                         <rect key="frame" x="25" y="0.0" width="364" height="94.333333333333329"/>
@@ -812,7 +812,7 @@ To play offline, select a workout and tap the download icon.</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.56000000238418579" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This feature is only available on units with a headset serial number that begins with “ZY4”." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUE-Rs-mtj">
-                                                <rect key="frame" x="0.0" y="54.999999999999943" width="364" height="39.333333333333343"/>
+                                                <rect key="frame" x="0.0" y="55" width="364" height="39.333333333333343"/>
                                                 <fontDescription key="fontDescription" name="Poppins-MediumItalic" family="Poppins" pointSize="14"/>
                                                 <color key="textColor" name="AppTitleDarkColor"/>
                                                 <nil key="highlightedColor"/>
@@ -922,7 +922,7 @@ To play offline, select a workout and tap the download icon.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eQa-g3-HV7">
-                                <rect key="frame" x="0.0" y="59" width="430" height="611"/>
+                                <rect key="frame" x="0.0" y="59" width="430" height="577"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="9PO-Rg-ZWs" id="fii-rc-gbO"/>
@@ -1067,7 +1067,7 @@ Check your network connection and </string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="loT-lf-rB0">
-                                <rect key="frame" x="0.0" y="109" width="430" height="436"/>
+                                <rect key="frame" x="0.0" y="109" width="430" height="402"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="5SH-cS-U4i" id="BEt-No-yNb"/>
@@ -1075,7 +1075,7 @@ Check your network connection and </string>
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ELU-Fm-hhy">
-                                <rect key="frame" x="40" y="597" width="350" height="55"/>
+                                <rect key="frame" x="40" y="563" width="350" height="55"/>
                                 <color key="backgroundColor" name="AppBlueColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="BB2-lu-BWq"/>
@@ -1184,7 +1184,7 @@ Check your network connection and </string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpx-hK-fJC">
-                                <rect key="frame" x="165" y="555" width="100" height="32"/>
+                                <rect key="frame" x="165" y="521" width="100" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="Q4b-5P-Ieg"/>
                                 </constraints>
@@ -1821,13 +1821,13 @@ Check your network connection and </string>
                                 <rect key="frame" x="0.0" y="119" width="430" height="779"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_full_wave" translatesAutoresizingMaskIntoConstraints="NO" id="YRC-Yy-o7h">
-                                        <rect key="frame" x="0.0" y="0.0" width="430" height="170"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="430" height="115"/>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_softbar" translatesAutoresizingMaskIntoConstraints="NO" id="qwz-9V-LcI">
                                         <rect key="frame" x="0.0" y="-110" width="430" height="110"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LgC-Rt-Yk4">
-                                        <rect key="frame" x="25" y="175" width="380" height="167"/>
+                                        <rect key="frame" x="25" y="120" width="380" height="167"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JrS-Ez-VRt" customClass="UIInstructorCircleImageView" customModule="Zygo" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
@@ -1845,10 +1845,10 @@ Check your network connection and </string>
                                                 </constraints>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r9I-hB-bcH">
-                                                <rect key="frame" x="306.66666666666669" y="7.6666666666666856" width="73.333333333333314" height="30"/>
+                                                <rect key="frame" x="306.66666666666669" y="7.6666666666666572" width="73.333333333333314" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beginner" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J4d-iJ-E4C">
-                                                        <rect key="frame" x="10.000000000000004" y="6.3333333333333144" width="53.333333333333343" height="17"/>
+                                                        <rect key="frame" x="10.000000000000004" y="6.3333333333333428" width="53.333333333333343" height="17"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                         <color key="textColor" red="0.10980392160000001" green="0.4549019608" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1868,7 +1868,7 @@ Check your network connection and </string>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trainer Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k0e-7F-AQp">
-                                                <rect key="frame" x="62" y="11.333333333333313" width="110" height="22.333333333333329"/>
+                                                <rect key="frame" x="62" y="11.333333333333345" width="110" height="22.666666666666671"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                                 <color key="textColor" name="AppTitleDarkColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1902,14 +1902,14 @@ Check your network connection and </string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bgM-cY-mdE">
-                                        <rect key="frame" x="0.0" y="342" width="430" height="1"/>
+                                        <rect key="frame" x="0.0" y="287" width="430" height="1"/>
                                         <color key="backgroundColor" name="AppSeperatorColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="AVv-gN-ocX"/>
                                         </constraints>
                                     </view>
                                     <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iXs-s7-JUS">
-                                        <rect key="frame" x="20" y="363" width="390" height="162.66666666666663"/>
+                                        <rect key="frame" x="20" y="308" width="390" height="162.66666666666663"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_workoutBG" translatesAutoresizingMaskIntoConstraints="NO" id="8S4-Ms-knO">
                                                 <rect key="frame" x="0.0" y="0.0" width="390" height="162.66666666666666"/>
@@ -1975,13 +1975,13 @@ Check your network connection and </string>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Workout Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="os1-Bu-lPq">
-                                        <rect key="frame" x="10" y="62" width="410" height="28"/>
+                                        <rect key="frame" x="10" y="7" width="410" height="28"/>
                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NDV-xo-Uq7">
-                                        <rect key="frame" x="20" y="540.66666666666663" width="390" height="35"/>
+                                        <rect key="frame" x="20" y="485.66666666666663" width="390" height="35"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BaH-Fz-yda">
                                                 <rect key="frame" x="0.0" y="6.0000000000000018" width="35" height="22.666666666666671"/>
@@ -2020,7 +2020,7 @@ Check your network connection and </string>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aij-Of-wM0">
-                                        <rect key="frame" x="185" y="580.66666666666663" width="60" height="60"/>
+                                        <rect key="frame" x="185" y="525.66666666666663" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="LCv-Qu-tev"/>
                                             <constraint firstAttribute="width" constant="60" id="wwc-Wq-Pf5"/>
@@ -2032,7 +2032,7 @@ Check your network connection and </string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uvx-cH-FII">
-                                        <rect key="frame" x="40" y="650.66666666666663" width="350" height="55"/>
+                                        <rect key="frame" x="40" y="595.66666666666663" width="350" height="55"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="55" id="bEq-Ie-A23"/>
                                         </constraints>
@@ -2045,38 +2045,38 @@ Check your network connection and </string>
                                         </connections>
                                     </button>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="sgN-cR-K1K">
-                                        <rect key="frame" x="196.66666666666666" y="592" width="37" height="37"/>
+                                        <rect key="frame" x="196.66666666666666" y="537" width="37" height="37"/>
                                         <color key="color" name="AppBlueColor"/>
                                     </activityIndicatorView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ev5-nk-aZA">
-                                        <rect key="frame" x="20" y="363" width="390" height="220"/>
+                                        <rect key="frame" x="20" y="308" width="390" height="220"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ugd-gH-cgj">
                                                 <rect key="frame" x="0.0" y="0.0" width="390" height="220"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8j1-Yk-y8z">
-                                                <rect key="frame" x="175.66666666666666" y="83.666666666666629" width="39" height="53"/>
+                                                <rect key="frame" x="175.66666666666666" y="83.666666666666686" width="39" height="53"/>
                                                 <state key="normal" image="icon_play_white_big"/>
                                                 <connections>
                                                     <action selector="videoPlayAction:" destination="YvW-En-p5y" eventType="touchUpInside" id="rgr-jh-GGG"/>
                                                 </connections>
                                             </button>
                                             <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="khV-Ny-G7c">
-                                                <rect key="frame" x="10" y="140" width="94.666666666666671" height="35"/>
+                                                <rect key="frame" x="10" y="140" width="94.333333333333329" height="35"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pk1-ih-jI2">
-                                                        <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="35"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="94.333333333333329" height="35"/>
                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skip Video" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nl8-L3-Ul4">
-                                                        <rect key="frame" x="5" y="5" width="84.666666666666671" height="25"/>
+                                                        <rect key="frame" x="5" y="5" width="84.333333333333329" height="25"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yAR-Bx-CHv">
-                                                        <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="35"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="94.333333333333329" height="35"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                                         <connections>
                                                             <action selector="skipIntroAction" destination="YvW-En-p5y" eventType="touchUpInside" id="Gpf-zs-nLP"/>
@@ -2160,7 +2160,7 @@ Check your network connection and </string>
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hkr-Ml-w8f">
-                                <rect key="frame" x="20" y="667" width="390" height="35"/>
+                                <rect key="frame" x="20" y="612" width="390" height="35"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="a1Q-rl-tnS">
                                         <rect key="frame" x="48" y="2.6666666666666288" width="324" height="31"/>
@@ -2465,7 +2465,7 @@ Check your network connection and </string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qXL-bG-JhL">
-                                <rect key="frame" x="0.0" y="59" width="414" height="441"/>
+                                <rect key="frame" x="0.0" y="59" width="414" height="407"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UkU-hT-JF3">
                                         <rect key="frame" x="79.333333333333329" y="10.000000000000002" width="255.66666666666669" height="22.666666666666671"/>
@@ -2534,11 +2534,11 @@ Check your network connection and </string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aML-Rb-nAS">
-                                        <rect key="frame" x="0.0" y="95.666666666666657" width="414" height="214.99999999999997"/>
+                                        <rect key="frame" x="0.0" y="78.666666666666657" width="414" height="214.99999999999997"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uQZ-nN-QvR">
-                                        <rect key="frame" x="0.0" y="77.666666666666657" width="30" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="60.666666666666671" width="30" height="0.0"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="zTn-3V-qSo"/>
                                         </constraints>
@@ -2547,10 +2547,10 @@ Check your network connection and </string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PK0-uO-211">
-                                        <rect key="frame" x="0.0" y="332.66666666666669" width="414" height="108.33333333333331"/>
+                                        <rect key="frame" x="0.0" y="315.66666666666669" width="414" height="91.333333333333314"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Oj-f1-PLu">
-                                                <rect key="frame" x="0.0" y="6.6666666666666288" width="414" height="95"/>
+                                                <rect key="frame" x="0.0" y="-2" width="414" height="95"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQA-fD-Tye">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
@@ -2570,19 +2570,19 @@ Check your network connection and </string>
                                                                 </connections>
                                                             </switch>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QBh-rU-IOK">
-                                                                <rect key="frame" x="117.66666666666669" y="11.000000000000002" width="40" height="22.666666666666671"/>
+                                                                <rect key="frame" x="117.66666666666669" y="11.333333333333316" width="40" height="22.666666666666671"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                                                 <color key="textColor" name="AppBlueColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monthly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQV-3s-VbE">
-                                                                <rect key="frame" x="256.66666666666669" y="11.000000000000002" width="64.666666666666686" height="22.666666666666671"/>
+                                                                <rect key="frame" x="256.66666666666669" y="11.333333333333316" width="64.666666666666686" height="22.666666666666671"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                                                 <color key="textColor" name="AppTitleDarkColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16y-ji-JFY">
-                                                                <rect key="frame" x="241.66666666666663" y="7.3333333333333712" width="100" height="30"/>
+                                                                <rect key="frame" x="241.66666666666663" y="7.6666666666666288" width="100" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="100" id="TIa-59-fy2"/>
                                                                     <constraint firstAttribute="height" constant="30" id="joD-AA-oLZ"/>
@@ -2592,7 +2592,7 @@ Check your network connection and </string>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5V6-3l-xdo">
-                                                                <rect key="frame" x="102.66666666666669" y="7.3333333333333712" width="70" height="30"/>
+                                                                <rect key="frame" x="102.66666666666669" y="7.6666666666666288" width="70" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="5ee-QY-SfT"/>
                                                                     <constraint firstAttribute="width" constant="70" id="bkZ-Pl-IfR"/>
@@ -2636,19 +2636,19 @@ Check your network connection and </string>
                                                                 </connections>
                                                             </switch>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lja-ue-BrR">
-                                                                <rect key="frame" x="86.666666666666671" y="11.000000000000002" width="71.000000000000014" height="22.666666666666671"/>
+                                                                <rect key="frame" x="86.666666666666671" y="11.333333333333316" width="71.000000000000014" height="22.666666666666671"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                                                 <color key="textColor" name="AppTitleDarkColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rau-d7-Upy">
-                                                                <rect key="frame" x="256.66666666666669" y="11.000000000000002" width="40" height="22.666666666666671"/>
+                                                                <rect key="frame" x="256.66666666666669" y="11.333333333333316" width="40" height="22.666666666666671"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                                                 <color key="textColor" name="AppBlueColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B3R-ng-apK">
-                                                                <rect key="frame" x="241.66666666666663" y="7.3333333333333712" width="70" height="30"/>
+                                                                <rect key="frame" x="241.66666666666663" y="7.6666666666666288" width="70" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="7Ef-AQ-IUv"/>
                                                                     <constraint firstAttribute="width" constant="70" id="HgI-r1-Bmp"/>
@@ -2658,7 +2658,7 @@ Check your network connection and </string>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJA-zq-L2p">
-                                                                <rect key="frame" x="72.666666666666671" y="7.3333333333333712" width="100.00000000000001" height="30"/>
+                                                                <rect key="frame" x="72.666666666666671" y="7.6666666666666288" width="100.00000000000001" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="D4I-eZ-QB3"/>
                                                                     <constraint firstAttribute="width" constant="100" id="WXE-Mj-DUr"/>
@@ -2705,7 +2705,7 @@ Check your network connection and </string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cfp-Wz-mYp">
-                                        <rect key="frame" x="40" y="95.666666666666657" width="364" height="249.99999999999997"/>
+                                        <rect key="frame" x="40" y="78.666666666666657" width="364" height="249.99999999999997"/>
                                         <subviews>
                                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="iZw-Ye-Kxj">
                                                 <rect key="frame" x="0.0" y="0.0" width="364" height="212"/>
@@ -2801,7 +2801,7 @@ Check your network connection and </string>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bxR-iV-Wzy">
-                                                        <rect key="frame" x="0.0" y="106.00000000000003" width="364" height="21"/>
+                                                        <rect key="frame" x="0.0" y="106" width="364" height="21"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gqg-rM-F3G">
                                                                 <rect key="frame" x="0.0" y="0.0" width="364" height="1"/>
@@ -2932,7 +2932,7 @@ Check your network connection and </string>
                                         </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cWl-wB-7gW">
-                                        <rect key="frame" x="0.0" y="95.666666666666657" width="40" height="211.99999999999997"/>
+                                        <rect key="frame" x="0.0" y="78.666666666666657" width="40" height="211.99999999999997"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3:20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKs-Am-Fcp">
                                                 <rect key="frame" x="19.333333333333329" y="-6.6666666666666572" width="20.666666666666671" height="14"/>
@@ -3011,7 +3011,7 @@ Check your network connection and </string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jmY-2v-y8L">
-                                        <rect key="frame" x="0.0" y="87.666666666666657" width="414" height="258"/>
+                                        <rect key="frame" x="0.0" y="70.666666666666657" width="414" height="258"/>
                                         <subviews>
                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="fiN-jQ-BF2">
                                                 <rect key="frame" x="188.66666666666666" y="110.33333333333334" width="37" height="37"/>
@@ -3118,7 +3118,7 @@ Check your network connection and </string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iVR-Am-QUD">
-                                <rect key="frame" x="0.0" y="104" width="430" height="566"/>
+                                <rect key="frame" x="0.0" y="104" width="430" height="532"/>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fny-6h-P75">
                                 <rect key="frame" x="0.0" y="59" width="430" height="45"/>
@@ -3238,7 +3238,7 @@ Check your network connection and </string>
                                         <rect key="frame" x="215" y="0.0" width="215" height="60"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LAP INTERVAL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Vs-a3-feb">
-                                                <rect key="frame" x="55" y="18.666666666666664" width="105" height="22.666666666666664"/>
+                                                <rect key="frame" x="55.333333333333321" y="18.666666666666664" width="104.66666666666669" height="22.666666666666664"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                                 <color key="textColor" red="0.23529411759999999" green="0.2666666667" blue="0.27450980390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -3292,7 +3292,7 @@ Check your network connection and </string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r3B-6p-Gk3">
-                                <rect key="frame" x="0.0" y="60" width="430" height="163"/>
+                                <rect key="frame" x="0.0" y="60.000000000000014" width="430" height="163.33333333333337"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iah-tw-dQq">
                                         <rect key="frame" x="59.333333333333336" y="21.000000000000007" width="96.333333333333314" height="90.666666666666686"/>
@@ -3358,13 +3358,13 @@ Check your network connection and </string>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strokes per minute" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rja-9r-Rpd">
-                                        <rect key="frame" x="53.999999999999993" y="127.66666666666664" width="107.33333333333331" height="15.3333333333333"/>
+                                        <rect key="frame" x="53.999999999999993" y="127.66666666666667" width="107.33333333333331" height="15.666666666666671"/>
                                         <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="11"/>
                                         <color key="textColor" name="AppBlueColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seconds per lap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vhh-jI-Cc6">
-                                        <rect key="frame" x="277.33333333333331" y="127.66666666666664" width="90.666666666666686" height="15.3333333333333"/>
+                                        <rect key="frame" x="277.33333333333331" y="127.66666666666667" width="90.333333333333314" height="15.666666666666671"/>
                                         <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="11"/>
                                         <color key="textColor" red="0.81960784310000001" green="0.81960784310000001" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3383,16 +3383,16 @@ Check your network connection and </string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WYV-sZ-qke">
-                                <rect key="frame" x="0.0" y="239" width="430" height="111"/>
+                                <rect key="frame" x="0.0" y="239.33333333333337" width="430" height="111"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose your sound" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="of5-pb-KIh">
-                                        <rect key="frame" x="136.66666666666669" y="8" width="156.66666666666669" height="23"/>
+                                        <rect key="frame" x="137" y="8" width="156.33333333333337" height="23"/>
                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                         <color key="textColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fwk-xU-h9f">
-                                        <rect key="frame" x="0.0" y="39" width="430" height="55"/>
+                                        <rect key="frame" x="0.0" y="38.999999999999972" width="430" height="55"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="77S-Qr-xSU">
                                                 <rect key="frame" x="20.000000000000007" y="0.0" width="116.66666666666669" height="55"/>
@@ -3520,10 +3520,10 @@ Check your network connection and </string>
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6NT-Ge-pl3">
-                                <rect key="frame" x="0.0" y="622" width="430" height="48"/>
+                                <rect key="frame" x="0.0" y="588" width="430" height="48"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stroke Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5i-bg-Vlm">
-                                        <rect key="frame" x="169.66666666666666" y="12.666666666666631" width="90.666666666666657" height="22.666666666666671"/>
+                                        <rect key="frame" x="170" y="12.666666666666631" width="90.333333333333314" height="22.666666666666671"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                         <color key="textColor" red="0.61568627450000002" green="0.63137254899999995" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3563,7 +3563,7 @@ Check your network connection and </string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xC1-T4-XTj">
-                                <rect key="frame" x="25" y="408" width="380" height="55"/>
+                                <rect key="frame" x="25" y="408.33333333333331" width="380" height="55"/>
                                 <color key="backgroundColor" name="AppBlueColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="3JV-1T-MzD"/>
@@ -3833,6 +3833,12 @@ Check your network connection and </string>
                                                                         <color key="textColor" red="0.21176470589999999" green="0.23921568630000001" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(how others will see you in Zygo)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h9O-pk-E44">
+                                                                        <rect key="frame" x="80.999999999999986" y="2.6666666666666856" width="162.66666666666663" height="14"/>
+                                                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
+                                                                        <color key="textColor" red="0.21176470589999999" green="0.23921568630000001" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j5n-wd-RRr">
                                                                         <rect key="frame" x="0.0" y="29" width="350" height="55"/>
                                                                         <subviews>
@@ -3870,6 +3876,8 @@ Check your network connection and </string>
                                                                     <constraint firstAttribute="height" constant="84" id="RT7-vc-tkF"/>
                                                                     <constraint firstItem="iPD-gr-Nys" firstAttribute="top" secondItem="Y4S-pt-bzG" secondAttribute="top" id="W2y-f9-dwy"/>
                                                                     <constraint firstItem="j5n-wd-RRr" firstAttribute="top" secondItem="iPD-gr-Nys" secondAttribute="bottom" constant="10" id="fnB-QF-6wD"/>
+                                                                    <constraint firstItem="h9O-pk-E44" firstAttribute="centerY" secondItem="iPD-gr-Nys" secondAttribute="centerY" id="lEM-s9-xO8"/>
+                                                                    <constraint firstItem="h9O-pk-E44" firstAttribute="leading" secondItem="iPD-gr-Nys" secondAttribute="trailing" constant="6" id="mdZ-pc-d45"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YG6-Hw-Nvm">
@@ -4417,7 +4425,7 @@ Check your network connection and </string>
         <image name="icon_down_arrow" width="12" height="8.6666669845581055"/>
         <image name="icon_download_tabbar" width="29.666666030883789" height="22.666666030883789"/>
         <image name="icon_filter_tabbar" width="23" height="23"/>
-        <image name="icon_full_wave" width="414" height="170"/>
+        <image name="icon_full_wave" width="430" height="115"/>
         <image name="icon_headset_coloured" width="300" height="131"/>
         <image name="icon_info" width="20" height="20"/>
         <image name="icon_metrics_tabbar" width="32" height="32"/>

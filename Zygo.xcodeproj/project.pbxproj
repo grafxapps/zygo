@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,15 @@
 		33B0BE8528C4D608009754EA /* MetricsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B0BE8328C4D608009754EA /* MetricsTVC.swift */; };
 		33B0BE8628C4D608009754EA /* MetricsTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33B0BE8428C4D608009754EA /* MetricsTVC.xib */; };
 		33B0BE8828C4F49A009754EA /* ReferFriend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33B0BE8728C4F499009754EA /* ReferFriend.storyboard */; };
+		36075D642B1094180080F8A1 /* HallOfFameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36075D632B1094180080F8A1 /* HallOfFameVC.swift */; };
+		36385AB62B1083E000204CA8 /* WalkieTalkieVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36385AB52B1083E000204CA8 /* WalkieTalkieVC.swift */; };
+		36385AC02B10853400204CA8 /* NumTypes+Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36385AB92B10853400204CA8 /* NumTypes+Conversion.swift */; };
+		36385AC12B10853400204CA8 /* OOPExceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36385ABA2B10853400204CA8 /* OOPExceptions.swift */; };
+		36385AC22B10853400204CA8 /* CAXException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36385ABC2B10853400204CA8 /* CAXException.swift */; };
+		36385AC32B10853400204CA8 /* CAStreamBasicDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36385ABD2B10853400204CA8 /* CAStreamBasicDescription.swift */; };
+		36385AC42B10853400204CA8 /* CADebugMacros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36385ABE2B10853400204CA8 /* CADebugMacros.swift */; };
+		36385AC52B10853400204CA8 /* CABitOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36385ABF2B10853400204CA8 /* CABitOperations.swift */; };
+		36385AC72B10853800204CA8 /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36385AC62B10853800204CA8 /* AudioController.swift */; };
 		364EBE86290E605400723A1A /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364EBE85290E605400723A1A /* BluetoothManager.swift */; };
 		367AC18329535A6F004DC9E4 /* VersionInfoPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367AC18129535A6F004DC9E4 /* VersionInfoPopupVC.swift */; };
 		367AC18429535A6F004DC9E4 /* VersionInfoPopupVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 367AC18229535A6F004DC9E4 /* VersionInfoPopupVC.xib */; };
@@ -43,6 +52,10 @@
 		36F4514A2967443A00C00AC7 /* FirmwareUpdatePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F451482967443A00C00AC7 /* FirmwareUpdatePopUpVC.swift */; };
 		36F4514B2967443A00C00AC7 /* FirmwareUpdatePopUpVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36F451492967443A00C00AC7 /* FirmwareUpdatePopUpVC.xib */; };
 		36FB1E1029BA541A00DD5403 /* WorkoutTypeTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36FB1E0F29BA541A00DD5403 /* WorkoutTypeTVC.xib */; };
+		36FEA14F2B135237001B2CBD /* HallOfFameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEA14E2B135237001B2CBD /* HallOfFameViewModel.swift */; };
+		36FEA1512B135439001B2CBD /* HallOfFameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEA1502B135439001B2CBD /* HallOfFameModel.swift */; };
+		36FEA1552B1358B9001B2CBD /* HallOfFameTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEA1532B1358B9001B2CBD /* HallOfFameTVC.swift */; };
+		36FEA1562B1358B9001B2CBD /* HallOfFameTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36FEA1542B1358B9001B2CBD /* HallOfFameTVC.xib */; };
 		A63E7C2C25BC2CFC00CC9564 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63E7C2B25BC2CFC00CC9564 /* Helper.swift */; };
 		A63E7C2E25BC2D0700CC9564 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63E7C2D25BC2D0700CC9564 /* Constants.swift */; };
 		A63E7C3025BC2D1300CC9564 /* CustomExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63E7C2F25BC2D1300CC9564 /* CustomExtensions.swift */; };
@@ -319,6 +332,15 @@
 		33B0BE8328C4D608009754EA /* MetricsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsTVC.swift; sourceTree = "<group>"; };
 		33B0BE8428C4D608009754EA /* MetricsTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetricsTVC.xib; sourceTree = "<group>"; };
 		33B0BE8728C4F499009754EA /* ReferFriend.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReferFriend.storyboard; sourceTree = "<group>"; };
+		36075D632B1094180080F8A1 /* HallOfFameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallOfFameVC.swift; sourceTree = "<group>"; };
+		36385AB52B1083E000204CA8 /* WalkieTalkieVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkieTalkieVC.swift; sourceTree = "<group>"; };
+		36385AB92B10853400204CA8 /* NumTypes+Conversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NumTypes+Conversion.swift"; sourceTree = "<group>"; };
+		36385ABA2B10853400204CA8 /* OOPExceptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OOPExceptions.swift; sourceTree = "<group>"; };
+		36385ABC2B10853400204CA8 /* CAXException.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAXException.swift; sourceTree = "<group>"; };
+		36385ABD2B10853400204CA8 /* CAStreamBasicDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAStreamBasicDescription.swift; sourceTree = "<group>"; };
+		36385ABE2B10853400204CA8 /* CADebugMacros.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CADebugMacros.swift; sourceTree = "<group>"; };
+		36385ABF2B10853400204CA8 /* CABitOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CABitOperations.swift; sourceTree = "<group>"; };
+		36385AC62B10853800204CA8 /* AudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioController.swift; sourceTree = "<group>"; };
 		364EBE85290E605400723A1A /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		367AC18129535A6F004DC9E4 /* VersionInfoPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionInfoPopupVC.swift; sourceTree = "<group>"; };
 		367AC18229535A6F004DC9E4 /* VersionInfoPopupVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VersionInfoPopupVC.xib; sourceTree = "<group>"; };
@@ -348,6 +370,10 @@
 		36F451482967443A00C00AC7 /* FirmwareUpdatePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareUpdatePopUpVC.swift; sourceTree = "<group>"; };
 		36F451492967443A00C00AC7 /* FirmwareUpdatePopUpVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirmwareUpdatePopUpVC.xib; sourceTree = "<group>"; };
 		36FB1E0F29BA541A00DD5403 /* WorkoutTypeTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorkoutTypeTVC.xib; sourceTree = "<group>"; };
+		36FEA14E2B135237001B2CBD /* HallOfFameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallOfFameViewModel.swift; sourceTree = "<group>"; };
+		36FEA1502B135439001B2CBD /* HallOfFameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallOfFameModel.swift; sourceTree = "<group>"; };
+		36FEA1532B1358B9001B2CBD /* HallOfFameTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallOfFameTVC.swift; sourceTree = "<group>"; };
+		36FEA1542B1358B9001B2CBD /* HallOfFameTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HallOfFameTVC.xib; sourceTree = "<group>"; };
 		429D4ECF6C309880304ECEA1 /* Pods-Zygo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zygo.release.xcconfig"; path = "Target Support Files/Pods-Zygo/Pods-Zygo.release.xcconfig"; sourceTree = "<group>"; };
 		77DBEE42B1B796384A4758FB /* Pods_Zygo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zygo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A63E7C2B25BC2CFC00CC9564 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -666,6 +692,36 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		36385AB72B10852A00204CA8 /* TapToSpeak */ = {
+			isa = PBXGroup;
+			children = (
+				36385AC62B10853800204CA8 /* AudioController.swift */,
+				36385AB82B10853400204CA8 /* OOPUtils */,
+				36385ABB2B10853400204CA8 /* PublicUtility */,
+			);
+			path = TapToSpeak;
+			sourceTree = "<group>";
+		};
+		36385AB82B10853400204CA8 /* OOPUtils */ = {
+			isa = PBXGroup;
+			children = (
+				36385AB92B10853400204CA8 /* NumTypes+Conversion.swift */,
+				36385ABA2B10853400204CA8 /* OOPExceptions.swift */,
+			);
+			path = OOPUtils;
+			sourceTree = "<group>";
+		};
+		36385ABB2B10853400204CA8 /* PublicUtility */ = {
+			isa = PBXGroup;
+			children = (
+				36385ABC2B10853400204CA8 /* CAXException.swift */,
+				36385ABD2B10853400204CA8 /* CAStreamBasicDescription.swift */,
+				36385ABE2B10853400204CA8 /* CADebugMacros.swift */,
+				36385ABF2B10853400204CA8 /* CABitOperations.swift */,
+			);
+			path = PublicUtility;
+			sourceTree = "<group>";
+		};
 		3692210E29444FEB00970425 /* Firmwares */ = {
 			isa = PBXGroup;
 			children = (
@@ -713,6 +769,26 @@
 			path = UITableViewCell;
 			sourceTree = "<group>";
 		};
+		36FEA14D2B135220001B2CBD /* HallOfFame */ = {
+			isa = PBXGroup;
+			children = (
+				36FEA1522B13589D001B2CBD /* UITableViewCell */,
+				36FEA1502B135439001B2CBD /* HallOfFameModel.swift */,
+				36FEA14E2B135237001B2CBD /* HallOfFameViewModel.swift */,
+				36075D632B1094180080F8A1 /* HallOfFameVC.swift */,
+			);
+			path = HallOfFame;
+			sourceTree = "<group>";
+		};
+		36FEA1522B13589D001B2CBD /* UITableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				36FEA1532B1358B9001B2CBD /* HallOfFameTVC.swift */,
+				36FEA1542B1358B9001B2CBD /* HallOfFameTVC.xib */,
+			);
+			path = UITableViewCell;
+			sourceTree = "<group>";
+		};
 		5F332290C510AE0771D1DCC8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -746,6 +822,7 @@
 		A63E7C2A25BC2CE900CC9564 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				36385AB72B10852A00204CA8 /* TapToSpeak */,
 				364EBE85290E605400723A1A /* BluetoothManager.swift */,
 				36E1D1892947299C00C29A82 /* BLEConnectionManager.swift */,
 				E38254B227F97B740071257C /* AudioPlayerManager.swift */,
@@ -1009,6 +1086,8 @@
 				E3F07AD727897BD000D30CF4 /* ChargingAnimationVC.swift */,
 				E3F07AD827897BD000D30CF4 /* ChargingAnimationVC.xib */,
 				E3BD270227A4649700C5BD32 /* CustomerSupportVC.swift */,
+				36385AB52B1083E000204CA8 /* WalkieTalkieVC.swift */,
+				36FEA14D2B135220001B2CBD /* HallOfFame */,
 			);
 			path = SideMenu;
 			sourceTree = "<group>";
@@ -1466,6 +1545,7 @@
 				E31A091625C43C2D00BB59F1 /* Poppins-Black.ttf in Resources */,
 				E31A090925C43C2D00BB59F1 /* Poppins-SemiBoldItalic.ttf in Resources */,
 				E38A0F0725C552E200D3FAAC /* LICENSE in Resources */,
+				36FEA1562B1358B9001B2CBD /* HallOfFameTVC.xib in Resources */,
 				E344A1E925C9B24C00168519 /* AchievementsCVC.xib in Resources */,
 				E322384027D347BE00F018B6 /* CustomPoolLengthPopup.xib in Resources */,
 				A68B141625BDCF9100610E99 /* FilterTVC.xib in Resources */,
@@ -1637,7 +1717,9 @@
 				E3F5EEB125C3F0D4001D9BC1 /* PreferenceManager.swift in Sources */,
 				E349E53825C5BEAB0054A54D /* FilterViewModel.swift in Sources */,
 				A68B141525BDCF9100610E99 /* FilterTVC.swift in Sources */,
+				36385AC52B10853400204CA8 /* CABitOperations.swift in Sources */,
 				E38A0F0D25C552E200D3FAAC /* NVActivityIndicatorAnimationBallRotate.swift in Sources */,
+				36FEA14F2B135237001B2CBD /* HallOfFameViewModel.swift in Sources */,
 				E38A0F3525C57B7800D3FAAC /* WorkoutInstructorDTO.swift in Sources */,
 				E316A82C25F285A400E4A934 /* SubscriptionCancelVC.swift in Sources */,
 				E3FB369325C3F3DE0070DA9C /* NotificationInfoDTO.swift in Sources */,
@@ -1659,6 +1741,7 @@
 				36AEE459294E14B20051173E /* FirmwareUpdateSuccessVC.swift in Sources */,
 				E342290425C4448D00CE4ABE /* UserServices.swift in Sources */,
 				E32E530F264D883E003BAEF0 /* FISoundSource.m in Sources */,
+				36385AC22B10853400204CA8 /* CAXException.swift in Sources */,
 				E375461227D62149009989F9 /* PoolUnitInfoDTO.swift in Sources */,
 				364EBE86290E605400723A1A /* BluetoothManager.swift in Sources */,
 				E3DB1C7A285607A600A47F3D /* HealthKitManager.swift in Sources */,
@@ -1680,6 +1763,7 @@
 				E3AC185325C86C16009C092D /* SheetDTO.swift in Sources */,
 				A68B141025BDC23500610E99 /* WorkoutInfoTVC.swift in Sources */,
 				E3404896285DE2A500C16C95 /* ContactUsViewController.swift in Sources */,
+				36FEA1552B1358B9001B2CBD /* HallOfFameTVC.swift in Sources */,
 				E38A0F2925C552E300D3FAAC /* NVActivityIndicatorAnimationCubeTransition.swift in Sources */,
 				E3AA40FD2696232C0063C073 /* PlaylistTVC.swift in Sources */,
 				E32E530C264D883E003BAEF0 /* FISampleBuffer.m in Sources */,
@@ -1696,12 +1780,14 @@
 				E344A1E125C9B24400168519 /* OtherSettingsTVC.swift in Sources */,
 				E38A0F1C25C552E200D3FAAC /* NVActivityIndicatorAnimationSquareSpin.swift in Sources */,
 				36A64803294B04CA00FD62EC /* PreFirmwareUpdateViewModel.swift in Sources */,
+				36385AC12B10853400204CA8 /* OOPExceptions.swift in Sources */,
 				E32E530B264D883E003BAEF0 /* FISoundDevice.m in Sources */,
 				E38254B327F97B740071257C /* AudioPlayerManager.swift in Sources */,
 				E379627625DD3FF10024B5C9 /* TempoTrainerViewController.swift in Sources */,
 				E3C393DE25E74968008AF486 /* SeriesTVC.swift in Sources */,
 				E38A0F2C25C552E300D3FAAC /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift in Sources */,
 				E3D8DC9525CEF9D400949256 /* EquipmentTVC.swift in Sources */,
+				36385AC42B10853400204CA8 /* CADebugMacros.swift in Sources */,
 				E324E6A125DFA23A002CD0D5 /* DownloadManagerDownload.swift in Sources */,
 				E35F24BE25DBA682004E2B8C /* FeedbackAchievementTVC.swift in Sources */,
 				A68B139025BC572100610E99 /* NetworkManager.swift in Sources */,
@@ -1712,6 +1798,7 @@
 				E3BD270327A4649800C5BD32 /* CustomerSupportVC.swift in Sources */,
 				E38A0F1525C552E200D3FAAC /* NVActivityIndicatorAnimationBallZigZagDeflect.swift in Sources */,
 				E36611F9268A1DDD0034A311 /* InstructorViewController.swift in Sources */,
+				36385AC02B10853400204CA8 /* NumTypes+Conversion.swift in Sources */,
 				E344A1C925C9B22100168519 /* ProfileViewController.swift in Sources */,
 				E3D8DC9125CEF9D400949256 /* WorkoutPlanTVC.swift in Sources */,
 				3692544629373F7E004D96DC /* AlreadyUpdatedVC.swift in Sources */,
@@ -1728,6 +1815,7 @@
 				E32E5311264D883E003BAEF0 /* FISampleFormat.m in Sources */,
 				E3DB1C732855EDB300A47F3D /* DeleteAccountVC.swift in Sources */,
 				E38A0F2A25C552E300D3FAAC /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */,
+				36385AC32B10853400204CA8 /* CAStreamBasicDescription.swift in Sources */,
 				A68B139425BC592800610E99 /* RegistrationServices.swift in Sources */,
 				E38A0F1025C552E200D3FAAC /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift in Sources */,
 				E3D33CE927213F9100FDF931 /* OnOffHeadsetVC.swift in Sources */,
@@ -1757,6 +1845,7 @@
 				A63E7C3525BC415100CC9564 /* SignInViewController.swift in Sources */,
 				E32E530D264D883E003BAEF0 /* FIError.m in Sources */,
 				E3CFCC6325EE6254000C481A /* HistoryWorkoutsHeaderView.swift in Sources */,
+				36075D642B1094180080F8A1 /* HallOfFameVC.swift in Sources */,
 				A63E7C3725BC448B00CC9564 /* SubscriptionViewController.swift in Sources */,
 				E3D8DC9A25CEF9D400949256 /* BluetoothTVC.swift in Sources */,
 				E392305A2678FB5F0060EFC4 /* PresentingAnimator.swift in Sources */,
@@ -1775,6 +1864,7 @@
 				E38A0F0F25C552E200D3FAAC /* NVActivityIndicatorAnimationBallClipRotate.swift in Sources */,
 				E322384327D3519300F018B6 /* MetricsViewController.swift in Sources */,
 				E344A1C025C9B15200168519 /* AppleLoginManager.swift in Sources */,
+				36385AB62B1083E000204CA8 /* WalkieTalkieVC.swift in Sources */,
 				E38A0F0A25C552E200D3FAAC /* NVActivityIndicatorViewable.swift in Sources */,
 				A67744C725BC1A5300D18BA9 /* Zygo.xcdatamodeld in Sources */,
 				E344A1BC25C9B14600168519 /* FacebookManager.swift in Sources */,
@@ -1804,10 +1894,12 @@
 				E38A0F2025C552E200D3FAAC /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */,
 				E38A0F0C25C552E200D3FAAC /* NVActivityIndicatorView.swift in Sources */,
 				E38A0F2625C552E200D3FAAC /* NVActivityIndicatorAnimationBallScaleRippleMultiple.swift in Sources */,
+				36385AC72B10853800204CA8 /* AudioController.swift in Sources */,
 				E344A1D925C9B24400168519 /* AchievementsTVC.swift in Sources */,
 				A64D708A25C17DA4000BC433 /* VerifyForgotPasswordViewController.swift in Sources */,
 				E35F24AA25DBA18D004E2B8C /* FeedbackSheetViewController.swift in Sources */,
 				E335DE0925CE75300089C772 /* SettingsHV.swift in Sources */,
+				36FEA1512B135439001B2CBD /* HallOfFameModel.swift in Sources */,
 				E38A0F1225C552E200D3FAAC /* NVActivityIndicatorAnimationBallDoubleBounce.swift in Sources */,
 				36E1D186294723C100C29A82 /* PreFirmwareUpdateVC.swift in Sources */,
 				E341129325E6C90300F1C53A /* WorkoutLogDTO.swift in Sources */,
@@ -1980,7 +2072,7 @@
 				CODE_SIGN_ENTITLEMENTS = Zygo/Zygo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 15;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 79XU885769;
 				INFOPLIST_FILE = Zygo/Resources/Info.plist;
@@ -1989,7 +2081,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.0.6;
+				MARKETING_VERSION = 6.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zygo.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2007,7 +2099,7 @@
 				CODE_SIGN_ENTITLEMENTS = Zygo/Zygo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = 79XU885769;
 				INFOPLIST_FILE = Zygo/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2015,7 +2107,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.0.6;
+				MARKETING_VERSION = 6.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zygo.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

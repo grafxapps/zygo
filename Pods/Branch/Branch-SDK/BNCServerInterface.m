@@ -17,10 +17,11 @@
 #import "Branch.h"
 #import "NSString+Branch.h"
 #import "BNCApplication.h"
+#import "BNCSKAdNetwork.h"
 
 @interface BNCServerInterface ()
-@property (strong) NSString *requestEndpoint;
-@property (strong) id<BNCNetworkServiceProtocol> networkService;
+@property (copy, nonatomic) NSString *requestEndpoint;
+@property (strong, nonatomic) id<BNCNetworkServiceProtocol> networkService;
 @end
 
 @implementation BNCServerInterface
@@ -132,13 +133,13 @@
         retryNumber:(NSInteger)retryNumber
                 key:(NSString *)key
            callback:(BNCServerCallback)callback {
-
-    NSMutableDictionary *extendedParams = [self buildExtendedParametersForURL:url withPostDictionary:post];
-    NSURLRequest *request = [self preparePostRequest:extendedParams url:url key:key retryNumber:retryNumber];
     
     // Instrumentation metrics
     self.requestEndpoint = [self.preferenceHelper getEndpointFromURL:url];
-
+    
+    NSMutableDictionary *extendedParams = [self buildExtendedParametersForURL:url withPostDictionary:post];
+    NSURLRequest *request = [self preparePostRequest:extendedParams url:url key:key retryNumber:retryNumber];
+    
     [self genericHTTPRequest:request
                  retryNumber:retryNumber
                     callback:callback
@@ -247,7 +248,7 @@
         
         // if endpoint is not linking related, fail it.
         if (![self isLinkingRelatedRequest:endpoint]) {
-            [[BNCPreferenceHelper preferenceHelper] clearTrackingInformation];
+            [[BNCPreferenceHelper sharedInstance] clearTrackingInformation];
             NSError *error = [NSError branchErrorWithCode:BNCTrackingDisabledError];
             BNCLogWarning([NSString stringWithFormat:@"Dropping Request %@: - %@", endpoint, error]);
             if (callback) {
@@ -271,21 +272,21 @@
 }
 
 - (BOOL)isLinkingRelatedRequest:(NSString *)endpoint {
-    BNCPreferenceHelper *prefs = [BNCPreferenceHelper preferenceHelper];
+    BNCPreferenceHelper *prefs = [BNCPreferenceHelper sharedInstance];
     BOOL hasIdentifier = (prefs.linkClickIdentifier.length > 0 ) || (prefs.spotlightIdentifier.length > 0 ) || (prefs.universalLinkUrl.length > 0);
     
     // Allow install to resolve a link.
-    if ([endpoint bnc_containsString:@"/v1/install"] && hasIdentifier) {
+    if ([endpoint containsString:@"/v1/install"]) {
         return YES;
     }
     
     // Allow open to resolve a link.
-    if ([endpoint bnc_containsString:@"/v1/open"] && hasIdentifier) {
+    if ([endpoint containsString:@"/v1/open"] && hasIdentifier) {
         return YES;
     }
     
     // Allow short url creation requests
-    if ([endpoint bnc_containsString:@"/v1/url"]) {
+    if ([endpoint containsString:@"/v1/url"]) {
         return YES;
     }
     
@@ -395,8 +396,8 @@
         preparedParams[@"hardware_id"] = nil;
         preparedParams[@"hardware_id_type"] = nil;
         preparedParams[@"is_hardware_id_real"] = nil;
-        preparedParams[@"device_fingerprint_id"] = nil;
-        preparedParams[@"identity_id"] = nil;
+        preparedParams[@"randomized_device_token"] = nil;
+        preparedParams[@"randomized_bundle_token"] = nil;
         preparedParams[@"identity"] = nil;
         preparedParams[@"update"] = nil;
     }
@@ -440,6 +441,11 @@
     NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
     [metadata bnc_safeAddEntriesFromDictionary:self.preferenceHelper.requestMetadataDictionary];
     [metadata bnc_safeAddEntriesFromDictionary:fullParamDict[BRANCH_REQUEST_KEY_STATE]];
+    
+    if(([self.requestEndpoint containsString:@"/v1/open"]) || ([self.requestEndpoint containsString:@"/v1/install"]) || ([self.requestEndpoint containsString:@"/v2/event"])){
+        [metadata bnc_safeSetObject:[NSString stringWithFormat:@"%f", [BNCSKAdNetwork sharedInstance].maxTimeSinceInstall] forKey:BRANCH_REQUEST_METADATA_KEY_SCANTIME_WINDOW];
+    }
+    
     if (metadata.count) {
         fullParamDict[BRANCH_REQUEST_KEY_STATE] = metadata;
     }
@@ -450,6 +456,27 @@
             fullParamDict[BRANCH_REQUEST_KEY_INSTRUMENTATION] = instrumentationDictionary;
         }
     }
+    // For DOWNSTREAM EVENTS v2/events, include referrer_gbraid in request if available
+    if([self.requestEndpoint containsString:@"/v2/event"]){
+        NSString *ref_gbraid = self.preferenceHelper.referrerGBRAID;
+        if ((ref_gbraid != nil) && (ref_gbraid.length > 0))  {
+            // Check if its valid or expired
+            NSTimeInterval validityWindow = self.preferenceHelper.referrerGBRAIDValidityWindow;
+            if (validityWindow) {
+                NSDate *initDate = self.preferenceHelper.referrerGBRAIDInitDate ;
+                NSDate *expirationDate = [initDate dateByAddingTimeInterval:validityWindow];
+                NSDate *now = [NSDate date];
+                if ([now compare:expirationDate] == NSOrderedAscending) {
+                    fullParamDict[BRANCH_REQUEST_KEY_REFERRER_GBRAID] = ref_gbraid;
+                }
+            }
+        }
+    }
+    
+    if ([self.requestEndpoint containsString:@"/v1/open"]) {
+        [fullParamDict bnc_safeSetObject:[BNCPreferenceHelper sharedInstance].userIdentity forKey:@"identity"];
+    }
+    
     return fullParamDict;
 }
 
@@ -462,7 +489,7 @@
 
     NSString *sendCloseRequests = httpResponse.allHeaderFields[@"X-Branch-Send-Close-Request"];
     if (sendCloseRequests != nil) {
-        [[BNCPreferenceHelper preferenceHelper] setSendCloseRequests:sendCloseRequests.boolValue];
+        [[BNCPreferenceHelper sharedInstance] setSendCloseRequests:sendCloseRequests.boolValue];
     }
     
     if (!error) {
@@ -532,7 +559,7 @@
         
         if ([self installDateIsRecent] && [deviceInfo isFirstOptIn]) {
             [self safeSetValue:@(deviceInfo.isFirstOptIn) forKey:BRANCH_REQUEST_KEY_FIRST_OPT_IN onDict:dict];
-            [BNCPreferenceHelper preferenceHelper].hasOptedInBefore = YES;
+            [BNCPreferenceHelper sharedInstance].hasOptedInBefore = YES;
         }
         
         [self safeSetValue:@(deviceInfo.isAdTrackingEnabled) forKey:BRANCH_REQUEST_KEY_AD_TRACKING_ENABLED onDict:dict];
@@ -551,7 +578,14 @@
 // we do not need to send first_opt_in, if the install is older than 30 days
 - (BOOL)installDateIsRecent {
     //NSTimeInterval maxTimeSinceInstall = 60.0;
-    NSTimeInterval maxTimeSinceInstall = 3600.0 * 24.0 * 30;
+    NSTimeInterval maxTimeSinceInstall = 0;
+    
+    if (@available(iOS 16.1, *)) {
+        maxTimeSinceInstall = 3600.0 * 24.0 * 60; // For SKAN 4.0, The user has 60 days to launch the app.
+    } else {
+        maxTimeSinceInstall = 3600.0 * 24.0 * 30;
+    }
+        
     NSDate *now = [NSDate date];
     NSDate *maxDate = [[BNCApplication currentApplication].currentInstallDate dateByAddingTimeInterval:maxTimeSinceInstall];
     

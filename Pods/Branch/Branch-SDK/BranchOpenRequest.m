@@ -43,14 +43,15 @@
 }
 
 - (void)makeRequest:(BNCServerInterface *)serverInterface key:(NSString *)key callback:(BNCServerCallback)callback {
+    self.clearLocalURL = FALSE;
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
 
-    BNCPreferenceHelper *preferenceHelper = [BNCPreferenceHelper preferenceHelper];
-    if (preferenceHelper.deviceFingerprintID) {
-        params[BRANCH_REQUEST_KEY_DEVICE_FINGERPRINT_ID] = preferenceHelper.deviceFingerprintID;
+    BNCPreferenceHelper *preferenceHelper = [BNCPreferenceHelper sharedInstance];
+    if (preferenceHelper.randomizedDeviceToken) {
+        params[BRANCH_REQUEST_KEY_RANDOMIZED_DEVICE_TOKEN] = preferenceHelper.randomizedDeviceToken;
     }
 
-    params[BRANCH_REQUEST_KEY_BRANCH_IDENTITY] = preferenceHelper.identityID;
+    params[BRANCH_REQUEST_KEY_RANDOMIZED_BUNDLE_TOKEN] = preferenceHelper.randomizedBundleToken;
     params[BRANCH_REQUEST_KEY_DEBUG] = @(preferenceHelper.isDebug);
 
     [self safeSetValue:[BNCSystemObserver getBundleID] forKey:BRANCH_REQUEST_KEY_BUNDLE_ID onDict:params];
@@ -100,6 +101,17 @@
     if (partnerParameters.count > 0) {
         [self safeSetValue:partnerParameters forKey:BRANCH_REQUEST_KEY_PARTNER_PARAMETERS onDict:params];
     }
+        
+    if (@available(iOS 16.0, *)) {
+        NSString *localURLString = [[BNCPreferenceHelper sharedInstance] localUrl];
+        if(localURLString){
+            NSURL *localURL = [[NSURL alloc] initWithString:localURLString];
+            if (localURL) {
+                [self safeSetValue:localURL.absoluteString forKey:BRANCH_REQUEST_KEY_LOCAL_URL onDict:params];
+                self.clearLocalURL = TRUE;
+            }
+        }
+    }
 
     BNCApplication *application = [BNCApplication currentApplication];
     params[@"lastest_update_time"] = BNCWireFormatFromDate(application.currentBuildDate);
@@ -136,7 +148,7 @@ typedef NS_ENUM(NSInteger, BNCUpdateState) {
 }
 
 - (void)processResponse:(BNCServerResponse *)response error:(NSError *)error {
-    BNCPreferenceHelper *preferenceHelper = [BNCPreferenceHelper preferenceHelper];
+    BNCPreferenceHelper *preferenceHelper = [BNCPreferenceHelper sharedInstance];
     if (error && preferenceHelper.dropURLOpen) {
         // Ignore this response from the server. Dummy up a response:
         error = nil;
@@ -161,26 +173,22 @@ typedef NS_ENUM(NSInteger, BNCUpdateState) {
     if ([userIdentity isKindOfClass:[NSNumber class]]) {
         userIdentity = [userIdentity stringValue];
     }
-
-    preferenceHelper.deviceFingerprintID = data[BRANCH_RESPONSE_KEY_DEVICE_FINGERPRINT_ID];
-    preferenceHelper.userUrl = data[BRANCH_RESPONSE_KEY_USER_URL];
-    preferenceHelper.userIdentity = userIdentity;
-    preferenceHelper.sessionID = data[BRANCH_RESPONSE_KEY_SESSION_ID];
-    preferenceHelper.previousAppBuildDate = [BNCApplication currentApplication].currentBuildDate;
-
     
-    if ([data[BRANCH_RESPONSE_KEY_INVOKE_REGISTER_APP] isKindOfClass:NSNumber.class]) {
-        NSNumber *invokeRegister = (NSNumber *)data[BRANCH_RESPONSE_KEY_INVOKE_REGISTER_APP];
-        if (invokeRegister.boolValue) {
-            [[BNCSKAdNetwork sharedInstance] registerAppForAdNetworkAttribution];
+    if ([data objectForKey:BRANCH_RESPONSE_KEY_RANDOMIZED_DEVICE_TOKEN]) {
+        preferenceHelper.randomizedDeviceToken = data[BRANCH_RESPONSE_KEY_RANDOMIZED_DEVICE_TOKEN];
+        if (!preferenceHelper.randomizedDeviceToken) {
+            // fallback to deprecated name. Fingerprinting was removed long ago, hence the name change.
+            preferenceHelper.randomizedDeviceToken = data[@"device_fingerprint_id"];
         }
     }
-    
-    if (Branch.enableFingerprintIDInCrashlyticsReports) {
-        BNCCrashlyticsWrapper *crashlytics = [BNCCrashlyticsWrapper wrapper];
-        [crashlytics setObjectValue:preferenceHelper.deviceFingerprintID
-            forKey:BRANCH_CRASHLYTICS_FINGERPRINT_ID_KEY];
+   
+    if (data[BRANCH_RESPONSE_KEY_USER_URL]) {
+        preferenceHelper.userUrl = data[BRANCH_RESPONSE_KEY_USER_URL];
     }
+    preferenceHelper.userIdentity = userIdentity;
+    if ([data objectForKey:BRANCH_RESPONSE_KEY_SESSION_ID])
+        preferenceHelper.sessionID = data[BRANCH_RESPONSE_KEY_SESSION_ID];
+    preferenceHelper.previousAppBuildDate = [BNCApplication currentApplication].currentBuildDate;
 
     NSString *sessionData = data[BRANCH_RESPONSE_KEY_SESSION_DATA];
     if (sessionData == nil || [sessionData isKindOfClass:[NSString class]]) {
@@ -217,17 +225,11 @@ typedef NS_ENUM(NSInteger, BNCUpdateState) {
     // Otherwise,
     // * On Install: set.
     // * On Open and installParams set: don't set.
-    // * On Open and stored installParams are empty: set.
     if (sessionData.length) {
         NSDictionary *sessionDataDict = [BNCEncodingUtils decodeJsonStringToDictionary:sessionData];
         BOOL dataIsFromALinkClick = [sessionDataDict[BRANCH_RESPONSE_KEY_CLICKED_BRANCH_LINK] isEqual:@1];
-        BOOL storedParamsAreEmpty = YES;
 
-        if ([preferenceHelper.installParams isKindOfClass:[NSString class]]) {
-            storedParamsAreEmpty = !preferenceHelper.installParams.length;
-        }
-
-        if (dataIsFromALinkClick && (self.isInstall || storedParamsAreEmpty)) {
+        if (dataIsFromALinkClick && self.isInstall) {
             preferenceHelper.installParams = sessionData;
         }
     }
@@ -259,9 +261,24 @@ typedef NS_ENUM(NSInteger, BNCUpdateState) {
     preferenceHelper.referringURL = referringURL;
     preferenceHelper.dropURLOpen = NO;
 
-    NSString *string = BNCStringFromWireFormat(data[BRANCH_RESPONSE_KEY_BRANCH_IDENTITY]);
-    if (string) preferenceHelper.identityID = string;
-
+    
+    NSString *string = BNCStringFromWireFormat(data[BRANCH_RESPONSE_KEY_RANDOMIZED_BUNDLE_TOKEN]);
+    if (!string) {
+        // fallback to deprecated name. The old name was easily confused with the setIdentity, hence the name change.
+        string = BNCStringFromWireFormat(data[@"identity_id"]);
+    }
+    
+    if (string) {
+        preferenceHelper.randomizedBundleToken = string;
+    }
+    
+    if (self.clearLocalURL) {
+        preferenceHelper.localUrl = nil;
+#if !TARGET_OS_TV
+        UIPasteboard.generalPasteboard.URL = nil;
+#endif
+    }
+    
     [BranchOpenRequest releaseOpenResponseLock];
 
     BranchContentDiscoveryManifest *cdManifest = [BranchContentDiscoveryManifest getInstance];
@@ -273,6 +290,73 @@ typedef NS_ENUM(NSInteger, BNCUpdateState) {
     if (self.isInstall) {
         [[BNCAppGroupsData shared] saveAppClipData];
     }
+    
+    if ([data[BRANCH_RESPONSE_KEY_INVOKE_REGISTER_APP] isKindOfClass:NSNumber.class]) {
+        NSNumber *invokeRegister = (NSNumber *)data[BRANCH_RESPONSE_KEY_INVOKE_REGISTER_APP];
+        preferenceHelper.invokeRegisterApp = invokeRegister.boolValue;
+        if (invokeRegister.boolValue && self.isInstall) {
+            if (@available(iOS 16.1, *)){
+                NSString *defaultCoarseConValue = [[BNCSKAdNetwork sharedInstance] getCoarseConversionValueFromDataResponse:@{}];
+                [[BNCSKAdNetwork sharedInstance] updatePostbackConversionValue:0 coarseValue:defaultCoarseConValue
+                    lockWindow:NO completionHandler:^(NSError * _Nullable error) {
+                    if (error) {
+                        BNCLogError([NSString stringWithFormat:@"Update conversion value failed with error - %@", [error description]]);
+                    } else {
+                        BNCLogDebug([NSString stringWithFormat:@"Update conversion value was successful for INSTALL Event"]);
+                    }
+                }];
+            } else if (@available(iOS 15.4, *)){
+                [[BNCSKAdNetwork sharedInstance] updatePostbackConversionValue:0 completionHandler:^(NSError * _Nullable error) {
+                    if (error) {
+                        BNCLogError([NSString stringWithFormat:@"Update conversion value failed with error - %@", [error description]]);
+                    } else {
+                        BNCLogDebug([NSString stringWithFormat:@"Update conversion value was successful for INSTALL Event"]);
+                    }
+                }];
+            }
+            else {
+                [[BNCSKAdNetwork sharedInstance] registerAppForAdNetworkAttribution];
+            }
+        }
+    } else {
+        preferenceHelper.invokeRegisterApp = NO;
+    }
+    
+ 
+    if (data && [data[BRANCH_RESPONSE_KEY_UPDATE_CONVERSION_VALUE] isKindOfClass:NSNumber.class] && !self.isInstall) {
+        NSNumber *conversionValue = (NSNumber *)data[BRANCH_RESPONSE_KEY_UPDATE_CONVERSION_VALUE];
+        // Regardless of SKAN opted-in in dashboard, we always get conversionValue, so adding check to find out if install/open response had "invoke_register_app" true
+        if (conversionValue && preferenceHelper.invokeRegisterApp ) {
+            if (@available(iOS 16.1, *)){
+                NSString* coarseConversionValue = [[BNCSKAdNetwork sharedInstance] getCoarseConversionValueFromDataResponse:data] ;
+                BOOL lockWin = [[BNCSKAdNetwork sharedInstance] getLockedStatusFromDataResponse:data];
+                BOOL shouldCallUpdatePostback = [[BNCSKAdNetwork sharedInstance] shouldCallPostbackForDataResponse:data];
+                
+                BNCLogDebug([NSString stringWithFormat:@"SKAN 4.0 params - conversionValue:%@ coarseValue:%@, locked:%d, shouldCallPostback:%d, currentWindow:%d, firstAppLaunchTime: %@", conversionValue, coarseConversionValue, lockWin, shouldCallUpdatePostback, (int)preferenceHelper.skanCurrentWindow, preferenceHelper.firstAppLaunchTime]);
+                
+                if(shouldCallUpdatePostback){
+                    [[BNCSKAdNetwork sharedInstance] updatePostbackConversionValue: conversionValue.longValue coarseValue:coarseConversionValue lockWindow:lockWin completionHandler:^(NSError * _Nullable error) {
+                        if (error) {
+                            BNCLogError([NSString stringWithFormat:@"Update conversion value failed with error - %@", [error description]]);
+                        } else {
+                            BNCLogDebug([NSString stringWithFormat:@"Update conversion value was successful. Conversion Value - %@", conversionValue]);
+                        }
+                    }];
+                }
+            } else if (@available(iOS 15.4, *)) {
+                [[BNCSKAdNetwork sharedInstance] updatePostbackConversionValue:conversionValue.intValue completionHandler: ^(NSError *error){
+                    if (error) {
+                        BNCLogError([NSString stringWithFormat:@"Update conversion value failed with error - %@", [error description]]);
+                    } else {
+                        BNCLogDebug([NSString stringWithFormat:@"Update conversion value was successful. Conversion Value - %@", conversionValue]);
+                    }
+                }];
+            } else {
+                [[BNCSKAdNetwork sharedInstance] updateConversionValue:conversionValue.integerValue];
+            }
+        }
+    }
+
     
     if (self.callback) {
         self.callback(YES, nil);

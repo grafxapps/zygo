@@ -76,6 +76,8 @@
 	<string>Access to your phone’s location will help us customize content. We will send you notifications about events in your area and attach your workouts to specific pools.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Access to your phone’s location will help us customize content. We will send you notifications about events in your area and attach your workouts to specific pools.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Access to your phone&apos;s Microphone for walkie talkie feature.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>LSApplicationQueriesSchemes</key>

@@ -41,9 +41,6 @@ class MetricsBTVC: UIViewController {
         
     }
     
-    deinit {
-        self.removeObservers()
-    }
     
     //MARK: - Setups
     func addObservers(){

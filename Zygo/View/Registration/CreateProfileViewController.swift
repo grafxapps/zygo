@@ -253,7 +253,7 @@ class CreateProfileViewController: UIViewController {
                     if let nUser = self?.user{
                         PreferenceManager.shared.user = nUser
                     }
-                    
+                    AppDelegate.app.isSignupCompleted = true
                     Helper.shared.setDashboardRoot()
                 }
             }

@@ -29,11 +29,6 @@ class BluetoothViewController: UIViewController, ZBluetoothManagerDelegates {
         ZBluetoothManager.shared.delegate = self
     }
     
-    deinit {
-        self.stopTimer()
-    }
-    
-    
     //MARK:- Setup
     func registerCustomCells()  {
         tblBluetooth.separatorStyle = .none

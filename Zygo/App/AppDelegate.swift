@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var tempoPlayer: AVAudioPlayer?
     let protector = ScreenRecordingProtoector()
     var isProfileTabOpened: Bool = false
+    var isSignupCompleted: Bool = false
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         

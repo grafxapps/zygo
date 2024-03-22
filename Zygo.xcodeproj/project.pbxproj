@@ -24,6 +24,8 @@
 		36385AC52B10853400204CA8 /* CABitOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36385ABF2B10853400204CA8 /* CABitOperations.swift */; };
 		36385AC72B10853800204CA8 /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36385AC62B10853800204CA8 /* AudioController.swift */; };
 		364EBE86290E605400723A1A /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364EBE85290E605400723A1A /* BluetoothManager.swift */; };
+		366396402B7F8FB9007690D2 /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3663963E2B7F8FB9007690D2 /* OnboardingVC.swift */; };
+		366396412B7F8FB9007690D2 /* OnboardingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3663963F2B7F8FB9007690D2 /* OnboardingVC.xib */; };
 		367AC18329535A6F004DC9E4 /* VersionInfoPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367AC18129535A6F004DC9E4 /* VersionInfoPopupVC.swift */; };
 		367AC18429535A6F004DC9E4 /* VersionInfoPopupVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 367AC18229535A6F004DC9E4 /* VersionInfoPopupVC.xib */; };
 		367AC18629549E94004DC9E4 /* FirmwareUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367AC18529549E94004DC9E4 /* FirmwareUpdateViewModel.swift */; };
@@ -342,6 +344,8 @@
 		36385ABF2B10853400204CA8 /* CABitOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CABitOperations.swift; sourceTree = "<group>"; };
 		36385AC62B10853800204CA8 /* AudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioController.swift; sourceTree = "<group>"; };
 		364EBE85290E605400723A1A /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		3663963E2B7F8FB9007690D2 /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
+		3663963F2B7F8FB9007690D2 /* OnboardingVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingVC.xib; sourceTree = "<group>"; };
 		367AC18129535A6F004DC9E4 /* VersionInfoPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionInfoPopupVC.swift; sourceTree = "<group>"; };
 		367AC18229535A6F004DC9E4 /* VersionInfoPopupVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VersionInfoPopupVC.xib; sourceTree = "<group>"; };
 		367AC18529549E94004DC9E4 /* FirmwareUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareUpdateViewModel.swift; sourceTree = "<group>"; };
@@ -737,8 +741,8 @@
 				36A64806294B089800FD62EC /* UITableViewCell */,
 				3692544529373F7E004D96DC /* AlreadyUpdatedVC.swift */,
 				36E1D185294723C100C29A82 /* PreFirmwareUpdateVC.swift */,
-				36E1D187294723FF00C29A82 /* FirmwareUpdateVC.swift */,
 				36A64802294B04CA00FD62EC /* PreFirmwareUpdateViewModel.swift */,
+				36E1D187294723FF00C29A82 /* FirmwareUpdateVC.swift */,
 				36A6480B294B0C7B00FD62EC /* SkipDFUPopupVC.swift */,
 				36A6480C294B0C7B00FD62EC /* SkipDFUPopupVC.xib */,
 				36AEE458294E14B20051173E /* FirmwareUpdateSuccessVC.swift */,
@@ -850,6 +854,8 @@
 				E385B6F225E8F59B00681D44 /* LocationManager.swift */,
 				E3AA40F72695FB7A0063C073 /* ScreenRecordingProtoector.swift */,
 				E3DB1C79285607A600A47F3D /* HealthKitManager.swift */,
+				3663963E2B7F8FB9007690D2 /* OnboardingVC.swift */,
+				3663963F2B7F8FB9007690D2 /* OnboardingVC.xib */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1547,6 +1553,7 @@
 				E38A0F0725C552E200D3FAAC /* LICENSE in Resources */,
 				36FEA1562B1358B9001B2CBD /* HallOfFameTVC.xib in Resources */,
 				E344A1E925C9B24C00168519 /* AchievementsCVC.xib in Resources */,
+				366396412B7F8FB9007690D2 /* OnboardingVC.xib in Resources */,
 				E322384027D347BE00F018B6 /* CustomPoolLengthPopup.xib in Resources */,
 				A68B141625BDCF9100610E99 /* FilterTVC.xib in Resources */,
 				E31A090B25C43C2D00BB59F1 /* Poppins-BoldItalic.ttf in Resources */,
@@ -1847,6 +1854,7 @@
 				E3CFCC6325EE6254000C481A /* HistoryWorkoutsHeaderView.swift in Sources */,
 				36075D642B1094180080F8A1 /* HallOfFameVC.swift in Sources */,
 				A63E7C3725BC448B00CC9564 /* SubscriptionViewController.swift in Sources */,
+				366396402B7F8FB9007690D2 /* OnboardingVC.swift in Sources */,
 				E3D8DC9A25CEF9D400949256 /* BluetoothTVC.swift in Sources */,
 				E392305A2678FB5F0060EFC4 /* PresentingAnimator.swift in Sources */,
 				E3FE0A9725F15A02000D7FAB /* PairVC.swift in Sources */,
@@ -2072,7 +2080,7 @@
 				CODE_SIGN_ENTITLEMENTS = Zygo/Zygo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 79XU885769;
 				INFOPLIST_FILE = Zygo/Resources/Info.plist;
@@ -2081,7 +2089,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.0.7;
+				MARKETING_VERSION = 6.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zygo.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2099,7 +2107,7 @@
 				CODE_SIGN_ENTITLEMENTS = Zygo/Zygo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 79XU885769;
 				INFOPLIST_FILE = Zygo/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2107,7 +2115,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.0.7;
+				MARKETING_VERSION = 6.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zygo.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

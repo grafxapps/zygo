@@ -33,10 +33,6 @@ class WorkoutSeriesViewController: UIViewController {
         //}
     }
     
-    deinit {
-        self.removeObservers()
-    }
-    
     //MARK:- Setup
     func addObservers(){
         self.removeObservers()

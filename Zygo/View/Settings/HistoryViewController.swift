@@ -41,9 +41,6 @@ class HistoryViewController: UIViewController {
         }
     }
     
-    deinit {
-        self.removeObservers()
-    }
     
     //MARK:- Setup
     func registerTVC()  {

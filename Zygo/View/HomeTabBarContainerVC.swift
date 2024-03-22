@@ -51,6 +51,11 @@ class HomeTabBarContainerVC: UIViewController {
         self.selectTabUI()
         
         //BLEConnectionManager.shared.startAutoConnectScanning()
+        if AppDelegate.app.isSignupCompleted{
+            let vc = OnboardingVC(nibName: "OnboardingVC", bundle: nil)
+            vc.modalPresentationStyle = .overCurrentContext
+            self.present(vc, animated: true)
+        }
     }
     
     //MARK: - Setups

@@ -50,8 +50,8 @@ class WorkoutsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.fetchWorkouts(isLoading: isFromDidLoad, isFromDidLoad)
-        
+        self.fetchWorkouts(isLoading: AppDelegate.app.isSignupCompleted ? false : isFromDidLoad, isFromDidLoad)
+        AppDelegate.app.isSignupCompleted = false
         if isProfileFetched{
             return
         }
@@ -84,9 +84,6 @@ class WorkoutsViewController: UIViewController {
         AppDelegate.app.protector.preventScreenShoot()
     }
     
-    deinit {
-        self.removeObservers()
-    }
     
     //MARK:- Setup
     func registerTVC()  {

@@ -41,9 +41,6 @@ class BadgesVC: UIViewController {
         }
     }
     
-    deinit {
-        self.removeObservers()
-    }
     
     //MARK:- Setup
     func registerTVC()  {

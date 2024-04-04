@@ -14,18 +14,24 @@ final class WorkoutPlayerViewModel: NSObject {
     var arrAchievements: [AchievementDTO] = []
     
     func completeWorkout(_ workoutId: Int, _ timeInWater: Int, _ timeElapsed: Int, completion: @escaping (Bool, Int) -> Void){//Seconds
-        Helper.shared.startLoading()
-        LocationManager.shared.startLoction()
-        LocationManager.shared.onUpdate = { [weak self] location in
-            guard let mLocation = location else{
-                //Helper.shared.stopLoading()
-                //completion(false, -1)
-                self?.completeWorout(with: 0.0, 0.0, workoutId, timeInWater, timeElapsed, completion: completion)
-                return
-            }
-            self?.completeWorout(with: mLocation.latitude, mLocation.longitude , workoutId, timeInWater, timeElapsed, completion: completion)
-        }
         
+        //Here we need to check application status, if it's in the background then wait for it to launch or we can complete the workout without location.
+        
+        Helper.shared.startLoading()
+        if UIApplication.shared.applicationState == .active{
+            LocationManager.shared.startLoction()
+            LocationManager.shared.onUpdate = { [weak self] location in
+                guard let mLocation = location else{
+                    //Helper.shared.stopLoading()
+                    //completion(false, -1)
+                    self?.completeWorout(with: 0.0, 0.0, workoutId, timeInWater, timeElapsed, completion: completion)
+                    return
+                }
+                self?.completeWorout(with: mLocation.latitude, mLocation.longitude , workoutId, timeInWater, timeElapsed, completion: completion)
+            }
+        }else{
+            self.completeWorout(with: 0.0, 0.0, workoutId, timeInWater, timeElapsed, completion: completion)
+        }
     }
     
     private func completeWorout(with lat: Double, _ lng: Double, _ workoutId: Int, _ timeInWater: Int, _ timeElapsed: Int, completion: @escaping (Bool, Int) -> Void){

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8QR-PA-7t9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8QR-PA-7t9">
     <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1820,10 +1820,10 @@ Check your network connection and </string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ou3-FK-MmR">
                                 <rect key="frame" x="0.0" y="119" width="430" height="779"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_full_wave" translatesAutoresizingMaskIntoConstraints="NO" id="YRC-Yy-o7h">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_full_wave" translatesAutoresizingMaskIntoConstraints="NO" id="YRC-Yy-o7h">
                                         <rect key="frame" x="0.0" y="0.0" width="430" height="115"/>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_softbar" translatesAutoresizingMaskIntoConstraints="NO" id="qwz-9V-LcI">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_softbar" translatesAutoresizingMaskIntoConstraints="NO" id="qwz-9V-LcI">
                                         <rect key="frame" x="0.0" y="-110" width="430" height="110"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LgC-Rt-Yk4">
@@ -1975,7 +1975,7 @@ Check your network connection and </string>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Workout Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="os1-Bu-lPq">
-                                        <rect key="frame" x="10" y="7" width="410" height="28"/>
+                                        <rect key="frame" x="10" y="10" width="410" height="28"/>
                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -2125,7 +2125,6 @@ Check your network connection and </string>
                                 <constraints>
                                     <constraint firstItem="aij-Of-wM0" firstAttribute="top" secondItem="NDV-xo-Uq7" secondAttribute="bottom" constant="5" id="20c-LX-K97"/>
                                     <constraint firstItem="bgM-cY-mdE" firstAttribute="top" secondItem="LgC-Rt-Yk4" secondAttribute="bottom" id="8C0-y9-dXc"/>
-                                    <constraint firstItem="os1-Bu-lPq" firstAttribute="bottom" secondItem="YRC-Yy-o7h" secondAttribute="bottom" constant="-80" id="8GA-0Y-XCs"/>
                                     <constraint firstAttribute="trailing" secondItem="YRC-Yy-o7h" secondAttribute="trailing" id="H7m-kN-lmQ"/>
                                     <constraint firstItem="NDV-xo-Uq7" firstAttribute="leading" secondItem="Ou3-FK-MmR" secondAttribute="leading" constant="20" id="HBe-5F-W1O"/>
                                     <constraint firstAttribute="trailing" secondItem="LgC-Rt-Yk4" secondAttribute="trailing" constant="25" id="JVB-nP-zKi"/>
@@ -2152,6 +2151,7 @@ Check your network connection and </string>
                                     <constraint firstItem="LgC-Rt-Yk4" firstAttribute="leading" secondItem="Ou3-FK-MmR" secondAttribute="leading" constant="25" id="pbt-uB-XJm"/>
                                     <constraint firstItem="os1-Bu-lPq" firstAttribute="centerX" secondItem="Ou3-FK-MmR" secondAttribute="centerX" id="rQP-sv-4sL"/>
                                     <constraint firstAttribute="trailing" secondItem="iXs-s7-JUS" secondAttribute="trailing" constant="20" id="so7-jB-vOG"/>
+                                    <constraint firstItem="os1-Bu-lPq" firstAttribute="top" secondItem="qwz-9V-LcI" secondAttribute="bottom" constant="10" id="t2j-ra-CsV"/>
                                     <constraint firstItem="iXs-s7-JUS" firstAttribute="top" secondItem="bgM-cY-mdE" secondAttribute="bottom" constant="20" id="uuu-F5-VYa"/>
                                     <constraint firstAttribute="trailing" secondItem="ev5-nk-aZA" secondAttribute="trailing" constant="20" id="vku-lB-9ag"/>
                                     <constraint firstItem="sgN-cR-K1K" firstAttribute="centerX" secondItem="aij-Of-wM0" secondAttribute="centerX" id="wwA-6K-IZL"/>
@@ -4447,7 +4447,7 @@ Check your network connection and </string>
             <color red="0.14900000393390656" green="0.73299998044967651" blue="0.92900002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppNewBlackColor">
-            <color red="0.43900001049041748" green="0.43900001049041748" blue="0.44299998879432678" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.43529411764705883" green="0.43529411764705883" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppSeperatorColor">
             <color red="0.43900001049041748" green="0.43900001049041748" blue="0.43900001049041748" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>

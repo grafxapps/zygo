@@ -162,7 +162,7 @@ class WalkieTalkieVC: UIViewController {
             self.audioController = AudioController()
             let status = self.audioController.startIOUnit()
             if status != 0{
-                Helper.shared.alert(title: Constants.appName, message: "Faild to start audio, please try again later.")
+                Helper.shared.alert(title: Constants.appName, message: "Failed to start audio, please try again later.")
                 self.hapticFeedback()
                 self.hideTapToEndView()
                 self.audioController.stopIOUnit()

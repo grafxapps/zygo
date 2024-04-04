@@ -7,16 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "004AB005-D93E-40DB-ACF5-088305F8D83F"
+            uuid = "7ACAABCB-EFB1-4C48-9B25-751B7D9DF550"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Zygo/View/SideMenu/WalkieTalkieVC.swift"
+            filePath = "Zygo/Services/NetworkManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "showConnectZygoView()"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
+            landmarkName = "serializeResponse(response:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2A386024-6DA9-4A94-95F4-133220D8B3BA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Zygo/Services/NetworkManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "serializeResponse(response:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

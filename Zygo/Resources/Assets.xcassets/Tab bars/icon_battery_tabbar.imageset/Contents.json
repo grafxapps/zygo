@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Bat G.png",
+      "filename" : "icon_battery_tabbar.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Bat G@2x.png",
+      "filename" : "icon_battery_tabbar@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Bat G@3x.png",
+      "filename" : "icon_battery_tabbar@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

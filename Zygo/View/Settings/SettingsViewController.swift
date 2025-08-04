@@ -22,20 +22,20 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerTVC()
-        arrNotificationTitles = ["Nudges", "Events near me", "Zygo Community"]
+        arrNotificationTitles = ["Nudges", "Events Near Me", "Zygo Community"]
         arrTrackingTitles = ["Distance Tracking", "Tempo Tracking"]
         
         if Helper.shared.isSocialLogin(){
             if Helper.shared.isDemoMode{
-                arrAccountTitles = ["Subscribe", "Logout"]
+                arrAccountTitles = ["Subscribe/Account Management", "Logout"]
             }else{
-                arrAccountTitles = ["Manage Subscription", "Logout"]
+                arrAccountTitles = ["Manage Account", "Logout"]
             }
         }else{
             if Helper.shared.isDemoMode{
-                arrAccountTitles = ["Subscribe", "Reset password", "Logout"]
+                arrAccountTitles = ["Subscribe/Account Management", "Reset Password", "Logout"]
             }else{
-                arrAccountTitles = ["Manage Subscription", "Reset password", "Logout"]
+                arrAccountTitles = ["Manage Account", "Reset Password", "Logout"]
             }
         }
         

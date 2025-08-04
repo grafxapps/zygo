@@ -32,17 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         protector.startPreventing()
         
-        Klaviyo.setupWithPublicAPIKey(apiKey: Constants.KLAVIYOPUBLICAPIKEY)
-        if PreferenceManager.shared.isUserLogin{
-            let user = PreferenceManager.shared.user
-            Klaviyo.sharedInstance.setUpUserEmail(userEmail: user.email)
-            Klaviyo.sharedInstance.setUpCustomerID(id: user.email)
-            Klaviyo.sharedInstance.trackEvent(eventName: "User_Type", properties: ["user_id": "\(user.uId)", "user_email": user.email, "type": "iOS"])            
-        }
-        
-        if let launch = launchOptions, let data = launch[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable: Any] {
-            Klaviyo.sharedInstance.handlePush(userInfo: data as NSDictionary)
-        }
+        KlaviyoSDK().initialize(with: Constants.KLAVIYOPUBLICAPIKEY)
         
         Branch.setBranchKey(Constants.branchKey)
         // if you are using the TEST key
@@ -65,8 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DateHelper.shared.initializeCurrentTime()
         
         IQKeyboardManager.shared.enable = true;
-        IQKeyboardManager.shared.toolbarTintColor = UIColor.appBlueColor()
-        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        IQKeyboardManager.shared.toolbarConfiguration.tintColor = UIColor.appBlueColor()
+        IQKeyboardManager.shared.resignOnTouchOutside = true
         UITextField.appearance().tintColor = UIColor.appBlueColor()
         
         //GIDSignIn.sharedInstance()?.clientID = Constants.googleClientId
@@ -115,6 +105,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.setupIAP()
         
+        
+        NSSetUncaughtExceptionHandler { exception in
+            print(exception)
+            print(exception.callStackSymbols)
+        }
         return true
     }
     
@@ -227,8 +222,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //TODO: CHECK USER SUBSCRIPTION STATUS AS WELL
             
             let userItem = PreferenceManager.shared.user
-            Klaviyo.sharedInstance.setUpUserEmail(userEmail: userItem.email)
-            Klaviyo.sharedInstance.setUpCustomerID(id: userItem.email)
+            let user = PreferenceManager.shared.user
+            let profile = Profile(email: user.email,  firstName: user.fName,  lastName: user.lName)
+            KlaviyoSDK().set(profile: profile)
+            KlaviyoSDK().set(email: user.email)
+            KlaviyoSDK().set(externalId:"\(user.uId)")
+            let event = Event(name: .CustomEvent("User_Type"), properties: ["user_id": "\(user.uId)", "user_email": user.email, "type": "iOS"])
+            KlaviyoSDK().create(event: event)
             
             if !SubscriptionManager.shared.isValidSubscription(){//It means user is not subscribe yet
                 
@@ -327,7 +327,8 @@ extension AppDelegate: MessagingDelegate{
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
-        Klaviyo.sharedInstance.addPushDeviceToken(deviceToken: deviceToken)
+        KlaviyoSDK().set(pushToken: deviceToken)
+        
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         print(token)
         
@@ -335,7 +336,7 @@ extension AppDelegate: MessagingDelegate{
             if let error = error {
                 print("Error fetching remote instange ID: \(error)")
             } else if let result = result {
-                print("Remote instance ID token: \(result ?? "NIL TOKEN")")
+                print("Remote instance ID token: \(result )")
                 
             }
         }
@@ -345,7 +346,7 @@ extension AppDelegate: MessagingDelegate{
         print(userInfo)
         
         if application.applicationState == UIApplication.State.inactive || application.applicationState ==  UIApplication.State.background {
-                Klaviyo.sharedInstance.handlePush(userInfo: userInfo as NSDictionary)
+                //Klaviyo.sharedInstance.handlePush(userInfo: userInfo as NSDictionary)
             }
         
         // when new message comes
@@ -357,6 +358,7 @@ extension AppDelegate: MessagingDelegate{
                     print(jsonObect)
                     let messageDict = jsonObect  as! NSDictionary
                 }catch{
+                    
                 }
             }
             // store aps data in apsDict
@@ -371,9 +373,8 @@ extension AppDelegate: MessagingDelegate{
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         updateFirestorePushTokenIfNeeded()
     }
-    
-    
 }
+
 extension AppDelegate : UNUserNotificationCenterDelegate{
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
@@ -397,13 +398,19 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         case .none:
             print("")
         }
+        
+        Branch.getInstance().handlePushNotification(notificationInfo)
+        let handled = KlaviyoSDK().handle(notificationResponse: response, withCompletionHandler: completionHandler)
+        if !handled {
+            completionHandler()
+        }
         print(notificationInfo)
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         if application.applicationState == UIApplication.State.inactive || application.applicationState ==  UIApplication.State.background {
-                Klaviyo.sharedInstance.handlePush(userInfo: userInfo as NSDictionary)
+                //Klaviyo.sharedInstance.handlePush(userInfo: userInfo as NSDictionary)
             }
         
         print(userInfo)
@@ -424,4 +431,4 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
 //TODO: Uncomment for production
 func print(_ item: @autoclosure () -> Any, separator: String = " ", terminator: String = "\n") {
 
- }
+}

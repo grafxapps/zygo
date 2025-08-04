@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Met G.png",
+      "filename" : "icon_metrics_tabbar.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Met G@2x.png",
+      "filename" : "icon_metrics_tabbar@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Met G@3x.png",
+      "filename" : "icon_metrics_tabbar@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

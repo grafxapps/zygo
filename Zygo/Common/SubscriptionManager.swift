@@ -18,7 +18,7 @@ class SubscriptionManager: NSObject {
     }
     
     func isValidSubscription() -> Bool{
-        
+        //TODO: Disbale for production
         if Helper.shared.isTestUser{
             return true
         }
@@ -209,7 +209,6 @@ class SubscriptionManager: NSObject {
     
     func verifyReceipt(completion: @escaping (VerifyReceiptResult) -> Void) {
         
-        //TODO: Change to production for live payment
         let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: SubscriptionManager.IAPSecretKey)
         SwiftyStoreKit.verifyReceipt(using: appleValidator, completion: completion)
         
@@ -217,7 +216,6 @@ class SubscriptionManager: NSObject {
 }
 extension SubscriptionManager{
     
-    //TODO: Change It
     enum RegisteredPurchase: String {
         case autoRenewableMonthly  = "com.zygo.ios.month"
         case autoRenewableYearly  = "com.zygo.ios.year"

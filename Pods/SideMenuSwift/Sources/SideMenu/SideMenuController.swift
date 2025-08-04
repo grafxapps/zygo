@@ -24,13 +24,17 @@ open class SideMenuController: UIViewController {
     /// Configure this property to change the behavior of SideMenuController;
     public static var preferences = Preferences()
     private var preferences: Preferences {
-        return type(of: self).preferences
+        Self.preferences
     }
 
     private lazy var adjustedDirection = Preferences.MenuDirection.left
 
     private var isInitiatedFromStoryboard: Bool {
-        return storyboard != nil
+        storyboard != nil
+    }
+    
+    private var menuWidth: CGFloat {
+        delegate?.sideMenuControllerGetMenuWidth(self, for: view.frame.size) ?? preferences.basic.menuWidth
     }
 
     /// The identifier of content view controller segue.
@@ -379,7 +383,6 @@ open class SideMenuController: UIViewController {
     }
 
     @objc private func handlePanGesture(_ pan: UIPanGestureRecognizer) {
-        let menuWidth = preferences.basic.menuWidth
         let isLeft = adjustedDirection == .left
         var translation = pan.translation(in: pan.view).x
         let viewToAnimate: UIView
@@ -682,7 +685,7 @@ open class SideMenuController: UIViewController {
         case .above, .sideBySide:
             var baseFrame = CGRect(origin: view.frame.origin, size: targetSize ?? view.frame.size)
             if visibility {
-                baseFrame.origin.x = preferences.basic.menuWidth - baseFrame.width
+                baseFrame.origin.x = menuWidth - baseFrame.width
             } else {
                 baseFrame.origin.x = -baseFrame.width
             }
@@ -703,11 +706,31 @@ open class SideMenuController: UIViewController {
             var baseFrame = CGRect(origin: view.frame.origin, size: targetSize ?? view.frame.size)
             if visibility {
                 let factor: CGFloat = adjustedDirection == .left ? 1 : -1
-                baseFrame.origin.x = preferences.basic.menuWidth * factor
+                baseFrame.origin.x = menuWidth * factor
             } else {
                 baseFrame.origin.x = 0
             }
             return CGRect(origin: baseFrame.origin, size: targetSize ?? baseFrame.size)
+        }
+    }
+
+    private func keepSideMenuOpenOnRotation() {
+        guard menuViewController != nil else {
+            return
+        }
+        
+        if isMenuRevealed {
+            hideMenu(animated: false, completion: nil)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                self.revealMenu(animated: false, completion: nil)
+            })
+        } else {
+            revealMenu(animated: false) { _ in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                    self.hideMenu(animated: false, completion: nil)
+                })
+            }
         }
     }
 
@@ -728,16 +751,20 @@ open class SideMenuController: UIViewController {
     }
 
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        hideMenu(animated: false, completion: { _ in
-            // Temporally hide the menu container view for smooth animation
-            self.menuContainerView.isHidden = true
-            coordinator.animate(alongsideTransition: { _ in
-                self.contentContainerView.frame = self.contentFrame(visibility: self.isMenuRevealed, targetSize: size)
-            }, completion: { (_) in
-                self.menuContainerView.isHidden = false
-                self.menuContainerView.frame = self.sideMenuFrame(visibility: self.isMenuRevealed, targetSize: size)
+        if preferences.basic.keepsMenuOpenAfterRotation {
+            keepSideMenuOpenOnRotation()
+        } else {
+            hideMenu(animated: false, completion: { _ in
+                // Temporally hide the menu container view for smooth animation
+                self.menuContainerView.isHidden = true
+                coordinator.animate(alongsideTransition: { _ in
+                    self.contentContainerView.frame = self.contentFrame(visibility: self.isMenuRevealed, targetSize: size)
+                }, completion: { (_) in
+                    self.menuContainerView.isHidden = false
+                    self.menuContainerView.frame = self.sideMenuFrame(visibility: self.isMenuRevealed, targetSize: size)
+                })
             })
-        })
+        }
 
         super.viewWillTransition(to: size, with: coordinator)
     }

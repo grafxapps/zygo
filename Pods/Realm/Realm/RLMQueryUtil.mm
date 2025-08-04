@@ -19,6 +19,7 @@
 #import "RLMQueryUtil.hpp"
 
 #import "RLMAccessor.hpp"
+#import "RLMGeospatial_Private.hpp"
 #import "RLMObjectSchema_Private.hpp"
 #import "RLMObject_Private.hpp"
 #import "RLMPredicateUtil.hpp"
@@ -26,6 +27,7 @@
 #import "RLMSchema.h"
 #import "RLMUtil.hpp"
 
+#import <realm/geospatial.hpp>
 #import <realm/object-store/object_store.hpp>
 #import <realm/object-store/results.hpp>
 #import <realm/query_engine.hpp>
@@ -549,6 +551,7 @@ public:
     void add_link_constraint(NSPredicateOperatorType operatorType, const ColumnReference& column, RLMObjectBase *obj);
     void add_link_constraint(NSPredicateOperatorType operatorType, const ColumnReference& column, realm::null);
     void add_link_constraint(NSPredicateOperatorType, const ColumnReference&, const ColumnReference&);
+    void add_within_constraint(const ColumnReference& column, id<RLMGeospatial_Private> geospatial);
 
     template <CollectionOperation::Type Operation, bool IsLinkCollection, bool IsDictionary, typename R>
     void add_collection_operation_constraint(NSPredicateOperatorType operatorType,
@@ -681,32 +684,30 @@ Query make_diacritic_insensitive_constraint(NSPredicateOperatorType operatorType
     }
 }
 
+// static_assert is always evaluated even if it's inside a if constexpr
+// unless the value is derived from the template argument, in which case it's
+// only evaluated if that branch is active
+template <typename> struct AlwaysFalse : std::false_type {};
+
 template <typename C, typename T>
-void QueryBuilder::do_add_diacritic_sensitive_string_constraint(NSPredicateOperatorType operatorType,
-                                                                NSComparisonPredicateOptions predicateOptions,
-                                                                C&& column, T&& value) {
-    bool caseSensitive = !(predicateOptions & NSCaseInsensitivePredicateOption);
+Query make_diacritic_sensitive_constraint(NSPredicateOperatorType operatorType,
+                                          bool caseSensitive, C& column, T const& value)
+{
     switch (operatorType) {
         case NSBeginsWithPredicateOperatorType:
-            add_substring_constraint(value, column.begins_with(value, caseSensitive));
-            break;
+            return column.begins_with(value, caseSensitive);
         case NSEndsWithPredicateOperatorType:
-            add_substring_constraint(value, column.ends_with(value, caseSensitive));
-            break;
+            return column.ends_with(value, caseSensitive);
         case NSContainsPredicateOperatorType:
-            add_substring_constraint(value, column.contains(value, caseSensitive));
-            break;
+            return column.contains(value, caseSensitive);
         case NSEqualToPredicateOperatorType:
-            m_query.and_query(column.equal(value, caseSensitive));
-            break;
+            return column.equal(value, caseSensitive);
         case NSNotEqualToPredicateOperatorType:
-            m_query.and_query(column.not_equal(value, caseSensitive));
-            break;
+            return column.not_equal(value, caseSensitive);
         case NSLikePredicateOperatorType:
-            m_query.and_query(column.like(value, caseSensitive));
-            break;
+            return column.like(value, caseSensitive);
         default: {
-            if constexpr (is_any_v<C, Columns<String>, Columns<Lst<String>>, Columns<Set<String>>>) {
+            if constexpr (is_any_v<C, Columns<String>, Columns<Lst<String>>, Columns<Set<String>>, ColumnDictionaryKeys>) {
                 unsupportedOperator(RLMPropertyTypeString, operatorType);
             }
             else if constexpr (is_any_v<C, Columns<Binary>, Columns<Lst<Binary>>, Columns<Set<Binary>>>) {
@@ -723,7 +724,53 @@ void QueryBuilder::do_add_diacritic_sensitive_string_constraint(NSPredicateOpera
                                @"Operator '%@' not supported for string queries on Dictionary.",
                                operatorName(operatorType));
             }
+            else {
+                static_assert(AlwaysFalse<C>::value, "unsupported column type");
+            }
         }
+    }
+}
+
+template <typename C, typename T>
+void QueryBuilder::do_add_diacritic_sensitive_string_constraint(NSPredicateOperatorType operatorType,
+                                                                NSComparisonPredicateOptions predicateOptions,
+                                                                C&& column, T&& value) {
+    bool caseSensitive = !(predicateOptions & NSCaseInsensitivePredicateOption);
+    Query condition = make_diacritic_sensitive_constraint(operatorType, caseSensitive, column, value);
+
+    // Queries on Mixed used to coerce Strings to Binary and vice-versa. Core
+    // no longer does this, but we can maintain compatibility by doing the
+    // coercion and checking both
+    // NEXT-MAJOR: we should remove this and realign with core's behavior
+    if constexpr (is_any_v<C, Columns<Mixed>, Columns<Lst<Mixed>>, Columns<Set<Mixed>>, Columns<Dictionary>>) {
+        Mixed m = value;
+        if (!m.is_null()) {
+            if (m.get_type() == type_String) {
+                m = m.export_to_type<BinaryData>();
+            }
+            else {
+                m = m.export_to_type<StringData>();
+            }
+
+            // Equality and substring operations need (col == strValue OR col == binValue),
+            // but not equals needs (col != strValue AND col != binValue)
+            if (operatorType != NSNotEqualToPredicateOperatorType) {
+                condition.Or();
+            }
+
+            condition.and_query(make_diacritic_sensitive_constraint(operatorType, caseSensitive, column, m));
+        }
+    }
+    switch (operatorType) {
+        case NSBeginsWithPredicateOperatorType:
+        case NSEndsWithPredicateOperatorType:
+        case NSContainsPredicateOperatorType:
+            add_substring_constraint(value, std::move(condition));
+            break;
+
+        default:
+            m_query.and_query(std::move(condition));
+            break;
     }
 }
 
@@ -939,6 +986,13 @@ void QueryBuilder::add_link_constraint(NSPredicateOperatorType operatorType,
     else {
         add_bool_constraint(RLMPropertyTypeObject, operatorType, a.resolve<Link>(), b.resolve<Link>());
     }
+}
+
+#pragma mark Geospatial
+
+void QueryBuilder::add_within_constraint(const ColumnReference& column, id<RLMGeospatial_Private> geospatial) {
+    auto geoQuery = column.resolve<Link>().geo_within(geospatial.geoSpatial);
+    m_query.and_query(std::move(geoQuery));
 }
 
 // iterate over an array of subpredicates, using @func to build a query from each
@@ -1287,11 +1341,6 @@ ColumnReference QueryBuilder::column_reference_from_key_path(KeyPath&& kp, bool 
 
 #pragma mark Collection Operations
 
-// static_assert is always evaluated even if it's inside a if constexpr
-// unless the value is derived from the template argument, in which case it's
-// only evaluated if that branch is active
-template <CollectionOperation::Type> struct AlwaysFalse : std::false_type {};
-
 template <CollectionOperation::Type OperationType, typename Column>
 auto collection_operation_expr_2(Column&& column) {
     if constexpr (OperationType == CollectionOperation::Minimum) {
@@ -1307,7 +1356,8 @@ auto collection_operation_expr_2(Column&& column) {
         return column.average();
     }
     else {
-        static_assert(AlwaysFalse<OperationType>::value, "invalid operation type");
+        static_assert(AlwaysFalse<std::integral_constant<CollectionOperation::Type, OperationType>>::value,
+                      "invalid operation type");
     }
 }
 
@@ -1545,13 +1595,18 @@ void QueryBuilder::apply_value_expression(KeyPath&& kp, id value, NSComparisonPr
         return;
     }
 
-    // turn "key.path IN collection" into ored together ==. "collection IN key.path" is handled elsewhere.
     if (pred.predicateOperatorType == NSInPredicateOperatorType) {
-        process_or_group(m_query, value, [&](id item) {
-            id normalized = value_from_constant_expression_or_value(item);
-            column.validate_comparison(normalized);
-            add_constraint(NSEqualToPredicateOperatorType, pred.options, column, normalized);
-        });
+        if ([value conformsToProtocol:@protocol(RLMGeospatial)]) {
+            // In case of `IN` check if the value is a Geo-shape, create a `geoWithin` query
+            add_within_constraint(std::move(column), value);
+        } else {
+            // turn "key.path IN collection" into ored together ==. "collection IN key.path" is handled elsewhere.
+            process_or_group(m_query, value, [&](id item) {
+                id normalized = value_from_constant_expression_or_value(item);
+                column.validate_comparison(normalized);
+                add_constraint(NSEqualToPredicateOperatorType, pred.options, column, normalized);
+            });
+        }
         return;
     }
 
@@ -1645,7 +1700,7 @@ void QueryBuilder::apply_map_expression(RLMObjectSchema *objectSchema, NSExpress
     ColumnReference collectionColumn = column_reference_from_key_path(key_path_from_string(m_schema, objectSchema, keyPath), true);
     RLMPrecondition(collectionColumn.property().dictionary, @"Invalid predicate",
                     @"Invalid keypath '%@': only dictionaries support subscript predicates.", functionExpression);
-    add_mixed_constraint(operatorType, options, collectionColumn.resolve<Dictionary>().key(mapKey.UTF8String), right.constantValue);
+    add_mixed_constraint(operatorType, options, std::move(collectionColumn.resolve<Dictionary>().key(mapKey.UTF8String)), right.constantValue);
 }
 
 void QueryBuilder::apply_function_expression(RLMObjectSchema *objectSchema, NSExpression *functionExpression,

@@ -10,6 +10,8 @@ import UIKit
 
 class VersionInfoPopupVC: UIViewController {
 
+    @IBOutlet weak var stView: UIView!
+    
     @IBOutlet weak var lblESP: UILabel!
     @IBOutlet weak var lblST: UILabel!
     @IBOutlet weak var lblSL: UILabel!
@@ -24,6 +26,11 @@ class VersionInfoPopupVC: UIViewController {
     }
 
     func updateInfo(){
+        
+        if versionItem.zygoDeviceVersion == .v2{
+            stView.isHidden = true
+        }
+        
         self.lblESP.text = "ESP: \(versionItem.ESPVersion)"
         self.lblST.text = "Radio ST: \(versionItem.radioSTVersion)"
         self.lblSL.text = "Radio SL: \(versionItem.radioSLVersion)"

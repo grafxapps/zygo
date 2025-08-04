@@ -341,6 +341,10 @@ extension UIColor{
     static func appNewBlackColor() -> UIColor{
         return UIColor.init(named: "AppNewBlackColor")!
     }
+    
+    static func appWorkoutBottom() -> UIColor{
+        return UIColor.init(named: "AppWorkoutBottom")!
+    }
 }
 
 

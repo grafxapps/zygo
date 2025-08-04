@@ -14,7 +14,15 @@
 		33B0BE8528C4D608009754EA /* MetricsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B0BE8328C4D608009754EA /* MetricsTVC.swift */; };
 		33B0BE8628C4D608009754EA /* MetricsTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33B0BE8428C4D608009754EA /* MetricsTVC.xib */; };
 		33B0BE8828C4F49A009754EA /* ReferFriend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33B0BE8728C4F499009754EA /* ReferFriend.storyboard */; };
+		360123822D02B2D9005DF25E /* TutorialsZ2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360123812D02B2D9005DF25E /* TutorialsZ2VC.swift */; };
+		360123842D02B2DE005DF25E /* TutorialsZ2VC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 360123832D02B2DE005DF25E /* TutorialsZ2VC.storyboard */; };
 		36075D642B1094180080F8A1 /* HallOfFameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36075D632B1094180080F8A1 /* HallOfFameVC.swift */; };
+		361542142D02B56C008C2C79 /* Fonts+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361542132D02B56C008C2C79 /* Fonts+Generated.swift */; };
+		361542162D02B582008C2C79 /* IB-Scenes+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361542152D02B582008C2C79 /* IB-Scenes+Generated.swift */; };
+		361542182D02B5A0008C2C79 /* IB-Segues+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361542172D02B5A0008C2C79 /* IB-Segues+Generated.swift */; };
+		3615421A2D02B5E8008C2C79 /* XCAssets+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361542192D02B5E8008C2C79 /* XCAssets+Generated.swift */; };
+		3637D8112CA977460058F60A /* RenameBluetoothIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637D8102CA977460058F60A /* RenameBluetoothIDVC.swift */; };
+		3637D8132CA9774A0058F60A /* RenameBluetoothIDVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3637D8122CA9774A0058F60A /* RenameBluetoothIDVC.storyboard */; };
 		36385AB62B1083E000204CA8 /* WalkieTalkieVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36385AB52B1083E000204CA8 /* WalkieTalkieVC.swift */; };
 		36385AC02B10853400204CA8 /* NumTypes+Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36385AB92B10853400204CA8 /* NumTypes+Conversion.swift */; };
 		36385AC12B10853400204CA8 /* OOPExceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36385ABA2B10853400204CA8 /* OOPExceptions.swift */; };
@@ -24,8 +32,31 @@
 		36385AC52B10853400204CA8 /* CABitOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36385ABF2B10853400204CA8 /* CABitOperations.swift */; };
 		36385AC72B10853800204CA8 /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36385AC62B10853800204CA8 /* AudioController.swift */; };
 		364EBE86290E605400723A1A /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364EBE85290E605400723A1A /* BluetoothManager.swift */; };
+		365A20122D3B825700AE089B /* threeDots.json in Resources */ = {isa = PBXBuildFile; fileRef = 365A20112D3B825700AE089B /* threeDots.json */; };
+		365A20152D3B83E800AE089B /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 365A20142D3B83E800AE089B /* Lottie */; };
+		365A20172D3D12B900AE089B /* RenameBluetoothIDVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A20162D3D12B900AE089B /* RenameBluetoothIDVM.swift */; };
+		365A20192D3D1A4100AE089B /* CountingLapsAnimaitionZ2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A20182D3D1A4100AE089B /* CountingLapsAnimaitionZ2VC.swift */; };
+		365A201B2D3D1A4500AE089B /* CountingLapsAnimaitionZ2VC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 365A201A2D3D1A4500AE089B /* CountingLapsAnimaitionZ2VC.storyboard */; };
 		366396402B7F8FB9007690D2 /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3663963E2B7F8FB9007690D2 /* OnboardingVC.swift */; };
 		366396412B7F8FB9007690D2 /* OnboardingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3663963F2B7F8FB9007690D2 /* OnboardingVC.xib */; };
+		366ED0502ADD10E500AB1391 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED03E2ADD10D000AB1391 /* Poppins-MediumItalic.ttf */; };
+		366ED0512ADD10E500AB1391 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED03F2ADD10D100AB1391 /* Poppins-Medium.ttf */; };
+		366ED0522ADD10E500AB1391 /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED0402ADD10D200AB1391 /* Poppins-SemiBoldItalic.ttf */; };
+		366ED0532ADD10E500AB1391 /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED0412ADD10D300AB1391 /* Poppins-Black.ttf */; };
+		366ED0542ADD10E500AB1391 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED0422ADD10D400AB1391 /* Poppins-Light.ttf */; };
+		366ED0552ADD10E500AB1391 /* Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED0432ADD10D500AB1391 /* Poppins-ExtraBoldItalic.ttf */; };
+		366ED0562ADD10E500AB1391 /* Poppins-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED0442ADD10D600AB1391 /* Poppins-BoldItalic.ttf */; };
+		366ED0572ADD10E500AB1391 /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED0452ADD10D800AB1391 /* Poppins-BlackItalic.ttf */; };
+		366ED0582ADD10E500AB1391 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED0462ADD10D900AB1391 /* Poppins-ExtraLightItalic.ttf */; };
+		366ED0592ADD10E500AB1391 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED0472ADD10DC00AB1391 /* Poppins-ThinItalic.ttf */; };
+		366ED05A2ADD10E500AB1391 /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED0482ADD10DD00AB1391 /* Poppins-Thin.ttf */; };
+		366ED05B2ADD10E500AB1391 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED0492ADD10DE00AB1391 /* Poppins-ExtraLight.ttf */; };
+		366ED05C2ADD10E500AB1391 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED04A2ADD10DF00AB1391 /* Poppins-Regular.ttf */; };
+		366ED05D2ADD10E500AB1391 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED04B2ADD10E000AB1391 /* Poppins-Bold.ttf */; };
+		366ED05E2ADD10E500AB1391 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED04C2ADD10E100AB1391 /* Poppins-ExtraBold.ttf */; };
+		366ED05F2ADD10E500AB1391 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED04D2ADD10E300AB1391 /* Poppins-Italic.ttf */; };
+		366ED0602ADD10E500AB1391 /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED04E2ADD10E400AB1391 /* Poppins-LightItalic.ttf */; };
+		366ED0612ADD10E500AB1391 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 366ED04F2ADD10E500AB1391 /* Poppins-SemiBold.ttf */; };
 		367AC18329535A6F004DC9E4 /* VersionInfoPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367AC18129535A6F004DC9E4 /* VersionInfoPopupVC.swift */; };
 		367AC18429535A6F004DC9E4 /* VersionInfoPopupVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 367AC18229535A6F004DC9E4 /* VersionInfoPopupVC.xib */; };
 		367AC18629549E94004DC9E4 /* FirmwareUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367AC18529549E94004DC9E4 /* FirmwareUpdateViewModel.swift */; };
@@ -35,6 +66,10 @@
 		367AC18E2954D7AB004DC9E4 /* DFUStopPopupVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 367AC18C2954D7AB004DC9E4 /* DFUStopPopupVC.xib */; };
 		367AC1912955E5C7004DC9E4 /* HeadsetRestartAlertPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367AC18F2955E5C7004DC9E4 /* HeadsetRestartAlertPopupVC.swift */; };
 		367AC1922955E5C7004DC9E4 /* HeadsetRestartAlertPopupVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 367AC1902955E5C7004DC9E4 /* HeadsetRestartAlertPopupVC.xib */; };
+		368EB34B2D02BD9E00AB02B0 /* TutorialCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368EB3492D02BD9D00AB02B0 /* TutorialCVC.swift */; };
+		368EB34C2D02BD9E00AB02B0 /* TutorialCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 368EB34A2D02BD9D00AB02B0 /* TutorialCVC.xib */; };
+		368EB34F2D0CC85A00AB02B0 /* HeadsetDFUUpdateVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368EB34E2D0CC85A00AB02B0 /* HeadsetDFUUpdateVerifyVC.swift */; };
+		368EB3512D0CC85E00AB02B0 /* HeadsetDFUUpdateVerifyVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 368EB3502D0CC85E00AB02B0 /* HeadsetDFUUpdateVerifyVC.storyboard */; };
 		3692211029444FFC00970425 /* new_headset_512dfu.hex in Resources */ = {isa = PBXBuildFile; fileRef = 3692210F29444FFC00970425 /* new_headset_512dfu.hex */; };
 		3692544629373F7E004D96DC /* AlreadyUpdatedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3692544529373F7E004D96DC /* AlreadyUpdatedVC.swift */; };
 		36A11AD52976BE5700232D3C /* HeadsetNotConnectedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A11AD42976BE5700232D3C /* HeadsetNotConnectedVC.swift */; };
@@ -45,14 +80,28 @@
 		36A6480D294B0C7B00FD62EC /* SkipDFUPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A6480B294B0C7B00FD62EC /* SkipDFUPopupVC.swift */; };
 		36A6480E294B0C7B00FD62EC /* SkipDFUPopupVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36A6480C294B0C7B00FD62EC /* SkipDFUPopupVC.xib */; };
 		36AEE459294E14B20051173E /* FirmwareUpdateSuccessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AEE458294E14B20051173E /* FirmwareUpdateSuccessVC.swift */; };
+		36AF6E652BBE8CCE00D7BDD5 /* SideMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36AF6E642BBE8CCE00D7BDD5 /* SideMenu.storyboard */; };
+		36B3938229CB4EAE000E9471 /* HealthKitPermissionPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B3938029CB4EAE000E9471 /* HealthKitPermissionPopupVC.swift */; };
+		36B3938329CB4EAE000E9471 /* HealthKitPermissionPopupVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36B3938129CB4EAE000E9471 /* HealthKitPermissionPopupVC.xib */; };
+		36C14D9529CADD0500891E83 /* SyncStatusPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C14D9329CADD0500891E83 /* SyncStatusPopupVC.swift */; };
+		36C14D9629CADD0500891E83 /* SyncStatusPopupVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C14D9429CADD0500891E83 /* SyncStatusPopupVC.xib */; };
+		36C14D9929CAE5AE00891E83 /* NotAccuratePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C14D9729CAE5AE00891E83 /* NotAccuratePopupVC.swift */; };
+		36C14D9A29CAE5AE00891E83 /* NotAccuratePopupVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C14D9829CAE5AE00891E83 /* NotAccuratePopupVC.xib */; };
+		36DBE1832A304FA60038A6C6 /* CountingLapsAnimationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DBE1822A304FA60038A6C6 /* CountingLapsAnimationVC.swift */; };
 		36E1D1842946373400C29A82 /* zygoradiost_405AI2dfu.hex in Resources */ = {isa = PBXBuildFile; fileRef = 36E1D1832946373400C29A82 /* zygoradiost_405AI2dfu.hex */; };
 		36E1D186294723C100C29A82 /* PreFirmwareUpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E1D185294723C100C29A82 /* PreFirmwareUpdateVC.swift */; };
 		36E1D188294723FF00C29A82 /* FirmwareUpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E1D187294723FF00C29A82 /* FirmwareUpdateVC.swift */; };
 		36E1D18A2947299C00C29A82 /* BLEConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E1D1892947299C00C29A82 /* BLEConnectionManager.swift */; };
+		36E7DEFE2A4A7B3A00E07715 /* HeadsetSyncAnimationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E7DEFD2A4A7B3A00E07715 /* HeadsetSyncAnimationVC.swift */; };
+		36E7DF012A501D2E00E07715 /* originallapon.wav in Resources */ = {isa = PBXBuildFile; fileRef = 36E7DEFF2A501D2C00E07715 /* originallapon.wav */; };
+		36E7DF022A501D2E00E07715 /* originallapoff.wav in Resources */ = {isa = PBXBuildFile; fileRef = 36E7DF002A501D2E00E07715 /* originallapoff.wav */; };
+		36E7DF042A501D4100E07715 /* OriginalOnOff.wav in Resources */ = {isa = PBXBuildFile; fileRef = 36E7DF032A501D4100E07715 /* OriginalOnOff.wav */; };
 		36F451462967383800C00AC7 /* SomethingWentWrongVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F451442967383800C00AC7 /* SomethingWentWrongVC.swift */; };
 		36F451472967383800C00AC7 /* SomethingWentWrongVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36F451452967383800C00AC7 /* SomethingWentWrongVC.xib */; };
 		36F4514A2967443A00C00AC7 /* FirmwareUpdatePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F451482967443A00C00AC7 /* FirmwareUpdatePopUpVC.swift */; };
 		36F4514B2967443A00C00AC7 /* FirmwareUpdatePopUpVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36F451492967443A00C00AC7 /* FirmwareUpdatePopUpVC.xib */; };
+		36F5F0212A1D3CBE007EFE1C /* DeviceDisconnectOnDFUVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F5F01F2A1D3CBE007EFE1C /* DeviceDisconnectOnDFUVC.swift */; };
+		36F5F0222A1D3CBE007EFE1C /* DeviceDisconnectOnDFUVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36F5F0202A1D3CBE007EFE1C /* DeviceDisconnectOnDFUVC.xib */; };
 		36FB1E1029BA541A00DD5403 /* WorkoutTypeTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36FB1E0F29BA541A00DD5403 /* WorkoutTypeTVC.xib */; };
 		36FEA14F2B135237001B2CBD /* HallOfFameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEA14E2B135237001B2CBD /* HallOfFameViewModel.swift */; };
 		36FEA1512B135439001B2CBD /* HallOfFameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEA1502B135439001B2CBD /* HallOfFameModel.swift */; };
@@ -92,24 +141,6 @@
 		E30C1FD6272573B1005BACA6 /* CustomAlertWithCloseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30C1FD4272573B1005BACA6 /* CustomAlertWithCloseVC.swift */; };
 		E30C1FD7272573B1005BACA6 /* CustomAlertWithCloseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E30C1FD5272573B1005BACA6 /* CustomAlertWithCloseVC.xib */; };
 		E316A82C25F285A400E4A934 /* SubscriptionCancelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E316A82B25F285A100E4A934 /* SubscriptionCancelVC.swift */; };
-		E31A090825C43C2D00BB59F1 /* Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A08F625C43C2700BB59F1 /* Poppins-ExtraBoldItalic.ttf */; };
-		E31A090925C43C2D00BB59F1 /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A08F725C43C2800BB59F1 /* Poppins-SemiBoldItalic.ttf */; };
-		E31A090A25C43C2D00BB59F1 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A08F825C43C2800BB59F1 /* Poppins-Light.ttf */; };
-		E31A090B25C43C2D00BB59F1 /* Poppins-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A08F925C43C2800BB59F1 /* Poppins-BoldItalic.ttf */; };
-		E31A090C25C43C2D00BB59F1 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A08FA25C43C2900BB59F1 /* Poppins-ThinItalic.ttf */; };
-		E31A090D25C43C2D00BB59F1 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A08FB25C43C2900BB59F1 /* Poppins-Medium.ttf */; };
-		E31A090E25C43C2D00BB59F1 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A08FC25C43C2900BB59F1 /* Poppins-ExtraLight.ttf */; };
-		E31A090F25C43C2D00BB59F1 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A08FD25C43C2A00BB59F1 /* Poppins-ExtraLightItalic.ttf */; };
-		E31A091025C43C2D00BB59F1 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A08FE25C43C2A00BB59F1 /* Poppins-SemiBold.ttf */; };
-		E31A091125C43C2D00BB59F1 /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A08FF25C43C2A00BB59F1 /* Poppins-LightItalic.ttf */; };
-		E31A091225C43C2D00BB59F1 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A090025C43C2B00BB59F1 /* Poppins-ExtraBold.ttf */; };
-		E31A091325C43C2D00BB59F1 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A090125C43C2B00BB59F1 /* Poppins-MediumItalic.ttf */; };
-		E31A091425C43C2D00BB59F1 /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A090225C43C2B00BB59F1 /* Poppins-BlackItalic.ttf */; };
-		E31A091525C43C2D00BB59F1 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A090325C43C2C00BB59F1 /* Poppins-Regular.ttf */; };
-		E31A091625C43C2D00BB59F1 /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A090425C43C2C00BB59F1 /* Poppins-Black.ttf */; };
-		E31A091725C43C2D00BB59F1 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A090525C43C2C00BB59F1 /* Poppins-Bold.ttf */; };
-		E31A091825C43C2D00BB59F1 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A090625C43C2D00BB59F1 /* Poppins-Italic.ttf */; };
-		E31A091925C43C2D00BB59F1 /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31A090725C43C2D00BB59F1 /* Poppins-Thin.ttf */; };
 		E31DCD2325DC2FD400334D7D /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31DCD2225DC2FD400334D7D /* DateHelper.swift */; };
 		E322383F27D347BE00F018B6 /* CustomPoolLengthPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E322383D27D347BE00F018B6 /* CustomPoolLengthPopup.swift */; };
 		E322384027D347BE00F018B6 /* CustomPoolLengthPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = E322383E27D347BE00F018B6 /* CustomPoolLengthPopup.xib */; };
@@ -130,7 +161,6 @@
 		E32E5310264D883E003BAEF0 /* FISoundContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E32E52FE264D883D003BAEF0 /* FISoundContext.m */; };
 		E32E5311264D883E003BAEF0 /* FISampleFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = E32E52FF264D883D003BAEF0 /* FISampleFormat.m */; };
 		E32E5312264D883E003BAEF0 /* FISampleDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E32E5304264D883D003BAEF0 /* FISampleDecoder.m */; };
-		E335DDD425CC601A0089C772 /* SideMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E335DDD325CC601A0089C772 /* SideMenu.storyboard */; };
 		E335DDD725CC74590089C772 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E335DDD625CC74590089C772 /* MenuViewController.swift */; };
 		E335DDDA25CC7ADE0089C772 /* SideMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E335DDD925CC7ADE0089C772 /* SideMenuViewModel.swift */; };
 		E335DDDF25CC7BEC0089C772 /* SideMenuTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E335DDDD25CC7BEC0089C772 /* SideMenuTVC.swift */; };
@@ -278,8 +308,8 @@
 		E3CFCC8925EE9F5F000C481A /* SubscriptionServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFCC8825EE9F5F000C481A /* SubscriptionServices.swift */; };
 		E3CFCC8C25EEA07C000C481A /* ProductFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFCC8B25EEA07C000C481A /* ProductFetcher.swift */; };
 		E3D33CE627213F7400FDF931 /* HelpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D33CE527213F7400FDF931 /* HelpVC.swift */; };
-		E3D33CE927213F9100FDF931 /* OnOffHeadsetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D33CE827213F9100FDF931 /* OnOffHeadsetVC.swift */; };
-		E3D33CEB27213FBE00FDF931 /* ConnectingToBluetoothVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D33CEA27213FBE00FDF931 /* ConnectingToBluetoothVC.swift */; };
+		E3D33CE927213F9100FDF931 /* GetStartedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D33CE827213F9100FDF931 /* GetStartedVC.swift */; };
+		E3D33CEB27213FBE00FDF931 /* PairingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D33CEA27213FBE00FDF931 /* PairingVC.swift */; };
 		E3D8DC5925CEAFD700949256 /* WorkoutPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D8DC5825CEAFD700949256 /* WorkoutPlayerViewController.swift */; };
 		E3D8DC6525CEF81100949256 /* WorkoutSeriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D8DC6425CEF81100949256 /* WorkoutSeriesViewController.swift */; };
 		E3D8DC7D25CEF9BE00949256 /* EquipmentCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D8DC7925CEF9BE00949256 /* EquipmentCVC.swift */; };
@@ -334,7 +364,15 @@
 		33B0BE8328C4D608009754EA /* MetricsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsTVC.swift; sourceTree = "<group>"; };
 		33B0BE8428C4D608009754EA /* MetricsTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetricsTVC.xib; sourceTree = "<group>"; };
 		33B0BE8728C4F499009754EA /* ReferFriend.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReferFriend.storyboard; sourceTree = "<group>"; };
+		360123812D02B2D9005DF25E /* TutorialsZ2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialsZ2VC.swift; sourceTree = "<group>"; };
+		360123832D02B2DE005DF25E /* TutorialsZ2VC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TutorialsZ2VC.storyboard; sourceTree = "<group>"; };
 		36075D632B1094180080F8A1 /* HallOfFameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallOfFameVC.swift; sourceTree = "<group>"; };
+		361542132D02B56C008C2C79 /* Fonts+Generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fonts+Generated.swift"; sourceTree = "<group>"; };
+		361542152D02B582008C2C79 /* IB-Scenes+Generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IB-Scenes+Generated.swift"; sourceTree = "<group>"; };
+		361542172D02B5A0008C2C79 /* IB-Segues+Generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IB-Segues+Generated.swift"; sourceTree = "<group>"; };
+		361542192D02B5E8008C2C79 /* XCAssets+Generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCAssets+Generated.swift"; sourceTree = "<group>"; };
+		3637D8102CA977460058F60A /* RenameBluetoothIDVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameBluetoothIDVC.swift; sourceTree = "<group>"; };
+		3637D8122CA9774A0058F60A /* RenameBluetoothIDVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RenameBluetoothIDVC.storyboard; sourceTree = "<group>"; };
 		36385AB52B1083E000204CA8 /* WalkieTalkieVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkieTalkieVC.swift; sourceTree = "<group>"; };
 		36385AB92B10853400204CA8 /* NumTypes+Conversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NumTypes+Conversion.swift"; sourceTree = "<group>"; };
 		36385ABA2B10853400204CA8 /* OOPExceptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OOPExceptions.swift; sourceTree = "<group>"; };
@@ -344,8 +382,30 @@
 		36385ABF2B10853400204CA8 /* CABitOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CABitOperations.swift; sourceTree = "<group>"; };
 		36385AC62B10853800204CA8 /* AudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioController.swift; sourceTree = "<group>"; };
 		364EBE85290E605400723A1A /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		365A20112D3B825700AE089B /* threeDots.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = threeDots.json; sourceTree = "<group>"; };
+		365A20162D3D12B900AE089B /* RenameBluetoothIDVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameBluetoothIDVM.swift; sourceTree = "<group>"; };
+		365A20182D3D1A4100AE089B /* CountingLapsAnimaitionZ2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingLapsAnimaitionZ2VC.swift; sourceTree = "<group>"; };
+		365A201A2D3D1A4500AE089B /* CountingLapsAnimaitionZ2VC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CountingLapsAnimaitionZ2VC.storyboard; sourceTree = "<group>"; };
 		3663963E2B7F8FB9007690D2 /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
 		3663963F2B7F8FB9007690D2 /* OnboardingVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingVC.xib; sourceTree = "<group>"; };
+		366ED03E2ADD10D000AB1391 /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
+		366ED03F2ADD10D100AB1391 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		366ED0402ADD10D200AB1391 /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		366ED0412ADD10D300AB1391 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.ttf"; sourceTree = "<group>"; };
+		366ED0422ADD10D400AB1391 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
+		366ED0432ADD10D500AB1391 /* Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		366ED0442ADD10D600AB1391 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
+		366ED0452ADD10D800AB1391 /* Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
+		366ED0462ADD10D900AB1391 /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		366ED0472ADD10DC00AB1391 /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
+		366ED0482ADD10DD00AB1391 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Thin.ttf"; sourceTree = "<group>"; };
+		366ED0492ADD10DE00AB1391 /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
+		366ED04A2ADD10DF00AB1391 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		366ED04B2ADD10E000AB1391 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		366ED04C2ADD10E100AB1391 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
+		366ED04D2ADD10E300AB1391 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
+		366ED04E2ADD10E400AB1391 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
+		366ED04F2ADD10E500AB1391 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		367AC18129535A6F004DC9E4 /* VersionInfoPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionInfoPopupVC.swift; sourceTree = "<group>"; };
 		367AC18229535A6F004DC9E4 /* VersionInfoPopupVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VersionInfoPopupVC.xib; sourceTree = "<group>"; };
 		367AC18529549E94004DC9E4 /* FirmwareUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareUpdateViewModel.swift; sourceTree = "<group>"; };
@@ -355,6 +415,10 @@
 		367AC18C2954D7AB004DC9E4 /* DFUStopPopupVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DFUStopPopupVC.xib; sourceTree = "<group>"; };
 		367AC18F2955E5C7004DC9E4 /* HeadsetRestartAlertPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadsetRestartAlertPopupVC.swift; sourceTree = "<group>"; };
 		367AC1902955E5C7004DC9E4 /* HeadsetRestartAlertPopupVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeadsetRestartAlertPopupVC.xib; sourceTree = "<group>"; };
+		368EB3492D02BD9D00AB02B0 /* TutorialCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCVC.swift; sourceTree = "<group>"; };
+		368EB34A2D02BD9D00AB02B0 /* TutorialCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TutorialCVC.xib; sourceTree = "<group>"; };
+		368EB34E2D0CC85A00AB02B0 /* HeadsetDFUUpdateVerifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadsetDFUUpdateVerifyVC.swift; sourceTree = "<group>"; };
+		368EB3502D0CC85E00AB02B0 /* HeadsetDFUUpdateVerifyVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HeadsetDFUUpdateVerifyVC.storyboard; sourceTree = "<group>"; };
 		3692210F29444FFC00970425 /* new_headset_512dfu.hex */ = {isa = PBXFileReference; lastKnownFileType = file; path = new_headset_512dfu.hex; sourceTree = "<group>"; };
 		3692544529373F7E004D96DC /* AlreadyUpdatedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlreadyUpdatedVC.swift; sourceTree = "<group>"; };
 		36A11AD42976BE5700232D3C /* HeadsetNotConnectedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadsetNotConnectedVC.swift; sourceTree = "<group>"; };
@@ -365,14 +429,28 @@
 		36A6480B294B0C7B00FD62EC /* SkipDFUPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkipDFUPopupVC.swift; sourceTree = "<group>"; };
 		36A6480C294B0C7B00FD62EC /* SkipDFUPopupVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SkipDFUPopupVC.xib; sourceTree = "<group>"; };
 		36AEE458294E14B20051173E /* FirmwareUpdateSuccessVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareUpdateSuccessVC.swift; sourceTree = "<group>"; };
+		36AF6E642BBE8CCE00D7BDD5 /* SideMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SideMenu.storyboard; sourceTree = "<group>"; };
+		36B3938029CB4EAE000E9471 /* HealthKitPermissionPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitPermissionPopupVC.swift; sourceTree = "<group>"; };
+		36B3938129CB4EAE000E9471 /* HealthKitPermissionPopupVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HealthKitPermissionPopupVC.xib; sourceTree = "<group>"; };
+		36C14D9329CADD0500891E83 /* SyncStatusPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusPopupVC.swift; sourceTree = "<group>"; };
+		36C14D9429CADD0500891E83 /* SyncStatusPopupVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SyncStatusPopupVC.xib; sourceTree = "<group>"; };
+		36C14D9729CAE5AE00891E83 /* NotAccuratePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotAccuratePopupVC.swift; sourceTree = "<group>"; };
+		36C14D9829CAE5AE00891E83 /* NotAccuratePopupVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotAccuratePopupVC.xib; sourceTree = "<group>"; };
+		36DBE1822A304FA60038A6C6 /* CountingLapsAnimationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingLapsAnimationVC.swift; sourceTree = "<group>"; };
 		36E1D1832946373400C29A82 /* zygoradiost_405AI2dfu.hex */ = {isa = PBXFileReference; lastKnownFileType = file; path = zygoradiost_405AI2dfu.hex; sourceTree = "<group>"; };
 		36E1D185294723C100C29A82 /* PreFirmwareUpdateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreFirmwareUpdateVC.swift; sourceTree = "<group>"; };
 		36E1D187294723FF00C29A82 /* FirmwareUpdateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareUpdateVC.swift; sourceTree = "<group>"; };
 		36E1D1892947299C00C29A82 /* BLEConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEConnectionManager.swift; sourceTree = "<group>"; };
+		36E7DEFD2A4A7B3A00E07715 /* HeadsetSyncAnimationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadsetSyncAnimationVC.swift; sourceTree = "<group>"; };
+		36E7DEFF2A501D2C00E07715 /* originallapon.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = originallapon.wav; sourceTree = "<group>"; };
+		36E7DF002A501D2E00E07715 /* originallapoff.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = originallapoff.wav; sourceTree = "<group>"; };
+		36E7DF032A501D4100E07715 /* OriginalOnOff.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = OriginalOnOff.wav; sourceTree = "<group>"; };
 		36F451442967383800C00AC7 /* SomethingWentWrongVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomethingWentWrongVC.swift; sourceTree = "<group>"; };
 		36F451452967383800C00AC7 /* SomethingWentWrongVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SomethingWentWrongVC.xib; sourceTree = "<group>"; };
 		36F451482967443A00C00AC7 /* FirmwareUpdatePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareUpdatePopUpVC.swift; sourceTree = "<group>"; };
 		36F451492967443A00C00AC7 /* FirmwareUpdatePopUpVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirmwareUpdatePopUpVC.xib; sourceTree = "<group>"; };
+		36F5F01F2A1D3CBE007EFE1C /* DeviceDisconnectOnDFUVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDisconnectOnDFUVC.swift; sourceTree = "<group>"; };
+		36F5F0202A1D3CBE007EFE1C /* DeviceDisconnectOnDFUVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceDisconnectOnDFUVC.xib; sourceTree = "<group>"; };
 		36FB1E0F29BA541A00DD5403 /* WorkoutTypeTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorkoutTypeTVC.xib; sourceTree = "<group>"; };
 		36FEA14E2B135237001B2CBD /* HallOfFameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallOfFameViewModel.swift; sourceTree = "<group>"; };
 		36FEA1502B135439001B2CBD /* HallOfFameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallOfFameModel.swift; sourceTree = "<group>"; };
@@ -415,24 +493,6 @@
 		E30C1FD4272573B1005BACA6 /* CustomAlertWithCloseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertWithCloseVC.swift; sourceTree = "<group>"; };
 		E30C1FD5272573B1005BACA6 /* CustomAlertWithCloseVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CustomAlertWithCloseVC.xib; path = "../New Group/CustomAlertWithCloseVC.xib"; sourceTree = "<group>"; };
 		E316A82B25F285A100E4A934 /* SubscriptionCancelVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionCancelVC.swift; sourceTree = "<group>"; };
-		E31A08F625C43C2700BB59F1 /* Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
-		E31A08F725C43C2800BB59F1 /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		E31A08F825C43C2800BB59F1 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
-		E31A08F925C43C2800BB59F1 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
-		E31A08FA25C43C2900BB59F1 /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
-		E31A08FB25C43C2900BB59F1 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
-		E31A08FC25C43C2900BB59F1 /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
-		E31A08FD25C43C2A00BB59F1 /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
-		E31A08FE25C43C2A00BB59F1 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
-		E31A08FF25C43C2A00BB59F1 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
-		E31A090025C43C2B00BB59F1 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
-		E31A090125C43C2B00BB59F1 /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
-		E31A090225C43C2B00BB59F1 /* Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
-		E31A090325C43C2C00BB59F1 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
-		E31A090425C43C2C00BB59F1 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.ttf"; sourceTree = "<group>"; };
-		E31A090525C43C2C00BB59F1 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
-		E31A090625C43C2D00BB59F1 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
-		E31A090725C43C2D00BB59F1 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Thin.ttf"; sourceTree = "<group>"; };
 		E31DCD2225DC2FD400334D7D /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		E322383D27D347BE00F018B6 /* CustomPoolLengthPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPoolLengthPopup.swift; sourceTree = "<group>"; };
 		E322383E27D347BE00F018B6 /* CustomPoolLengthPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomPoolLengthPopup.xib; sourceTree = "<group>"; };
@@ -464,7 +524,6 @@
 		E32E5308264D883D003BAEF0 /* FISampleFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FISampleFormat.h; sourceTree = "<group>"; };
 		E32E5309264D883D003BAEF0 /* FISoundContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FISoundContext.h; sourceTree = "<group>"; };
 		E32E5314264D8877003BAEF0 /* Zygo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zygo-Bridging-Header.h"; sourceTree = "<group>"; };
-		E335DDD325CC601A0089C772 /* SideMenu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SideMenu.storyboard; sourceTree = "<group>"; };
 		E335DDD625CC74590089C772 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		E335DDD925CC7ADE0089C772 /* SideMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewModel.swift; sourceTree = "<group>"; };
 		E335DDDD25CC7BEC0089C772 /* SideMenuTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTVC.swift; sourceTree = "<group>"; };
@@ -616,8 +675,8 @@
 		E3CFCC8825EE9F5F000C481A /* SubscriptionServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionServices.swift; sourceTree = "<group>"; };
 		E3CFCC8B25EEA07C000C481A /* ProductFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductFetcher.swift; sourceTree = "<group>"; };
 		E3D33CE527213F7400FDF931 /* HelpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpVC.swift; sourceTree = "<group>"; };
-		E3D33CE827213F9100FDF931 /* OnOffHeadsetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnOffHeadsetVC.swift; sourceTree = "<group>"; };
-		E3D33CEA27213FBE00FDF931 /* ConnectingToBluetoothVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectingToBluetoothVC.swift; sourceTree = "<group>"; };
+		E3D33CE827213F9100FDF931 /* GetStartedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedVC.swift; sourceTree = "<group>"; };
+		E3D33CEA27213FBE00FDF931 /* PairingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingVC.swift; sourceTree = "<group>"; };
 		E3D8DC5825CEAFD700949256 /* WorkoutPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPlayerViewController.swift; sourceTree = "<group>"; };
 		E3D8DC6425CEF81100949256 /* WorkoutSeriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSeriesViewController.swift; sourceTree = "<group>"; };
 		E3D8DC7925CEF9BE00949256 /* EquipmentCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EquipmentCVC.swift; sourceTree = "<group>"; };
@@ -671,6 +730,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				365A20152D3B83E800AE089B /* Lottie in Frameworks */,
 				E3CFCC8025EE6EC8000C481A /* SwiftyStoreKit in Frameworks */,
 				E3DB1C77285605CF00A47F3D /* HealthKit.framework in Frameworks */,
 				E35F245B25D7CA84004E2B8C /* QuartzCore.framework in Frameworks */,
@@ -694,6 +754,62 @@
 				77DBEE42B1B796384A4758FB /* Pods_Zygo.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3601237D2D02B251005DF25E /* Tutorials */ = {
+			isa = PBXGroup;
+			children = (
+				E3D33CE527213F7400FDF931 /* HelpVC.swift */,
+				3601237E2D02B259005DF25E /* Z1 */,
+				3601237F2D02B2A9005DF25E /* Z2 */,
+			);
+			path = Tutorials;
+			sourceTree = "<group>";
+		};
+		3601237E2D02B259005DF25E /* Z1 */ = {
+			isa = PBXGroup;
+			children = (
+				E3D33CE827213F9100FDF931 /* GetStartedVC.swift */,
+				E3D33CEA27213FBE00FDF931 /* PairingVC.swift */,
+				E3F07AD727897BD000D30CF4 /* ChargingAnimationVC.swift */,
+				E3F07AD827897BD000D30CF4 /* ChargingAnimationVC.xib */,
+				36DBE1822A304FA60038A6C6 /* CountingLapsAnimationVC.swift */,
+				36E7DEFD2A4A7B3A00E07715 /* HeadsetSyncAnimationVC.swift */,
+			);
+			path = Z1;
+			sourceTree = "<group>";
+		};
+		3601237F2D02B2A9005DF25E /* Z2 */ = {
+			isa = PBXGroup;
+			children = (
+				368EB3482D02BD7F00AB02B0 /* UICollectionViewCell */,
+				360123812D02B2D9005DF25E /* TutorialsZ2VC.swift */,
+				360123832D02B2DE005DF25E /* TutorialsZ2VC.storyboard */,
+				365A20182D3D1A4100AE089B /* CountingLapsAnimaitionZ2VC.swift */,
+				365A201A2D3D1A4500AE089B /* CountingLapsAnimaitionZ2VC.storyboard */,
+			);
+			path = Z2;
+			sourceTree = "<group>";
+		};
+		361542122D02B533008C2C79 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				361542132D02B56C008C2C79 /* Fonts+Generated.swift */,
+				361542152D02B582008C2C79 /* IB-Scenes+Generated.swift */,
+				361542172D02B5A0008C2C79 /* IB-Segues+Generated.swift */,
+				361542192D02B5E8008C2C79 /* XCAssets+Generated.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		3637D80F2CA977310058F60A /* RenameBluetoothID */ = {
+			isa = PBXGroup;
+			children = (
+				3637D8102CA977460058F60A /* RenameBluetoothIDVC.swift */,
+				3637D8122CA9774A0058F60A /* RenameBluetoothIDVC.storyboard */,
+				365A20162D3D12B900AE089B /* RenameBluetoothIDVM.swift */,
+			);
+			path = RenameBluetoothID;
 			sourceTree = "<group>";
 		};
 		36385AB72B10852A00204CA8 /* TapToSpeak */ = {
@@ -726,6 +842,32 @@
 			path = PublicUtility;
 			sourceTree = "<group>";
 		};
+		365A20102D3B824B00AE089B /* Json */ = {
+			isa = PBXGroup;
+			children = (
+				365A20112D3B825700AE089B /* threeDots.json */,
+			);
+			path = Json;
+			sourceTree = "<group>";
+		};
+		368EB3482D02BD7F00AB02B0 /* UICollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				368EB3492D02BD9D00AB02B0 /* TutorialCVC.swift */,
+				368EB34A2D02BD9D00AB02B0 /* TutorialCVC.xib */,
+			);
+			path = UICollectionViewCell;
+			sourceTree = "<group>";
+		};
+		368EB34D2D0CC79700AB02B0 /* HeadsetDFUUpdateVerify */ = {
+			isa = PBXGroup;
+			children = (
+				368EB34E2D0CC85A00AB02B0 /* HeadsetDFUUpdateVerifyVC.swift */,
+				368EB3502D0CC85E00AB02B0 /* HeadsetDFUUpdateVerifyVC.storyboard */,
+			);
+			path = HeadsetDFUUpdateVerify;
+			sourceTree = "<group>";
+		};
 		3692210E29444FEB00970425 /* Firmwares */ = {
 			isa = PBXGroup;
 			children = (
@@ -738,17 +880,18 @@
 		3692544429373F6D004D96DC /* DFU */ = {
 			isa = PBXGroup;
 			children = (
+				368EB34D2D0CC79700AB02B0 /* HeadsetDFUUpdateVerify */,
 				36A64806294B089800FD62EC /* UITableViewCell */,
 				3692544529373F7E004D96DC /* AlreadyUpdatedVC.swift */,
 				36E1D185294723C100C29A82 /* PreFirmwareUpdateVC.swift */,
 				36A64802294B04CA00FD62EC /* PreFirmwareUpdateViewModel.swift */,
 				36E1D187294723FF00C29A82 /* FirmwareUpdateVC.swift */,
+				367AC18529549E94004DC9E4 /* FirmwareUpdateViewModel.swift */,
 				36A6480B294B0C7B00FD62EC /* SkipDFUPopupVC.swift */,
 				36A6480C294B0C7B00FD62EC /* SkipDFUPopupVC.xib */,
 				36AEE458294E14B20051173E /* FirmwareUpdateSuccessVC.swift */,
 				367AC18129535A6F004DC9E4 /* VersionInfoPopupVC.swift */,
 				367AC18229535A6F004DC9E4 /* VersionInfoPopupVC.xib */,
-				367AC18529549E94004DC9E4 /* FirmwareUpdateViewModel.swift */,
 				367AC18B2954D7AB004DC9E4 /* DFUStopPopupVC.swift */,
 				367AC18C2954D7AB004DC9E4 /* DFUStopPopupVC.xib */,
 				367AC18F2955E5C7004DC9E4 /* HeadsetRestartAlertPopupVC.swift */,
@@ -758,6 +901,8 @@
 				36F451482967443A00C00AC7 /* FirmwareUpdatePopUpVC.swift */,
 				36F451492967443A00C00AC7 /* FirmwareUpdatePopUpVC.xib */,
 				36A11AD42976BE5700232D3C /* HeadsetNotConnectedVC.swift */,
+				36F5F01F2A1D3CBE007EFE1C /* DeviceDisconnectOnDFUVC.swift */,
+				36F5F0202A1D3CBE007EFE1C /* DeviceDisconnectOnDFUVC.xib */,
 			);
 			path = DFU;
 			sourceTree = "<group>";
@@ -980,24 +1125,24 @@
 		E31A08F425C43BF900BB59F1 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				E31A090425C43C2C00BB59F1 /* Poppins-Black.ttf */,
-				E31A090225C43C2B00BB59F1 /* Poppins-BlackItalic.ttf */,
-				E31A090525C43C2C00BB59F1 /* Poppins-Bold.ttf */,
-				E31A08F925C43C2800BB59F1 /* Poppins-BoldItalic.ttf */,
-				E31A090025C43C2B00BB59F1 /* Poppins-ExtraBold.ttf */,
-				E31A08F625C43C2700BB59F1 /* Poppins-ExtraBoldItalic.ttf */,
-				E31A08FC25C43C2900BB59F1 /* Poppins-ExtraLight.ttf */,
-				E31A08FD25C43C2A00BB59F1 /* Poppins-ExtraLightItalic.ttf */,
-				E31A090625C43C2D00BB59F1 /* Poppins-Italic.ttf */,
-				E31A08F825C43C2800BB59F1 /* Poppins-Light.ttf */,
-				E31A08FF25C43C2A00BB59F1 /* Poppins-LightItalic.ttf */,
-				E31A08FB25C43C2900BB59F1 /* Poppins-Medium.ttf */,
-				E31A090125C43C2B00BB59F1 /* Poppins-MediumItalic.ttf */,
-				E31A090325C43C2C00BB59F1 /* Poppins-Regular.ttf */,
-				E31A08FE25C43C2A00BB59F1 /* Poppins-SemiBold.ttf */,
-				E31A08F725C43C2800BB59F1 /* Poppins-SemiBoldItalic.ttf */,
-				E31A090725C43C2D00BB59F1 /* Poppins-Thin.ttf */,
-				E31A08FA25C43C2900BB59F1 /* Poppins-ThinItalic.ttf */,
+				366ED0412ADD10D300AB1391 /* Poppins-Black.ttf */,
+				366ED0452ADD10D800AB1391 /* Poppins-BlackItalic.ttf */,
+				366ED04B2ADD10E000AB1391 /* Poppins-Bold.ttf */,
+				366ED0442ADD10D600AB1391 /* Poppins-BoldItalic.ttf */,
+				366ED04C2ADD10E100AB1391 /* Poppins-ExtraBold.ttf */,
+				366ED0432ADD10D500AB1391 /* Poppins-ExtraBoldItalic.ttf */,
+				366ED0492ADD10DE00AB1391 /* Poppins-ExtraLight.ttf */,
+				366ED0462ADD10D900AB1391 /* Poppins-ExtraLightItalic.ttf */,
+				366ED04D2ADD10E300AB1391 /* Poppins-Italic.ttf */,
+				366ED0422ADD10D400AB1391 /* Poppins-Light.ttf */,
+				366ED04E2ADD10E400AB1391 /* Poppins-LightItalic.ttf */,
+				366ED03F2ADD10D100AB1391 /* Poppins-Medium.ttf */,
+				366ED03E2ADD10D000AB1391 /* Poppins-MediumItalic.ttf */,
+				366ED04A2ADD10DF00AB1391 /* Poppins-Regular.ttf */,
+				366ED04F2ADD10E500AB1391 /* Poppins-SemiBold.ttf */,
+				366ED0402ADD10D200AB1391 /* Poppins-SemiBoldItalic.ttf */,
+				366ED0482ADD10DD00AB1391 /* Poppins-Thin.ttf */,
+				366ED0472ADD10DC00AB1391 /* Poppins-ThinItalic.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -1019,6 +1164,8 @@
 				E3DB1C6D2855E2A100A47F3D /* DeleteAccountDescriptionVC.xib */,
 				E3DB1C712855EDB300A47F3D /* DeleteAccountVC.swift */,
 				E3DB1C722855EDB300A47F3D /* DeleteAccountVC.xib */,
+				36B3938029CB4EAE000E9471 /* HealthKitPermissionPopupVC.swift */,
+				36B3938129CB4EAE000E9471 /* HealthKitPermissionPopupVC.xib */,
 			);
 			path = XIB;
 			sourceTree = "<group>";
@@ -1085,12 +1232,8 @@
 		E335DDD225CC60020089C772 /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
+				3601237D2D02B251005DF25E /* Tutorials */,
 				E335DDD625CC74590089C772 /* MenuViewController.swift */,
-				E3D33CE527213F7400FDF931 /* HelpVC.swift */,
-				E3D33CE827213F9100FDF931 /* OnOffHeadsetVC.swift */,
-				E3D33CEA27213FBE00FDF931 /* ConnectingToBluetoothVC.swift */,
-				E3F07AD727897BD000D30CF4 /* ChargingAnimationVC.swift */,
-				E3F07AD827897BD000D30CF4 /* ChargingAnimationVC.xib */,
 				E3BD270227A4649700C5BD32 /* CustomerSupportVC.swift */,
 				36385AB52B1083E000204CA8 /* WalkieTalkieVC.swift */,
 				36FEA14D2B135220001B2CBD /* HallOfFame */,
@@ -1122,6 +1265,7 @@
 		E344A1C525C9B22100168519 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				3637D80F2CA977310058F60A /* RenameBluetoothID */,
 				E335DDFE25CDBCAA0089C772 /* BluetoothViewController.swift */,
 				E335DDFF25CDBCAC0089C772 /* PrivacyPolicyViewController.swift */,
 				E335DE0025CDBCB00089C772 /* SettingsViewController.swift */,
@@ -1211,6 +1355,10 @@
 				E35F24A725DBA18A004E2B8C /* FeedbackSheetViewController.xib */,
 				E35F249125D83A29004E2B8C /* UITableViewCells */,
 				E35F249025D83A1D004E2B8C /* UICollectionViewCells */,
+				36C14D9329CADD0500891E83 /* SyncStatusPopupVC.swift */,
+				36C14D9429CADD0500891E83 /* SyncStatusPopupVC.xib */,
+				36C14D9729CAE5AE00891E83 /* NotAccuratePopupVC.swift */,
+				36C14D9829CAE5AE00891E83 /* NotAccuratePopupVC.xib */,
 			);
 			path = Feedback;
 			sourceTree = "<group>";
@@ -1240,6 +1388,9 @@
 		E379627825DD8C450024B5C9 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				36E7DF032A501D4100E07715 /* OriginalOnOff.wav */,
+				36E7DF002A501D2E00E07715 /* originallapoff.wav */,
+				36E7DEFF2A501D2C00E07715 /* originallapon.wav */,
 				E379627B25DD8C5A0024B5C9 /* sound_beep.wav */,
 				E379627A25DD8C580024B5C9 /* sound_ding.wav */,
 				E379627925DD8C530024B5C9 /* sound_drop.wav */,
@@ -1406,8 +1557,8 @@
 				A67744BE25BC1A5300D18BA9 /* SceneDelegate.swift */,
 				A67744D425BC1AF100D18BA9 /* Registration.storyboard */,
 				A67744C225BC1A5300D18BA9 /* Main.storyboard */,
+				36AF6E642BBE8CCE00D7BDD5 /* SideMenu.storyboard */,
 				A67744CA25BC1A5B00D18BA9 /* LaunchScreen.storyboard */,
-				E335DDD325CC601A0089C772 /* SideMenu.storyboard */,
 				E32A24162684F34C00442F19 /* Instructor.storyboard */,
 				33B0BE8728C4F499009754EA /* ReferFriend.storyboard */,
 			);
@@ -1417,6 +1568,8 @@
 		E3F5EEAC25C3EE6A001D9BC1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				365A20102D3B824B00AE089B /* Json */,
+				361542122D02B533008C2C79 /* Generated */,
 				3692210E29444FEB00970425 /* Firmwares */,
 				E379627825DD8C450024B5C9 /* Sounds */,
 				E31A08F425C43BF900BB59F1 /* Fonts */,
@@ -1492,7 +1645,7 @@
 				A67744B625BC1A5300D18BA9 /* Frameworks */,
 				A67744B725BC1A5300D18BA9 /* Resources */,
 				036B5AA906620ADC4FE91EE5 /* [CP] Embed Pods Frameworks */,
-				36E7DF052A59ABD600E07715 /* ShellScript */,
+				36E7DF072A69098300E07715 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1501,6 +1654,7 @@
 			name = Zygo;
 			packageProductDependencies = (
 				E3CFCC7F25EE6EC8000C481A /* SwiftyStoreKit */,
+				365A20142D3B83E800AE089B /* Lottie */,
 			);
 			productName = Zygo;
 			productReference = A67744B925BC1A5300D18BA9 /* Zygo.app */;
@@ -1532,6 +1686,7 @@
 			mainGroup = A67744B025BC1A5300D18BA9;
 			packageReferences = (
 				E3CFCC7E25EE6EC8000C481A /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */,
+				365A20132D3B83E800AE089B /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			productRefGroup = A67744BA25BC1A5300D18BA9 /* Products */;
 			projectDirPath = "";
@@ -1547,18 +1702,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				368EB3512D0CC85E00AB02B0 /* HeadsetDFUUpdateVerifyVC.storyboard in Resources */,
 				E3475CBF26C23B6100B595DC /* InstructorTVC.xib in Resources */,
-				E31A091625C43C2D00BB59F1 /* Poppins-Black.ttf in Resources */,
-				E31A090925C43C2D00BB59F1 /* Poppins-SemiBoldItalic.ttf in Resources */,
+				36B3938329CB4EAE000E9471 /* HealthKitPermissionPopupVC.xib in Resources */,
+				366ED05C2ADD10E500AB1391 /* Poppins-Regular.ttf in Resources */,
 				E38A0F0725C552E200D3FAAC /* LICENSE in Resources */,
 				36FEA1562B1358B9001B2CBD /* HallOfFameTVC.xib in Resources */,
+				36C14D9629CADD0500891E83 /* SyncStatusPopupVC.xib in Resources */,
+				3637D8132CA9774A0058F60A /* RenameBluetoothIDVC.storyboard in Resources */,
 				E344A1E925C9B24C00168519 /* AchievementsCVC.xib in Resources */,
 				366396412B7F8FB9007690D2 /* OnboardingVC.xib in Resources */,
 				E322384027D347BE00F018B6 /* CustomPoolLengthPopup.xib in Resources */,
+				366ED05A2ADD10E500AB1391 /* Poppins-Thin.ttf in Resources */,
 				A68B141625BDCF9100610E99 /* FilterTVC.xib in Resources */,
-				E31A090B25C43C2D00BB59F1 /* Poppins-BoldItalic.ttf in Resources */,
 				E30C1FD7272573B1005BACA6 /* CustomAlertWithCloseVC.xib in Resources */,
 				E3C393DF25E74968008AF486 /* SeriesTVC.xib in Resources */,
+				366ED0562ADD10E500AB1391 /* Poppins-BoldItalic.ttf in Resources */,
+				36C14D9A29CAE5AE00891E83 /* NotAccuratePopupVC.xib in Resources */,
 				E3A68A7D27EF2FFE00E91497 /* WokoutFeedbackInfoTVC.xib in Resources */,
 				E32A24172684F34C00442F19 /* Instructor.storyboard in Resources */,
 				E3F8102C269763D00070847A /* PlaylistViewMoreTVC.xib in Resources */,
@@ -1567,24 +1727,23 @@
 				36A6480A294B08AD00FD62EC /* PreFirmwareTVC.xib in Resources */,
 				A67744CC25BC1A5B00D18BA9 /* LaunchScreen.storyboard in Resources */,
 				E3D8DC9025CEF9D400949256 /* StartWorkoutTVC.xib in Resources */,
+				366ED0612ADD10E500AB1391 /* Poppins-SemiBold.ttf in Resources */,
 				E344A1DB25C9B24400168519 /* HistoryInfoTVC.xib in Resources */,
-				E31A090F25C43C2D00BB59F1 /* Poppins-ExtraLightItalic.ttf in Resources */,
-				E31A091125C43C2D00BB59F1 /* Poppins-LightItalic.ttf in Resources */,
-				E31A091725C43C2D00BB59F1 /* Poppins-Bold.ttf in Resources */,
-				E31A090E25C43C2D00BB59F1 /* Poppins-ExtraLight.ttf in Resources */,
-				E335DDD425CC601A0089C772 /* SideMenu.storyboard in Resources */,
 				E3D8DC9825CEF9D400949256 /* EquipmentTVC.xib in Resources */,
 				E379625625DCD9E50024B5C9 /* FeedbackAchievementCVC.xib in Resources */,
 				A67744D525BC1AF100D18BA9 /* Registration.storyboard in Resources */,
-				E31A090C25C43C2D00BB59F1 /* Poppins-ThinItalic.ttf in Resources */,
 				E344A1DA25C9B24400168519 /* AchievementsTVC.xib in Resources */,
+				366ED0592ADD10E500AB1391 /* Poppins-ThinItalic.ttf in Resources */,
+				366ED0552ADD10E500AB1391 /* Poppins-ExtraBoldItalic.ttf in Resources */,
+				365A201B2D3D1A4500AE089B /* CountingLapsAnimaitionZ2VC.storyboard in Resources */,
 				E3D8DC8025CEF9BE00949256 /* WorkoutHeaderTVC.xib in Resources */,
 				367AC18E2954D7AB004DC9E4 /* DFUStopPopupVC.xib in Resources */,
+				366ED05B2ADD10E500AB1391 /* Poppins-ExtraLight.ttf in Resources */,
 				E35F24B925DBA1E0004E2B8C /* LikeCVC.xib in Resources */,
 				E379627E25DD8C5B0024B5C9 /* sound_beep.wav in Resources */,
 				E344A1DF25C9B24400168519 /* NotificationSettingsTVC.xib in Resources */,
 				E3D8DC9625CEF9D400949256 /* WorkoutDetailInfoTVC.xib in Resources */,
-				E31A091425C43C2D00BB59F1 /* Poppins-BlackItalic.ttf in Resources */,
+				366ED0572ADD10E500AB1391 /* Poppins-BlackItalic.ttf in Resources */,
 				E3FABF4025C8647200324511 /* BottomSheetVC.xib in Resources */,
 				E379627C25DD8C5B0024B5C9 /* sound_drop.wav in Resources */,
 				E36611F6268A174E0034A311 /* InstructorVideoTVC.xib in Resources */,
@@ -1594,48 +1753,57 @@
 				36F451472967383800C00AC7 /* SomethingWentWrongVC.xib in Resources */,
 				E344A1DD25C9B24400168519 /* PastWorkoutsTVC.xib in Resources */,
 				36FB1E1029BA541A00DD5403 /* WorkoutTypeTVC.xib in Resources */,
+				36E7DF012A501D2E00E07715 /* originallapon.wav in Resources */,
 				E3AA41032696241D0063C073 /* PlaylistInfoTVC.xib in Resources */,
-				E31A090825C43C2D00BB59F1 /* Poppins-ExtraBoldItalic.ttf in Resources */,
-				E31A090D25C43C2D00BB59F1 /* Poppins-Medium.ttf in Resources */,
 				36F4514B2967443A00C00AC7 /* FirmwareUpdatePopUpVC.xib in Resources */,
 				367AC18A2954A03B004DC9E4 /* FirmwareStatusTVC.xib in Resources */,
 				E3C393E425E74A17008AF486 /* SeriesCVC.xib in Resources */,
+				366ED0542ADD10E500AB1391 /* Poppins-Light.ttf in Resources */,
 				E38A0F2F25C552E300D3FAAC /* README.md in Resources */,
 				E35F24B425DBA1CF004E2B8C /* DefaultFeedbackTVC.xib in Resources */,
+				366ED05F2ADD10E500AB1391 /* Poppins-Italic.ttf in Resources */,
 				33B0BE8628C4D608009754EA /* MetricsTVC.xib in Resources */,
-				E31A090A25C43C2D00BB59F1 /* Poppins-Light.ttf in Resources */,
+				366ED0582ADD10E500AB1391 /* Poppins-ExtraLightItalic.ttf in Resources */,
+				36E7DF042A501D4100E07715 /* OriginalOnOff.wav in Resources */,
 				E3FE0A9825F15A02000D7FAB /* PairVC.xib in Resources */,
 				E3FAFB4F27D396DC001ECD02 /* BarCVC.xib in Resources */,
 				A67744C925BC1A5B00D18BA9 /* Assets.xcassets in Resources */,
 				E3FB14C52637E6E00075AB49 /* GoogleService-Info.plist in Resources */,
 				33B0BE8828C4F49A009754EA /* ReferFriend.storyboard in Resources */,
 				E3F911D2272991D0003BCD6E /* SideMenuDemoTVC.xib in Resources */,
+				36E7DF022A501D2E00E07715 /* originallapoff.wav in Resources */,
+				366ED05E2ADD10E500AB1391 /* Poppins-ExtraBold.ttf in Resources */,
 				E344A1E025C9B24400168519 /* OtherSettingsTVC.xib in Resources */,
 				E39230552678FB160060EFC4 /* CustomAlertVC.xib in Resources */,
 				A68B141F25BDD55A00610E99 /* DownloadsTVC.xib in Resources */,
-				E31A091225C43C2D00BB59F1 /* Poppins-ExtraBold.ttf in Resources */,
 				E3F07ADA27897BD000D30CF4 /* ChargingAnimationVC.xib in Resources */,
+				365A20122D3B825700AE089B /* threeDots.json in Resources */,
+				366ED0522ADD10E500AB1391 /* Poppins-SemiBoldItalic.ttf in Resources */,
+				360123842D02B2DE005DF25E /* TutorialsZ2VC.storyboard in Resources */,
 				E35F24A925DBA18D004E2B8C /* FeedbackSheetViewController.xib in Resources */,
 				E3D8DC7E25CEF9BE00949256 /* EquipmentCVC.xib in Resources */,
 				E3DB1C6F2855E2A100A47F3D /* DeleteAccountDescriptionVC.xib in Resources */,
-				E31A091825C43C2D00BB59F1 /* Poppins-Italic.ttf in Resources */,
 				E335DE0C25CE753E0089C772 /* SettingsHV.xib in Resources */,
-				E31A091925C43C2D00BB59F1 /* Poppins-Thin.ttf in Resources */,
 				36A6480E294B0C7B00FD62EC /* SkipDFUPopupVC.xib in Resources */,
 				36E1D1842946373400C29A82 /* zygoradiost_405AI2dfu.hex in Resources */,
 				E3AA40FE2696232C0063C073 /* PlaylistTVC.xib in Resources */,
+				366ED0502ADD10E500AB1391 /* Poppins-MediumItalic.ttf in Resources */,
 				E3DB1C742855EDB300A47F3D /* DeleteAccountVC.xib in Resources */,
 				E3B063DF268A31C400304004 /* InstructorWorkoutTitleTVC.xib in Resources */,
-				E31A091025C43C2D00BB59F1 /* Poppins-SemiBold.ttf in Resources */,
+				366ED0602ADD10E500AB1391 /* Poppins-LightItalic.ttf in Resources */,
+				366ED0532ADD10E500AB1391 /* Poppins-Black.ttf in Resources */,
+				366ED0512ADD10E500AB1391 /* Poppins-Medium.ttf in Resources */,
 				3692211029444FFC00970425 /* new_headset_512dfu.hex in Resources */,
 				A67744C425BC1A5300D18BA9 /* Main.storyboard in Resources */,
+				366ED05D2ADD10E500AB1391 /* Poppins-Bold.ttf in Resources */,
 				E35F24BF25DBA682004E2B8C /* FeedbackAchievementTVC.xib in Resources */,
-				E31A091325C43C2D00BB59F1 /* Poppins-MediumItalic.ttf in Resources */,
+				36AF6E652BBE8CCE00D7BDD5 /* SideMenu.storyboard in Resources */,
 				E335DDE025CC7BEC0089C772 /* SideMenuTVC.xib in Resources */,
+				36F5F0222A1D3CBE007EFE1C /* DeviceDisconnectOnDFUVC.xib in Resources */,
 				367AC18429535A6F004DC9E4 /* VersionInfoPopupVC.xib in Resources */,
 				A68B141125BDC23500610E99 /* WorkoutInfoTVC.xib in Resources */,
 				E3CFCC6625EE625F000C481A /* HistoryWorkoutsHeaderView.xib in Resources */,
-				E31A091525C43C2D00BB59F1 /* Poppins-Regular.ttf in Resources */,
+				368EB34C2D02BD9E00AB02B0 /* TutorialCVC.xib in Resources */,
 				E379627D25DD8C5B0024B5C9 /* sound_ding.wav in Resources */,
 				E3D8DC9B25CEF9D400949256 /* BluetoothTVC.xib in Resources */,
 			);
@@ -1652,16 +1820,20 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Zygo/Pods-Zygo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Zygo/Pods-Zygo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Zygo/Pods-Zygo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		36E7DF052A59ABD600E07715 /* ShellScript */ = {
+		36E7DF072A69098300E07715 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1678,7 +1850,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n\n";
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		439FABD930B03094EDD34E2C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1711,6 +1883,8 @@
 			files = (
 				E3CFCC8325EE6EEA000C481A /* SubscriptionManager.swift in Sources */,
 				E3D8DC9925CEF9D400949256 /* WorkoutTypeTVC.swift in Sources */,
+				36B3938229CB4EAE000E9471 /* HealthKitPermissionPopupVC.swift in Sources */,
+				361542142D02B56C008C2C79 /* Fonts+Generated.swift in Sources */,
 				E38A0F0B25C552E200D3FAAC /* NVActivityIndicatorShape.swift in Sources */,
 				E3B1988C25D4505700AC6CB9 /* WorkoutDetailViewController.swift in Sources */,
 				E38A0F2B25C552E300D3FAAC /* NVActivityIndicatorAnimationLineScaleParty.swift in Sources */,
@@ -1738,6 +1912,7 @@
 				E335DDDA25CC7ADE0089C772 /* SideMenuViewModel.swift in Sources */,
 				E344A1BD25C9B14600168519 /* GoogleLoginManager.swift in Sources */,
 				E32E530A264D883E003BAEF0 /* FISoundEngine.m in Sources */,
+				361542162D02B582008C2C79 /* IB-Scenes+Generated.swift in Sources */,
 				E38A0F2E25C552E300D3FAAC /* NVActivityIndicatorAnimationOrbit.swift in Sources */,
 				E36611F5268A174E0034A311 /* InstructorVideoTVC.swift in Sources */,
 				E344A1EC25C9B29B00168519 /* HistoryViewController.swift in Sources */,
@@ -1746,6 +1921,7 @@
 				A68B141E25BDD55A00610E99 /* DownloadsTVC.swift in Sources */,
 				33B0BE8528C4D608009754EA /* MetricsTVC.swift in Sources */,
 				36AEE459294E14B20051173E /* FirmwareUpdateSuccessVC.swift in Sources */,
+				36DBE1832A304FA60038A6C6 /* CountingLapsAnimationVC.swift in Sources */,
 				E342290425C4448D00CE4ABE /* UserServices.swift in Sources */,
 				E32E530F264D883E003BAEF0 /* FISoundSource.m in Sources */,
 				36385AC22B10853400204CA8 /* CAXException.swift in Sources */,
@@ -1760,6 +1936,7 @@
 				E39230592678FB5F0060EFC4 /* DismissingAnimator.swift in Sources */,
 				A63E7C3325BC2FBA00CC9564 /* SignUpViewController.swift in Sources */,
 				E324E6A025DFA23A002CD0D5 /* DownloadManager.swift in Sources */,
+				368EB34F2D0CC85A00AB02B0 /* HeadsetDFUUpdateVerifyVC.swift in Sources */,
 				367AC18329535A6F004DC9E4 /* VersionInfoPopupVC.swift in Sources */,
 				E38A0F2325C552E200D3FAAC /* NVActivityIndicatorAnimationBallGridBeat.swift in Sources */,
 				E32E530E264D883E003BAEF0 /* FISound.m in Sources */,
@@ -1789,18 +1966,22 @@
 				36A64803294B04CA00FD62EC /* PreFirmwareUpdateViewModel.swift in Sources */,
 				36385AC12B10853400204CA8 /* OOPExceptions.swift in Sources */,
 				E32E530B264D883E003BAEF0 /* FISoundDevice.m in Sources */,
+				36E7DEFE2A4A7B3A00E07715 /* HeadsetSyncAnimationVC.swift in Sources */,
 				E38254B327F97B740071257C /* AudioPlayerManager.swift in Sources */,
 				E379627625DD3FF10024B5C9 /* TempoTrainerViewController.swift in Sources */,
+				3637D8112CA977460058F60A /* RenameBluetoothIDVC.swift in Sources */,
 				E3C393DE25E74968008AF486 /* SeriesTVC.swift in Sources */,
 				E38A0F2C25C552E300D3FAAC /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift in Sources */,
 				E3D8DC9525CEF9D400949256 /* EquipmentTVC.swift in Sources */,
 				36385AC42B10853400204CA8 /* CADebugMacros.swift in Sources */,
 				E324E6A125DFA23A002CD0D5 /* DownloadManagerDownload.swift in Sources */,
 				E35F24BE25DBA682004E2B8C /* FeedbackAchievementTVC.swift in Sources */,
+				36F5F0212A1D3CBE007EFE1C /* DeviceDisconnectOnDFUVC.swift in Sources */,
 				A68B139025BC572100610E99 /* NetworkManager.swift in Sources */,
 				E38A0F3225C570A400D3FAAC /* WorkoutDTO.swift in Sources */,
 				E3475CBA26C23A0C00B595DC /* InstructorsListViewController.swift in Sources */,
 				E3F911D1272991D0003BCD6E /* SideMenuDemoTVC.swift in Sources */,
+				360123822D02B2D9005DF25E /* TutorialsZ2VC.swift in Sources */,
 				E344A1DE25C9B24400168519 /* PastWorkoutsTVC.swift in Sources */,
 				E3BD270327A4649800C5BD32 /* CustomerSupportVC.swift in Sources */,
 				E38A0F1525C552E200D3FAAC /* NVActivityIndicatorAnimationBallZigZagDeflect.swift in Sources */,
@@ -1810,6 +1991,7 @@
 				E3D8DC9125CEF9D400949256 /* WorkoutPlanTVC.swift in Sources */,
 				3692544629373F7E004D96DC /* AlreadyUpdatedVC.swift in Sources */,
 				E335DDDF25CC7BEC0089C772 /* SideMenuTVC.swift in Sources */,
+				365A20172D3D12B900AE089B /* RenameBluetoothIDVM.swift in Sources */,
 				E38254B627F97B7B0071257C /* AudioPlayerManager.swift in Sources */,
 				E349E53525C59F490054A54D /* WorkoutsServices.swift in Sources */,
 				E3D8DC7D25CEF9BE00949256 /* EquipmentCVC.swift in Sources */,
@@ -1818,6 +2000,7 @@
 				E38A0F1D25C552E200D3FAAC /* NVActivityIndicatorAnimationBallRotateChase.swift in Sources */,
 				E35F24C225DBA932004E2B8C /* AchievementDTO.swift in Sources */,
 				E335DE0625CDBCB40089C772 /* YourAchievementViewController.swift in Sources */,
+				3615421A2D02B5E8008C2C79 /* XCAssets+Generated.swift in Sources */,
 				E335DE0425CDBCB40089C772 /* PrivacyPolicyViewController.swift in Sources */,
 				E32E5311264D883E003BAEF0 /* FISampleFormat.m in Sources */,
 				E3DB1C732855EDB300A47F3D /* DeleteAccountVC.swift in Sources */,
@@ -1825,7 +2008,7 @@
 				36385AC32B10853400204CA8 /* CAStreamBasicDescription.swift in Sources */,
 				A68B139425BC592800610E99 /* RegistrationServices.swift in Sources */,
 				E38A0F1025C552E200D3FAAC /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift in Sources */,
-				E3D33CE927213F9100FDF931 /* OnOffHeadsetVC.swift in Sources */,
+				E3D33CE927213F9100FDF931 /* GetStartedVC.swift in Sources */,
 				E3475CBE26C23B6100B595DC /* InstructorTVC.swift in Sources */,
 				E35F245725D7C882004E2B8C /* ShadowSmallView.swift in Sources */,
 				E3FB369A25C408CE0070DA9C /* CreateProfileViewController.swift in Sources */,
@@ -1841,6 +2024,7 @@
 				E39230542678FB160060EFC4 /* CustomAlertVC.swift in Sources */,
 				E35F24BA25DBA1E0004E2B8C /* LikeCVC.swift in Sources */,
 				E35F24B525DBA1CF004E2B8C /* DefaultFeedbackTVC.swift in Sources */,
+				36C14D9529CADD0500891E83 /* SyncStatusPopupVC.swift in Sources */,
 				E38A0F0925C552E200D3FAAC /* NVActivityIndicatorPresenter.swift in Sources */,
 				E38A0F1925C552E200D3FAAC /* NVActivityIndicatorAnimationSemiCircleSpin.swift in Sources */,
 				A63E7C2C25BC2CFC00CC9564 /* Helper.swift in Sources */,
@@ -1853,6 +2037,7 @@
 				E32E530D264D883E003BAEF0 /* FIError.m in Sources */,
 				E3CFCC6325EE6254000C481A /* HistoryWorkoutsHeaderView.swift in Sources */,
 				36075D642B1094180080F8A1 /* HallOfFameVC.swift in Sources */,
+				368EB34B2D02BD9E00AB02B0 /* TutorialCVC.swift in Sources */,
 				A63E7C3725BC448B00CC9564 /* SubscriptionViewController.swift in Sources */,
 				366396402B7F8FB9007690D2 /* OnboardingVC.swift in Sources */,
 				E3D8DC9A25CEF9D400949256 /* BluetoothTVC.swift in Sources */,
@@ -1868,6 +2053,7 @@
 				E35F246C25D80E27004E2B8C /* WorkoutPlayerViewModel.swift in Sources */,
 				A68B13F125BC6A3800610E99 /* UserDTO.swift in Sources */,
 				E3CFCC8925EE9F5F000C481A /* SubscriptionServices.swift in Sources */,
+				361542182D02B5A0008C2C79 /* IB-Segues+Generated.swift in Sources */,
 				A64D708825C179A8000BC433 /* ForgotpasswordViewController.swift in Sources */,
 				E38A0F0F25C552E200D3FAAC /* NVActivityIndicatorAnimationBallClipRotate.swift in Sources */,
 				E322384327D3519300F018B6 /* MetricsViewController.swift in Sources */,
@@ -1896,6 +2082,7 @@
 				36E1D18A2947299C00C29A82 /* BLEConnectionManager.swift in Sources */,
 				E3D8DC9225CEF9D400949256 /* WorkoutDetailInfoTVC.swift in Sources */,
 				E32E5310264D883E003BAEF0 /* FISoundContext.m in Sources */,
+				36C14D9929CAE5AE00891E83 /* NotAccuratePopupVC.swift in Sources */,
 				E35F245825D7C882004E2B8C /* ShadowView.swift in Sources */,
 				36A64809294B08AD00FD62EC /* PreFirmwareTVC.swift in Sources */,
 				33B0BE8228C4A028009754EA /* BadgesVC.swift in Sources */,
@@ -1912,12 +2099,13 @@
 				36E1D186294723C100C29A82 /* PreFirmwareUpdateVC.swift in Sources */,
 				E341129325E6C90300F1C53A /* WorkoutLogDTO.swift in Sources */,
 				E3FB368F25C3F3B30070DA9C /* WorkoutInfoDTO.swift in Sources */,
-				E3D33CEB27213FBE00FDF931 /* ConnectingToBluetoothVC.swift in Sources */,
+				E3D33CEB27213FBE00FDF931 /* PairingVC.swift in Sources */,
 				A68B140B25BDC0E000610E99 /* WorkoutsViewController.swift in Sources */,
 				A63E7C2E25BC2D0700CC9564 /* Constants.swift in Sources */,
 				E38A0F1825C552E200D3FAAC /* NVActivityIndicatorAnimationBallBeat.swift in Sources */,
 				E38254BA27F97E4A0071257C /* RequestDataVC.swift in Sources */,
 				E38A0F2225C552E200D3FAAC /* NVActivityIndicatorAnimationTriangleSkewSpin.swift in Sources */,
+				365A20192D3D1A4100AE089B /* CountingLapsAnimaitionZ2VC.swift in Sources */,
 				E344A1E225C9B24400168519 /* NotificationSettingsTVC.swift in Sources */,
 				367AC1892954A03B004DC9E4 /* FirmwareStatusTVC.swift in Sources */,
 				E38A0F2825C552E200D3FAAC /* NVActivityIndicatorAnimationBallPulseSync.swift in Sources */,
@@ -2080,19 +2268,23 @@
 				CODE_SIGN_ENTITLEMENTS = Zygo/Zygo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 79XU885769;
 				INFOPLIST_FILE = Zygo/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.0.9;
+				MARKETING_VERSION = 7.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zygo.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Zygo/Resources/Zygo-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2107,18 +2299,22 @@
 				CODE_SIGN_ENTITLEMENTS = Zygo/Zygo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 79XU885769;
 				INFOPLIST_FILE = Zygo/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.0.9;
+				MARKETING_VERSION = 7.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zygo.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Zygo/Resources/Zygo-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2149,6 +2345,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		365A20132D3B83E800AE089B /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.1;
+			};
+		};
 		E3CFCC7E25EE6EC8000C481A /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/bizz84/SwiftyStoreKit.git";
@@ -2160,6 +2364,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		365A20142D3B83E800AE089B /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 365A20132D3B83E800AE089B /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
 		E3CFCC7F25EE6EC8000C481A /* SwiftyStoreKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E3CFCC7E25EE6EC8000C481A /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */;

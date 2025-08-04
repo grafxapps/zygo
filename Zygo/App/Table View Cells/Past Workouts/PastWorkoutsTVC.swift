@@ -37,25 +37,37 @@ class PastWorkoutsTVC: UITableViewCell {
     }
     
     func setupPastWorkouInfo(item: WorkoutLogDTO){
-        if (Int(item.workoutDuration) ?? 0) > 0{
-            self.lblName.text = "\(item.workoutDuration) min \(item.workoutName)"
-        }else{
-            self.lblName.text = "\(item.workoutName)"
-        }
-        
-        self.lblWorkoutDate.text = item.dateOfWorkout.toDisplayBirthday()
-        self.lblWorkoutType.text = item.workoutTypeTitle
-        self.lblInstructorName.text = item.instructorName
-        
-        if item.instructorName.isEmpty || item.instructorName == "NULL"{
+        if item.WId == -1 || item.WId == 0{//For Matrics and TempTrainer workout get time from time elapse key and convert it into minutes
+            if (Int(item.timeInWater)) > 0{
+                self.lblName.text = "\(String(format: "%.0f",(item.timeInWater/60))) min \(item.workoutName)"
+            }else{
+                self.lblName.text = "\(item.workoutName)"
+            }
+            
             self.lblInstructorName.text = ""
             self.instructorIndicatorView.isHidden = true
             self.lblWorkoutType.text = ""
+            
         }else{
-            self.instructorIndicatorView.isHidden = false
+            if (Int(item.workoutDuration) ?? 0) > 0{
+                self.lblName.text = "\(item.workoutDuration) min \(item.workoutName)"
+            }else{
+                self.lblName.text = "\(item.workoutName)"
+            }
+            
+            self.lblWorkoutType.text = item.workoutTypeTitle
+            self.lblInstructorName.text = item.instructorName
+            
+            if item.instructorName.isEmpty || item.instructorName == "NULL"{
+                self.lblInstructorName.text = ""
+                self.instructorIndicatorView.isHidden = true
+                self.lblWorkoutType.text = ""
+            }else{
+                self.instructorIndicatorView.isHidden = false
+            }
         }
         
-        
+        self.lblWorkoutDate.text = item.dateOfWorkout.toDisplayBirthday()
         if item.distance >= 1{
             
             let unitP = PreferenceManager.shared.poolUnitInfo

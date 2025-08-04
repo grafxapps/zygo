@@ -10,6 +10,35 @@ import UIKit
 
 final class UserServices: NSObject {
     
+    func updateHeadsetSerialNumber(transmitterSerialNumber: String, headsetSerialNumber: String, bleAllCharData: String, completion: @escaping (String?) -> Void){
+        var param = [
+            "transmitter_serial_number": transmitterSerialNumber,
+            "characteristics_data": bleAllCharData
+        ] as [String : String]
+        
+        if !headsetSerialNumber.isEmpty{
+            param["handset_serial_number"] = headsetSerialNumber
+        }
+
+        
+        print(param)
+        let header = NetworkManager.shared.getHeader()
+        print("Header: \(header)")
+        
+        NetworkManager.shared.request(withEndPoint: .updateHeadsetSerialNumber, method: .post, headers: header, params: param) { (response) in
+            
+            switch response{
+            case .success(let response):
+                print("Headset Serial Number Response: \(response)")
+                completion(nil)
+            case .failure(_, let message):
+                completion(message)
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking)
+            }
+        }
+    }
+    
     func createProfile(user: CreateProfileDTO, poolInfo: PoolUnitInfoDTO, completion: @escaping (String?, String) -> Void){
         let param = [
             "email": user.email,
@@ -134,6 +163,39 @@ final class UserServices: NSObject {
                 PreferenceManager.shared.friendsInfo = friendsInfo
                 completion(nil)
             case .failure(_ , let message):
+                completion(message)
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking)
+            }
+        }
+    }
+    
+    func updateFirmwareDetail(completion: @escaping (String?) -> Void){
+        let updateAt = DateHelper.shared.currentLocalDateTime.convertToFormat("yyyy-MM-dd HH:mm:ss")
+        let versionInfo = PreferenceManager.shared.deviceInfo
+        let param = [
+            "firmware_updated_at" : updateAt,
+            "firmware_batch_number": Constants.BLEBatchID,
+            "headset_version_number": versionInfo.versionInfo.headsetVersion,
+            "radio_st_version_number": versionInfo.versionInfo.radioSTVersion,
+            "radio_sl_version_number": versionInfo.versionInfo.radioSLVersion,
+            "radio_esp_version_number": versionInfo.versionInfo.ESPVersion
+        ]
+        
+        let header = NetworkManager.shared.getHeader()
+        
+        print("Param: \(param)")
+        print("Header: \(header)")
+        NetworkManager.shared.request(withEndPoint: .profileFirmwareDetail, method: .post, headers: header, params: param) { (response) in
+            switch response{
+            case .success(let jsonresponse):
+                print(jsonresponse)
+                completion(nil)
+            case .failure(let status , let message):
+                if status == .Cancelled{
+                    completion(nil)
+                    return
+                }
                 completion(message)
             case .notConnectedToInternet:
                 completion(Constants.internetNotWorking)
@@ -379,4 +441,22 @@ final class UserServices: NSObject {
         }
     }
     
+    func updateBT(name: String, completion: @escaping (String?) -> Void){
+        let param = [
+            "bluetooth_name": name
+        ] as [String : AnyObject]
+        let header = NetworkManager.shared.getHeader()
+        
+        NetworkManager.shared.request(withEndPoint: .updateBTName, method: .post, headers: header, params: param) { (response) in
+            
+            switch response{
+            case .success(_ ):
+                completion(nil)
+            case .failure(_, let message):
+                completion(message)
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking)
+            }
+        }
+    }
 }

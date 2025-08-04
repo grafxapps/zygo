@@ -18,6 +18,7 @@ class WorkoutDetailViewController: UIViewController {
     var isFromBranch: Bool = false
     var workoutLog: WorkoutLogDTO?
     private var isViewMore: Bool = false
+   
     //MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -64,6 +64,21 @@ final class Helper: NSObject {
         }
     }
     
+    func isHeadsetSyncRecent() -> Bool{
+        let lapInfo = PreferenceManager.shared.lapInfo
+        if var updateDate = PreferenceManager.shared.deviceInfo.headsetUpdateAt{
+            updateDate = updateDate.addingTimeInterval(-Double(lapInfo.lastReadTime))
+            let difference = (Date().timeIntervalSince1970 - updateDate.timeIntervalSince1970)/60
+            if difference >= 1{//Minutes
+                return false
+            }
+            
+            return true
+        }else{
+            return false
+        }
+    }
+    
     func convertYardToUserPreference(distance: Double) -> Double{
        
         let poolInfo = PreferenceManager.shared.poolUnitInfo
@@ -226,15 +241,15 @@ final class Helper: NSObject {
         sender.layer.masksToBounds = true
     }
     
-    func alert(title: String, message: String){
+    func alert(title: String, message: String, isAutoDismiss: Bool = false){
         DispatchQueue.main.async {
-            self.alertOneAction(title: title, message: message, actionTitle: "Close") {
+            self.alertOneAction(title: title, message: message, actionTitle: "Close", isAutoDismiss: isAutoDismiss) {
                 
             }
         }
     }
     
-    func alert(title: String, message: String,  isAutoDismiss: Bool = false, completion: @escaping () -> Void){
+    func alert(title: String, message: String, isAutoDismiss: Bool = false, completion: @escaping () -> Void){
         DispatchQueue.main.async {
             self.alertOneAction(title: title, message: message, actionTitle: "Close") {
                 completion()
@@ -262,7 +277,7 @@ final class Helper: NSObject {
         topVC.present(alert, animated: true, completion: nil)
         
     }
-    
+   
     func alertOneAction(title: String?, message: String?, actionTitle: String, isAutoDismiss: Bool = false, completion: @escaping () -> Void){
         
         guard let topVC = UIApplication.topViewController() else {
@@ -373,6 +388,7 @@ final class Helper: NSObject {
     
     func silentLogout(){
         PreferenceManager.shared.clear {
+            BLEConnectionManager.shared.stopScanning()
             NotificationCenter.default.post(name: .removeObservers, object: nil)
             TempoTrainerManager.shared.stopTrainer()
             GoogleLoginManager.shared.logout()
@@ -409,8 +425,8 @@ final class Helper: NSObject {
         }
         
         if let nav = sideMenuController.contentViewController as? UINavigationController{
-            if let tabVC =  nav.viewControllers.last as? UITabBarController{
-                tabVC.selectedIndex = index
+            if let tabVC =  nav.viewControllers.last as? HomeTabBarContainerVC{
+                tabVC.moveToTab(index)
             }
         }
         

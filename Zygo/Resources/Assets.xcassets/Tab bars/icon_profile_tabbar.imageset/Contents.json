@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Pro G.png",
+      "filename" : "icon_profile_tabbar.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Pro G@2x.png",
+      "filename" : "icon_profile_tabbar@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Pro G@3x.png",
+      "filename" : "icon_profile_tabbar@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

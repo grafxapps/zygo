@@ -74,7 +74,7 @@ class OnboardingVC: UIViewController {
         UIImage(named: "Onboarding/Bkgnd - Filter"),
         UIImage(named: "Onboarding/Bkgnd - Downloads"),
         UIImage(named: "Onboarding/Bkgnd - Pacer"),
-        //UIImage(named: "Onboarding/Bkgnd - Metrics"),
+        UIImage(named: "Onboarding/Bkgnd - Metrics"),
         UIImage(named: "Onboarding/Bkgnd - Battery"),
         UIImage(named: "Onboarding/Bkgnd - Profile")
     ]
@@ -147,13 +147,13 @@ class OnboardingVC: UIViewController {
         }else if self.selectedIndex == 4{
             self.tab5ImageView.image = UIImage(named: "icon_tempotrainer_tabbar_selected")
             self.tab5Title.textColor = UIColor.appBlueColor()
-        }/*else if self.selectedIndex == 5{
+        }else if self.selectedIndex == 5{
             self.tab6ImageView.image = UIImage(named: "icon_metrics_tabbar_selected")
             self.tab6Title.textColor = UIColor.appBlueColor()
-        }*/else if self.selectedIndex == 5{
+        }else if self.selectedIndex == 6{
             self.tab7ImageView.image = UIImage(named: "icon_battery_tabbar_selected")
             self.tab7Title.textColor = UIColor.appBlueColor()
-        }else if self.selectedIndex == 6{
+        }else if self.selectedIndex == 7{
             self.tab8ImageView.image = UIImage(named: "icon_profile_tabbar_selected")
             self.tab8Title.textColor = UIColor.appBlueColor()
         }
@@ -330,7 +330,7 @@ extension OnboardingVC: UIScrollViewDelegate{
                 self.arrowTopPositionMenuConstraint.priority = UILayoutPriority(250)
                 self.mainScrollerHeightConstraint.constant = 300
                 self.lastSelectedIndex = self.selectedIndex
-            /*case 5:
+            case 5:
                 print("5")
                 self.btnCross.isHidden = false
                 self.arrowImageView.isHidden = false
@@ -353,8 +353,8 @@ extension OnboardingVC: UIScrollViewDelegate{
                 self.arrowTopPositionTopConstraint.priority = UILayoutPriority(999)
                 self.arrowTopPositionMenuConstraint.priority = UILayoutPriority(250)
                 self.mainScrollerHeightConstraint.constant = 300
-                self.lastSelectedIndex = self.selectedIndex*/
-            case 5:
+                self.lastSelectedIndex = self.selectedIndex
+            case 6:
                 print("6")
                 self.btnCross.isHidden = false
                 self.arrowImageView.isHidden = false
@@ -378,7 +378,7 @@ extension OnboardingVC: UIScrollViewDelegate{
                 self.arrowTopPositionMenuConstraint.priority = UILayoutPriority(250)
                 self.mainScrollerHeightConstraint.constant = 300
                 self.lastSelectedIndex = self.selectedIndex
-            case 6:
+            case 7:
                 print("7")
                 self.btnCross.isHidden = false
                 self.arrowImageView.isHidden = false
@@ -402,7 +402,7 @@ extension OnboardingVC: UIScrollViewDelegate{
                 self.arrowTopPositionMenuConstraint.priority = UILayoutPriority(250)
                 self.mainScrollerHeightConstraint.constant = 300
                 self.lastSelectedIndex = self.selectedIndex
-            case 7:
+            case 8:
                 print("8")
                 self.btnCross.isHidden = false
                 self.arrowImageView.isHidden = false
@@ -426,7 +426,7 @@ extension OnboardingVC: UIScrollViewDelegate{
                 self.arrowTopPositionMenuConstraint.priority = UILayoutPriority(999)
                 self.mainScrollerHeightConstraint.constant = 300
                 self.lastSelectedIndex = self.selectedIndex
-            case 8:
+            case 9:
                 print("8")
                 if self.lastSelectedIndex <= 3{
                     self.arrowImageView.transform = self.arrowImageView.transform.rotated(by: CGFloat(Double.pi)) //180 degree

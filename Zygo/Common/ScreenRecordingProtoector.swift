@@ -18,7 +18,6 @@ class ScreenRecordingProtoector: NSObject {
     }
     
     func startPreventing() {
-        //TODO: Enable for screen recording
         if !Helper.shared.isTestUser{
             NotificationCenter.default.removeObserver(self)
             NotificationCenter.default.addObserver(self, selector: #selector(preventScreenShoot), name: UIScreen.capturedDidChangeNotification, object: nil)
@@ -26,7 +25,6 @@ class ScreenRecordingProtoector: NSObject {
     }
     
     @objc func preventScreenShoot() {
-        //TODO: Enable for screen recording
         if !Helper.shared.isTestUser{
             if #available(iOS 13.0, *) {
                 if UIScreen.main.isCaptured {

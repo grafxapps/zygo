@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -110,6 +110,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VwL-9q-1C0">
                                 <rect key="frame" x="266" y="2" width="54" height="44"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" secondItem="VwL-9q-1C0" secondAttribute="height" multiplier="27:22" id="N0Z-jO-uz8"/>
                                     <constraint firstAttribute="width" secondItem="VwL-9q-1C0" secondAttribute="height" multiplier="27:22" id="O8G-25-gJt"/>
                                     <constraint firstAttribute="height" constant="44" id="k24-kx-pqe"/>
                                 </constraints>
@@ -120,7 +121,6 @@
                         <constraints>
                             <constraint firstItem="VwL-9q-1C0" firstAttribute="centerY" secondItem="neb-eu-Sgx" secondAttribute="centerY" multiplier="0.95" id="F4c-Ji-8XC"/>
                             <constraint firstAttribute="trailing" secondItem="ZIw-RB-Yxb" secondAttribute="trailing" id="GDu-Gy-04h"/>
-                            <constraint firstItem="VwL-9q-1C0" firstAttribute="width" secondItem="VwL-9q-1C0" secondAttribute="height" multiplier="27:22" id="N0Z-jO-uz8"/>
                             <constraint firstItem="neb-eu-Sgx" firstAttribute="centerX" secondItem="HfT-w1-GfN" secondAttribute="centerX" id="S6s-Wf-1aJ"/>
                             <constraint firstItem="96D-U1-On8" firstAttribute="top" secondItem="neb-eu-Sgx" secondAttribute="bottom" constant="25" id="UMC-g3-cCE"/>
                             <constraint firstItem="ZIw-RB-Yxb" firstAttribute="top" secondItem="96D-U1-On8" secondAttribute="bottom" constant="25" id="XUj-ua-iJY"/>
@@ -156,7 +156,7 @@
         <image name="icon_thums_up_selected" width="40" height="38.5"/>
         <image name="icon_thums_up_unselected" width="40" height="38.5"/>
         <namedColor name="AppBlueColor">
-            <color red="0.14900000393390656" green="0.73299998044967651" blue="0.92900002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.043137254901960784" green="0.13333333333333333" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

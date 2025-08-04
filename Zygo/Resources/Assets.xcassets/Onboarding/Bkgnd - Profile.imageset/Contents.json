@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Bkgnd - Profile.png",
+      "filename" : "BB - History.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Bkgnd - Profile@2x.png",
+      "filename" : "BB - History@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Bkgnd - Profile@3x.png",
+      "filename" : "BB - History@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

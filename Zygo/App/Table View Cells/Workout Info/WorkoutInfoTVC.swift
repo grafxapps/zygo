@@ -22,12 +22,17 @@ class WorkoutInfoTVC: UITableViewCell {
     @IBOutlet weak var lblDifficultyLevel: UILabel!
     
     @IBOutlet weak var infoView: UIView!
+    @IBOutlet weak var bgContentView: UIView!
     @IBOutlet weak var lblInfoTitle: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         self.infoView.transform = CGAffineTransform(rotationAngle: -0.785398)
+        self.infoView.layer.borderWidth = 0.5
+        self.infoView.layer.borderColor = UIColor.appBlueColor().cgColor
+        self.bgContentView.layer.borderWidth = 1.0
+        self.bgContentView.layer.borderColor = UIColor.appBlueColor().cgColor
         //self.featuredView.layer.cornerRadius = 10.0
         //self.featuredView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
@@ -80,22 +85,20 @@ class WorkoutInfoTVC: UITableViewCell {
         
         if !item.introVideo.isEmpty || !item.closingVideo.isEmpty{
             self.infoView.isHidden = false
-            self.infoView.backgroundColor = .appNewBlackColor()
+            self.infoView.backgroundColor = .appWorkoutBottom()
             self.lblInfoTitle.text = "VIDEO"
-            self.lblInfoTitle.textColor = .white
+            self.lblInfoTitle.textColor = .appNewInfoColor()
         }
         
         let currentDate = DateHelper.shared.currentLocalDateTime
-        print("Current Date: \(currentDate)")
         if let previousDate = Calendar.current.date(byAdding: .day, value: -3, to: currentDate){
-            print("Previous Date: \(previousDate)")
             let createdDate = item.createdAt
             if createdDate.compare(previousDate) == .orderedDescending{
                 
                 self.infoView.isHidden = false
                 self.infoView.backgroundColor = .appNewInfoColor()
                 self.lblInfoTitle.text = "NEW"
-                self.lblInfoTitle.textColor = .white
+                self.lblInfoTitle.textColor = .appBlueColor()
             }
         }
         
@@ -104,14 +107,14 @@ class WorkoutInfoTVC: UITableViewCell {
             self.infoView.isHidden = false
             self.infoView.backgroundColor = .appPopularInfoColor()
             self.lblInfoTitle.text = "POPULAR"
-            self.lblInfoTitle.textColor = .appNewInfoColor()
+            self.lblInfoTitle.textColor = .appBlueColor()
         }
         
         if item.isFeatured{
             self.infoView.isHidden = false
-            self.infoView.backgroundColor = .appBlueColor()
+            self.infoView.backgroundColor = .white
             self.lblInfoTitle.text = "FEATURED"
-            self.lblInfoTitle.textColor = .white
+            self.lblInfoTitle.textColor = .appBlueColor()
         }
         //item.createdAt
         

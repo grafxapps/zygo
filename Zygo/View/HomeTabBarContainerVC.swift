@@ -66,6 +66,8 @@ class HomeTabBarContainerVC: UIViewController {
         }
         
         let tabBarController = tabBar as UITabBarController
+        //This is only for profile changes save popup. If user select yes on that popup then we need to proceed with tab bar select automatically
+        PreferenceManager.shared.selectedTabBarIndexFromProfile = index
         
         if tabBar.tabBarController(tabBarController, shouldSelect: tabBar.viewControllers![index]){
             self.deselectAll()
@@ -95,28 +97,36 @@ class HomeTabBarContainerVC: UIViewController {
     func deselectAll(){
         
         tab1ImageView.image = UIImage(named: "icon_classes_tabbar")
-        tab1Title.textColor = UIColor.appTitleDarkColor()
+        tab1Title.textColor = UIColor.appBlueColor()
+        tab1Title.alpha = 0.33
         
         tab2ImageView.image = UIImage(named: "icon_series_tabbar")
-        tab2Title.textColor = UIColor.appTitleDarkColor()
+        tab2Title.textColor = UIColor.appBlueColor()
+        tab2Title.alpha = 0.33
         
         tab3ImageView.image = UIImage(named: "icon_filter_tabbar")
-        tab3Title.textColor = UIColor.appTitleDarkColor()
+        tab3Title.textColor = UIColor.appBlueColor()
+        tab3Title.alpha = 0.33
         
         tab4ImageView.image = UIImage(named: "icon_download_tabbar")
-        tab4Title.textColor = UIColor.appTitleDarkColor()
+        tab4Title.textColor = UIColor.appBlueColor()
+        tab4Title.alpha = 0.33
         
         tab5ImageView.image = UIImage(named: "icon_tempotrainer_tabbar")
-        tab5Title.textColor = UIColor.appTitleDarkColor()
+        tab5Title.textColor = UIColor.appBlueColor()
+        tab5Title.alpha = 0.33
         
         tab6ImageView.image = UIImage(named: "icon_metrics_tabbar")
-        tab6Title.textColor = UIColor.appTitleDarkColor()
+        tab6Title.textColor = UIColor.appBlueColor()
+        tab6Title.alpha = 0.33
         
         tab7ImageView.image = UIImage(named: "icon_battery_tabbar")
-        tab7Title.textColor = UIColor.appTitleDarkColor()
+        tab7Title.textColor = UIColor.appBlueColor()
+        tab7Title.alpha = 0.33
         
         tab8ImageView.image = UIImage(named: "icon_profile_tabbar")
-        tab8Title.textColor = UIColor.appTitleDarkColor()
+        tab8Title.textColor = UIColor.appBlueColor()
+        tab8Title.alpha = 0.33
         
     }
     
@@ -124,27 +134,35 @@ class HomeTabBarContainerVC: UIViewController {
         if selectedIndex == 0{
             tab1ImageView.image = UIImage(named: "icon_classes_tabbar_selected")
             tab1Title.textColor = UIColor.appBlueColor()
+            tab1Title.alpha = 1.0
         }else if selectedIndex == 1{
             tab2ImageView.image = UIImage(named: "icon_series_tabbar_selected")
             tab2Title.textColor = UIColor.appBlueColor()
+            tab2Title.alpha = 1.0
         }else if selectedIndex == 2{
             tab3ImageView.image = UIImage(named: "icon_filter_tabbar_selected")
             tab3Title.textColor = UIColor.appBlueColor()
+            tab3Title.alpha = 1.0
         }else if selectedIndex == 3{
             tab4ImageView.image = UIImage(named: "icon_download_tabbar_selected")
             tab4Title.textColor = UIColor.appBlueColor()
+            tab4Title.alpha = 1.0
         }else if selectedIndex == 4{
             tab5ImageView.image = UIImage(named: "icon_tempotrainer_tabbar_selected")
             tab5Title.textColor = UIColor.appBlueColor()
+            tab5Title.alpha = 1.0
         }else if selectedIndex == 5{
             tab6ImageView.image = UIImage(named: "icon_metrics_tabbar_selected")
             tab6Title.textColor = UIColor.appBlueColor()
+            tab6Title.alpha = 1.0
         }else if selectedIndex == 6{
             tab7ImageView.image = UIImage(named: "icon_battery_tabbar_selected")
             tab7Title.textColor = UIColor.appBlueColor()
+            tab7Title.alpha = 1.0
         }else if selectedIndex == 7{
             tab8ImageView.image = UIImage(named: "icon_profile_tabbar_selected")
             tab8Title.textColor = UIColor.appBlueColor()
+            tab8Title.alpha = 1.0
         }
         
     }

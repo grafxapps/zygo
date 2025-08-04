@@ -1,6 +1,6 @@
 //
 //  AudioPlayerManager.swift
-//  TalkIt
+//  Zygo
 
 import UIKit
 import AVKit
@@ -71,17 +71,17 @@ final class AudioPlayerManager: NSObject {
                         self.onLoaded?()
                         
                         let avitem = AVPlayerItem(asset: asset)
-                        player = AVPlayer(playerItem: avitem)
-                        player?.automaticallyWaitsToMinimizeStalling = false
+                        self.player = AVPlayer(playerItem: avitem)
+                        self.player?.automaticallyWaitsToMinimizeStalling = false
                         self.addPeriodicTimeObserver()
-                        NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: nil)
+                        NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: nil)
                         //player?.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
                         self.addObserveValue()
                         DispatchQueue.main.async {
                             self.setupMediaPlayerControl()
                             self.setupNotificationView()
-                            print("Is Player Cancel: \(isCancelLoading)")
-                            if isCancelLoading{
+                            print("Is Player Cancel: \(self.isCancelLoading)")
+                            if self.isCancelLoading{
                                 self.isCancelLoading = false
                                 self.onLoaded?()
                                 return
@@ -100,7 +100,7 @@ final class AudioPlayerManager: NSObject {
                             return
                         }
                         
-                        self.onError?("Faild to load.")
+                        self.onError?("Failed to load.")
                         print("failed")
                     case .cancelled:
                         print("cancelled")

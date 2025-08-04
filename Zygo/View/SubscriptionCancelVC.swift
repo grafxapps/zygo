@@ -31,17 +31,19 @@ class SubscriptionCancelVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if let storeFront = SKPaymentQueue.default().storefront {
-            if storeFront.countryCode != "USA"{
-                Helper.shared.alert(title: Constants.appName, message: "Sorry! Due to music licensing rights, subscriptions are currently only available in the United States.") {
-                    self.backAction()
+        Task{
+            if let countryCode = await Storefront.current?.countryCode{
+                if countryCode != "USA" && countryCode != "US" && countryCode != "CA" {
+                    Helper.shared.alert(title: Constants.appName, message: "Sorry! Due to music licensing rights, subscriptions are currently only available in the United States and Canada.") {
+                        self.backAction()
+                    }
                 }
+                print("Storefront", countryCode)
+            } else {
+                self.isNeedToCheckCountry = true
+                self.fetchProducts()
+                print("Storefront nil")
             }
-            print("Storefront", storeFront.countryCode)
-        } else {
-            self.isNeedToCheckCountry = true
-            print("Storefront nil")
         }
     }
     
@@ -269,8 +271,8 @@ extension SubscriptionCancelVC{
             let arrSubStrings = priceIdentifier.components(separatedBy: "@")
             if arrSubStrings.count > 0{
                 let countryCode = arrSubStrings[0]
-                if countryCode != "en_US"{
-                    Helper.shared.alert(title: Constants.appName, message: "Sorry! Due to music licensing rights, subscriptions are currently only available in the United States.") {
+                if countryCode != "en_US" && countryCode != "en_CA"{
+                    Helper.shared.alert(title: Constants.appName, message: "Sorry! Due to music licensing rights, subscriptions are currently only available in the United States and Canada.") {
                         self.backAction()
                     }
                 }
@@ -295,7 +297,7 @@ extension SubscriptionCancelVC{
             let arrSubStrings = priceIdentifier.components(separatedBy: "@")
             if arrSubStrings.count > 0{
                 let countryCode = arrSubStrings[0]
-                if countryCode != "en_US"{
+                if countryCode != "en_US" && countryCode != "en_CA"{
                     Helper.shared.alert(title: Constants.appName, message: "Sorry! Due to music licensing rights, subscriptions are currently only available in the United States.") {
                         self.backAction()
                     }

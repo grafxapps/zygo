@@ -8,6 +8,7 @@
 
 import UIKit
 import XLPagerTabStrip
+import Lottie
 
 protocol InfoViewControllerDelegates {
     func didPressSave()
@@ -22,12 +23,15 @@ class InfoViewController: UIViewController {
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var imageView: UICircleImageView!
     
+    @IBOutlet weak var btnSave: UIButton!
     @IBOutlet weak var btnChooseImage: UIButton!
     @IBOutlet weak var btnSmallChooseImage: UIButton!
     
     @IBOutlet weak var viewFName: UIView!
     @IBOutlet weak var viewLName: UIView!
     @IBOutlet weak var viewUName: UIView!
+    @IBOutlet weak var bluetoothIDContentView: UIView!
+    @IBOutlet weak var viewBluetoothID: UIView!
     @IBOutlet weak var viewHSerialNumber: UIView!
     @IBOutlet weak var viewTSerialNumber: UIView!
     @IBOutlet weak var viewGender: UIView!
@@ -39,6 +43,7 @@ class InfoViewController: UIViewController {
     @IBOutlet weak var txtFName: UITextField!
     @IBOutlet weak var txtLName: UITextField!
     @IBOutlet weak var txtUName: UITextField!
+    @IBOutlet weak var txtBluetoothId: UITextField!
     @IBOutlet weak var txtHSerialNumber: UITextField!
     @IBOutlet weak var txtTSerialNumber: UITextField!
     @IBOutlet weak var txtGender: UITextField!
@@ -46,6 +51,11 @@ class InfoViewController: UIViewController {
     @IBOutlet weak var txtLocation: UITextField!
     @IBOutlet weak var txtUnit: UITextField!
     @IBOutlet weak var txtPoolLength: UITextField!
+    
+    @IBOutlet weak var renameNowButton: UIButton!
+    @IBOutlet weak var zygoDeviceConnectingAnimationView: UIView!
+    @IBOutlet weak var zygoDeviceNameLabel: UILabel!
+    @IBOutlet weak var zygoDeviceNameLabelAnimationContentView: UIView!
     
     private lazy var datePicker = UIDatePicker()
     private lazy var genderPicker = UIPickerView()
@@ -74,9 +84,12 @@ class InfoViewController: UIViewController {
     //MARK: - Setups
     func setupUI()  {
         
+        self.setupZygoNameLabelAnimation()
+        
         txtFName.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
         txtLName.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
         txtUName.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
+        txtBluetoothId.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
         
         txtHSerialNumber.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
         txtTSerialNumber.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
@@ -84,9 +97,14 @@ class InfoViewController: UIViewController {
         txtBirthday.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
         txtLocation.addTarget(self, action: #selector(self.textDidChange(_:)), for: .editingChanged)
         
+        renameNowButton.layer.cornerRadius = 5.0
+        renameNowButton.layer.borderWidth = 1.0
+        renameNowButton.layer.borderColor = UIColor.appNewBlackColor().cgColor
+        
         Helper.shared.setupViewLayer(sender: self.viewFName, isSsubScriptionView: false);
         Helper.shared.setupViewLayer(sender: self.viewLName, isSsubScriptionView: false);
         Helper.shared.setupViewLayer(sender: self.viewUName, isSsubScriptionView: false);
+        Helper.shared.setupViewLayer(sender: self.viewBluetoothID, isSsubScriptionView: false);
         Helper.shared.setupViewLayer(sender: self.viewHSerialNumber, isSsubScriptionView: false);
         Helper.shared.setupViewLayer(sender: self.viewTSerialNumber, isSsubScriptionView: false);
         Helper.shared.setupViewLayer(sender: self.viewGender, isSsubScriptionView: false);
@@ -94,6 +112,22 @@ class InfoViewController: UIViewController {
         Helper.shared.setupViewLayer(sender: self.viewLocation, isSsubScriptionView: false);
         Helper.shared.setupViewLayer(sender: self.viewUnitPreference, isSsubScriptionView: false);
         Helper.shared.setupViewLayer(sender: self.viewPoolLength, isSsubScriptionView: false);
+        
+        if PreferenceManager.shared.deviceInfo.versionInfo.zygoDeviceVersion == .v1{
+            self.bluetoothIDContentView.isHidden = true
+        }else{
+            self.bluetoothIDContentView.isHidden = false
+            self.checkZygoConnectStatus()
+        }
+    }
+    
+    private func setupZygoNameLabelAnimation(){
+        let animationView = LottieAnimationView(name: "threeDots")
+        animationView.frame = zygoDeviceNameLabelAnimationContentView.bounds
+        animationView.loopMode = .loop
+        animationView.backgroundBehavior = .pauseAndRestore
+        zygoDeviceNameLabelAnimationContentView.addSubview(animationView)
+        animationView.play()
     }
     
     func setupUserInfo(){
@@ -108,6 +142,19 @@ class InfoViewController: UIViewController {
         self.txtFName.text = user.fName
         self.txtLName.text = user.lName
         self.txtUName.text = user.name
+        if user.name.last?.lowercased() ?? "" == "s"{
+            self.txtBluetoothId.placeholder = "\(user.name)' Zygo"
+            self.zygoDeviceNameLabel.text = "\(user.name)' Zygo"
+        }else{
+            self.txtBluetoothId.placeholder = "\(user.name)'s Zygo"
+            self.zygoDeviceNameLabel.text = "\(user.name)'s Zygo"
+        }
+        
+        if !user.btName.isEmpty{
+            self.txtBluetoothId.placeholder = user.btName
+            self.zygoDeviceNameLabel.text = user.btName
+        }
+        
         self.txtGender.text = user.gender
         self.txtLocation.text = user.location
         
@@ -251,6 +298,71 @@ class InfoViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    func checkZygoConnectStatus(){
+        if BluetoothManager.shared.isZygoDeviceConencted(){
+            self.updateZygoConnectedView()
+        }else{
+            BLEConnectionManager.shared.stopScanning()
+            self.showZygoConnectingAnimationView()
+            BLEConnectionManager.shared.startAutoConnectScanning { [weak self] in
+                self?.updateZygoConnectedView()
+                //Read device name and update it on server
+                BluetoothManager.shared.readBTName { [weak self] name in
+                    DispatchQueue.main.async{
+                        print("BT Name: \(name)")
+                        self?.txtBluetoothId.text = name
+                        self?.zygoDeviceNameLabel.text = name
+                        self?.viewModel.updateBTName(name: name)
+                        PreferenceManager.shared.user.btName = name
+                    }
+                }
+            }
+        }
+    }
+    
+    private func showZygoConnectingAnimationView(){
+        self.zygoDeviceConnectingAnimationView.isHidden = false
+        self.zygoDeviceConnectingAnimationView.alpha = 0.0
+        self.zygoDeviceNameLabelAnimationContentView.isHidden = false
+        UIView.animate(withDuration: 0.4) {
+            self.zygoDeviceConnectingAnimationView.alpha = 1.0
+        } completion: { completed in
+            
+        }
+    }
+    
+    private func hideZygoConnectingAnimationView(){
+        UIView.animate(withDuration: 0.4) {
+            self.zygoDeviceNameLabelAnimationContentView.alpha = 0.0
+        } completion: { completed in
+            self.zygoDeviceNameLabelAnimationContentView.isHidden = true
+        }
+    }
+    
+    private func updateZygoConnectedView(){
+        UIView.animate(withDuration: 0.4) {
+            self.zygoDeviceConnectingAnimationView.alpha = 0.0
+        } completion: { completed in
+            self.zygoDeviceConnectingAnimationView.isHidden = true
+        }
+    }
+    
+    func profileSaveSuccess(){
+        
+        UIView.animate(withDuration: 2.0) {
+            self.btnSave.setTitle("PROFILE SAVED", for: .normal)
+        } completion: { completed in
+            
+        }
+        self.btnSave.isUserInteractionEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0){
+            self.btnSave.setTitle("SAVE", for: .normal)
+            self.btnSave.isUserInteractionEnabled = true
+        }
+        
+        //Helper.shared.alert(title: Constants.appName, message: )
+    }
+    
     //MARK: - UIButton Actions
     @IBAction func logOutAction(_ sender: UIButton){
         Helper.shared.logout()
@@ -319,6 +431,33 @@ class InfoViewController: UIViewController {
     
     @IBAction func chooseImageAction(_ sender: UIButton){
         self.imageOptionsAlert()
+    }
+    
+    @IBAction private func renameNowButtonPressed(_ sender: UIButton){
+        BluetoothManager.shared.stopScanning()
+        let renameVC = StoryboardScene.RenameBluetoothIDVC.renameBluetoothIDVC.instantiate()
+        renameVC.onBTNameUpdate = { [weak self] btName in
+            self?.txtBluetoothId.text = btName
+            self?.zygoDeviceNameLabel.text = btName
+        }
+        renameVC.transitioningDelegate = self
+        renameVC.modalPresentationStyle = .custom
+        self.present(renameVC, animated: true)
+    }
+    
+    @IBAction private func bluetoothIDInfoButtonPressed(_ sender: UIButton){
+        
+        let alert = CustomAlertVC(nibName: "CustomAlertVC", bundle: nil, title: "Bluetooth ID", message: "Choose how your Zygo shows up in your phone’s list of Bluetooth devices.\n\nThis feature is only available on units with a headset model number that begins with “ZY7.”") { (isComplete) in
+        }
+        
+        alert.transitioningDelegate = self
+        alert.modalPresentationStyle = .custom
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    @IBAction private func connectDeviceButtonPressed(_ sender: UIButton){
+        self.checkZygoConnectStatus()
     }
 }
 
@@ -465,6 +604,11 @@ extension InfoViewController: UITextFieldDelegate{
             
             txtUName.text = fullText
             self.viewModel.profileItem.name = txtUName.text!.trim()
+            if user.name.last?.lowercased() ?? "" == "s"{
+                self.txtBluetoothId.placeholder = "\(user.name)' Zygo"
+            }else{
+                self.txtBluetoothId.placeholder = "\(user.name)'s Zygo"
+            }
         }else if textField == txtUName{
             self.viewModel.profileItem.name = txtUName.text!.trim()
         }else if textField == txtFName{

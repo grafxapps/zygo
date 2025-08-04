@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "icon_thums_down_selected.png",
+      "filename" : "Thumb Down.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icon_thums_down_selected@2x.png",
+      "filename" : "Thumb Down@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "icon_thums_down_selected@3x.png",
+      "filename" : "Thumb Down@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

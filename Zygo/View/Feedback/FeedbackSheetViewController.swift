@@ -25,6 +25,7 @@ class FeedbackSheetViewController: UIViewController {
     @IBOutlet weak var tblList: UITableView!
     
     @IBOutlet weak var feedbackView: UIView!
+    @IBOutlet weak var syncValView: UIView!
     @IBOutlet weak var distanceValView: UIView!
     @IBOutlet weak var strokeView: UIView!
     @IBOutlet weak var shareView: UIView!
@@ -58,6 +59,7 @@ class FeedbackSheetViewController: UIViewController {
     
     @IBOutlet weak var txtStroke: UITextField!
     
+    @IBOutlet weak var btnNotAccurate: UIButton!
     
     @IBOutlet weak var lblWorkoutName: UILabel!
     @IBOutlet weak var workoutImage: UIImageView!
@@ -83,6 +85,7 @@ class FeedbackSheetViewController: UIViewController {
     var delegate: FeedbackSheetViewControllerDelegates?
     
     var isNoWorkout: Bool = false
+    var isNoWorkoutMetric: Bool = false
     var noWorkoutStrokeValue: Int = 50
     
     private var maxHeight: CGFloat = 90
@@ -97,13 +100,20 @@ class FeedbackSheetViewController: UIViewController {
     private var selectedDistance: Double = -1
     private var selectedCity: String = ""
     
+    private var isOutOfPool: Bool = false
+    private var isOpenWater: Bool = false
+    private var isOutOfSync: Bool = false
+    private var isDontKnow: Bool = false
+    private var timeElapsed: Int = 0
+    
     //MARK: -
-    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, workoutItem: WorkoutDTO,  achievements: [AchievementDTO], workoutLogId: Int) {
+    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, workoutItem: WorkoutDTO,  achievements: [AchievementDTO], workoutLogId: Int, timeElapsed: Int) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
         self.workoutItem = workoutItem
         self.achievements = achievements
         self.workoutLogId = workoutLogId
+        self.timeElapsed = timeElapsed
         
     }
     
@@ -120,6 +130,14 @@ class FeedbackSheetViewController: UIViewController {
         self.setupPoolInfo()
         self.registerCollectionCustomCells()
         self.setupAchievementDetail()
+        
+        /*BluetoothManager.shared.enableLapDataNotification { lapInfo in
+            if self.currentIndex > 0{
+                BluetoothManager.shared.disableLapDataNotification()
+                return
+            }
+            self.updateLapInfo()
+        }*/
         
     }
     
@@ -168,6 +186,20 @@ class FeedbackSheetViewController: UIViewController {
         self.itemSize = CGSize(width: textWidth, height: maxHeight - 25)
         
         self.collectionView.reloadData()
+    }
+    
+    func updateLapInfo(lapData: BLELapInfoDTO){
+        //let lapData = PreferenceManager.shared.lapInfo
+        print("Number Of Laps in UpdateLapInfo: \(lapData.numberOfLaps)")
+        let numberOfLaps = lapData.numberOfLaps
+        self.txtLapCount.text = "\(numberOfLaps)"
+        if numberOfLaps > 0{
+            self.txtDistance.text = "\(numberOfLaps)"
+        }
+        
+        if let index = self.arrLapCount.firstIndex(where: { $0 == numberOfLaps }){
+            self.lapCountPicker.selectRow(index, inComponent: 0, animated: false)
+        }
     }
     
     func setupPickers(){
@@ -278,6 +310,14 @@ class FeedbackSheetViewController: UIViewController {
     func showLapCountView(){
         self.lblLapCount.isHidden = false
         self.lapCountView.isHidden = false
+        
+        let distance = Int(self.txtDistance.text ?? "0") ?? 0
+        if distance > 0{
+            if let index = self.arrLapCount.firstIndex(where: { $0 == distance }){
+                self.lapCountPicker.selectRow(index, inComponent: 0, animated: false)
+                self.txtLapCount.text = "\(distance)"
+            }
+        }
     }
     
     func hideLapCountView(){
@@ -322,17 +362,26 @@ class FeedbackSheetViewController: UIViewController {
             self.tblList.isScrollEnabled = false
         }
         
-        if isNoWorkout{
+        if isNoWorkout || isNoWorkoutMetric{
             self.feedbackView.isHidden = true
             self.shareView.isHidden = true
         }
         
+        self.syncValView.isHidden = true
         self.distanceValView.isHidden = true
         self.strokeView.isHidden = true
         self.achievementView.isHidden = true
         //
         let info = PreferenceManager.shared.trackingInfo
         if info.isDistanceTracking{
+            //Check if sync data is 3 mintues old then show sync status screen
+            if Helper.shared.isHeadsetSyncRecent(){
+                self.syncValView.isHidden = true
+            }else if PreferenceManager.shared.isBLEEnabledDevice{
+                self.syncValView.isHidden = false
+            }else{
+                self.syncValView.isHidden = true
+            }
             self.distanceValView.isHidden = false
         }
         
@@ -352,18 +401,20 @@ class FeedbackSheetViewController: UIViewController {
             self.txtUnits.text = PoolLengthUnit.yards.rawValue.firstUppercased
         }
         
+        self.updateLapInfo(lapData: PreferenceManager.shared.lapInfo)
         
-        if self.isNoWorkout{
+        if self.isNoWorkout || self.isNoWorkoutMetric{
             if info.isDistanceTracking{
-                self.currentIndex = 1
-            }else if info.isTempoTracking{
                 self.currentIndex = 2
+            }else if info.isTempoTracking{
+                self.currentIndex = 3
             }else if self.achievements.count > 0{
-                self.currentIndex = 4
+                self.currentIndex = 5
             }
             
             let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
             self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: false)
+            self.updateNotAccurate()
         }else{
             self.lblWorkoutName.text = "I just completed the \("\(String(format: "%.f", workoutItem.workoutDuration)) min") \(workoutItem.workoutName) workout"
             self.workoutImage.sd_setImage(with: URL(string: workoutItem.thumbnailURL.getImageURL()), placeholderImage: nil, options: .refreshCached, completed: nil)
@@ -395,16 +446,23 @@ class FeedbackSheetViewController: UIViewController {
         self.maxHeight = 90 + itemDescriptionHeight + 30
     }
     
-    func updateFeedbackOnServer(){
+    func updateFeedbackOnServer(dismissOnDone: Bool = false){
         
         let strokeValue = Int(txtStroke.text!) ?? 0
-        
-        self.viewModel.workoutFeedback(self.workoutItem.workoutId, self.thumbStatus, self.dificultyLevel, workoutLogId: self.workoutLogId, poolLength: self.selectedPoolLength, poolLengthUnits: self.selectedPoolLengthUnits, poolType: self.selectedPoolType, laps: self.selectedLaps, distance: self.selectedDistance,strokeVlue: strokeValue, city: self.selectedCity) { (isDone) in
+         
+        self.viewModel.workoutFeedback(self.workoutItem.workoutId, self.thumbStatus, self.dificultyLevel, workoutLogId: self.workoutLogId, poolLength: self.selectedPoolLength, poolLengthUnits: self.selectedPoolLengthUnits, poolType: self.selectedPoolType, laps: self.selectedLaps, distance: self.selectedDistance, strokeVlue: strokeValue, city: self.selectedCity, timeElapsed: self.timeElapsed, whyBreak: self.isOutOfPool, whyEndless: self.isOpenWater, whyNoSync: self.isOutOfSync, whyDontKnow: self.isDontKnow) { (isDone) in
             
             Helper.shared.log(event: .WORKOUTFEEDBACK, params: [:])
             if isDone{
+                if dismissOnDone{
+                    self.hideBGImage()
+                    self.dismiss(animated: true) {
+                        self.delegate?.feedbackDone()
+                    }
+                }
             }
         }
+        
     }
     
     func updateDistanceOnLabel(){
@@ -522,6 +580,126 @@ class FeedbackSheetViewController: UIViewController {
         
     }
     
+    @objc func updateBLEInfo(){
+        
+        //Check If device is connected or not
+        if !BluetoothManager.shared.isZygoDeviceConencted(){
+            self.startDeviceSearching()
+            return
+        }
+        
+        self.updateDeviceBatteryInfo()
+        self.updateDeviceLapInfo()
+    }
+    
+    func startDeviceSearching(){
+        self.startWaitOverTimer()
+        BLEConnectionManager.shared.stopScanning()
+        BLEConnectionManager.shared.startAutoConnectScanning { [weak self] in
+            self?.updateDeviceBatteryInfo()
+            self?.updateDeviceLapInfo()
+        }
+    }
+    
+    private var waitTimer: Timer?
+    func startWaitOverTimer(){
+        self.stopWaitOverTImer()
+        self.waitTimer = Timer(timeInterval: 30, repeats: false, block: { timerObj in
+            DispatchQueue.main.async {
+                BLEConnectionManager.shared.stopScanning()
+            }
+            timerObj.invalidate()
+        })
+        
+        RunLoop.main.add(self.waitTimer!, forMode: .common)
+    }
+    
+    func stopWaitOverTImer(){
+        self.waitTimer?.invalidate()
+        self.waitTimer = nil
+    }
+    
+    func updateDeviceBatteryInfo(){
+        
+        BluetoothManager.shared.readHardwareInfo { [weak self] deviceInfo in
+            DispatchQueue.main.async {
+                
+            }
+        }
+    }
+    
+    func updateDeviceLapInfo(){
+        
+        BluetoothManager.shared.readLapData { [weak self] lapInfo in
+            DispatchQueue.main.async {
+                
+                self?.updateLapInfo(lapData: lapInfo ?? PreferenceManager.shared.lapInfo)
+                if Helper.shared.isHeadsetSyncRecent(){
+                    self?.currentIndex = 2
+                    let x = ScreenSize.SCREEN_WIDTH * (self?.currentIndex ?? 2.0)
+                    self?.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+                    self?.updateNotAccurate()
+                }
+                let deviceInfo = PreferenceManager.shared.deviceInfo
+                if deviceInfo.versionInfo.zygoDeviceVersion == .v2{
+                    BluetoothManager.shared.readZygo2TranmistterSerialNumber { transmitterSerialNumber in
+                        print("Zygo2 Transmitter Serial Number: \(transmitterSerialNumber)")
+                        PreferenceManager.shared.transmitterSerialNumber = transmitterSerialNumber
+                    }
+                }else{
+                    
+                }
+                BluetoothManager.shared.enableLapDataNotification { notiBLEInfo in
+                    DispatchQueue.main.async {
+                        if let updatedLapInfo = notiBLEInfo{
+                            PreferenceManager.shared.lapInfo = updatedLapInfo
+                        }
+                        if self?.currentIndex ?? 2 > 1{
+                            BluetoothManager.shared.disableLapDataNotification()
+                            return
+                        }
+                        self?.updateLapInfo(lapData: notiBLEInfo ?? PreferenceManager.shared.lapInfo)
+                        if Helper.shared.isHeadsetSyncRecent(){
+                            self?.currentIndex = 2
+                            let x = ScreenSize.SCREEN_WIDTH * (self?.currentIndex ?? 2.0)
+                            self?.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+                            self?.updateNotAccurate()
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    func updateNotAccurate(isFromSkip: Bool = false){
+        
+        if isFromSkip{
+            self.btnNotAccurate.isHidden = false
+            self.btnNotAccurate.setTitle("No lap count found", for: .normal)
+            self.btnNotAccurate.isUserInteractionEnabled = false
+        }else if Helper.shared.isHeadsetSyncRecent(){
+            let lapInfo = PreferenceManager.shared.lapInfo
+            //if lapInfo.oldNewStatus != 1{
+            if lapInfo.numberOfLaps == 0{
+                self.btnNotAccurate.isHidden = false
+                self.btnNotAccurate.setTitle("No lap count found", for: .normal)
+                self.btnNotAccurate.isUserInteractionEnabled = false
+            }else{
+                self.btnNotAccurate.isHidden = false
+                self.btnNotAccurate.setTitle("Not accurate?", for: .normal)
+                self.btnNotAccurate.isUserInteractionEnabled = true
+            }
+        }else if !PreferenceManager.shared.isBLEEnabledDevice{
+            self.btnNotAccurate.isHidden = true
+        }else{
+            self.btnNotAccurate.isHidden = false
+            self.btnNotAccurate.setTitle("Not accurate?", for: .normal)
+            self.btnNotAccurate.isUserInteractionEnabled = true
+        }
+        
+    }
+    
     //MARK: - UIButton Actions
     @IBAction func backAction(_ sender: UIButton){
         self.hideBGImage()
@@ -534,16 +712,26 @@ class FeedbackSheetViewController: UIViewController {
         let info = PreferenceManager.shared.trackingInfo
         let currentTempo = TempoTrainerManager.shared.currentTrainer
         if info.isDistanceTracking{
-            self.currentIndex = 1
+            //Check if sync data is 3 mintues old then show sync status screen
+            if Helper.shared.isHeadsetSyncRecent(){
+                self.currentIndex = 2
+            }else if !PreferenceManager.shared.isBLEEnabledDevice{
+                self.currentIndex = 2
+            }else{
+                self.currentIndex = 1
+                self.updateBLEInfo()
+            }
+            
             let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
             self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+            self.updateNotAccurate()
         }else if info.isTempoTracking && currentTempo != nil{
-            self.currentIndex = 2
+            self.currentIndex = 3
             let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
             self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
         }else{
             self.updateFeedbackOnServer()
-            self.currentIndex = 3
+            self.currentIndex = 4
             let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
             self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
         }
@@ -553,18 +741,53 @@ class FeedbackSheetViewController: UIViewController {
         let info = PreferenceManager.shared.trackingInfo
         let currentTempo = TempoTrainerManager.shared.currentTrainer
         if info.isDistanceTracking{
-            self.currentIndex = 1
+            //Check if sync data is 3 mintues old then show sync status screen
+            if Helper.shared.isHeadsetSyncRecent(){
+                self.currentIndex = 2
+            }else if !PreferenceManager.shared.isBLEEnabledDevice{
+                self.currentIndex = 2
+            }else{
+                self.currentIndex = 1
+                self.updateBLEInfo()
+            }
             let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
             self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+            self.updateNotAccurate()
         }else if info.isTempoTracking && currentTempo != nil{
-            self.currentIndex = 2
-            let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
-            self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
-        }else{
             self.currentIndex = 3
             let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
             self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+        }else{
+            self.currentIndex = 4
+            let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
+            self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
         }
+    }
+    
+    @IBAction func syncStatusAction(_ sender: UIButton){
+        //Show BLE sync screen popup
+        let syncVC = SyncStatusPopupVC(nibName: "SyncStatusPopupVC", bundle: nil)
+        syncVC.onExit = {
+            
+            self.updateLapInfo(lapData: PreferenceManager.shared.lapInfo)
+            
+            if Helper.shared.isHeadsetSyncRecent(){
+                self.currentIndex = 2
+                let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
+                self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+                self.updateNotAccurate()
+            }
+        }
+        syncVC.transitioningDelegate = self
+        syncVC.modalPresentationStyle = .custom
+        self.present(syncVC, animated: true)
+    }
+    
+    @IBAction func skipSyncStatusAction(_ sender: UIButton){
+        self.currentIndex = 2
+        let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
+        self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+        self.updateNotAccurate(isFromSkip: true)
     }
     
     @IBAction func distanceDoneAction(_ sender: UIButton){
@@ -623,12 +846,12 @@ class FeedbackSheetViewController: UIViewController {
         let info = PreferenceManager.shared.trackingInfo
         if self.isNoWorkout{
             if info.isTempoTracking && isNoWorkout{
-                self.currentIndex = 2
+                self.currentIndex = 3
                 let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
                 self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
             }else if self.achievements.count > 0{
                 self.updateFeedbackOnServer()
-                self.currentIndex = 4
+                self.currentIndex = 5
                 let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
                 self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
             }else{
@@ -637,15 +860,29 @@ class FeedbackSheetViewController: UIViewController {
                     self.delegate?.feedbackDone()
                 }
             }
+        }else if isNoWorkoutMetric{
+            let currentTempo = TempoTrainerManager.shared.currentTrainer
+            if info.isTempoTracking && currentTempo != nil{
+                self.currentIndex = 3
+                let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
+                self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+            }else if self.achievements.count > 0{
+                self.updateFeedbackOnServer()
+                self.currentIndex = 5
+                let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
+                self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+            }else{
+                self.updateFeedbackOnServer(dismissOnDone: true)
+            }
         }else{
             let currentTempo = TempoTrainerManager.shared.currentTrainer
             if info.isTempoTracking && currentTempo != nil{
-                self.currentIndex = 2
+                self.currentIndex = 3
                 let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
                 self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
             }else{
                 self.updateFeedbackOnServer()
-                self.currentIndex = 3
+                self.currentIndex = 4
                 let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
                 self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
             }
@@ -658,12 +895,12 @@ class FeedbackSheetViewController: UIViewController {
         let info = PreferenceManager.shared.trackingInfo
         if self.isNoWorkout{
             if info.isTempoTracking && isNoWorkout{
-                self.currentIndex = 2
+                self.currentIndex = 3
                 let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
                 self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
             }else if self.achievements.count > 0{
                 self.updateFeedbackOnServer()
-                self.currentIndex = 4
+                self.currentIndex = 5
                 let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
                 self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
             }else{
@@ -672,14 +909,32 @@ class FeedbackSheetViewController: UIViewController {
                     self.delegate?.feedbackDone()
                 }
             }
-        }else{
+        }else if isNoWorkoutMetric{
             let currentTempo = TempoTrainerManager.shared.currentTrainer
             if info.isTempoTracking && currentTempo != nil{
-                self.currentIndex = 2
+                self.currentIndex = 3
+                let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
+                self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+            }else if self.achievements.count > 0{
+                self.updateFeedbackOnServer()
+                self.currentIndex = 5
                 let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
                 self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
             }else{
+                
+                self.hideBGImage()
+                self.dismiss(animated: true) {
+                    self.delegate?.feedbackDone()
+                }
+            }
+        }else{
+            let currentTempo = TempoTrainerManager.shared.currentTrainer
+            if info.isTempoTracking && currentTempo != nil{
                 self.currentIndex = 3
+                let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
+                self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+            }else{
+                self.currentIndex = 4
                 let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
                 self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
             }
@@ -689,9 +944,9 @@ class FeedbackSheetViewController: UIViewController {
     
     @IBAction func streakDoneAction(_ sender: UIButton){
         self.updateFeedbackOnServer()
-        if self.isNoWorkout{
+        if self.isNoWorkout || self.isNoWorkoutMetric{
             if self.achievements.count > 0{
-                self.currentIndex = 4
+                self.currentIndex = 5
                 let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
                 self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
             }else{
@@ -701,7 +956,7 @@ class FeedbackSheetViewController: UIViewController {
                 }
             }
         }else{
-            self.currentIndex = 3
+            self.currentIndex = 4
             let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
             self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
         }
@@ -710,9 +965,9 @@ class FeedbackSheetViewController: UIViewController {
     
     @IBAction func skipStreakAction(_ sender: UIButton){
         self.updateFeedbackOnServer()
-        if self.isNoWorkout{
+        if self.isNoWorkout || self.isNoWorkoutMetric{
             if self.achievements.count > 0{
-                self.currentIndex = 4
+                self.currentIndex = 5
                 let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
                 self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
             }else{
@@ -722,7 +977,7 @@ class FeedbackSheetViewController: UIViewController {
                 }
             }
         }else{
-            self.currentIndex = 3
+            self.currentIndex = 4
             let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
             self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
         }
@@ -735,7 +990,7 @@ class FeedbackSheetViewController: UIViewController {
             Helper.shared.shareWorkout(url: workoutUrl){
                 if self.achievements.count > 0{
                     
-                    self.currentIndex = 4
+                    self.currentIndex = 5
                     let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
                     self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
                 }else{
@@ -750,7 +1005,7 @@ class FeedbackSheetViewController: UIViewController {
     
     @IBAction func shareSkipAction(_ sender: UIButton){
         if self.achievements.count > 0{
-            self.currentIndex = 4
+            self.currentIndex = 5
             let x = ScreenSize.SCREEN_WIDTH * self.currentIndex
             self.feedbackScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
         }else{
@@ -807,6 +1062,19 @@ class FeedbackSheetViewController: UIViewController {
     
     @IBAction func strokeAction(_ sender: UIButton){
         self.txtStroke.becomeFirstResponder()
+    }
+    
+    @IBAction func notAccurateAction(_ sender: UIButton){
+        
+        let notAccurateVC = NotAccuratePopupVC(nibName: "NotAccuratePopupVC", bundle: nil) { (isOutOfPool, isOpenWater, isOutOfSync, isDontKnow) in
+            self.isOutOfPool = isOutOfPool
+            self.isOpenWater = isOpenWater
+            self.isOutOfSync = isOutOfSync
+            self.isDontKnow = isDontKnow
+        }
+        notAccurateVC.transitioningDelegate = self
+        notAccurateVC.modalPresentationStyle = .custom
+        self.present(notAccurateVC, animated: true)
     }
     
     //MARK: -
@@ -957,6 +1225,9 @@ extension FeedbackSheetViewController: UITextFieldDelegate, UIPickerViewDelegate
         }else if textField == txtLapCount{
             let lap = self.arrLapCount[lapCountPicker.selectedRow(inComponent: 0)]
             self.txtLapCount.text = "\(lap)"
+            if lap > 0{
+                self.txtDistance.text = "\(lap)"
+            }
             self.updateDistanceOnLabel()
         }else if textField == txtDistance{
             self.updateDistanceOnLabel()

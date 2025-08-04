@@ -228,7 +228,7 @@ final class NetworkManager : NSObject{
                     }
                 }
                 
-                print(json ?? "Nil Response")
+                print("API Response: \(urlResponse.url?.absoluteString ?? "nil URL") -> \(json ?? "Nil Response")")
                 
                 guard let jsonResponse = json as? [String : Any] else {
                     strongSelf.failure(statusCode: urlResponse.statusCode, message: serverErrorMessage, completion: completion)
@@ -349,7 +349,8 @@ enum APIEndPoint : String {
     case getWorkoutById = "/api/get-workout-by-id"
     case getWorkoutFilters = "/api/get-workout-filter"
     case completeWorkout = "/api/workout-complete"
-    case workoutFeedback = "/api/workout-feedback-v4"//"/api/workout-feedback-v2"
+    case lastCompletedWorkout = "/api/get-user-last-workout"
+    case workoutFeedback = "/api/workout-feedback-v6"
     
     case userHistory = "/api/user-history"
     
@@ -380,6 +381,10 @@ enum APIEndPoint : String {
     
     case getFirmwareFiles = "/api/get-firmware-detail"
     case getHallOfFame = "/api/hall-of-fame"
+    case blePairingData = "/api/bluetooth-pairing-data"
+    case profileFirmwareDetail = "/api/update-firmware-details"
+    case updateHeadsetSerialNumber = "/api/update-headset-serial-number"
+    case updateBTName = "/api/update-bluetooth-name"
 }
 
 

@@ -61,7 +61,7 @@ extension KlaviyoAPI.KlaviyoRequest {
                     }
                 }
 
-                let attributes: Attributes
+                var attributes: Attributes
                 init(profile: KlaviyoSwift.Profile, anonymousId: String) {
                     attributes = Attributes(
                         attributes: profile,
@@ -73,7 +73,7 @@ extension KlaviyoAPI.KlaviyoRequest {
                 }
             }
 
-            let data: Profile
+            var data: Profile
         }
 
         struct CreateEventPayload: Equatable, Codable {
@@ -93,10 +93,6 @@ extension KlaviyoAPI.KlaviyoRequest {
 
                             struct MetricAttributes: Equatable, Codable {
                                 let name: String
-
-                                init(name: String) {
-                                    self.name = name
-                                }
                             }
                         }
 
@@ -115,31 +111,15 @@ extension KlaviyoAPI.KlaviyoRequest {
                     }
 
                     let metric: Metric
-                    let properties: AnyCodable
+                    var properties: AnyCodable
                     let profile: Profile
                     let time: Date
                     let value: Double?
                     let uniqueId: String
                     init(attributes: KlaviyoSwift.Event,
                          anonymousId: String? = nil) {
-                        let context = KlaviyoAPI.KlaviyoRequest._appContextInfo
-                        let metadata = [
-                            "Device ID": context.deviceId,
-                            "Device Manufacturer": context.manufacturer,
-                            "Device Model": context.deviceModel,
-                            "OS Name": context.osName,
-                            "OS Version": context.osVersion,
-                            "SDK Name": __klaviyoSwiftName,
-                            "SDK Version": __klaviyoSwiftVersion,
-                            "App Name": context.appName,
-                            "App ID": context.bundleId,
-                            "App Version": context.appVersion,
-                            "App Build": context.appBuild,
-                            "Push Token": environment.analytics.state().pushToken as Any
-                        ]
-
                         metric = Metric(name: attributes.metric.name.value)
-                        properties = AnyCodable(attributes.properties.merging(metadata) { _, new in new })
+                        properties = AnyCodable(attributes.properties)
                         value = attributes.value
                         time = attributes.time
                         uniqueId = attributes.uniqueId
@@ -147,8 +127,7 @@ extension KlaviyoAPI.KlaviyoRequest {
                         profile = .init(attributes: .init(
                             email: attributes.identifiers?.email,
                             phoneNumber: attributes.identifiers?.phoneNumber,
-                            externalId: attributes.identifiers?.externalId,
-                            properties: attributes.profile),
+                            externalId: attributes.identifiers?.externalId),
                         anonymousId: anonymousId ?? "")
                     }
 
@@ -163,14 +142,34 @@ extension KlaviyoAPI.KlaviyoRequest {
                 }
 
                 var type = "event"
-                let attributes: Attributes
+                var attributes: Attributes
                 init(event: KlaviyoSwift.Event,
                      anonymousId: String? = nil) {
                     attributes = .init(attributes: event, anonymousId: anonymousId)
                 }
             }
 
-            let data: Event
+            mutating func appendMetadataToProperties() {
+                let context = KlaviyoAPI.KlaviyoRequest._appContextInfo
+                let metadata = [
+                    "Device ID": context.deviceId,
+                    "Device Manufacturer": context.manufacturer,
+                    "Device Model": context.deviceModel,
+                    "OS Name": context.osName,
+                    "OS Version": context.osVersion,
+                    "SDK Name": __klaviyoSwiftName,
+                    "SDK Version": __klaviyoSwiftVersion,
+                    "App Name": context.appName,
+                    "App ID": context.bundleId,
+                    "App Version": context.appVersion,
+                    "App Build": context.appBuild,
+                    "Push Token": environment.analytics.state().pushTokenData?.pushToken as Any
+                ]
+                let originalProperties = data.attributes.properties.value as? [String: Any] ?? [:]
+                data.attributes.properties = AnyCodable(originalProperties.merging(metadata) { _, new in new })
+            }
+
+            var data: Event
             init(data: Event) {
                 self.data = data
             }
@@ -298,9 +297,67 @@ extension KlaviyoAPI.KlaviyoRequest {
             }
         }
 
+        struct UnregisterPushTokenPayload: Equatable, Codable {
+            let data: PushToken
+
+            init(pushToken: String,
+                 profile: KlaviyoSwift.Profile,
+                 anonymousId: String) {
+                data = .init(
+                    pushToken: pushToken,
+                    profile: profile,
+                    anonymousId: anonymousId)
+            }
+
+            struct PushToken: Equatable, Codable {
+                var type = "push-token-unregister"
+                var attributes: Attributes
+
+                init(pushToken: String,
+                     profile: KlaviyoSwift.Profile,
+                     anonymousId: String) {
+                    attributes = .init(
+                        pushToken: pushToken,
+                        profile: profile,
+                        anonymousId: anonymousId)
+                }
+
+                struct Attributes: Equatable, Codable {
+                    let profile: Profile
+                    let token: String
+                    let platform: String = "ios"
+                    let vendor: String = "APNs"
+
+                    enum CodingKeys: String, CodingKey {
+                        case token
+                        case platform
+                        case profile
+                        case vendor
+                    }
+
+                    init(pushToken: String,
+                         profile: KlaviyoSwift.Profile,
+                         anonymousId: String) {
+                        token = pushToken
+                        self.profile = .init(attributes: profile, anonymousId: anonymousId)
+                    }
+
+                    struct Profile: Equatable, Codable {
+                        let data: CreateProfilePayload.Profile
+
+                        init(attributes: KlaviyoSwift.Profile,
+                             anonymousId: String) {
+                            data = .init(profile: attributes, anonymousId: anonymousId)
+                        }
+                    }
+                }
+            }
+        }
+
         case createProfile(CreateProfilePayload)
         case createEvent(CreateEventPayload)
         case registerPushToken(PushTokenPayload)
+        case unregisterPushToken(UnregisterPushTokenPayload)
     }
 }
 
@@ -341,103 +398,5 @@ extension Profile.Location: Codable {
         case region
         case zip
         case timezone
-    }
-}
-
-// MARK: Legacy request data
-
-@available(
-    iOS, deprecated: 9999, message: "Deprecated do not use.")
-struct LegacyIdentifiers {
-    let email: String?
-    let phoneNumber: String?
-    let externalId: String?
-
-    static func extractFrom(from customerProperties: NSDictionary) -> LegacyIdentifiers? {
-        guard let customerProperties = customerProperties as? [String: Any] else {
-            return nil
-        }
-        let email = customerProperties["$email"] as? String
-        let phoneNumber = customerProperties["$phone_number"] as? String
-        let externalId = customerProperties["$id"] as? String
-
-        return Self(email: email,
-                    phoneNumber: phoneNumber,
-                    externalId: externalId)
-    }
-}
-
-@available(
-    iOS, deprecated: 9999, message: "Deprecated do not use.")
-struct LegacyEvent: Equatable {
-    let eventName: String
-    let customerProperties: NSDictionary
-    let properties: NSDictionary
-    var identifiers: LegacyIdentifiers? {
-        LegacyIdentifiers.extractFrom(from: customerProperties)
-    }
-
-    init(eventName: String,
-         customerProperties: NSDictionary?,
-         properties: NSDictionary?) {
-        self.eventName = eventName
-        self.customerProperties = customerProperties ?? NSDictionary()
-        self.properties = properties ?? NSDictionary()
-    }
-
-    func buildEventRequest(with apiKey: String, from state: KlaviyoState) throws -> KlaviyoAPI.KlaviyoRequest? {
-        guard var eventProperties = properties as? [String: Any] else {
-            throw KlaviyoAPI.KlaviyoAPIError.invalidData
-        }
-        guard let customerProperties = customerProperties as? [String: Any] else {
-            throw KlaviyoAPI.KlaviyoAPIError.invalidData
-        }
-
-        if eventName == "$opened_push" {
-            // Special handling for $opened_push include push token at the time of open
-            eventProperties["push_token"] = state.pushToken
-        }
-        let identifiers: Event.Identifiers = .init(email: state.email, phoneNumber: state.phoneNumber, externalId: state.externalId)
-        let event = KlaviyoAPI.KlaviyoRequest.KlaviyoEndpoint.CreateEventPayload.Event(event: .init(name: .CustomEvent(eventName), properties: eventProperties, identifiers: identifiers, profile: customerProperties), anonymousId: state.anonymousId)
-        let payload = KlaviyoAPI.KlaviyoRequest.KlaviyoEndpoint.CreateEventPayload(data: event)
-        let endpoint = KlaviyoAPI.KlaviyoRequest.KlaviyoEndpoint.createEvent(payload)
-        return KlaviyoAPI.KlaviyoRequest(apiKey: apiKey, endpoint: endpoint)
-    }
-}
-
-@available(
-    iOS, deprecated: 9999, message: "Deprecated do not use.")
-struct LegacyProfile: Equatable {
-    let customerProperties: NSDictionary
-
-    var identifiers: LegacyIdentifiers? {
-        LegacyIdentifiers.extractFrom(from: customerProperties)
-    }
-
-    func buildProfileRequest(with apiKey: String, from state: KlaviyoState) throws -> KlaviyoAPI.KlaviyoRequest? {
-        guard var customerProperties = customerProperties.copy() as? [String: Any] else {
-            throw KlaviyoAPI.KlaviyoAPIError.invalidData
-        }
-
-        guard let anonymousId = state.anonymousId else {
-            throw KlaviyoAPI.KlaviyoAPIError.internalError("Unable to build request missing required anonymous id.")
-        }
-
-        // Remove properties that are now strongly typed on the v3 request
-        customerProperties.removeValue(forKey: "$email")
-        customerProperties.removeValue(forKey: "$phone_number")
-        customerProperties.removeValue(forKey: "$id")
-        customerProperties.removeValue(forKey: "$anonymous")
-
-        // We assume that the state has the latest identifiers
-        let attributes = KlaviyoSwift.Profile(
-            email: state.email,
-            phoneNumber: state.phoneNumber,
-            externalId: state.externalId,
-            properties: customerProperties)
-        let endpoint = KlaviyoAPI.KlaviyoRequest.KlaviyoEndpoint.createProfile(
-            .init(data: .init(profile: attributes,
-                              anonymousId: anonymousId)))
-        return KlaviyoAPI.KlaviyoRequest(apiKey: apiKey, endpoint: endpoint)
     }
 }

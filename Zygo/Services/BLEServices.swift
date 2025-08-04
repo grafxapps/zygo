@@ -10,11 +10,14 @@ import UIKit
 
 class BLEServices: NSObject {
     
-    func fetchFirmwareDetails(completion: @escaping (String?,  [String: Any]) -> Void){
-        //let header = NetworkManager.shared.getHeader()
-        //print(header)\
-        //TODO: Change Group ID, 1 for production and 3 for testing
-        let params = ["group_id": "1"]
+    func fetchFirmwareDetails(zygoVersion: ZygoDeviceVersion, completion: @escaping (String?,  [String: Any]) -> Void){
+        var params: [String:Any]
+        if zygoVersion == .v1{
+            params = ["group_id": Constants.BLEBatchID]
+        }else{
+            params = ["group_id": Constants.BLEZ2BatchID]
+        }
+        
         NetworkManager.shared.request(withEndPoint: .getFirmwareFiles, method: .get, headers: nil, params: params) { (response) in
             
             switch response{

@@ -12,6 +12,25 @@ import StoreKit
 class SubscriptionViewModel: NSObject {
     
     let paymentService = SubscriptionServices()
+    private let userService = UserServices()
+    
+    func getUserProfile(completion: @escaping (Bool) -> Void){
+        self.userService.getUserProfile { [weak self] (error) in
+            if self == nil{
+                completion(false)
+                return
+            }
+            
+            if error != nil{
+                Helper.shared.alert(title: Constants.appName, message: error!)
+                completion(false)
+            }
+            
+            DispatchQueue.main.async {
+                completion(true)
+            }
+        }
+    }
     
     func uloadReceipt(receipt: VerifySubscriptionResult, completion: @escaping (String?,Bool) -> Void){
         

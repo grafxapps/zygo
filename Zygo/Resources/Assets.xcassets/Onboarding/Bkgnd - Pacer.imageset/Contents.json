@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Bkgnd - Pacer.png",
+      "filename" : "BB - Pacer.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Bkgnd - Pacer@2x.png",
+      "filename" : "BB - Pacer@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Bkgnd - Pacer@3x.png",
+      "filename" : "BB - Pacer@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

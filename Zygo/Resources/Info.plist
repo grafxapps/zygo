@@ -61,7 +61,7 @@
 		<true/>
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>App wants to access bluetooth to connect nearby devices</string>
+	<string>The app requires Bluetooth access to read battery levels, collect usage metrics, and power the walkie-talkie feature.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>App wants to access bluetooth to connect nearby devices</string>
 	<key>NSCameraUsageDescription</key>
@@ -77,7 +77,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Access to your phone’s location will help us customize content. We will send you notifications about events in your area and attach your workouts to specific pools.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Access to your phone&apos;s Microphone for walkie talkie feature.</string>
+	<string>Access to your phone's Microphone for walkie talkie feature.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>LSApplicationQueriesSchemes</key>
@@ -132,16 +132,16 @@
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>branch_app_domain</key>
 	<string>zygoswimmers.app.link</string>

@@ -291,7 +291,6 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
     
     @objc func playPlayer(){
         
-        //TODO: Enable for screen recording
         if !Helper.shared.isTestUser{
             if UIScreen.main.isCaptured {
                 Helper.shared.alert(title: Constants.appName, message: "Please stop screen recording to play this workout.")
@@ -417,7 +416,7 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
                     TempoTrainerManager.shared.startTime = DateHelper.shared.currentLocalDateTime
                 }
                 
-                let feedbackVC = FeedbackSheetViewController(nibName: "FeedbackSheetViewController", bundle: nil, workoutItem: self.workoutItem, achievements: self.viewModel.arrAchievements, workoutLogId: workoutLogId)
+                let feedbackVC = FeedbackSheetViewController(nibName: "FeedbackSheetViewController", bundle: nil, workoutItem: self.workoutItem, achievements: self.viewModel.arrAchievements, workoutLogId: workoutLogId, timeElapsed: timeElapsed)
                 feedbackVC.delegate = self
                 feedbackVC.modalPresentationStyle = .overFullScreen
                 self.present(feedbackVC, animated: true, completion: nil)
@@ -528,7 +527,7 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
                 self.player?.currentItem?.outputs.first?.suppressesPlayerRendering = true;
                 self.player?.volume = 1.0
             }else if object.status == .failed{
-                Helper.shared.alert(title: Constants.appName, message: "Faild to load media. Please try again."){
+                Helper.shared.alert(title: Constants.appName, message: "Failed to load media. Please try again."){
                     Helper.shared.log(event: .WORKOUTCANCEL, params: [:])
                     self.back()
                 }
@@ -679,6 +678,7 @@ class WorkoutPlayerViewController: UIViewController, FeedbackSheetViewController
         switch type {
         case .began:
             print("interruption began")
+            Helper.shared.stopLoading()
         case .ended:
             print("interruption ended")
             guard let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt else { return }

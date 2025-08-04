@@ -302,6 +302,12 @@ class TempoTrainerViewController: UIViewController {
     
     func calculateTempoDuration(){
         
+        if !Helper.shared.isTestUser{
+            if !SubscriptionManager.shared.isValidSubscription(){//If not valid subscription
+                return
+            }
+        }
+        
         guard let startDate = TempoTrainerManager.shared.startTime else{
             return
         }
@@ -325,16 +331,13 @@ class TempoTrainerViewController: UIViewController {
                     print("Workout completed successfully!!")
                     let info = PreferenceManager.shared.trackingInfo
                     if info.isDistanceTracking || info.isTempoTracking || self.viewModel.arrAchievements.count > 0{
-                        let feedbackVC = FeedbackSheetViewController(nibName: "FeedbackSheetViewController", bundle: nil, workoutItem: WorkoutDTO([:]), achievements: self.viewModel.arrAchievements, workoutLogId: workoutLogId)
+                        let feedbackVC = FeedbackSheetViewController(nibName: "FeedbackSheetViewController", bundle: nil, workoutItem: WorkoutDTO(["id":0]), achievements: self.viewModel.arrAchievements, workoutLogId: workoutLogId, timeElapsed: Int(durationSeconds))
                         feedbackVC.isNoWorkout = true
                         feedbackVC.noWorkoutStrokeValue = strokeValue
                         feedbackVC.delegate = self
                         feedbackVC.modalPresentationStyle = .overFullScreen
                         self.present(feedbackVC, animated: true, completion: nil)
-                    }
-                    
-                    
-                    
+                    }                    
                 }
             }
         }
@@ -619,7 +622,7 @@ extension TempoTrainerViewController : UITextFieldDelegate{
         if textField == txtStroke{
             previousStrokeText = textField.text!
             textField.text = ""
-            IQKeyboardManager.shared.shouldShowToolbarPlaceholder = false
+            IQKeyboardManager.shared.toolbarConfiguration.placeholderConfiguration.showPlaceholder = false
             self.placeholderToolBar.isHidden = false
             self.lblToolBarPlaceholder.text = "Stroke Rate"
             self.StrokeRateAction(sender: UIButton())

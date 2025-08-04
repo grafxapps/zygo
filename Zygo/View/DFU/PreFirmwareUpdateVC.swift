@@ -15,6 +15,10 @@ class PreFirmwareUpdateVC: UIViewController {
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var searchingView: UIView!
     
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var headerLabel: UILabel!
+    
     private let viewModel = PreFirmwareUpdateViewModel()
     
     @IBOutlet weak var lblNotes: UILabel!
@@ -23,7 +27,7 @@ class PreFirmwareUpdateVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let notesAttStrin = NSAttributedString(string: "This feature is only available on units with a headset serial number that begins with “ZY4”.", attributes: [.font: UIFont.appMediumItalic(with: 14.0)])
+        let notesAttStrin = NSAttributedString(string: "Only available for Z2 and V1 headsets with a model number that starts with ZY4.", attributes: [.font: UIFont.appMediumItalic(with: 14.0)])
         self.lblNotes.attributedText = notesAttStrin
         
         self.registerCustomCells()
@@ -50,6 +54,27 @@ class PreFirmwareUpdateVC: UIViewController {
     
     @objc func removeObservers(){
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    @MainActor
+    private func updateFirmwareInformation(){
+        guard let firmware = self.viewModel.arrFirmwares.first else{
+            return
+        }
+        
+        let numberOfUpdates = self.numberToWord(self.viewModel.arrFirmwares.count) ?? "one"
+        let titleText = "Your zygo needs to update \(numberOfUpdates) of its microprocessors"
+        let attributedText = NSMutableAttributedString(string: titleText, attributes: [.font: FontFamily.Poppins.regular.font(size: 17.0)])
+        attributedText.addAttribute(.font, value: FontFamily.Poppins.medium.font(size: 17.0), range: (titleText as NSString).range(of: numberOfUpdates))
+        titleLabel.attributedText = attributedText
+        
+        messageLabel.text = firmware.newText
+        
+        if self.viewModel.arrFirmwares.count > 1{
+            headerLabel.text = "Update \(numberOfUpdates) Processors:"
+        }else{
+            headerLabel.text = "Update \(numberOfUpdates) Processor:"
+        }
     }
     
     @objc func updateUI(){
@@ -161,6 +186,7 @@ class PreFirmwareUpdateVC: UIViewController {
                 return
             }
             
+            //TODO: Uncomment this
             if deviceInfo.versionInfo.headsetVersion == "0"{
                 //It means headset not connected yet then push to not connected vc
                 Helper.shared.stopLoading()
@@ -170,10 +196,11 @@ class PreFirmwareUpdateVC: UIViewController {
                 return
             }
             
-            self?.viewModel.getFirmwareDetail { [weak self] isUpdate in
+            self?.viewModel.getFirmwareDetail(zygoVersion: deviceInfo.versionInfo.zygoDeviceVersion) { [weak self] isUpdate in
                 Helper.shared.stopLoading()
                 
                 if isUpdate{
+                    self?.updateFirmwareInformation()
                     self?.tblFirmwares.reloadData()
                     
                     self?.hideBGView()
@@ -192,7 +219,21 @@ class PreFirmwareUpdateVC: UIViewController {
         }
     }
     
-    
+    private func numberToWord(_ number: Int) -> String? {
+        let numberWords: [Int: String] = [
+            1: "one",
+            2: "two",
+            3: "three",
+            4: "four",
+            5: "five",
+            6: "six",
+            7: "seven",
+            8: "eight",
+            9: "nine",
+            10: "ten"
+        ]
+        return numberWords[number]
+    }
     
     //MARK: - UIButton Actions
     @IBAction func backAction(_ sender: UIButton){
@@ -236,29 +277,31 @@ class PreFirmwareUpdateVC: UIViewController {
         
         let item = self.viewModel.arrFirmwares[index]
         
-        if item.targetDevice == .SILABS_HEADSET{//Check Headset Battery Level
+        //TODO: Uncomment this
+        if item.targetDevice == .SILABS_HEADSET || item.targetDevice == .SILABS_Z2_HEADSET{//Check Headset Battery Level
+            
             if let bleInfo = self.viewModel.bleDeviceInfor{
                 if bleInfo.headsetBatteryLevel < 50 && bleInfo.radioBatteryLevel < 50{
                     Helper.shared.alert(title: Constants.appName, message: "Please charge your Zygo transmitter and headset before performing a firmware update.")
                     return
                 }else if bleInfo.headsetBatteryLevel < 50{
                     Helper.shared.alert(title: Constants.appName, message: "Please charge your Zygo headset before performing a firmware update.")
-                   return
+                    return
                 }else if bleInfo.radioBatteryLevel < 50{
                     Helper.shared.alert(title: Constants.appName, message: "Please charge your Zygo transmitter before performing a firmware update.")
-                   return
+                    return
                 }
             }
         }else{//Check Radio Battery Level
             if let bleInfo = self.viewModel.bleDeviceInfor{
                 if bleInfo.radioBatteryLevel < 50{
                     Helper.shared.alert(title: Constants.appName, message: "Please charge your Zygo transmitter before performing a firmware update.")
-                   return
+                    return
                 }
             }
         }
         
-        if item.targetDevice == .SILABS_HEADSET{
+        if item.targetDevice == .SILABS_HEADSET || item.targetDevice == .SILABS_Z2_HEADSET{
             let alertVC = HeadsetRestartAlertPopupVC(nibName: "HeadsetRestartAlertPopupVC", bundle: nil)
             alertVC.transitioningDelegate = self
             alertVC.modalPresentationStyle = .custom
@@ -270,7 +313,6 @@ class PreFirmwareUpdateVC: UIViewController {
                 
             }
             self.present(alertVC, animated: true)
-            
             return
         }
         
@@ -319,7 +361,7 @@ extension PreFirmwareUpdateVC: UITableViewDataSource, UITableViewDelegate{
 
         let item = self.viewModel.arrFirmwares[indexPath.row]
         let minimumTargetCode = self.viewModel.arrFirmwares.map({ $0.targetDevice.rawValue }).min() ?? UInt8(100)
-        
+
         if item.targetDevice.rawValue <= minimumTargetCode{
             cell.btnUpdate.alpha = 1.0
             cell.btnUpdate.isUserInteractionEnabled = true
@@ -329,7 +371,23 @@ extension PreFirmwareUpdateVC: UITableViewDataSource, UITableViewDelegate{
         }
        
         
-        cell.lblMessage.text = item.newText
+        var message: String = ""
+        switch item.targetDevice {
+        case .ESP:
+            message = "Phone Interface Processor"
+        case .ST:
+            message = "Phone Interface Processor"
+        case .SILABS_RADIO:
+            message = "Transmitter Processor"
+        case .SILABS_HEADSET:
+            message = "Headset Processor"
+        case .SILABS_Z2_RADIO:
+            message = "Transmitter Processor"
+        case .SILABS_Z2_HEADSET:
+            message = "Headset Processor"
+        }
+        
+        cell.lblMessage.text = "\(message) v\(item.version)"
         
         cell.btnUpdate.tag = indexPath.row
         cell.btnUpdate.addTarget(self, action: #selector(self.updateAction(_:)), for: .touchUpInside)

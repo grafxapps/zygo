@@ -68,6 +68,7 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
     }
     
     //MARK: - Setups
+    @MainActor
     func setupUserInfo(){
         self.viewModel.profileItem.image = nil
         /*self.lblUserName.text = user.name
@@ -186,11 +187,14 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
     }
     
     func showProfileChangePopUp(){
-        Helper.shared.alertYesNoActions(title: "Exit without saving?", message: "Are you sure you want to leave without saving your profile?", yesActionTitle: "Yes", noActionTitle: "No") { (isYes) in
+        Helper.shared.alertYesNoActions(title: "Exit without saving?", message: "Are you sure you want to leave without saving your profile?", yesActionTitle: "Yes", noActionTitle: "No") { [weak self] (isYes) in
             if isYes{
-                self.infoVC.setupUserInfo()
-                self.viewModel.profileItem.image = nil
-                self.setupUserInfo()
+                self?.infoVC.setupUserInfo()
+                self?.viewModel.profileItem.image = nil
+                self?.setupUserInfo()
+                
+                //Perform selected tab again.
+                Helper.shared.moveToTab(index: PreferenceManager.shared.selectedTabBarIndexFromProfile)
             }
         }
     }
@@ -211,6 +215,7 @@ class ProfileViewController: ButtonBarPagerTabStripViewController, InfoViewContr
             Helper.shared.log(event: .SAVEPROFILE, params: [:])
             if isUpdated{
                 //Update User
+                self?.infoVC.profileSaveSuccess()
                 self?.user.profilePic = profileImage
                 self?.user.name = self?.viewModel.profileItem.name ?? ""
                 self?.user.fName = self?.viewModel.profileItem.fname ?? ""

@@ -20,6 +20,18 @@ final class HealthKitManager: NSObject {
         case DataTypeNotAvailable
     }
     
+    func isHealthKitAuthorize() -> Bool {
+        if let distanceSwimming = HKObjectType.quantityType(forIdentifier: .distanceSwimming){
+            if healthStore.authorizationStatus(for: distanceSwimming) == .notDetermined{
+                return false
+            }else{
+                return true
+            }
+        }
+        
+        return false
+    }
+    
     func authorizeHealthKit(completion: @escaping (Bool, Error?) -> Void) {
         
         guard HKHealthStore.isHealthDataAvailable() else {

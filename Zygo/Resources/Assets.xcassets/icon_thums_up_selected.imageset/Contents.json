@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "icon_thums_up_selected.png",
+      "filename" : "Thumb Up.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icon_thums_up_selected@2x.png",
+      "filename" : "Thumb Up@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "icon_thums_up_selected@3x.png",
+      "filename" : "Thumb Up@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

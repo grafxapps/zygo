@@ -179,50 +179,86 @@ class SubscriptionViewController: UIViewController {
     @IBAction func alreadyPaidAction (sender : UIButton){
         
         Helper.shared.startLoading()
-        SubscriptionManager.shared.verifyAnyActiveSubscription { (error, purachsedSubc) in
-            Helper.shared.stopLoading()
-            
-            if error != nil{
-                Helper.shared.alert(title: Constants.appName, message: error!)
-                return
-            }
-            Helper.shared.startLoading()
-            var prize : Float = 14.99
-            if purachsedSubc!.productId == SubscriptionManager.RegisteredPurchase.autoRenewableMonthly.rawValue{
-                prize = 14.99
-            }else if purachsedSubc!.productId == SubscriptionManager.RegisteredPurchase.autoRenewableYearly.rawValue{
-                prize = 149.99
-            }
-            
-            self.viewModel.updateReceipt(expiryDate: purachsedSubc!.expiryDate.toSubscriptionDate(), transactionId: purachsedSubc!.transactionId, productId: purachsedSubc!.productId, amount: prize, originalTransactionId: purachsedSubc!.originalTransactionId) { (retryError, isUploaded) in
-                
-                if isUploaded{
-                    //  PreferenceManager.shared.isSubscriptionPending = false
-                    
-                    if self.isForChangeSubscription{
-                        //Helper.shared.alert(title: "Success!", message: "Plan successfully changed.")
-                        self.navigationController?.popViewController(animated: true)
+        
+        self.viewModel.getUserProfile { isUpdated in
+            if isUpdated{
+                if SubscriptionManager.shared.isValidSubscription(){
+                    //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
+                    let userItem = PreferenceManager.shared.user
+                    if userItem.birthday.isEmpty ||/*userItem.gender.isEmpty ||*/ userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
+                        Helper.shared.setCreateProfileRoot()
+                        
                     }else{
-                        //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
-                        let userItem = PreferenceManager.shared.user
-                        if userItem.birthday.isEmpty ||/*userItem.gender.isEmpty ||*/ userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
-                            Helper.shared.setCreateProfileRoot()
+                        //MOVE TO DASHBOARD
+                        Helper.shared.setDashboardRoot()
+                    }
+                }else{
+                    SubscriptionManager.shared.verifyAnyActiveSubscription { (error, purachsedSubc) in
+                        Helper.shared.stopLoading()
+                        
+                        if error != nil{
+                            Helper.shared.alert(title: Constants.appName, message: error!)
+                            return
+                        }
+                        Helper.shared.startLoading()
+                        var prize : Float = 14.99
+                        if purachsedSubc!.productId == SubscriptionManager.RegisteredPurchase.autoRenewableMonthly.rawValue{
+                            prize = 14.99
+                        }else if purachsedSubc!.productId == SubscriptionManager.RegisteredPurchase.autoRenewableYearly.rawValue{
+                            prize = 149.99
+                        }
+                        
+                        self.viewModel.updateReceipt(expiryDate: purachsedSubc!.expiryDate.toSubscriptionDate(), transactionId: purachsedSubc!.transactionId, productId: purachsedSubc!.productId, amount: prize, originalTransactionId: purachsedSubc!.originalTransactionId) { (retryError, isUploaded) in
                             
-                        }else{
-                            //MOVE TO DASHBOARD
-                            Helper.shared.setDashboardRoot()
+                            if isUploaded{
+                                //  PreferenceManager.shared.isSubscriptionPending = false
+                                
+                                if self.isForChangeSubscription{
+                                    //Helper.shared.alert(title: "Success!", message: "Plan successfully changed.")
+                                    self.navigationController?.popViewController(animated: true)
+                                }else{
+                                    //CHECK IF USER PROFILE IS NOT UPDATED THEN MOVE TO PROFILE SCREEN
+                                    let userItem = PreferenceManager.shared.user
+                                    if userItem.birthday.isEmpty ||/*userItem.gender.isEmpty ||*/ userItem.email.isEmpty{//MEANS PROFILE ISN'T UPDATED
+                                        Helper.shared.setCreateProfileRoot()
+                                        
+                                    }else{
+                                        //MOVE TO DASHBOARD
+                                        Helper.shared.setDashboardRoot()
+                                    }
+                                }
+                                
+                                return
+                            }
+                            
+                            if retryError != nil{
+                                Helper.shared.alert(title: Constants.appName, message: retryError!)
+                                return
+                            }
                         }
                     }
-                    
-                    return
-                }
-                
-                if retryError != nil{
-                    Helper.shared.alert(title: Constants.appName, message: retryError!)
-                    return
                 }
             }
         }
+    }
+    
+    @IBAction func deleteAccountAction(_ sender: UIButton){
+        
+        let deleteDesVC = DeleteAccountDescriptionVC(nibName: "DeleteAccountDescriptionVC", bundle: nil)
+        deleteDesVC.modalPresentationStyle = .overCurrentContext
+        deleteDesVC.onContinue = {
+            let deleteVC = DeleteAccountVC(nibName: "DeleteAccountVC", bundle: nil)
+            deleteVC.transitioningDelegate = self
+            deleteVC.modalPresentationStyle = .custom
+            deleteVC.onDeleteAccount = {
+                //Silent logout and go to login screen
+                Helper.shared.silentLogout()
+            }
+            
+            self.present(deleteVC, animated: true, completion: nil)
+        }
+        self.present(deleteDesVC, animated: true, completion: nil)
+        
     }
     
     func verifyPucrchased(product: SubscriptionManager.RegisteredPurchase){
@@ -393,3 +429,15 @@ extension SubscriptionViewController{
     
 }
 
+
+extension SubscriptionViewController: UIViewControllerTransitioningDelegate{
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return PresentingAnimator()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissingAnimator()
+    }
+    
+}

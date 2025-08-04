@@ -12,7 +12,7 @@ class FirmwareUpdateSuccessVC: UIViewController {
 
     @IBOutlet weak var btnDone: UIButton!
     @IBOutlet weak var lblMessage: UILabel!
-    
+    var updatedTargetDevice: TargetDeviceCode?
     var viewModel: PreFirmwareUpdateViewModel!
     
     override func viewDidLoad() {
@@ -22,14 +22,19 @@ class FirmwareUpdateSuccessVC: UIViewController {
     
     func updateUI(){
         
-        if viewModel.arrFirmwares.count > 0{
-            self.lblMessage.text = "One firmware package on your Zygo has been updated. Restart your transmitter and headset to activate it. Wait until both units are on and the green LEDs have stopped blinking before continuing."
-            self.btnDone.setTitle("MORE UPDATES", for: .normal)
-        }else{
-            self.lblMessage.text = "The firmware on your Zygo has been updated. Please restart your transmitter and headset to activate it. Wait until both units are on and the green LEDs have stopped blinking before continuing."
-            self.btnDone.setTitle("DONE", for: .normal)
+        let defaultMessage = "The firmware on your Zygo has been updated. Please restart your transmitter and headset to activate it. Wait until both units are on and the LEDs have stopped blinking before continuing."
+        guard let targetDevice = updatedTargetDevice else{
+            self.lblMessage.text = defaultMessage
+            return
         }
         
+        if targetDevice == .SILABS_Z2_HEADSET{
+            self.lblMessage.text = "The firmware on your Zygo has been updated."
+        }else{
+            self.lblMessage.text = defaultMessage
+        }
+        
+        self.btnDone.setTitle("DONE", for: .normal)
         /*viewModel.getFirmwareDetail { [weak self] isUpdate in
             if isUpdate{
                 

@@ -41,6 +41,7 @@ enum ZygoCharacteristic: String{
     case diagnosticData = "6899900C-8008-968F-E311-6150405558B3"
     case complieData = "6899900D-8008-968F-E311-6150405558B3"
     case status = "6899900E-8008-968F-E311-6150405558B3"
+    case btName = "6899900F-8008-968F-E311-6150405558B3"
     
     case otaData = "EE408888-1F40-4CD8-9B89-CA8D45F8A5B0"
     case otaControl = "EED671AA-21C0-46A4-B722-270E3AE3D830"
@@ -66,7 +67,8 @@ final class BluetoothManager: NSObject {
             .hardwareData :BTCharacteristic(uuid: CBUUID(string: ZygoCharacteristic.hardwareData.rawValue)),
             .diagnosticData :BTCharacteristic(uuid: CBUUID(string: ZygoCharacteristic.diagnosticData.rawValue)),
             .complieData :BTCharacteristic(uuid: CBUUID(string: ZygoCharacteristic.complieData.rawValue)),
-            .status :BTCharacteristic(uuid: CBUUID(string: ZygoCharacteristic.status.rawValue))
+            .status :BTCharacteristic(uuid: CBUUID(string: ZygoCharacteristic.status.rawValue)),
+            .btName :BTCharacteristic(uuid: CBUUID(string: ZygoCharacteristic.btName.rawValue))
         ],
         .OTA: [
             .otaData : BTCharacteristic(uuid: CBUUID(string: ZygoCharacteristic.otaData.rawValue)),
@@ -83,6 +85,11 @@ final class BluetoothManager: NSObject {
     //MARK: -
     func wakeUpBLE(){
         _ = self.getCentralManager()
+    }
+    
+    var isBluetoothTurnOn: Bool{
+        let cManager = self.getCentralManager()
+        return cManager.state == .poweredOn
     }
     
     var isBluetoothPermissionGranted: Bool {
@@ -166,6 +173,7 @@ final class BluetoothManager: NSObject {
         cManager.connect(device.device)
     }
     
+    var onDeviceDisconnect: (() -> Void)?
     private var onDisconnect: ((BTDevice) -> Void)?
     func disconnect(_ device: BTDevice, onDisconnect: ((BTDevice) -> Void)? = nil){
         self.onDisconnect = onDisconnect
@@ -230,6 +238,201 @@ final class BluetoothManager: NSObject {
     }
     
     //MARK: - BatteryStatus, Version info and Lap Data
+    var allCharDataDispatchGroup: DispatchGroup?
+    
+    func readAllCharactersticsData(completion: @escaping (String, String) -> Void){
+        
+        allCharDataDispatchGroup = DispatchGroup()
+        
+        guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == currentSelectedDeviceIdentifier.uuidString }) else{
+            DispatchQueue.main.async {
+                completion("", "")
+            }
+            return
+        }
+        
+        guard let dataService = self.discoveredPeripherals[deviceIndex].services[.data] else{
+            return
+        }
+        
+        
+        var charData: String = ""
+        var headsetSerialNumber: String = ""
+        //lapData
+        guard let lapDataChar = dataService.characteristics[.lapData]?.characteristic else{
+            DispatchQueue.main.async {
+                completion(charData, headsetSerialNumber)
+            }
+            return
+        }
+        
+        self.allCharDataDispatchGroup?.enter()
+        self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.lapData]?.onRead = { [weak self] data in
+            self?.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.lapData]?.onRead = nil
+            print("Lap Data: \(data.hexString)")
+            charData += "CHAR0: \(data.hexString)"
+            headsetSerialNumber = data[8...15].hexString
+            self?.allCharDataDispatchGroup?.leave()
+        }
+        self.discoveredPeripherals[deviceIndex].device.readValue(for: lapDataChar)
+        
+        //hardwareData
+        guard let hardwareDataChar = dataService.characteristics[.hardwareData]?.characteristic else{
+            DispatchQueue.main.async {
+                completion(charData, headsetSerialNumber)
+            }
+            return
+        }
+        self.allCharDataDispatchGroup?.enter()
+        self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.hardwareData]?.onRead = { [weak self] data in
+            self?.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.hardwareData]?.onRead = nil
+            print("Harware Data: \(data.hexString)")
+            charData += " CHAR1: \(data.hexString)"
+            self?.allCharDataDispatchGroup?.leave()
+        }
+        self.discoveredPeripherals[deviceIndex].device.readValue(for: hardwareDataChar)
+        
+        //diagnosticData
+        guard let diagnosticDataChar = dataService.characteristics[.diagnosticData]?.characteristic else{
+            DispatchQueue.main.async {
+                completion(charData, headsetSerialNumber)
+            }
+            return
+        }
+        self.allCharDataDispatchGroup?.enter()
+        self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.diagnosticData]?.onRead = { [weak self] data in
+            self?.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.diagnosticData]?.onRead = nil
+            print("Diagnostic Data: \(data.hexString)")
+            charData += " CHAR2: \(data.hexString)"
+            self?.allCharDataDispatchGroup?.leave()
+        }
+        self.discoveredPeripherals[deviceIndex].device.readValue(for: diagnosticDataChar)
+        
+        //complieData
+        guard let complieDataChar = dataService.characteristics[.complieData]?.characteristic else{
+            DispatchQueue.main.async {
+                completion(charData, headsetSerialNumber)
+            }
+            return
+        }
+        
+        self.allCharDataDispatchGroup?.enter()
+        self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.complieData]?.onRead = { [weak self] data in
+            self?.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.complieData]?.onRead = nil
+            print("Complie Data: \(data.hexString)")
+            charData += " CHAR3: \(data.hexString)"
+            self?.allCharDataDispatchGroup?.leave()
+        }
+        self.discoveredPeripherals[deviceIndex].device.readValue(for: complieDataChar)
+        
+        //status
+        guard let statusDataChar = dataService.characteristics[.status]?.characteristic else{
+            DispatchQueue.main.async {
+                completion(charData, headsetSerialNumber)
+            }
+            return
+        }
+        
+        self.allCharDataDispatchGroup?.enter()
+        self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.status]?.onRead = { [weak self] data in
+            self?.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.status]?.onRead = nil
+            print("Status Data: \(data.hexString)")
+            charData += " CHAR4: \(data.hexString)"
+            self?.allCharDataDispatchGroup?.leave()
+        }
+        self.discoveredPeripherals[deviceIndex].device.readValue(for: statusDataChar)
+        
+        //BT Name
+        guard let statusDataChar = dataService.characteristics[.btName]?.characteristic else{
+            DispatchQueue.main.async {
+                completion(charData, headsetSerialNumber)
+            }
+            return
+        }
+        
+        self.allCharDataDispatchGroup?.enter()
+        self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.btName]?.onRead = { [weak self] data in
+            self?.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.btName]?.onRead = nil
+            print("BTName Data: \(data.hexString)")
+            charData += " CHAR5: \(data.hexString)"
+            self?.allCharDataDispatchGroup?.leave()
+        }
+        self.discoveredPeripherals[deviceIndex].device.readValue(for: statusDataChar)
+        
+        
+        self.allCharDataDispatchGroup?.notify(queue: .main){
+            DispatchQueue.main.async {
+                completion(charData, headsetSerialNumber)
+            }
+        }
+    }
+    
+    
+    func readZygo2TranmistterSerialNumber(completion: @escaping (String) -> Void){
+        
+        allCharDataDispatchGroup = DispatchGroup()
+        
+        guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == currentSelectedDeviceIdentifier.uuidString }) else{
+            DispatchQueue.main.async {
+                completion("")
+            }
+            return
+        }
+        
+        guard let dataService = self.discoveredPeripherals[deviceIndex].services[.data] else{
+            return
+        }
+        
+        
+        var charData: String = ""
+        
+        //hardwareData
+        guard let hardwareDataChar = dataService.characteristics[.hardwareData]?.characteristic else{
+            DispatchQueue.main.async {
+                completion(charData)
+            }
+            return
+        }
+        self.allCharDataDispatchGroup?.enter()
+        self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.hardwareData]?.onRead = { data in
+            self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.hardwareData]?.onRead = nil
+            print("Harware Data: \(data.hexString)")
+
+            //For z2 it's transmitter serial number
+            let transmitterSerialNumber = data[10...13].hexString
+            print("Zygo 2 transmitterSerial Number: \(transmitterSerialNumber)")
+            charData = "\(transmitterSerialNumber)"
+            self.allCharDataDispatchGroup?.leave()
+        }
+        self.discoveredPeripherals[deviceIndex].device.readValue(for: hardwareDataChar)
+        
+        //diagnosticData
+        guard let diagnosticDataChar = dataService.characteristics[.diagnosticData]?.characteristic else{
+            DispatchQueue.main.async {
+                completion(charData)
+            }
+            return
+        }
+        self.allCharDataDispatchGroup?.enter()
+        self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.diagnosticData]?.onRead = { data in
+            self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.diagnosticData]?.onRead = nil
+            print("Diagnostic Data: \(data.hexString)")
+            //For z2 it's transmitter serial number
+            let transmitterSerialNumber = data[0...3].hexString
+            print("Zygo 2 transmitterSerial Number: \(transmitterSerialNumber)")
+            charData += "\(transmitterSerialNumber)"
+            self.allCharDataDispatchGroup?.leave()
+        }
+        self.discoveredPeripherals[deviceIndex].device.readValue(for: diagnosticDataChar)
+        
+        self.allCharDataDispatchGroup?.notify(queue: .main){
+            DispatchQueue.main.async {
+                PreferenceManager.shared.transmitterSerialNumber = charData
+                completion(charData)
+            }
+        }
+    }
+    
     func readHardwareInfo(completion: @escaping (BLEDeviceInfoDTO) -> Void){
         
         guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == currentSelectedDeviceIdentifier.uuidString }) else{
@@ -249,7 +452,7 @@ final class BluetoothManager: NSObject {
         self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.hardwareData]?.onRead = { data in
             
             self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.hardwareData]?.onRead = nil
-            print("Device Info Data")
+            //print("Device Info Data")
             if data.count < 1{
                 DispatchQueue.main.async {
                     completion(BLEDeviceInfoDTO([:]))
@@ -257,14 +460,58 @@ final class BluetoothManager: NSObject {
                 return
             }
             
+            print("Hardware Data: \(data.hexString)")
+            
             let radioBattery = data[0]
             let headsetBattery = data[1]
-            let headsetVersion = data[2...5].to(type: UInt16.self) ?? 0
-            let radioSTVersion = data[6...9].to(type: UInt16.self) ?? 0
-            let radioSLVersion = data[10...13].to(type: UInt16.self) ?? 0
-            let ESPVersion = data[14...17].to(type: UInt16.self) ?? 0
             
-            let versionItem = BLEVersionInfoDTO(headsetVersion: "\(headsetVersion)", radioSTVersion: "\(radioSTVersion)", radioSLVersion: "\(radioSLVersion)", ESPVersion: "\(ESPVersion)")
+            let headsetVersion = data[2...5].to(type: UInt16.self) ?? 0
+            let headsetRevNum = data[4...5].to(type: UInt16.self) ?? 0
+            
+            let radioSTVersion = data[6...9].to(type: UInt16.self) ?? 0
+            let radioSTRevNum = data[8...9].to(type: UInt16.self) ?? 0
+            
+            //For z2 it's transmitter serial number
+            let radioSLVersion = data[10...13].to(type: UInt16.self) ?? 0
+            
+            let ESPVersion = data[14...17].to(type: UInt16.self) ?? 0
+            let ESPVersionRevNum = data[16...17].to(type: UInt16.self) ?? 0
+            
+            print("headsetRevNum: \(headsetRevNum)")
+            print("radioSTRevNum: \(radioSTRevNum)")
+            print("ESPVersionRevNum: \(ESPVersionRevNum)")
+             
+            var totalRevNumber: UInt16 = 0
+            var totalRevNumberCount: UInt16 = 0
+            if headsetVersion > 0{
+                totalRevNumber += headsetRevNum
+                totalRevNumberCount += 1
+            }
+            
+            if radioSTRevNum > 0{
+                totalRevNumber += radioSTRevNum
+                totalRevNumberCount += 1
+            }
+            
+            if ESPVersionRevNum > 0{
+                totalRevNumber += ESPVersionRevNum
+                totalRevNumberCount += 1
+            }
+            
+            
+            let revNum = ceil(Double(totalRevNumber)/Double(totalRevNumberCount))
+            var deviceVersion: ZygoDeviceVersion = .v1
+            if revNum >= 2{
+                deviceVersion = .v2
+            }
+            
+            
+            var versionItem = BLEVersionInfoDTO(headsetVersion: "\(headsetVersion)", radioSTVersion: "\(radioSTVersion)", radioSLVersion: "\(radioSLVersion)", ESPVersion: "\(ESPVersion)", zygoDeviceVersion: deviceVersion)
+            
+            if deviceVersion == .v2{
+                versionItem.radioSLVersion = "\(radioSTVersion)"
+                versionItem.radioSTVersion = "0"
+            }
             
             let previourInfo = PreferenceManager.shared.deviceInfo
             
@@ -292,6 +539,7 @@ final class BluetoothManager: NSObject {
             }
             
             if !versionItem.isVersionZero(){
+                bleInfo.radioUpdateAt = Date()
                 PreferenceManager.shared.deviceInfo = bleInfo
             }
             
@@ -306,6 +554,135 @@ final class BluetoothManager: NSObject {
         
         self.discoveredPeripherals[deviceIndex].device.readValue(for: charItem)
         
+    }
+    
+    func readInternalHardwareInfo(completion: @escaping (BLEDeviceInfoDTO) -> Void){
+        
+        guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == currentSelectedDeviceIdentifier.uuidString }) else{
+            DispatchQueue.main.async {
+                completion(BLEDeviceInfoDTO([:]))
+            }
+            return
+        }
+        
+        guard let charItem = self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.hardwareData]?.characteristic else{
+            DispatchQueue.main.async {
+                completion(BLEDeviceInfoDTO([:]))
+            }
+            return
+        }
+        
+        self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.hardwareData]?.onRead = { data in
+            
+            self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.hardwareData]?.onRead = nil
+            //print("Device Info Data")
+            if data.count < 1{
+                DispatchQueue.main.async {
+                    completion(BLEDeviceInfoDTO([:]))
+                }
+                return
+            }
+            
+            self.updateHardwareData(data: data, completion: completion)
+        }
+        
+        self.discoveredPeripherals[deviceIndex].device.readValue(for: charItem)
+        
+    }
+    
+    private func updateHardwareData(data: Data, completion: @escaping (BLEDeviceInfoDTO) -> Void){
+        
+        guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == currentSelectedDeviceIdentifier.uuidString }) else{
+            DispatchQueue.main.async {
+                completion(BLEDeviceInfoDTO([:]))
+            }
+            return
+        }
+        
+        let radioBattery = data[0]
+        let headsetBattery = data[1]
+        
+        let headsetVersion = data[2...5].to(type: UInt16.self) ?? 0
+        let headsetRevNum = data[4...5].to(type: UInt16.self) ?? 0
+        
+        let radioSTVersion = data[6...9].to(type: UInt16.self) ?? 0
+        let radioSTRevNum = data[8...9].to(type: UInt16.self) ?? 0
+        
+        //For z2 it's transmitter serial number
+        let radioSLVersion = data[10...13].to(type: UInt16.self) ?? 0
+        
+        let ESPVersion = data[14...17].to(type: UInt16.self) ?? 0
+        let ESPVersionRevNum = data[16...17].to(type: UInt16.self) ?? 0
+         
+        var totalRevNumber: UInt16 = 0
+        var totalRevNumberCount: UInt16 = 0
+        if headsetVersion > 0{
+            totalRevNumber += headsetRevNum
+            totalRevNumberCount += 1
+        }
+        
+        if radioSTRevNum > 0{
+            totalRevNumber += radioSTRevNum
+            totalRevNumberCount += 1
+        }
+        
+        if ESPVersionRevNum > 0{
+            totalRevNumber += ESPVersionRevNum
+            totalRevNumberCount += 1
+        }
+        
+        
+        let revNum = ceil(Double(totalRevNumber)/Double(totalRevNumberCount))
+        var deviceVersion: ZygoDeviceVersion = .v1
+        if revNum >= 2{
+            deviceVersion = .v2
+        }
+        
+        
+        var versionItem = BLEVersionInfoDTO(headsetVersion: "\(headsetVersion)", radioSTVersion: "\(radioSTVersion)", radioSLVersion: "\(radioSLVersion)", ESPVersion: "\(ESPVersion)", zygoDeviceVersion: deviceVersion)
+        
+        if deviceVersion == .v2{
+            versionItem.radioSLVersion = "\(radioSTVersion)"
+            versionItem.radioSTVersion = "0"
+        }
+        
+        let previourInfo = PreferenceManager.shared.deviceInfo
+        
+        var bleInfo = BLEDeviceInfoDTO([:])
+        bleInfo.radioUpdateAt = Date()
+        bleInfo.versionInfo = versionItem
+        if radioBattery > 100{
+            bleInfo.radioBatteryLevel = Int8(100)
+        }else{
+            bleInfo.radioBatteryLevel = Int8(radioBattery)
+        }
+        
+        bleInfo.deviceIdentifier = self.discoveredPeripherals[deviceIndex].device.identifier.uuidString
+        
+        if headsetVersion != 0{
+            bleInfo.headsetUpdateAt = Date()
+            if headsetBattery > 100{
+                bleInfo.headsetBatteryLevel = Int8(100)
+            }else{
+                bleInfo.headsetBatteryLevel = Int8(headsetBattery)
+            }
+        }else{
+            bleInfo.headsetUpdateAt = previourInfo.headsetUpdateAt
+            bleInfo.headsetBatteryLevel = previourInfo.headsetBatteryLevel
+        }
+        
+        if !versionItem.isVersionZero(){
+            bleInfo.radioUpdateAt = Date()
+            PreferenceManager.shared.deviceInfo = bleInfo
+        }
+        
+        print("Headset Version: \(headsetVersion)")
+        print("Radio ST Version: \(radioSTVersion)")
+        print("Radio SL Version: \(radioSLVersion)")
+        print("ESP Version: \(ESPVersion)")
+        DispatchQueue.main.async {
+            completion(bleInfo)
+        }
     }
     
     func readLapData(completion: @escaping (BLELapInfoDTO?) -> Void){
@@ -327,22 +704,35 @@ final class BluetoothManager: NSObject {
                 return
             }
             
-            
             let numberOfLaps = data[0...1].to(type: UInt16.self) ?? 0
-            let totalTime = data[2...5].to(type: UInt16.self) ?? 0
+            let totalTime = data[2...5].to(type: UInt32.self) ?? 0
             let startStopStatus = Int8(data[6])
             let oldNewStatus = Int8(data[7])
-            let serialNumber = data[8...15].to(type: UInt16.self) ?? 0
-            let lastReadTime = data[16...19].to(type: UInt16.self) ?? 0
+            let serialNumber = data[8...15].hexString
+            let lastReadTime = data[16...19].to(type: UInt32.self) ?? 0
+            
+            //Calculate Accurate lap Time if last lap is missed:
+            var recordedTime: UInt32 = 0
+            //if startStopStatus == 1{
+            //As per new zygo version 2 we don't need to add ending lap cout. It's already counted by new device
+            /*if numberOfLaps > 0{
+                let timeInSeconds = totalTime/100
+                recordedTime = timeInSeconds + (timeInSeconds/UInt32(numberOfLaps))
+                numberOfLaps += 1
+                // }
+            }else{*/
+            recordedTime = totalTime/100
+            //}
+            
             
             var lapInfo = BLELapInfoDTO([:])
             lapInfo.numberOfLaps = numberOfLaps
-            lapInfo.totalTime = totalTime
+            lapInfo.totalTime = recordedTime
             lapInfo.startStopStatus = startStopStatus
             lapInfo.oldNewStatus = oldNewStatus
             lapInfo.serialNumber = serialNumber
             lapInfo.lastReadTime = lastReadTime
-            
+            print("Number Of laps in read lap data: \(numberOfLaps)")
             PreferenceManager.shared.lapInfo = lapInfo
             DispatchQueue.main.async {
                 completion(lapInfo)
@@ -363,25 +753,412 @@ final class BluetoothManager: NSObject {
         
     }
     
-    func readDeviceStatus(){
+    func readDiagnosticData(completion: @escaping (String?) -> Void){
         
         guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == currentSelectedDeviceIdentifier.uuidString }) else{
+            completion(nil)
+            return
+        }
+        
+        guard let charItem = self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.diagnosticData]?.characteristic else{
+            completion(nil)
+            return
+        }
+        
+        self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.diagnosticData]?.onRead = { data in
+            print("Diagnostic Data \(data.hexString)")
+            if data.count < 1{
+                completion(nil)
+                return
+            }
+            DispatchQueue.main.async {
+                completion(data.hexString)
+            }
+            
+        }
+        
+        self.discoveredPeripherals[deviceIndex].device.readValue(for: charItem)
+        
+    }
+    
+    func readDeviceStatus(onRead: ((String) -> Void)? = nil){
+        
+        guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == currentSelectedDeviceIdentifier.uuidString }) else{
+            onRead?("")
             return
         }
         
         guard let charItem = self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.status]?.characteristic else{
+            onRead?("")
             return
         }
         
         self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.status]?.onRead = { data in
             print("Device Status Data: \(data.hexString)")
-            if data.count < 1{
+            if data.count < 3{
+                onRead?("")
                 return
             }
+            
+            let errorCode = data[0...2].hexString
+            var fullErrorCode: String = ""
+            for index in 0..<errorCode.count{
+                let range = NSRange(location: index, length: 1)
+                let erCode = (errorCode as NSString).substring(with: range)
+                fullErrorCode += "\(erCode)"
+                if index % 2 != 0{
+                    fullErrorCode += " "
+                }
+            }
+            onRead?(fullErrorCode)
         }
         
         self.discoveredPeripherals[deviceIndex].device.readValue(for: charItem)
         
+    }
+    
+    func readCommunicationMode(onRead: ((String) -> Void)? = nil){
+        
+        guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == currentSelectedDeviceIdentifier.uuidString }) else{
+            onRead?("")
+            return
+        }
+        
+        guard let charItem = self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.status]?.characteristic else{
+            onRead?("")
+            return
+        }
+        
+        self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.status]?.onRead = { data in
+            print("Device Communication Mode: \(data.hexString)")
+            if data.count < 4{
+                onRead?("")
+                return
+            }
+            
+            let communicationMode = data[3...3].hexString
+            onRead?(communicationMode)
+        }
+        
+        self.discoveredPeripherals[deviceIndex].device.readValue(for: charItem)
+        
+    }
+    
+    func readBTName(onRead: ((String) -> Void)? = nil){
+        
+        guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == currentSelectedDeviceIdentifier.uuidString }) else{
+            onRead?("")
+            return
+        }
+        
+        guard let charItem = self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.btName]?.characteristic else{
+            onRead?("")
+            return
+        }
+        
+        self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.btName]?.onRead = { data in
+            print("BTName Hex: \(data.hexString)")
+            if data.count < 4{
+                onRead?("")
+                return
+            }
+            
+            onRead?(self.hexStringtoAscii(hexString: data.hexString))
+        }
+        
+        self.discoveredPeripherals[deviceIndex].device.readValue(for: charItem)
+        
+    }
+    
+    func updateBTName(name: String, onUpdate: ((Bool) -> Void)? = nil){
+        
+        guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == currentSelectedDeviceIdentifier.uuidString }) else{
+            onUpdate?(false)
+            return
+        }
+        
+        guard let charItem = self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.btName]?.characteristic else{
+            onUpdate?(false)
+            return
+        }
+        
+        self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.btName]?.onWrite = {
+            onUpdate?(true)
+        }
+        
+        let dataToWrite = name.data(using: .utf8)!//Data(from: name.asciiValues)
+        self.discoveredPeripherals[deviceIndex].device.writeValue(dataToWrite, for: charItem, type: .withResponse)
+        
+    }
+    
+    func hexStringtoAscii(hexString : String) -> String {
+
+        let pattern = "(0x)?([0-9a-f]{2})"
+        let regex = try! NSRegularExpression(pattern: pattern, options: .caseInsensitive)
+        let nsString = hexString as NSString
+        let matches = regex.matches(in: hexString, options: [], range: NSMakeRange(0, nsString.length))
+        let characters = matches.map {
+            Character(UnicodeScalar(UInt32(nsString.substring(with: $0.range(at: 2)), radix: 16)!)!)
+        }
+        return String(characters)
+    }
+    
+    func disableHardwareDataNotification(){
+        //Check If any Zygo device is connnected or not
+        guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == currentSelectedDeviceIdentifier.uuidString }) else{
+            //Device Not Connted
+            print("No Zygo Device connected")
+            return
+        }
+        
+        let btDevice = self.discoveredPeripherals[deviceIndex]
+        
+        guard let controlChar = btDevice.services[.data]?.characteristics[.hardwareData]?.characteristic else{
+            print("No Control Characteristic Found")
+            return
+        }
+        
+        btDevice.device.setNotifyValue(false, for: controlChar)
+    }
+    
+    func enableHardwareDataNotification(completion: @escaping (BLEDeviceInfoDTO) -> Void){
+        
+        //Check If any Zygo device is connnected or not
+        guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == currentSelectedDeviceIdentifier.uuidString }) else{
+            //Device Not Connted
+            print("No Zygo Device connected")
+            return
+        }
+        
+        let btDevice = self.discoveredPeripherals[deviceIndex]
+        
+        guard let controlChar = btDevice.services[.data]?.characteristics[.hardwareData]?.characteristic else{
+            print("No Control Characteristic Found")
+            return
+        }
+        
+        self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.hardwareData]?.onRead = { data in
+            
+            //print("Device Info Data")
+            if data.count < 1{
+                DispatchQueue.main.async {
+                    completion(BLEDeviceInfoDTO([:]))
+                }
+                return
+            }
+            
+            let radioBattery = data[0]
+            let headsetBattery = data[1]
+            let headsetVersion = data[2...5].to(type: UInt16.self) ?? 0
+            let headsetRevNum = data[4...5].to(type: UInt16.self) ?? 0
+            let radioSTVersion = data[6...9].to(type: UInt16.self) ?? 0
+            let radioSTRevNum = data[8...9].to(type: UInt16.self) ?? 0
+            let radioSLVersion = data[10...13].to(type: UInt16.self) ?? 0
+            let radioSLVersionRevNum = data[12...13].to(type: UInt16.self) ?? 0
+            let ESPVersion = data[14...17].to(type: UInt16.self) ?? 0
+            let ESPVersionRevNum = data[16...17].to(type: UInt16.self) ?? 0
+            
+            var totalRevNumber: UInt16 = 0
+            var totalRevNumberCount: UInt16 = 0
+            if headsetVersion > 0{
+                totalRevNumber += headsetRevNum
+                totalRevNumberCount += 1
+            }
+            
+            if radioSTRevNum > 0{
+                totalRevNumber += radioSTRevNum
+                totalRevNumberCount += 1
+            }
+            
+            if radioSLVersionRevNum > 0{
+                totalRevNumber += radioSLVersionRevNum
+                totalRevNumberCount += 1
+            }
+            
+            if ESPVersionRevNum > 0{
+                totalRevNumber += ESPVersionRevNum
+                totalRevNumberCount += 1
+            }
+            
+            let revNum = totalRevNumber/totalRevNumberCount
+            var deviceVersion: ZygoDeviceVersion = .v1
+            if revNum >= 2{
+                deviceVersion = .v2
+            }
+            
+            let versionItem = BLEVersionInfoDTO(headsetVersion: "\(headsetVersion)", radioSTVersion: "\(radioSTVersion)", radioSLVersion: "\(radioSLVersion)", ESPVersion: "\(ESPVersion)", zygoDeviceVersion: deviceVersion)
+            
+            let previourInfo = PreferenceManager.shared.deviceInfo
+            
+            var bleInfo = BLEDeviceInfoDTO([:])
+            bleInfo.radioUpdateAt = Date()
+            bleInfo.versionInfo = versionItem
+            if radioBattery > 100{
+                bleInfo.radioBatteryLevel = Int8(100)
+            }else{
+                bleInfo.radioBatteryLevel = Int8(radioBattery)
+            }
+            
+            bleInfo.deviceIdentifier = self.discoveredPeripherals[deviceIndex].device.identifier.uuidString
+            
+            if headsetVersion != 0{
+                bleInfo.headsetUpdateAt = Date()
+                if headsetBattery > 100{
+                    bleInfo.headsetBatteryLevel = Int8(100)
+                }else{
+                    bleInfo.headsetBatteryLevel = Int8(headsetBattery)
+                }
+            }else{
+                bleInfo.headsetUpdateAt = previourInfo.headsetUpdateAt
+                bleInfo.headsetBatteryLevel = previourInfo.headsetBatteryLevel
+            }
+            
+            if !versionItem.isVersionZero(){
+                bleInfo.radioUpdateAt = Date()
+                PreferenceManager.shared.deviceInfo = bleInfo
+            }
+            
+            /*print("Headset Version: \(headsetVersion)")
+            print("Radio ST Version: \(radioSTVersion)")
+            print("Radio SL Version: \(radioSLVersion)")
+            print("ESP Version: \(ESPVersion)")*/
+            DispatchQueue.main.async {
+                completion(bleInfo)
+            }
+        }
+        
+        btDevice.device.setNotifyValue(true, for: controlChar)
+    }
+    
+    func disableLapDataNotification(){
+        //Check If any Zygo device is connnected or not
+        guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == currentSelectedDeviceIdentifier.uuidString }) else{
+            //Device Not Connted
+            print("No Zygo Device connected")
+            return
+        }
+        
+        let btDevice = self.discoveredPeripherals[deviceIndex]
+        
+        guard let controlChar = btDevice.services[.data]?.characteristics[.lapData]?.characteristic else{
+            print("No Control Characteristic Found")
+            return
+        }
+        
+        btDevice.device.setNotifyValue(false, for: controlChar)
+    }
+    
+    func hexStringToData(_ hex: String) -> Data? {
+        var hexStr = hex
+        var data = Data()
+
+        // Ensure the hex string has an even number of characters
+        if hexStr.count % 2 != 0 {
+            return nil
+        }
+
+        while hexStr.count > 0 {
+            let subIndex = hexStr.index(hexStr.startIndex, offsetBy: 2)
+            let byteString = String(hexStr[..<subIndex])
+            hexStr = String(hexStr[subIndex...])
+
+            if let byte = UInt8(byteString, radix: 16) {
+                data.append(byte)
+            } else {
+                return nil // Invalid hex string
+            }
+        }
+
+        return data
+    }
+    
+    func enableLapDataNotification(completion: @escaping (BLELapInfoDTO?) -> Void){
+        
+        //Check If any Zygo device is connnected or not
+        guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == currentSelectedDeviceIdentifier.uuidString }) else{
+            //Device Not Connted
+            print("No Zygo Device connected")
+            return
+        }
+        
+        let btDevice = self.discoveredPeripherals[deviceIndex]
+        
+        guard let controlChar = btDevice.services[.data]?.characteristics[.lapData]?.characteristic else{
+            print("No Control Characteristic Found")
+            return
+        }
+        
+        self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.lapData]?.onRead = { data in
+            print("Device Lap Data \(data.hexString)")
+            if data.count < 1{
+                completion(nil)
+                return
+            }
+            
+            let numberOfLaps = data[0...1].to(type: UInt16.self) ?? 0
+            let totalTime = data[2...5].to(type: UInt32.self) ?? 0
+            let startStopStatus = Int8(data[6])
+            let oldNewStatus = Int8(data[7])
+            
+            let serialNumber = data[8...15].hexString
+            let lastReadTime = data[16...19].to(type: UInt32.self) ?? 0
+            
+            //Calculate Accurate lap Time if last lap is missed:
+            var recordedTime: UInt32 = 0
+            //if startStopStatus == 1{
+            //As per new zygo version 2 we don't need to add ending lap cout. It's already counted by new device
+                /*if numberOfLaps > 0{
+                    let timeInSeconds = totalTime/100
+                    recordedTime = timeInSeconds + (timeInSeconds/UInt32(numberOfLaps))
+                    numberOfLaps += 1
+               // }
+            }else{*/
+            recordedTime = totalTime/100
+            //}
+            
+            var lapInfo = BLELapInfoDTO([:])
+            lapInfo.numberOfLaps = numberOfLaps
+            lapInfo.totalTime = recordedTime
+            lapInfo.startStopStatus = startStopStatus
+            lapInfo.oldNewStatus = oldNewStatus
+            lapInfo.serialNumber = serialNumber
+            lapInfo.lastReadTime = lastReadTime
+            print("Number Of laps in notification: \(numberOfLaps)")
+            print("Last Read time: \(lastReadTime)")
+            if lastReadTime == 0 || lastReadTime == 20{
+                self.readInternalHardwareInfo { bleInfo in
+                    if !PreferenceManager.shared.deviceInfo.versionInfo.isVersionZero(){
+                        if PreferenceManager.shared.deviceInfo.versionInfo.headsetVersion != "0"{
+                            var deviceInfo = PreferenceManager.shared.deviceInfo
+                            deviceInfo.headsetUpdateAt = Date()
+                            deviceInfo.radioUpdateAt = Date()
+                            PreferenceManager.shared.deviceInfo = deviceInfo
+                        }
+                    }
+                    
+                    PreferenceManager.shared.lapInfo = lapInfo
+                    DispatchQueue.main.async {
+                        completion(lapInfo)
+                    }
+                }
+            }else{
+                if !PreferenceManager.shared.deviceInfo.versionInfo.isVersionZero(){
+                    if PreferenceManager.shared.deviceInfo.versionInfo.headsetVersion != "0"{
+                        var deviceInfo = PreferenceManager.shared.deviceInfo
+                        deviceInfo.headsetUpdateAt = Date()
+                        deviceInfo.radioUpdateAt = Date()
+                        PreferenceManager.shared.deviceInfo = deviceInfo
+                    }
+                }
+                
+                PreferenceManager.shared.lapInfo = lapInfo
+                DispatchQueue.main.async {
+                    completion(lapInfo)
+                }
+            }
+        }
+        
+        btDevice.device.setNotifyValue(true, for: controlChar)
     }
     
     //MARK: - DFU Process
@@ -393,7 +1170,7 @@ final class BluetoothManager: NSObject {
     
     func startTimeOutTimer(){
         self.stopScanning()
-        self.timeOutTimer = Timer(timeInterval: 5.0, repeats: false, block: { timerObj in
+        self.timeOutTimer = Timer(timeInterval: 20.0, repeats: false, block: { timerObj in
             self.onDFUStatusUpdate?(.TimeOutError)
         })
         RunLoop.main.add(self.timeOutTimer!, forMode: .common)
@@ -402,6 +1179,13 @@ final class BluetoothManager: NSObject {
     func stopTimerOutTimer(){
         self.timeOutTimer?.invalidate()
         self.timeOutTimer = nil
+    }
+    
+    
+    func resetDFUProcess(){
+        self.onDFUProgress = nil
+        self.onDFUStatusUpdate = nil
+        self.onDFUCompletion = nil
     }
     
     func startDFUProcess(firmwareURL: URL, target: TargetDeviceCode, progress: @escaping (Float) -> Void, statusUpdate: @escaping (DFUStatus) -> Void, completion: @escaping (Bool) -> Void){
@@ -435,13 +1219,23 @@ final class BluetoothManager: NSObject {
             
             self.stopTimerOutTimer()
             print("OTA Control Subscribe ACK: \(data)")
-            self.onDFUStatusUpdate?(.SubscribeDevice)
+            
             if data.count < 1{
-                self.onDFUStatusUpdate?(.FirmwareUpgradedFailed)
+                self.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics[.otaControl]?.onRead = nil
+                self.onDFUStatusUpdate?(.FailedToSubscribedRequest)
                 self.onDFUCompletion?(false)
                 return
             }
             
+            let bleStatus = data.to(type: UInt8.self) ?? 0
+            if bleStatus == 2{//Failed to subscribe request
+                self.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics[.otaControl]?.onRead = nil
+                self.onDFUStatusUpdate?(.FailedToSubscribedRequest)
+                self.onDFUCompletion?(false)
+                return
+            }
+            
+            self.onDFUStatusUpdate?(.SubscribeDevice)
             let fileSize = Helper.shared.sizeForLocalFilePath(filePath: self.firmwareURL)
             print("File Actual Size: \(fileSize)")
             
@@ -486,6 +1280,22 @@ final class BluetoothManager: NSObject {
         
         self.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics[.otaControl]?.onRead = { data in
             print("OTA Control Device Target ACK: \(data)")
+            
+            if data.count < 1{
+                self.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics[.otaControl]?.onRead = nil
+                self.onDFUStatusUpdate?(.FailedToSetDeviceId)
+                self.onDFUCompletion?(false)
+                return
+            }
+            
+            let bleStatus = data.to(type: UInt8.self) ?? 0
+            if bleStatus == 4{//Failed to Set Device ID
+                self.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics[.otaControl]?.onRead = nil
+                self.onDFUStatusUpdate?(.FailedToSetDeviceId)
+                self.onDFUCompletion?(false)
+                return
+            }
+            
             self.stopTimerOutTimer()
             self.onDFUStatusUpdate?(.SetTargetDevice)
             self.readDeviceStatus()
@@ -525,6 +1335,21 @@ final class BluetoothManager: NSObject {
         self.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics[.otaControl]?.onRead = { data in
             //self.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics[.otaControl]?.onRead = nil
             print("OTA Control Transfer Request Start ACK: \(data)")
+            if data.count < 1{
+                self.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics[.otaControl]?.onRead = nil
+                self.onDFUStatusUpdate?(.FailedToStartTransferRequest)
+                self.onDFUCompletion?(false)
+                return
+            }
+            
+            let bleStatus = data.to(type: UInt8.self) ?? 0
+            if bleStatus == 6{//Failed to Start Transfer Request
+                self.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics[.otaControl]?.onRead = nil
+                self.onDFUStatusUpdate?(.FailedToStartTransferRequest)
+                self.onDFUCompletion?(false)
+                return
+            }
+            
             self.onDFUStatusUpdate?(.TransferRequestStart)
             self.setMTUSize()
         }
@@ -615,7 +1440,7 @@ final class BluetoothManager: NSObject {
                     //Terminate the process. And show error message to restart the device and start process again.
                     self.sendTransferRequestComplete()
                     self.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics[.otaControl]?.onRead = nil
-                    self.onDFUStatusUpdate?(.TransferFileFailed)
+                    self.onDFUStatusUpdate?(.FailedToSendData)
                     return
                 }
                 
@@ -725,6 +1550,16 @@ final class BluetoothManager: NSObject {
         self.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics[.otaControl]?.onRead = { data in
             self.stopTimerOutTimer()
             //self.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics[.otaControl]?.onRead = nil
+            
+            let transferStatus = data.to(type: UInt8.self) ?? 0
+            print(transferStatus)
+            if transferStatus == 8{//Failed to transfer done
+                self.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics[.otaControl]?.onRead = nil
+                self.onDFUCompletion?(false)
+                self.onDFUStatusUpdate?(.FailedToTransferDone)
+                return
+            }
+            
             if self.tragatedDevice == .ESP{
                 //Here we should wait for device until 100% processing not completed
                 
@@ -759,9 +1594,9 @@ final class BluetoothManager: NSObject {
                 }else if transferCompleteStatus == 7{
                     self.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics[.otaControl]?.onRead = nil
                     
-                    if self.tragatedDevice == .SILABS_HEADSET{
+                    if self.tragatedDevice == .SILABS_HEADSET || self.tragatedDevice == .SILABS_Z2_HEADSET{
                         //Here Check Headset file Progress from radio to headset
-                        self.getHeadsetProgressStatus()
+                        self.checkHeadsetProgressStatusInternal()
                     }else{
                         self.onDFUStatusUpdate?(.FirmwareUpgraded)
                         self.onDFUCompletion?(true)
@@ -781,6 +1616,72 @@ final class BluetoothManager: NSObject {
         btDevice.device.writeValue(value, for: controlChar, type: .withResponse)
     }
     
+    func checkHeadsetProgressStatusInternal(){
+        self.checkHeadsetProgess { dfuStaus, progressStatus in
+            DispatchQueue.main.async {
+                print("DFU Status: \(dfuStaus)")
+                if dfuStaus == 9{
+                    print("Break Here")
+                }
+                    print("progressStatus Status: \(progressStatus)")
+                    if progressStatus == 0 && dfuStaus < 7{//In Progress
+                        self.onDFUStatusUpdate?(.HeadsetProgressStatus)
+                    }else if progressStatus == 1{//In Progress
+                        self.onDFUStatusUpdate?(.HeadsetProgressStatus)
+                     }else if progressStatus == 2{//Pass
+                        //Here we should wait for 10 seconds as per client suggested to get connected again.
+                         self.startReconnectAfterTenSeconds()
+                    }else if progressStatus == 4{//Fail
+                        self.onDFUStatusUpdate?(.FirmwareUpgradedFailed)
+                        self.onDFUCompletion?(false)
+                    }else if progressStatus == 5{//Time Out
+                        self.onDFUStatusUpdate?(.TimeOutError)
+                    }else{//Unknown
+                        self.onDFUStatusUpdate?(.FirmwareUpgraded)
+                        self.onDFUCompletion?(true)
+                    }
+            }
+            
+        }
+    }
+    
+    var headsetReconnectTimer: Timer?
+    func startReconnectAfterTenSeconds(){
+        self.stopReconnectAfterTenSeconds()
+        
+        self.headsetReconnectTimer = Timer(timeInterval: 10.0, repeats: false, block: { timerObj in
+            self.startReadLastSyncTimer()
+        })
+        
+        RunLoop.main.add(headsetReconnectTimer!, forMode: .common)
+    }
+    
+    func stopReconnectAfterTenSeconds(){
+        headsetReconnectTimer?.invalidate()
+        headsetReconnectTimer = nil
+    }
+    
+    var readLastSyncTimer: Timer?
+    func startReadLastSyncTimer(){
+        self.stopReadLastSyncTimer()
+        self.readLastSyncTimer = Timer(timeInterval: 1.0, repeats: true, block: { timerOBJ in
+            self.readLapData { lapInfo in
+                if lapInfo?.lastReadTime ?? 100 <= 30{
+                    self.stopReadLastSyncTimer()
+                    self.onDFUStatusUpdate?(.FirmwareUpgraded)
+                    self.onDFUCompletion?(true)
+                }
+            }
+        })
+        
+        RunLoop.main.add(self.readLastSyncTimer!, forMode: .common)
+    }
+    
+    func stopReadLastSyncTimer(){
+        readLastSyncTimer?.invalidate()
+        readLastSyncTimer = nil
+    }
+    
     func getHeadsetProgressStatus(){
         self.checkHeadsetProgess { dfuStaus, progressStatus in
             DispatchQueue.main.async {
@@ -789,10 +1690,13 @@ final class BluetoothManager: NSObject {
                     print("Break Here")
                 }
                 print("progressStatus Status: \(progressStatus)")
-                if progressStatus == 1{//In Progress
+                if progressStatus == 0 && dfuStaus < 7{//In Progress
+                    self.onDFUStatusUpdate?(.HeadsetProgressStatus)
+                }else if progressStatus == 1{//In Progress
+                    self.onDFUStatusUpdate?(.HeadsetProgressStatus)
                  }else if progressStatus == 2{//Pass
-                    self.onDFUStatusUpdate?(.FirmwareUpgraded)
-                    self.onDFUCompletion?(true)
+                     //Here we should wait for 10 seconds as per client suggested to get connected again.
+                      self.startReconnectAfterTenSeconds()
                 }else if progressStatus == 4{//Fail
                     self.onDFUStatusUpdate?(.FirmwareUpgradedFailed)
                     self.onDFUCompletion?(false)
@@ -837,9 +1741,45 @@ final class BluetoothManager: NSObject {
         }
         
         self.discoveredPeripherals[deviceIndex].device.readValue(for: charItem)
-        
     }
     
+    func setCommunicationNormal(completion: @escaping (Bool) -> Void){
+        
+        guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == currentSelectedDeviceIdentifier.uuidString }) else{
+            completion(false)
+            return
+        }
+        
+        guard let charItem = self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.status]?.characteristic else{
+            completion(false)
+            return
+        }
+        
+        if let value = "35CC4330".hexadecimal{
+            self.discoveredPeripherals[deviceIndex].device.writeValue(value, for: charItem, type: .withResponse)
+        }
+        
+        completion(true)
+    }
+    
+    func setCommunicationQuick(completion: @escaping (Bool) -> Void){
+        
+        guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == currentSelectedDeviceIdentifier.uuidString }) else{
+            completion(false)
+            return
+        }
+        
+        guard let charItem = self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[.status]?.characteristic else{
+            completion(false)
+            return
+        }
+        
+        if let value = "35CC4331".hexadecimal{
+            self.discoveredPeripherals[deviceIndex].device.writeValue(value, for: charItem, type: .withResponse)
+        }
+        
+        completion(true)
+    }
 }
 
 //MARK: - Central Manager Delegates
@@ -912,7 +1852,12 @@ extension BluetoothManager: CBCentralManagerDelegate{
             return
         }
         DispatchQueue.main.async { [weak self] in
+            print("Device disconnected.......")
+            self?.onDFUStatusUpdate?(.DeviceDisconnected)
+            //self?.onDFUCompletion?(false)
             self?.onDisconnect?(device)
+            self?.onDeviceDisconnect?()
+            //NotificationCenter.default.post(name: .didHideMenu, object: nil)
         }
     }
 }
@@ -969,7 +1914,7 @@ extension BluetoothManager: CBPeripheralDelegate{
             guard let strongSelf = self else{
                 return
             }
-            if strongSelf.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics.filter({ $0.value.characteristic != nil }).count ?? 0 == 2 && strongSelf.discoveredPeripherals[deviceIndex].services[.data]?.characteristics.filter({ $0.value.characteristic != nil }).count ?? 0 == 5{
+            if strongSelf.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics.filter({ $0.value.characteristic != nil }).count ?? 0 == 2 && strongSelf.discoveredPeripherals[deviceIndex].services[.data]?.characteristics.filter({ $0.value.characteristic != nil }).count ?? 0 == 6{
                 self?.onCharacteristics?(strongSelf.discoveredPeripherals[deviceIndex])
             }
         }
@@ -977,12 +1922,12 @@ extension BluetoothManager: CBPeripheralDelegate{
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         
-        print("Received Data for Char: \(characteristic.uuid.uuidString)")
+        //print("Received Data for Char: \(characteristic.uuid.uuidString)")
         guard let valueData = characteristic.value else{
             return
         }
         
-        print("Received Data: \(valueData.hexString)")
+        //print("Received Data: \(valueData.hexString)")
         
         guard let deviceIndex = self.discoveredPeripherals.firstIndex(where: { $0.device.identifier.uuidString == peripheral.identifier.uuidString }) else{
             return
@@ -1004,6 +1949,7 @@ extension BluetoothManager: CBPeripheralDelegate{
         
         if let charItem = ZygoCharacteristic(rawValue: characteristic.uuid.uuidString){
             self.discoveredPeripherals[deviceIndex].services[.OTA]?.characteristics[charItem]?.onWrite?()
+            self.discoveredPeripherals[deviceIndex].services[.data]?.characteristics[charItem]?.onWrite?()
         }
     }
     
@@ -1025,6 +1971,8 @@ enum TargetDeviceCode: UInt8{
     case ST = 19
     case SILABS_RADIO = 20
     case SILABS_HEADSET = 21
+    case SILABS_Z2_RADIO = 22
+    case SILABS_Z2_HEADSET = 23
 }
 
 enum TransferRequestStatus: UInt8{
@@ -1044,6 +1992,17 @@ enum DFUStatus{
     case FirmwareUpgradedFailed
     case HeadsetProgressStatus
     case TimeOutError
+    case DeviceDisconnected
+    case FailedToSubscribedRequest
+    case FailedToSetDeviceId
+    case FailedToStartTransferRequest
+    case FailedToSendData
+    case FailedToTransferDone
+}
+
+enum ZygoDeviceVersion: String{
+    case v1
+    case v2
 }
 
 struct BLEVersionInfoDTO{
@@ -1051,12 +2010,14 @@ struct BLEVersionInfoDTO{
     var radioSTVersion: String = ""
     var radioSLVersion: String = ""
     var ESPVersion: String = ""
+    var zygoDeviceVersion: ZygoDeviceVersion = .v2
     
-    init(headsetVersion: String, radioSTVersion: String, radioSLVersion: String, ESPVersion: String) {
+    init(headsetVersion: String, radioSTVersion: String, radioSLVersion: String, ESPVersion: String, zygoDeviceVersion: ZygoDeviceVersion) {
         self.headsetVersion = headsetVersion
         self.radioSTVersion = radioSTVersion
         self.radioSLVersion = radioSLVersion
         self.ESPVersion = ESPVersion
+        self.zygoDeviceVersion = zygoDeviceVersion
     }
     
     init(_ dict: [String: Any]) {
@@ -1064,6 +2025,9 @@ struct BLEVersionInfoDTO{
         self.radioSTVersion = dict["radioSTVersion"] as? String ?? ""
         self.radioSLVersion = dict["radioSLVersion"] as? String ?? ""
         self.ESPVersion = dict["ESPVersion"] as? String ?? ""
+        if let deviceVersion = dict["zygoDeviceVersion"] as? String{
+            self.zygoDeviceVersion = ZygoDeviceVersion(rawValue: deviceVersion) ?? .v2
+        }
     }
     
     func toDict() -> [String: Any]{
@@ -1071,11 +2035,13 @@ struct BLEVersionInfoDTO{
             "headsetVersion": self.headsetVersion,
             "radioSTVersion": self.radioSTVersion,
             "radioSLVersion": self.radioSLVersion,
-            "ESPVersion": self.ESPVersion
+            "ESPVersion": self.ESPVersion,
+            "zygoDeviceVersion": self.zygoDeviceVersion.rawValue
         ]
     }
     
     func isVersionZero() -> Bool{
+        //(radioSTVersion == "0" || radioSTVersion == "") && (radioSLVersion == "0" || radioSLVersion == "") && (headsetVersion == "0" || headsetVersion == "") && (ESPVersion == "0" || ESPVersion == "")
         if radioSTVersion == "0" && radioSLVersion == "0" && headsetVersion == "0" && ESPVersion == "0"{
             return true
         }else{
@@ -1128,22 +2094,22 @@ struct BLEDeviceInfoDTO{
 struct BLELapInfoDTO{
     
     var numberOfLaps: UInt16 = 0
-    var totalTime: UInt16 = 0
+    var totalTime: UInt32 = 0
     var startStopStatus: Int8 = 0
     var oldNewStatus: Int8 = 0
-    var serialNumber: UInt16 = 0
-    var lastReadTime: UInt16 = 0
+    var serialNumber: String = ""
+    var lastReadTime: UInt32 = 0
     
     init(_ dict: [String: Any]) {
         self.numberOfLaps = dict["numberOfLaps"] as? UInt16 ?? 0
-        self.totalTime = dict["totalTime"] as? UInt16 ?? 0
+        self.totalTime = dict["totalTime"] as? UInt32 ?? 0
         self.startStopStatus = dict["startStopStatus"] as? Int8 ?? 0
         self.oldNewStatus = dict["oldNewStatus"] as? Int8 ?? 0
-        self.serialNumber = dict["serialNumber"] as? UInt16 ?? 0
-        self.lastReadTime = dict["lastReadTime"] as? UInt16 ?? 0
+        self.serialNumber = dict["serialNumber"] as? String ?? ""
+        self.lastReadTime = dict["lastReadTime"] as? UInt32 ?? 0
     }
     
-    func getTotalNumberOfLaps() -> UInt16{
+    /*func getTotalNumberOfLaps() -> UInt16{
         
         var numberOfLaps = self.numberOfLaps
         if numberOfLaps <= 0{
@@ -1162,7 +2128,7 @@ struct BLELapInfoDTO{
         
         return numberOfLaps
         
-    }
+    }*/
     
     func toDict() -> [String: Any]{
         return [
@@ -1175,4 +2141,8 @@ struct BLELapInfoDTO{
         ]
     }
     
+}
+
+extension StringProtocol {
+    var asciiValues: [UInt8] { compactMap(\.asciiValue) }
 }

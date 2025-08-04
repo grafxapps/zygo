@@ -22,12 +22,14 @@ final class PreferenceManager: NSObject {
     func clear(completion: @escaping () -> Void){
         
         let deviceToken = PreferenceManager.shared.deviceToken
+        let isBLEEnabledDevice = PreferenceManager.shared.isBLEEnabledDevice
         guard let domain = Bundle.main.bundleIdentifier else{
             completion()
             return
         }
         UserDefaults.standard.removePersistentDomain(forName: domain)
         PreferenceManager.shared.deviceToken = deviceToken
+        PreferenceManager.shared.isBLEEnabledDevice = isBLEEnabledDevice
         completion()
     }
     
@@ -278,11 +280,35 @@ final class PreferenceManager: NSObject {
         }
     }
     
+    var transmitterSerialNumber: String{
+        set{
+            defaults.set(newValue, forKey: PreferenceKey.TransmitterSerialNumber.rawValue)
+        }get{
+            return defaults.value(forKey: PreferenceKey.TransmitterSerialNumber.rawValue) as? String ?? ""
+        }
+    }
+    
     var firmwareLaterDate: Date?{
         set{
             defaults.set(newValue, forKey: PreferenceKey.BLEFirmwareUpdateLater.rawValue)
         }get{
             return defaults.value(forKey: PreferenceKey.BLEFirmwareUpdateLater.rawValue) as? Date
+        }
+    }
+    
+    var isBLEEnabledDevice : Bool {
+        set{
+            defaults.set(newValue, forKey: PreferenceKey.Is_BLE_Enabled_Device.rawValue)
+        }get{
+            return defaults.value(forKey: PreferenceKey.Is_BLE_Enabled_Device.rawValue) as? Bool ?? false
+        }
+    }
+    
+    var selectedTabBarIndexFromProfile : Int {
+        set{
+            defaults.set(newValue, forKey: PreferenceKey.SelectedTabBarIndex.rawValue)
+        }get{
+            return defaults.value(forKey: PreferenceKey.SelectedTabBarIndex.rawValue) as? Int ?? 0
         }
     }
 }
@@ -325,5 +351,10 @@ enum PreferenceKey : String{
     case BLEDeviceInfo = "Z_BLE_Device_Info"
     case BLELapInfo = "Z_BLE_Lap_Info"
     case BLEFirmwareUpdateLater = "Z_BLE_Firmware_Update_Later"
+    
+    case Is_BLE_Enabled_Device = "Z_BLE_Enabled_Device"
+    
+    case TransmitterSerialNumber = "Z_BLE_Transmitter_Serial_Number"
+    case SelectedTabBarIndex = "Z_Selected_Tab_Bar_Index"
     
 }

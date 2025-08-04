@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Bkgnd - Filter.png",
+      "filename" : "BB - Filter.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Bkgnd - Filter@2x.png",
+      "filename" : "BB - Filter@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Bkgnd - Filter@3x.png",
+      "filename" : "BB - Filter@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

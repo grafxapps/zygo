@@ -132,6 +132,10 @@ extension HistoryViewController : UITableViewDataSource, UITableViewDelegate{
             return
         }
         
+        if item.WId == -1{ //Metric Workout has no workout detail
+            return
+        }
+        
         let playerVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WorkoutDetailViewController") as! WorkoutDetailViewController
         var wItem = WorkoutDTO([:])
         wItem.workoutName = item.workoutName

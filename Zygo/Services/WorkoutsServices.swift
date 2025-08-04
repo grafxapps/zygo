@@ -168,7 +168,6 @@ final class WorkoutsServices: NSObject {
     func completeWorkout(wId: Int, timeInWater: Int, timeElapsed: Int, lat: Double, lng: Double, completion: @escaping (String?, [AchievementDTO], Int) -> Void){
         let header = NetworkManager.shared.getHeader()
         
-        //TODO: Remove Workout_Location
         var param: [String: Any] = [
             "workout_id": wId,
             "date_of_workout": DateHelper.shared.workoutCompletedDate,
@@ -209,7 +208,7 @@ final class WorkoutsServices: NSObject {
     }
     
     
-    func workoutFeedback(wId: Int, thumbStatus: ThumbStatus, dificultyLevel: Int, workoutLogId: Int, poolLength: Int, poolLengthUnits: String, poolType: String, laps: Int, distance: Double, strokeValue: Int, city: String, completion: @escaping (String?) -> Void){
+    func workoutFeedback(wId: Int, thumbStatus: ThumbStatus, dificultyLevel: Int, workoutLogId: Int, poolLength: Int, poolLengthUnits: String, poolType: String, laps: Int, distance: Double, strokeValue: Int, city: String, timeElapsed: Int, whyBreak: Bool = false, whyEndless: Bool = false, whyNoSync: Bool = false, whyDontKnow: Bool = false, lapData: BLELapInfoDTO?, batteryData: BLEDeviceInfoDTO?, completion: @escaping (String?) -> Void){
         let header = NetworkManager.shared.getHeader()
         
         var param: [String: Any] = [
@@ -249,8 +248,56 @@ final class WorkoutsServices: NSObject {
             param["stroke_value"] = strokeValue
         }
         
+        if let rawLaps = lapData?.numberOfLaps{
+            param["laps_headset_raw"] = rawLaps
+        }
+        
+        if let value = lapData?.startStopStatus{
+            param["headset_start_stop"] = value
+        }
+        
+        if let value = lapData?.numberOfLaps{
+            param["laps_headset_calc"] = value
+        }
+        
+        if let value = lapData?.totalTime{
+            param["time_elapsed_headset"] = value
+        }
+        
+        param["time_elapsed_workout"] = timeElapsed
+        
+        if let value = lapData?.serialNumber{
+            let deviceInfo = PreferenceManager.shared.deviceInfo
+            if deviceInfo.versionInfo.zygoDeviceVersion == .v2{
+                let transmitter = PreferenceManager.shared.transmitterSerialNumber
+                param["headset_sn"] = "\(value)/\(transmitter)"
+            }else{
+                param["headset_sn"] = value
+            }
+        }
+
+        if let value = lapData?.lastReadTime{
+            param["hseconds"] = value
+        }
+
+        
+        if let value = batteryData?.radioBatteryLevel{
+            param["battery_radio"] = value
+        }
+        
+        if let value = batteryData?.headsetBatteryLevel{
+            param["battery_headset"] = value
+        }
+            
+        param["why_wrong_break"] = NSNumber(value: whyBreak)
+        param["why_wrong_endless"] = NSNumber(value: whyEndless)
+        param["why_wrong_no_sync"] = NSNumber(value: whyNoSync)
+        param["why_wrong_dont_know"] = NSNumber(value: whyDontKnow)
+        
         param["location_city"] = city
+        
         print("feedback params: \(param)")
+        
         NetworkManager.shared.request(withEndPoint: .workoutFeedback, method: .post, headers: header, params: param) { (response) in
             switch response{
             case .success( _):
@@ -263,6 +310,64 @@ final class WorkoutsServices: NSObject {
         }
     }
     
+    func BLEPairingData(userId: Int, lapData: BLELapInfoDTO?, batteryData: BLEDeviceInfoDTO?, completion: @escaping (String?) -> Void){
+        let header = NetworkManager.shared.getHeader()
+        
+        var param: [String: Any] = [
+            "user_id": userId
+        ]
+        
+        if let rawLaps = lapData?.numberOfLaps{
+            param["laps_from_headset"] = rawLaps
+        }
+        
+        if let value = lapData?.startStopStatus{
+            param["headset_start_stop"] = value
+        }
+        
+        if let value = lapData?.totalTime{
+            param["time_elapsed_headset"] = value
+        }
+                
+        if let value = lapData?.serialNumber{
+            let deviceInfo = PreferenceManager.shared.deviceInfo
+            if deviceInfo.versionInfo.zygoDeviceVersion == .v2{
+                let transmitter = PreferenceManager.shared.transmitterSerialNumber
+                param["headset_sn"] = "\(value)/\(transmitter)"
+            }else{
+                param["headset_sn"] = value
+            }
+        }
+
+        if let value = lapData?.lastReadTime{
+            param["hseconds"] = value
+        }
+
+        if let value = batteryData?.radioBatteryLevel{
+            param["battery_radio"] = value
+        }
+        
+        if let value = batteryData?.headsetBatteryLevel{
+            param["battery_headset"] = value
+        }
+            
+        if let value = lapData?.lastReadTime{
+            param["timestamp"] = "\(Date().addingTimeInterval(-(Double(value))).timeIntervalSince1970)"
+        }
+        
+        print("feedback params: \(param)")
+        
+        NetworkManager.shared.request(withEndPoint: .blePairingData, method: .post, headers: header, params: param) { (response) in
+            switch response{
+            case .success( _):
+                completion(nil)
+            case .failure(_ , let message):
+                completion(message)
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking)
+            }
+        }
+    }
     
     func getInstructorsList(completion: @escaping (String?, [WorkoutInstructorDTO]) -> Void){
         let header = NetworkManager.shared.getHeader()
@@ -315,4 +420,24 @@ final class WorkoutsServices: NSObject {
         }
     }
     
+    func fetchLastCompletedWorkout(completion: @escaping (String?, LastSavedWorkout?) -> Void){
+        let header = NetworkManager.shared.getHeader()
+        NetworkManager.shared.request(withEndPoint: .lastCompletedWorkout, method: .get, headers: header) { (response) in
+            switch response{
+            case .success(let jsonresponse):
+                print(jsonresponse)
+                let dataDict = jsonresponse["data"] as? [String:Any] ?? [:]
+                let workoutLogDict = dataDict["workout_log"] as? [String:Any] ?? [:]
+                let startStop = workoutLogDict["headset_start_stop"] as? Int ?? 0
+                let headsetLapsRaw = workoutLogDict["laps_headset_raw"] as? Int ?? 0
+                let headsetElapsedTime = workoutLogDict["time_elapsed_headset"] as? Int ?? 0
+                let savedWorkout = LastSavedWorkout(startStop: startStop, headsetLapsRaw: headsetLapsRaw, headsetElapsedTime: headsetElapsedTime)
+                completion(nil, savedWorkout)
+            case .failure(_ , let message):
+                completion(message, nil)
+            case .notConnectedToInternet:
+                completion(Constants.internetNotWorking, nil)
+            }
+        }
+    }
 }

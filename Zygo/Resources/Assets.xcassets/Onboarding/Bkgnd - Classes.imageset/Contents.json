@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Bkgnd - Classes.png",
+      "filename" : "BB - Classes.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Bkgnd - Classes@2x.png",
+      "filename" : "BB - Classes@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Bkgnd - Classes@3x.png",
+      "filename" : "BB - Classes@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

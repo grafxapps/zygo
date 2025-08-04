@@ -10,7 +10,7 @@ import UIKit
 
 final class SideMenuViewModel: NSObject {
     
-    var arrMenu : [SideMenu] = [.settings, .instructors, .shopZygo, .aboutZygo, .help ,.privacyPolicy, .termsService, .walkieTalkie, .hallOfFame]
+    var arrMenu : [SideMenu] = [.settings, .firmwareUpdate, .walkieTalkie, .hallOfFame, .deviceSetup, .customerSupport, .instructors]
     
 }
 
@@ -18,10 +18,11 @@ enum SideMenu: String {
     case profile = "Profile"
     case tempoTrainer = "Tempo Trainer"
     case settings = "Settings"
+    case firmwareUpdate = "Firmware Updates"
     case instructors = "Instructors"
     case shopZygo = "Shop Zygo"
     case aboutZygo = "About Zygo"
-    case help = "Headset"
+    case deviceSetup = "Device Setup"
     case privacyPolicy = "Privacy Policy"
     case termsService = "Terms of Service"
     case demoSubscribe = "Demo Subscribe"

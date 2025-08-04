@@ -45,11 +45,11 @@ class MenuViewController: UIViewController {
         
         if Helper.shared.isDemoMode{
             self.viewModel.arrMenu.removeAll()
-            self.viewModel.arrMenu = [.settings, .instructors, .help, .customerSupport, .walkieTalkie, .hallOfFame, .demoSubscribe]
+            self.viewModel.arrMenu = [.settings, .firmwareUpdate, .walkieTalkie, .hallOfFame, .deviceSetup, .customerSupport, .instructors, .demoSubscribe]
             
         }else{
             self.viewModel.arrMenu.removeAll()
-            self.viewModel.arrMenu = [.settings, .instructors, .help, .customerSupport, .walkieTalkie, .hallOfFame]
+            self.viewModel.arrMenu = [.settings, .firmwareUpdate, .walkieTalkie, .hallOfFame, .deviceSetup, .customerSupport, .instructors]
         }
         
         self.tableView.reloadData()
@@ -102,7 +102,7 @@ class MenuViewController: UIViewController {
             Helper.shared.log(event: .ABOUTUS, params: [:])
             let url = URL(string: Constants.about)
             Helper.shared.openUrl(url: url)
-        case .help:
+        case .deviceSetup:
             let helpVC = self.storyboard?.instantiateViewController(withIdentifier: "HelpVC") as! HelpVC
             self.getCurrentNavigationController()?.pushViewController(helpVC, animated: true)
         case .privacyPolicy:
@@ -133,6 +133,9 @@ class MenuViewController: UIViewController {
         case .hallOfFame:
             let fameVC = self.storyboard?.instantiateViewController(withIdentifier: "HallOfFameVC") as! HallOfFameVC
             self.getCurrentNavigationController()?.pushViewController(fameVC, animated: true)
+        case .firmwareUpdate:
+            let preVC = self.storyboard?.instantiateViewController(withIdentifier: "PreFirmwareUpdateVC") as! PreFirmwareUpdateVC
+            self.navigationController?.pushViewController(preVC, animated: true)
         }
         
         //self.perform(#selector(self.hide), with: nil, afterDelay: 0.2)

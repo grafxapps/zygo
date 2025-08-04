@@ -170,7 +170,7 @@ class FirmwareUpdateVC: UIViewController {
                     case .TransferFileFailed:
                         self.statusValue += "Transfer failed\n"
                         
-                        let skipVC = SomethingWentWrongVC(nibName: "SomethingWentWrongVC", bundle: nil)
+                        let skipVC = SomethingWentWrongVC(nibName: "SomethingWentWrongVC", bundle: nil, additionalErrorMessage: "File Transfer Failed")
                         skipVC.transitioningDelegate = self
                         skipVC.modalPresentationStyle = .custom
                         skipVC.onPopupClose = { [weak self] isYes in
@@ -207,7 +207,7 @@ class FirmwareUpdateVC: UIViewController {
                                 self.backActionProcess()
                             }*/
                             
-                            let skipVC = SomethingWentWrongVC(nibName: "SomethingWentWrongVC", bundle: nil)
+                            let skipVC = SomethingWentWrongVC(nibName: "SomethingWentWrongVC", bundle: nil, additionalErrorMessage: "Firmware Upgraded Failed")
                             skipVC.transitioningDelegate = self
                             skipVC.modalPresentationStyle = .custom
                             skipVC.onPopupClose = { [weak self] isYes in
@@ -219,7 +219,7 @@ class FirmwareUpdateVC: UIViewController {
                         }
                     case .TimeOutError:
                         self.stopHeadsetStatusTimer()
-                        let skipVC = SomethingWentWrongVC(nibName: "SomethingWentWrongVC", bundle: nil)
+                        let skipVC = SomethingWentWrongVC(nibName: "SomethingWentWrongVC", bundle: nil, additionalErrorMessage: "NOR")
                         skipVC.transitioningDelegate = self
                         skipVC.modalPresentationStyle = .custom
                         skipVC.onPopupClose = { [weak self] isYes in
@@ -252,6 +252,78 @@ class FirmwareUpdateVC: UIViewController {
                             self.lblFirmwareProcess.text = " "
                         }
                         //self.perform(#selector(self.getStatus), with: nil, afterDelay: 2.0)
+                    case .DeviceDisconnected:
+                        self.stopHeadsetStatusTimer()
+                        //Wait for max 1 minutes and 30 seconds for device to get reconnect after DFU if still not able to connect with device then show disconnect popup
+                        self.isWaitingForDeviceReconnect = true
+                        self.startDeviceReconnectTimer()
+                        BLEConnectionManager.shared.startAutoConnectScanning {
+                            DispatchQueue.main.async {
+                                self.isWaitingForDeviceReconnect = false
+                                self.stopDeviceReconnectTimer()
+                                
+                                if self.isHeadsetProgress{
+                                    BluetoothManager.shared.startReadLastSyncTimer()
+                                }
+
+                            }
+                        }
+                        
+                    case .FailedToSubscribedRequest:
+                        let skipVC = SomethingWentWrongVC(nibName: "SomethingWentWrongVC", bundle: nil, additionalErrorMessage: "Failed To Subscribed Request")
+                        skipVC.transitioningDelegate = self
+                        skipVC.modalPresentationStyle = .custom
+                        skipVC.onPopupClose = { [weak self] isYes in
+                            if isYes{
+                                self?.backActionProcess()
+                            }
+                        }
+                        self.present(skipVC, animated: true)
+                        
+                    case .FailedToSetDeviceId:
+                        let skipVC = SomethingWentWrongVC(nibName: "SomethingWentWrongVC", bundle: nil, additionalErrorMessage: "Failed To Set Device Id")
+                        skipVC.transitioningDelegate = self
+                        skipVC.modalPresentationStyle = .custom
+                        skipVC.onPopupClose = { [weak self] isYes in
+                            if isYes{
+                                self?.backActionProcess()
+                            }
+                        }
+                        self.present(skipVC, animated: true)
+                        
+                    case .FailedToStartTransferRequest:
+                        let skipVC = SomethingWentWrongVC(nibName: "SomethingWentWrongVC", bundle: nil, additionalErrorMessage: "Failed To Start Transfer Request")
+                        skipVC.transitioningDelegate = self
+                        skipVC.modalPresentationStyle = .custom
+                        skipVC.onPopupClose = { [weak self] isYes in
+                            if isYes{
+                                self?.backActionProcess()
+                            }
+                        }
+                        self.present(skipVC, animated: true)
+                        
+                    case .FailedToSendData:
+                        let skipVC = SomethingWentWrongVC(nibName: "SomethingWentWrongVC", bundle: nil, additionalErrorMessage: "NAK")
+                        skipVC.transitioningDelegate = self
+                        skipVC.modalPresentationStyle = .custom
+                        skipVC.onPopupClose = { [weak self] isYes in
+                            if isYes{
+                                self?.backActionProcess()
+                            }
+                        }
+                        self.present(skipVC, animated: true)
+                        
+                    case .FailedToTransferDone:
+                        let skipVC = SomethingWentWrongVC(nibName: "SomethingWentWrongVC", bundle: nil, additionalErrorMessage: "Failed To Transfer Done")
+                        skipVC.transitioningDelegate = self
+                        skipVC.modalPresentationStyle = .custom
+                        skipVC.onPopupClose = { [weak self] isYes in
+                            if isYes{
+                                self?.backActionProcess()
+                            }
+                        }
+                        self.present(skipVC, animated: true)
+                        
                     }
                     
                     self.txtStatus.text = self.statusValue
@@ -261,21 +333,71 @@ class FirmwareUpdateVC: UIViewController {
             } completion: { isCompleted in
                 DispatchQueue.main.async {
                     self.stopHeadsetStatusTimer()
+                    self.isHeadsetProgress = false
                     if isCompleted{
                         print("File Upgraded Successfully.")
                         self.btnDone.isUserInteractionEnabled = true
                         
+                        let currentIndex = self.currentFirmwareIndex
                         self.currentFirmwareIndex += 1
                         if self.currentFirmwareIndex < self.arrFirmwares.count{
                             self.startProcess(self.arrFirmwares[self.currentFirmwareIndex])
                         }else{
+                            let targetDevice = firmware.targetDevice
+                            
                             self.currentFirmwareIndex = 0
                             //Push To Restart Device Screen.
                             if !self.isFirmwareDone{
                                 self.isFirmwareDone = true
-                                let successVC = self.storyboard?.instantiateViewController(withIdentifier: "FirmwareUpdateSuccessVC") as! FirmwareUpdateSuccessVC
-                                successVC.viewModel = self.preFirmwareViewModel
-                                self.navigationController?.pushViewController(successVC, animated: true)
+                                BluetoothManager.shared.resetDFUProcess()
+                                
+                                
+                                //Here read HS Rev for z2 only if not matched with updated one then show error message
+                                if PreferenceManager.shared.deviceInfo.versionInfo.zygoDeviceVersion == .v2{
+                                    
+                                    if targetDevice == .SILABS_Z2_HEADSET{
+                                        
+                                        if BluetoothManager.shared.isZygoDeviceConencted(){
+                                            BluetoothManager.shared.disconnectCurrentDevice()
+                                        }
+                                        Helper.shared.startLoading()
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0){
+                                            Helper.shared.stopLoading()
+                                            let vc  = StoryboardScene.HeadsetDFUUpdateVerifyVC.headsetDFUUpdateVerifyVC.instantiate()
+                                            vc.firwmareVersion = self.arrFirmwares[currentIndex].version
+                                            vc.onDFUUpdateFailed = {
+                                                //Show error message
+                                                let skipVC = SomethingWentWrongVC(nibName: "SomethingWentWrongVC", bundle: nil, additionalErrorMessage: "Failed To Write on Headset.")
+                                                skipVC.transitioningDelegate = self
+                                                skipVC.modalPresentationStyle = .custom
+                                                skipVC.onPopupClose = { [weak self] isYes in
+                                                    if isYes{
+                                                        self?.backActionProcess()
+                                                    }
+                                                }
+                                                self.present(skipVC, animated: true)
+                                            }
+                                            
+                                            vc.onDFUUpdateSucess = {
+                                                let successVC = self.storyboard?.instantiateViewController(withIdentifier: "FirmwareUpdateSuccessVC") as! FirmwareUpdateSuccessVC
+                                                successVC.updatedTargetDevice = .SILABS_Z2_HEADSET
+                                                successVC.viewModel = self.preFirmwareViewModel
+                                                self.navigationController?.pushViewController(successVC, animated: true)
+                                            }
+                                            vc.transitioningDelegate = self
+                                            vc.modalPresentationStyle = .custom
+                                            self.present(vc, animated: true)
+                                        }
+                                    }else{
+                                        let successVC = self.storyboard?.instantiateViewController(withIdentifier: "FirmwareUpdateSuccessVC") as! FirmwareUpdateSuccessVC
+                                        successVC.viewModel = self.preFirmwareViewModel
+                                        self.navigationController?.pushViewController(successVC, animated: true)
+                                    }
+                                }else{
+                                    let successVC = self.storyboard?.instantiateViewController(withIdentifier: "FirmwareUpdateSuccessVC") as! FirmwareUpdateSuccessVC
+                                    successVC.viewModel = self.preFirmwareViewModel
+                                    self.navigationController?.pushViewController(successVC, animated: true)
+                                }
                             }
                         }
                     }
@@ -286,9 +408,11 @@ class FirmwareUpdateVC: UIViewController {
     
     
     var statusTimer: Timer?
+    var isHeadsetProgress: Bool = false
     func startHeadsetStatusTimer(){
         self.stopHeadsetStatusTimer()
-        self.statusTimer = Timer(timeInterval: 5.0, repeats: true, block: { timerObj in
+        self.isHeadsetProgress = true
+        self.statusTimer = Timer(timeInterval: 5.0, repeats: false, block: { timerObj in
             DispatchQueue.main.async {
                 self.getStatus()
             }
@@ -301,6 +425,39 @@ class FirmwareUpdateVC: UIViewController {
         self.statusTimer?.invalidate()
         self.statusTimer = nil
     }
+    
+    
+    var deviceReconnectTimer: Timer?
+    var isWaitingForDeviceReconnect: Bool = false
+    func startDeviceReconnectTimer(){
+        self.stopDeviceReconnectTimer()
+        self.deviceReconnectTimer = Timer(timeInterval: 90.0, repeats: false, block: { timerObj in
+            DispatchQueue.main.async {
+                BLEConnectionManager.shared.stopScanning()
+                //Check if device is connected or not
+                if self.isWaitingForDeviceReconnect{
+                    //Show not connected popup
+                    let skipVC = DeviceDisconnectOnDFUVC(nibName: "DeviceDisconnectOnDFUVC", bundle: nil)
+                    skipVC.transitioningDelegate = self
+                    skipVC.modalPresentationStyle = .custom
+                    skipVC.onPopupClose = { [weak self] isYes in
+                        if isYes{
+                            self?.backActionProcess()
+                        }
+                    }
+                    self.present(skipVC, animated: true)
+                }
+            }
+        })
+        
+        RunLoop.main.add(self.deviceReconnectTimer!, forMode: .common)
+    }
+    
+    func stopDeviceReconnectTimer(){
+        self.deviceReconnectTimer?.invalidate()
+        self.deviceReconnectTimer = nil
+    }
+    
     
     @objc func getStatus(){
         BluetoothManager.shared.getHeadsetProgressStatus()

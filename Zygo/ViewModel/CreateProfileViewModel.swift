@@ -48,13 +48,13 @@ final class CreateProfileViewModel: NSObject {
         }/*else if profileItem.location.isEmpty{
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter your address.", comment: ""))
             return false
-        }*/else if !profileItem.tSerialNumber.dropFirst().isEmpty && profileItem.tSerialNumber.dropFirst().count < 8{
+        }*//*else if !profileItem.tSerialNumber.dropFirst().isEmpty && profileItem.tSerialNumber.dropFirst().count < 8{
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid serial number.", comment: ""))
             return false
         }else if !profileItem.hSerialNumber.dropFirst().isEmpty && profileItem.hSerialNumber.dropFirst().count < 8{
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid serial number.", comment: ""))
             return false
-        }
+        }*/
         
         return true
     }
@@ -85,13 +85,13 @@ final class CreateProfileViewModel: NSObject {
         }/*else if profileItem.location.isEmpty{
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter your address.", comment: ""))
             return false
-        }*/else if !profileItem.tSerialNumber.isEmpty && profileItem.tSerialNumber.count < 9{
+        }*//*else if !profileItem.tSerialNumber.isEmpty && profileItem.tSerialNumber.count < 9{
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid transmitter serial number.", comment: ""))
             return false
         }else if !profileItem.hSerialNumber.isEmpty && profileItem.hSerialNumber.count < 9{
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid headset serial number.", comment: ""))
             return false
-        }/*else if !profileItem.tSerialNumber.dropFirst().isEmpty && profileItem.tSerialNumber.dropFirst().count < 8{
+        }*//*else if !profileItem.tSerialNumber.dropFirst().isEmpty && profileItem.tSerialNumber.dropFirst().count < 8{
             Helper.shared.alert(title: Constants.appName, message: NSLocalizedString("Please enter a valid transmitter serial number.", comment: ""))
             return false
         }else if !profileItem.hSerialNumber.dropFirst().isEmpty && profileItem.hSerialNumber.dropFirst().count < 8{
@@ -176,6 +176,14 @@ final class CreateProfileViewModel: NSObject {
                 completion(true)
             }
             
+        }
+    }
+    
+    func updateBTName(name: String){
+        self.userService.updateBT(name: name) { error in
+            if error != nil{
+                print("BT Name Update error: \(error!)")
+            }
         }
     }
     

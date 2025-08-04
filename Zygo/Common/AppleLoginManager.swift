@@ -1,18 +1,13 @@
-//
-//  AppleLoginManager.swift
-//  Zygo
-//
-//  Created by Priya Gandhi on 29/01/21.
-//  Copyright © 2021 Priya Gandhi. All rights reserved.
-//
-
-import UIKit
+import Foundation
 import AuthenticationServices
+import SwiftUI
+import CryptoKit
 
 protocol AppleLoginManagerDelegate {
     func didLogin(user: ASAuthorizationAppleIDCredential)
     func didFaildLogin(error: String)
 }
+
 class AppleLoginManager: NSObject, ASAuthorizationControllerDelegate {
     static let shared = AppleLoginManager()
     var delegate: AppleLoginManagerDelegate?

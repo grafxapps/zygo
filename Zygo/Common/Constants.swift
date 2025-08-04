@@ -8,29 +8,51 @@
 
 import UIKit
 
+let environment: AppEnvironment = .production
+
 class Constants: NSObject {
     
     static let appName = "Zygo"
     static let loaderSize = CGSize.init(width: 30, height: 30)
     
     //TODO: Check
-    //Development v2
-    //static let baseUrl = "https://dev.zygohq.com"
-    //static let imageBaseUrl = "https://dev.zygohq.com"
-    //static let baseUrl = "https://dev.mirror.zygohq.com"
-    //static let imageBaseUrl = "https://dev.mirror.zygohq.com"
+    static var baseUrl: String{
+        switch environment {
+        case .production:
+            return "https://zygohq.com"
+        case .staging:
+            return "https://mirror.zygohq.com"
+        }
+    }
     
-    //Live mirror 
-   //static let baseUrl = "https://mirror.zygohq.com"
-   //static let imageBaseUrl = "https://mirror.zygohq.com"
+    static var imageBaseUrl: String{
+        switch environment {
+        case .production:
+            return "https://zygohq.com"
+        case .staging:
+            return "https://mirror.zygohq.com"
+        }
+    }
     
-    //Live
-    static let baseUrl = "https://zygohq.com"
-    static let imageBaseUrl = "https://zygohq.com"
+    static var BLEBatchID: String{
+        switch environment {
+        case .production:
+            return "1"
+        case .staging:
+            return "3"
+        }
+    }
     
-    //Change this
+    static var BLEZ2BatchID: String{
+        switch environment {
+        case .production:
+            return "3"
+        case .staging:
+            return "7"
+        }
+    }
+    
     static let branchKey = "key_live_gi2tjo1v3wnXldXjFkmrXgocxzhIHcj4"
-        //"key_test_ma2Ded1vYvnZed8aynxVbabaEtmLQkCk"
     static let KLAVIYOPUBLICAPIKEY = "P2bQKn"
     
     static let deviceType = "ios"
@@ -38,7 +60,7 @@ class Constants: NSObject {
     static let privacyPolicy =  "https://zygohq.com/privacy-app-view"
     static let termsOfService = "https://zygohq.com/terms-app-view"
     static let faq = "https://shopzygo.com/pages/faq"
-    static let about = "https://shopzygo.com/pages/technology"//"https://zygohq.com/about-app-view"
+    static let about = "https://shopzygo.com/pages/technology"
     static let shop = "https://shopzygo.com/collections/shop"
     static let cancelSubscription = "https://apps.apple.com/account/subscriptions"
     
@@ -132,4 +154,9 @@ extension Bundle {
         return infoDictionary?["CFBundleVersion"] as! String
     }
 
+}
+
+enum AppEnvironment{
+    case production
+    case staging
 }

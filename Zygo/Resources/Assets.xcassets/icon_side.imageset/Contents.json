@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Combined Shape.png",
+      "filename" : "Hamburger Menu.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Combined Shape@2x.png",
+      "filename" : "Hamburger Menu@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Combined Shape@3x.png",
+      "filename" : "Hamburger Menu@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

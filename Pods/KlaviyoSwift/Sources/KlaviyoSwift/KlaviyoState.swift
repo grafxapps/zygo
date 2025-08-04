@@ -9,21 +9,40 @@ import AnyCodable
 import Foundation
 import UIKit
 
+typealias DeviceMetadata = KlaviyoAPI.KlaviyoRequest.KlaviyoEndpoint.PushTokenPayload.PushToken.Attributes.MetaData
+typealias CreateProfilePayload = KlaviyoAPI.KlaviyoRequest.KlaviyoEndpoint.CreateProfilePayload
+
 struct KlaviyoState: Equatable, Codable {
-    enum InitializationSate: Equatable {
+    enum InitializationState: Equatable, Codable {
         case uninitialized
         case initializing
         case initialized
     }
 
     enum PendingRequest: Equatable {
-        case legacyEvent(LegacyEvent)
-        case legacyProfile(LegacyProfile)
         case event(Event)
         case profile(Profile)
+        case pushToken(String, PushEnablement)
+        case setEmail(String)
+        case setExternalId(String)
+        case setPhoneNumber(String)
     }
 
-    enum PushEnablement: String {
+    struct PushTokenData: Equatable, Codable {
+        var pushToken: String
+        var pushEnablement: PushEnablement
+        var pushBackground: PushBackground
+        var deviceData: DeviceMetadata
+
+        enum CodingKeys: CodingKey {
+            case pushToken
+            case pushEnablement
+            case pushBackground
+            case deviceData
+        }
+    }
+
+    enum PushEnablement: String, Codable {
         case notDetermined = "NOT_DETERMINED"
         case denied = "DENIED"
         case authorized = "AUTHORIZED"
@@ -46,7 +65,7 @@ struct KlaviyoState: Equatable, Codable {
         }
     }
 
-    enum PushBackground: String {
+    enum PushBackground: String, Codable {
         case available = "AVAILABLE"
         case restricted = "RESTRICTED"
         case denied = "DENIED"
@@ -65,19 +84,20 @@ struct KlaviyoState: Equatable, Codable {
         }
     }
 
+    // state related stuff
     var apiKey: String?
     var email: String?
     var anonymousId: String?
     var phoneNumber: String?
     var externalId: String?
-    var pushToken: String?
-    var pushEnablement: PushEnablement?
-    var pushBackground: PushBackground?
+    var pushTokenData: PushTokenData?
+
+    // queueing related stuff
     var queue: [KlaviyoAPI.KlaviyoRequest]
     var requestsInFlight: [KlaviyoAPI.KlaviyoRequest] = []
-    var initalizationState = InitializationSate.uninitialized
+    var initalizationState = InitializationState.uninitialized
     var flushing = false
-    var flushInterval = 10.0
+    var flushInterval = StateManagementConstants.wifiFlushInterval
     var retryInfo = RetryInfo.retry(0)
     var pendingRequests: [PendingRequest] = []
     var pendingProfile: [Profile.ProfileKey: AnyEncodable]?
@@ -88,29 +108,74 @@ struct KlaviyoState: Equatable, Codable {
         case anonymousId
         case phoneNumber
         case externalId
-        case pushToken
         case queue
+        case pushTokenData
     }
 
     mutating func enqueueRequest(request: KlaviyoAPI.KlaviyoRequest) {
-        guard queue.count + 1 < MAX_QUEUE_SIZE else {
+        guard queue.count + 1 < StateManagementConstants.maxQueueSize else {
             return
         }
         queue.append(request)
     }
 
-    mutating func enqueueProfileRequest() {
-        guard let request = try? buildProfileRequest(), let request = try? updateRequestAndStateWithPendingProfile(request: request) else {
+    mutating func updateEmail(email: String) {
+        guard email != self.email else {
             return
         }
-
-        queue.append(request)
+        self.email = email
+        enqueueProfileOrTokenRequest()
     }
 
-    mutating func updateStateWithLegacyIdentifiers(identifiers: LegacyIdentifiers) {
-        email = identifiers.email ?? email
-        phoneNumber = identifiers.phoneNumber ?? phoneNumber
-        externalId = identifiers.externalId ?? externalId
+    mutating func updateExternalId(externalId: String) {
+        guard externalId != self.externalId else {
+            return
+        }
+        self.externalId = externalId
+        enqueueProfileOrTokenRequest()
+    }
+
+    mutating func updatePhoneNumber(phoneNumber: String) {
+        guard phoneNumber != self.phoneNumber else {
+            return
+        }
+        self.phoneNumber = phoneNumber
+        enqueueProfileOrTokenRequest()
+    }
+
+    mutating func enqueueProfileOrTokenRequest() {
+        guard let apiKey = apiKey,
+              let anonymousId = anonymousId else {
+            environment.emitDeveloperWarning("SDK internal error")
+            return
+        }
+        // if we have push data and we are switching emails
+        // we want to associate the token with the new email.
+        if let pushTokenData = pushTokenData {
+            self.pushTokenData = nil
+            let request = buildTokenRequest(
+                apiKey: apiKey,
+                anonymousId: anonymousId,
+                pushToken: pushTokenData.pushToken,
+                enablement: pushTokenData.pushEnablement)
+            enqueueRequest(request: request)
+        } else {
+            enqueueProfileRequest(
+                apiKey: apiKey,
+                anonymousId: anonymousId)
+        }
+    }
+
+    mutating func enqueueProfileRequest(apiKey: String, anonymousId: String) {
+        let request = buildProfileRequest(apiKey: apiKey, anonymousId: anonymousId)
+        switch request.endpoint {
+        case let .createProfile(payload):
+            let updatedPayload = updateRequestAndStateWithPendingProfile(profile: payload)
+            let request = KlaviyoAPI.KlaviyoRequest(apiKey: apiKey, endpoint: .createProfile(updatedPayload))
+            enqueueRequest(request: request)
+        default:
+            environment.raiseFatalError("Unexpected request type. \(request.endpoint)")
+        }
     }
 
     mutating func updateStateWithProfile(profile: Profile) {
@@ -119,72 +184,159 @@ struct KlaviyoState: Equatable, Codable {
         externalId = profile.externalId ?? externalId
     }
 
-    mutating func updateRequestAndStateWithPendingProfile(request: KlaviyoAPI.KlaviyoRequest) throws -> KlaviyoAPI.KlaviyoRequest? {
+    mutating func updateRequestAndStateWithPendingProfile(profile: CreateProfilePayload) -> CreateProfilePayload {
         guard let pendingProfile = pendingProfile else {
-            return request
-        }
-        guard case let .createProfile(profile) = request.endpoint else {
-            runtimeWarn("Passed invalid request for update. \(request)")
-            return nil
+            return profile
         }
         var attributes = profile.data.attributes
         var location = profile.data.attributes.location ?? .init()
         var properties = profile.data.attributes.properties.value as? [String: Any] ?? [:]
+        let updatedProfile = Profile.updateProfileWithProperties(dict: pendingProfile)
 
-        // Optionally (if not already specified) overwrite attributes and location with pending profile information.
-        for (key, value) in pendingProfile {
-            switch key {
-            case .firstName:
-                attributes.firstName = attributes.firstName ?? value.value as? String
-            case .lastName:
-                attributes.lastName = attributes.lastName ?? value.value as? String
-            case .address1:
-                location.address1 = location.address1 ?? value.value as? String
-            case .address2:
-                location.address2 = location.address2 ?? value.value as? String
-            case .title:
-                attributes.title = attributes.title ?? value.value as? String
-            case .organization:
-                attributes.organization = attributes.organization ?? value.value as? String
-            case .city:
-                location.city = location.city ?? value.value as? String
-            case .region:
-                location.region = location.region ?? value.value as? String
-            case .country:
-                location.country = location.country ?? value.value as? String
-            case .zip:
-                location.zip = location.zip ?? value.value as? String
-            case .image:
-                attributes.image = attributes.image ?? value.value as? String
-            case .latitude:
-                location.latitude = location.latitude ?? value.value as? Double
-            case .longitude:
-                location.longitude = location.longitude ?? value.value as? Double
-            case let .custom(customKey: customKey):
-                properties[customKey] = properties[customKey] ?? value.value
-            }
+        if let firstName = updatedProfile.firstName {
+            attributes.firstName = attributes.firstName ?? firstName
         }
+        if let lastName = updatedProfile.lastName {
+            attributes.lastName = attributes.lastName ?? lastName
+        }
+        if let title = updatedProfile.title {
+            attributes.title = attributes.title ?? title
+        }
+        if let organization = updatedProfile.organization {
+            attributes.organization = attributes.organization ?? organization
+        }
+        if !updatedProfile.properties.isEmpty {
+            attributes.properties = AnyCodable(properties.merging(updatedProfile.properties, uniquingKeysWith: { _, new in new }))
+        }
+
+        if let address1 = updatedProfile.location?.address1 {
+            location.address1 = location.address1 ?? address1
+        }
+        if let address2 = updatedProfile.location?.address2 {
+            location.address2 = location.address2 ?? address2
+        }
+        if let city = updatedProfile.location?.city {
+            location.city = location.city ?? city
+        }
+        if let region = updatedProfile.location?.region {
+            location.region = location.region ?? region
+        }
+        if let country = updatedProfile.location?.country {
+            location.country = location.country ?? country
+        }
+        if let zip = updatedProfile.location?.zip {
+            location.zip = location.zip ?? zip
+        }
+        if let image = updatedProfile.image {
+            attributes.image = attributes.image ?? image
+        }
+        if let latitude = updatedProfile.location?.latitude {
+            location.latitude = location.latitude ?? latitude
+        }
+        if let longitude = updatedProfile.location?.longitude {
+            location.longitude = location.longitude ?? longitude
+        }
+
         attributes.location = location
-        attributes.properties = AnyCodable(properties)
         self.pendingProfile = nil
 
-        return .init(apiKey: request.apiKey, endpoint: .createProfile(.init(data: .init(attributes: attributes))))
+        return .init(data: .init(attributes: attributes))
     }
 
     var isIdentified: Bool {
         email != nil || externalId != nil || phoneNumber != nil
     }
 
-    mutating func reset() {
+    mutating func reset(preserveTokenData: Bool = true) {
         if isIdentified {
-            // If we are still anonymous we want to preserve our anonymous id so we can merge it this profile with the new profile.
+            // If we are still anonymous we want to preserve our anonymous id so we can merge this profile with the new profile.
             anonymousId = environment.analytics.uuid().uuidString
         }
+        let previousPushTokenData = pushTokenData
         pendingProfile = nil
         email = nil
         externalId = nil
         phoneNumber = nil
-        pushToken = nil
+        pushTokenData = nil
+        if preserveTokenData {
+            pushTokenData = previousPushTokenData
+            if let apiKey = apiKey,
+               let anonymousId = anonymousId,
+               let tokenData = previousPushTokenData {
+                let request = KlaviyoAPI.KlaviyoRequest(
+                    apiKey: apiKey,
+                    endpoint: .registerPushToken(.init(
+                        pushToken: tokenData.pushToken,
+                        enablement: tokenData.pushEnablement.rawValue,
+                        background: tokenData.pushBackground.rawValue,
+                        profile: .init(), anonymousId: anonymousId)
+                    ))
+
+                enqueueRequest(request: request)
+            }
+        }
+    }
+
+    func shouldSendTokenUpdate(newToken: String, enablement: PushEnablement) -> Bool {
+        guard let pushTokenData = pushTokenData else {
+            return true
+        }
+        let currentDeviceMetadata = DeviceMetadata(context: environment.analytics.appContextInfo())
+        let newPushTokenData = PushTokenData(
+            pushToken: newToken,
+            pushEnablement: enablement,
+            pushBackground: environment.getBackgroundSetting(),
+            deviceData: currentDeviceMetadata)
+
+        return pushTokenData != newPushTokenData
+    }
+
+    func buildProfileRequest(apiKey: String, anonymousId: String, properties: [String: Any] = [:]) -> KlaviyoAPI.KlaviyoRequest {
+        let payload = KlaviyoAPI.KlaviyoRequest.KlaviyoEndpoint.CreateProfilePayload(
+            data: .init(
+                profile: Profile(
+                    email: email,
+                    phoneNumber: phoneNumber,
+                    externalId: externalId,
+                    properties: properties),
+                anonymousId: anonymousId)
+        )
+        let endpoint = KlaviyoAPI.KlaviyoRequest.KlaviyoEndpoint.createProfile(payload)
+
+        return KlaviyoAPI.KlaviyoRequest(apiKey: apiKey, endpoint: endpoint)
+    }
+
+    mutating func buildTokenRequest(apiKey: String, anonymousId: String, pushToken: String, enablement: PushEnablement) -> KlaviyoAPI.KlaviyoRequest {
+        var profile: Profile
+
+        if let pendingProfile = pendingProfile {
+            profile = Profile.updateProfileWithProperties(
+                email: email,
+                phoneNumber: phoneNumber,
+                externalId: externalId,
+                dict: pendingProfile)
+            self.pendingProfile = nil
+        } else {
+            profile = Profile(email: email, phoneNumber: phoneNumber, externalId: externalId)
+        }
+
+        let payload = PushTokenPayload(
+            pushToken: pushToken,
+            enablement: enablement.rawValue,
+            background: environment.getBackgroundSetting().rawValue,
+            profile: profile,
+            anonymousId: anonymousId)
+        let endpoint = KlaviyoAPI.KlaviyoRequest.KlaviyoEndpoint.registerPushToken(payload)
+        return KlaviyoAPI.KlaviyoRequest(apiKey: apiKey, endpoint: endpoint)
+    }
+
+    func buildUnregisterRequest(apiKey: String, anonymousId: String, pushToken: String) -> KlaviyoAPI.KlaviyoRequest {
+        let payload = UnregisterPushTokenPayload(
+            pushToken: pushToken,
+            profile: .init(email: email, phoneNumber: phoneNumber, externalId: externalId),
+            anonymousId: anonymousId)
+        let endpoint = KlaviyoAPI.KlaviyoRequest.KlaviyoEndpoint.unregisterPushToken(payload)
+        return KlaviyoAPI.KlaviyoRequest(apiKey: apiKey, endpoint: endpoint)
     }
 }
 
@@ -221,12 +373,12 @@ private func removeStateFile(at file: URL) {
     }
 }
 
+/// Loads SDK state from disk
+/// - Parameter apiKey: the API key that uniquely identiifies the company
+/// - Returns: an instance of the `KlaviyoState`
 func loadKlaviyoStateFromDisk(apiKey: String) -> KlaviyoState {
     let fileName = klaviyoStateFile(apiKey: apiKey)
     guard environment.fileClient.fileExists(fileName.path) else {
-        if needsMigration(with: apiKey) {
-            return migrateLegacyDataToKlaviyoState(with: apiKey, to: fileName)
-        }
         return createAndStoreInitialState(with: apiKey, at: fileName)
     }
     guard let stateData = try? environment.data(fileName) else {
@@ -240,8 +392,11 @@ func loadKlaviyoStateFromDisk(apiKey: String) -> KlaviyoState {
         return createAndStoreInitialState(with: apiKey, at: fileName)
     }
     if state.apiKey != apiKey {
-        // Clear existing stat since we are using a new api state.
-        state = KlaviyoState(apiKey: apiKey, anonymousId: environment.analytics.uuid().uuidString, queue: [])
+        // Clear existing state since we are using a new api state.
+        state = KlaviyoState(
+            apiKey: apiKey,
+            anonymousId: environment.analytics.uuid().uuidString,
+            queue: [])
     }
     return state
 }
@@ -253,77 +408,82 @@ private func createAndStoreInitialState(with apiKey: String, at file: URL) -> Kl
     return state
 }
 
-// MARK: Klaviyo State Legacy Migration
+extension Profile {
+    fileprivate static func updateProfileWithProperties(
+        email: String? = nil,
+        phoneNumber: String? = nil,
+        externalId: String? = nil,
+        dict: [Profile.ProfileKey: AnyEncodable]) -> Self {
+        var firstName: String?
+        var lastName: String?
+        var address1: String?
+        var address2: String?
+        var title: String?
+        var organization: String?
+        var city: String?
+        var region: String?
+        var country: String?
+        var zip: String?
+        var image: String?
+        var latitude: Double?
+        var longitude: Double?
+        var customProperties: [String: Any] = [:]
 
-// It's unclear how long this should live for but it'll probably here for a while.
-
-private func migrateLegacyDataToKlaviyoState(with apiKey: String, to _: URL) -> KlaviyoState {
-    // Read data from user defaults external id, email, push token
-    // Read old events and people data
-    // Remove old keys and data from userdefaults and files
-    // return populated KlaviyoState
-    let email = environment.getUserDefaultString("$kl_email")
-    let anonymousId = environment.legacyIdentifier()
-    let externalId = environment.getUserDefaultString("kl_customerID")
-    var state = KlaviyoState(apiKey: apiKey,
-                             email: email,
-                             anonymousId: anonymousId,
-                             externalId: externalId,
-                             queue: [],
-                             requestsInFlight: [])
-    state.queue = readLegacyRequestData(with: apiKey, from: state)
-    let file = klaviyoStateFile(apiKey: apiKey)
-    storeKlaviyoState(state: state, file: file)
-    return state
-}
-
-private func needsMigration(with apiKey: String) -> Bool {
-    let email = environment.getUserDefaultString("$kl_email")
-    let externalId = environment.getUserDefaultString("kl_customerID")
-    let eventsFileURL = filePathForData(apiKey: apiKey, data: "events")
-    let eventsFileExists = environment.fileClient.fileExists(eventsFileURL.path)
-    let profileFileURL = filePathForData(apiKey: apiKey, data: "people")
-    let profilesFileExists = environment.fileClient.fileExists(profileFileURL.path)
-    return email != nil || externalId != nil || eventsFileExists || profilesFileExists
-}
-
-private func readLegacyRequestData(with apiKey: String, from state: KlaviyoState) -> [KlaviyoAPI.KlaviyoRequest] {
-    var queue = [KlaviyoAPI.KlaviyoRequest]()
-    let eventsFileURL = filePathForData(apiKey: apiKey, data: "events")
-    if let eventsData = unarchiveFromFile(fileURL: eventsFileURL) {
-        for possibleEvent in eventsData {
-            guard let event = possibleEvent as? NSDictionary,
-                  let eventName = event["event"] as? String
-            else {
-                continue
+        for (key, value) in dict {
+            switch key {
+            case .firstName:
+                firstName = value.value as? String
+            case .lastName:
+                lastName = value.value as? String
+            case .address1:
+                address1 = value.value as? String
+            case .address2:
+                address2 = value.value as? String
+            case .title:
+                title = value.value as? String
+            case .organization:
+                organization = value.value as? String
+            case .city:
+                city = value.value as? String
+            case .region:
+                region = value.value as? String
+            case .country:
+                country = value.value as? String
+            case .zip:
+                zip = value.value as? String
+            case .image:
+                image = value.value as? String
+            case .latitude:
+                latitude = value.value as? Double
+            case .longitude:
+                longitude = value.value as? Double
+            case let .custom(customKey: customKey):
+                customProperties[customKey] = value.value
             }
-            let customerProperties = event["customer_properties"] as? NSDictionary
-            let properties = event["properties"] as? NSDictionary
-            let legacyEvent = LegacyEvent(eventName: eventName,
-                                          customerProperties: customerProperties,
-                                          properties: properties)
-            guard let request = try? legacyEvent.buildEventRequest(with: apiKey, from: state) else {
-                continue
-            }
-            queue.append(request)
         }
-    }
 
-    let profileFileURL = filePathForData(apiKey: apiKey, data: "people")
-    if let profileData = unarchiveFromFile(fileURL: profileFileURL) {
-        for possibleProfile in profileData {
-            guard let profile = possibleProfile as? NSDictionary else {
-                continue
-            }
-            guard let customerProperties = profile["properties"] as? NSDictionary else {
-                continue
-            }
-            let legacyProfile = LegacyProfile(customerProperties: customerProperties)
-            guard let request = try? legacyProfile.buildProfileRequest(with: apiKey, from: state) else {
-                continue
-            }
-            queue.append(request)
-        }
+        let location = Profile.Location(
+            address1: address1,
+            address2: address2,
+            city: city,
+            country: country,
+            latitude: latitude,
+            longitude: longitude,
+            region: region,
+            zip: zip)
+
+        let profile = Profile(
+            email: email,
+            phoneNumber: phoneNumber,
+            externalId: externalId,
+            firstName: firstName,
+            lastName: lastName,
+            organization: organization,
+            title: title,
+            image: image,
+            location: location,
+            properties: customProperties)
+
+        return profile
     }
-    return queue
 }

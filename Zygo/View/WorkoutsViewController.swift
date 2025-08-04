@@ -43,9 +43,8 @@ class WorkoutsViewController: UIViewController {
             self.view.layoutIfNeeded()
         }
         
-        HealthKitManager.sharedInstance.authorizeHealthKit { (isAuthorized, error) in
-            
-        }
+        self.setupHealthKitPermission()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,6 +85,19 @@ class WorkoutsViewController: UIViewController {
     
     
     //MARK:- Setup
+    func setupHealthKitPermission(){
+        if !HealthKitManager.sharedInstance.isHealthKitAuthorize(){
+            let permission = HealthKitPermissionPopupVC(nibName: "HealthKitPermissionPopupVC", bundle: nil) {
+                HealthKitManager.sharedInstance.authorizeHealthKit { (isAuthorized, error) in
+                }
+            }
+            
+            permission.transitioningDelegate = self
+            permission.modalPresentationStyle = .custom
+            self.present(permission, animated: true)
+        }   
+    }
+    
     func registerTVC()  {
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: [NSAttributedString.Key.font : UIFont.appMedium(with: 16.0)])
         refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)

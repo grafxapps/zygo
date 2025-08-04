@@ -119,7 +119,7 @@ class AudioController: NSObject, AURenderCallbackDelegate {
         NSLog("Session interrupted > --- %@ ---\n", theInterruptionType == AVAudioSession.InterruptionType.began.rawValue ? "Begin Interruption" : "End Interruption")
         
         if theInterruptionType == AVAudioSession.InterruptionType.began.rawValue {
-            self.stopIOUnit()
+            _ = self.stopIOUnitFromInterruption()
         }
         
         if theInterruptionType == AVAudioSession.InterruptionType.ended.rawValue {
@@ -131,8 +131,9 @@ class AudioController: NSObject, AURenderCallbackDelegate {
             } catch {
                 fatalError()
             }
-            
-            self.startIOUnit()
+            if self.isAudioControllerStarted{
+                self.startIOUnit()
+            }
         }
         //        } catch let e as CAXException {
         //            fputs("Error: \(e.mOperation) (\(e.formatError()))\n", stderr)
@@ -196,15 +197,15 @@ class AudioController: NSObject, AURenderCallbackDelegate {
         audioChainIsBeingReconstructed = false
     }
     
+    private var sessionInstance = AVAudioSession.sharedInstance()
     private func setupAudioSession() {
         do {
             // Configure the audio session
-            let sessionInstance = AVAudioSession.sharedInstance()
             
             // we are going to play and record so we pick that category
             do {
                 if #available(iOS 10.0, *) {
-                    try sessionInstance.setCategory(.playAndRecord, options: .allowBluetoothA2DP)
+                    try sessionInstance.setCategory(.playAndRecord, options: [.allowBluetoothA2DP])
                 } else {
                     try sessionInstance.setCategory(.playAndRecord)
                 }
@@ -348,8 +349,11 @@ class AudioController: NSObject, AURenderCallbackDelegate {
         //self.createButtonPressedSound()
     }
     
+    var isAudioControllerStarted: Bool = false
+    
     @discardableResult
     func startIOUnit() -> OSStatus {
+        self.isAudioControllerStarted = true
         self.unmuteIOUnit()
         let err = AudioOutputUnitStart(_rioUnit!)
         if err != 0 {NSLog("couldn't start AURemoteIO: %d", Int32(err))}
@@ -366,6 +370,21 @@ class AudioController: NSObject, AURenderCallbackDelegate {
     
     @discardableResult
     func stopIOUnit() -> OSStatus {
+        do{
+            try sessionInstance.setActive(false, options: .notifyOthersOnDeactivation)
+            //sessionInstance = AVAudioSession.sharedInstance()
+            //try sessionInstance.setCategory(.playAndRecord, options: [.allowBluetoothA2DP, .mixWithOthers])
+            //try sessionInstance.setActive(true)
+        }catch{
+            print("Audio Session failed to disable")
+        }
+        self.isAudioControllerStarted = false
+        let err = AudioOutputUnitStop(_rioUnit!)
+        if err != 0 {NSLog("couldn't stop AURemoteIO: %d", Int32(err))}
+        return err
+    }
+    
+    func stopIOUnitFromInterruption() -> OSStatus {
         let err = AudioOutputUnitStop(_rioUnit!)
         if err != 0 {NSLog("couldn't stop AURemoteIO: %d", Int32(err))}
         return err

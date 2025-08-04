@@ -76,9 +76,9 @@ class DownloadsTVC: UITableViewCell {
         
         if !item.introVideo.isEmpty || !item.closingVideo.isEmpty{
             self.infoView.isHidden = false
-            self.infoView.backgroundColor = .appNewBlackColor()
+            self.infoView.backgroundColor = .appWorkoutBottom()
             self.lblInfoTitle.text = "VIDEO"
-            self.lblInfoTitle.textColor = .white
+            self.lblInfoTitle.textColor = .appNewInfoColor()
         }
         
         let currentDate = DateHelper.shared.currentLocalDateTime
@@ -89,7 +89,7 @@ class DownloadsTVC: UITableViewCell {
                 self.infoView.isHidden = false
                 self.infoView.backgroundColor = .appNewInfoColor()
                 self.lblInfoTitle.text = "NEW"
-                self.lblInfoTitle.textColor = .white
+                self.lblInfoTitle.textColor = .appBlueColor()
             }
         }
         
@@ -98,16 +98,16 @@ class DownloadsTVC: UITableViewCell {
             self.infoView.isHidden = false
             self.infoView.backgroundColor = .appPopularInfoColor()
             self.lblInfoTitle.text = "POPULAR"
-            self.lblInfoTitle.textColor = .appNewInfoColor()
+            self.lblInfoTitle.textColor = .appBlueColor()
         }
         
         
         
         if item.isFeatured{
             self.infoView.isHidden = false
-            self.infoView.backgroundColor = .appBlueColor()
+            self.infoView.backgroundColor = .white
             self.lblInfoTitle.text = "FEATURED"
-            self.lblInfoTitle.textColor = .white
+            self.lblInfoTitle.textColor = .appBlueColor()
         }
         //item.createdAt
         

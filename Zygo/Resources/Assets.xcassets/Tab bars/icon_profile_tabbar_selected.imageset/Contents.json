@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Pro B.png",
+      "filename" : "icon_profile_tabbar_selected.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Pro B@2x.png",
+      "filename" : "icon_profile_tabbar_selected@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Pro B@3x.png",
+      "filename" : "icon_profile_tabbar_selected@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

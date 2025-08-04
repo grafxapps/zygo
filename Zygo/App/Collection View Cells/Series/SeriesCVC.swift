@@ -74,22 +74,20 @@ class SeriesCVC: UICollectionViewCell {
         
         if !item.introVideo.isEmpty || !item.closingVideo.isEmpty{
             self.infoView.isHidden = false
-            self.infoView.backgroundColor = .appNewBlackColor()
+            self.infoView.backgroundColor = .appWorkoutBottom()
             self.lblInfoTitle.text = "VIDEO"
-            self.lblInfoTitle.textColor = .white
+            self.lblInfoTitle.textColor = .appNewInfoColor()
         }
         
         let currentDate = DateHelper.shared.currentLocalDateTime
-        print("Current Date: \(currentDate)")
         if let previousDate = Calendar.current.date(byAdding: .day, value: -3, to: currentDate){
-            print("Previous Date: \(previousDate)")
             let createdDate = item.createdAt
             if createdDate.compare(previousDate) == .orderedDescending{
                 
                 self.infoView.isHidden = false
                 self.infoView.backgroundColor = .appNewInfoColor()
                 self.lblInfoTitle.text = "NEW"
-                self.lblInfoTitle.textColor = .white
+                self.lblInfoTitle.textColor = .appBlueColor()
             }
         }
         
@@ -98,16 +96,16 @@ class SeriesCVC: UICollectionViewCell {
             self.infoView.isHidden = false
             self.infoView.backgroundColor = .appPopularInfoColor()
             self.lblInfoTitle.text = "POPULAR"
-            self.lblInfoTitle.textColor = .appNewInfoColor()
+            self.lblInfoTitle.textColor = .appBlueColor()
         }
         
         
         
         if item.isFeatured{
             self.infoView.isHidden = false
-            self.infoView.backgroundColor = .appBlueColor()
+            self.infoView.backgroundColor = .white
             self.lblInfoTitle.text = "FEATURED"
-            self.lblInfoTitle.textColor = .white
+            self.lblInfoTitle.textColor = .appBlueColor()
         }
         //item.createdAt
         

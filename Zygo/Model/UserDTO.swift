@@ -14,6 +14,7 @@ struct UserDTO {
     var name: String = ""
     var fName: String = ""
     var lName: String = ""
+    var btName: String = ""
     var email: String = ""
     var password: String = ""
     var created: String = ""
@@ -37,6 +38,8 @@ struct UserDTO {
         self.name = dict["user_display_name"] as? String ?? ""
         self.fName = dict["user_first_name"] as? String ?? ""
         self.lName = dict["user_last_name"] as? String ?? ""
+        
+        self.btName = dict["bluetooth_name"] as? String ?? ""
         
         self.email = dict["email"] as? String ?? ""
         self.uId = dict["id"] as? Int ?? -1
@@ -72,6 +75,7 @@ struct UserDTO {
             "last_location": self.lastLocation,
             "user_first_name": self.fName,
             "user_last_name": self.lName,
+            "bluetooth_name": self.btName,
             "workout_count": self.workoutCount,
             "time_in_water": self.timeInWater,
             "total_distance": self.totalDistance,

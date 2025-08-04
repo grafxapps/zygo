@@ -27,6 +27,13 @@ class HomeTabBar: UITabBarController, UITabBarControllerDelegate {
             print("HOME COUNTRY RESPONSE: \(msg ?? "NULL")")
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if self.viewControllers?.count ?? 0 > 5{
+            self.moreNavigationController.delegate = self
+        }
+    }
 }
 
 extension HomeTabBar{
@@ -91,4 +98,10 @@ extension HomeTabBar: UIViewControllerTransitioningDelegate{
         return DismissingAnimator()
     }
     
+}
+
+extension HomeTabBar: UINavigationControllerDelegate{
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        navigationController.isNavigationBarHidden = true
+    }
 }

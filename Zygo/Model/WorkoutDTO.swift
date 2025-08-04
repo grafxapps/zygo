@@ -340,3 +340,9 @@ struct SeriesDTO {
         
     }
 }
+
+struct LastSavedWorkout{
+    var startStop: Int = 0
+    var headsetLapsRaw: Int = 0
+    var headsetElapsedTime: Int = 0
+}
